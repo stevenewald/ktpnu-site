@@ -10,8 +10,10 @@ import {
   MapIcon,
   MegaphoneIcon,
   XMarkIcon,
+  UserIcon,
 } from '@heroicons/react/24/outline'
-import { ChevronLeftIcon, EnvelopeIcon, FunnelIcon, MagnifyingGlassIcon, PhoneIcon } from '@heroicons/react/20/solid'
+import { ChevronLeftIcon, EnvelopeIcon, FunnelIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+
 
 const user = {
   name: 'Steve Ewald',
@@ -20,7 +22,7 @@ const user = {
 }
 const navigation = [
   { name: 'Summary', href: '#', icon: HomeIcon, current: false },
-  { name: 'Events', href: '#', icon: CalendarIcon, current: false },
+  { name: 'Account', href: '#', icon: UserIcon, current: false },
   { name: 'Brothers', href: '#', icon: MagnifyingGlassCircleIcon, current: true },
   { name: 'Rush process', href: '#', icon: MapIcon, current: false },
   { name: 'Announcements', href: '#', icon: MegaphoneIcon, current: false },
@@ -167,6 +169,7 @@ const team = [
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
+
 
 class MemberPage extends React.Component {
     constructor() {
