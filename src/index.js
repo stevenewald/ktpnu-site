@@ -14,6 +14,7 @@ import Team from "./Components/Landing/Team";
 import FAQs from './Components/Landing/FAQs';
 import Footer from './Components/Landing/Footer';
 import PortalAdvertisement from './Components/Landing/PortalAdvertisement';
+import Pillars from './Components/Landing/Pillars';
 
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -51,6 +52,7 @@ class Full extends React.Component {
               <div>
                 <Header firebase={firebase} />
                 <Hero />
+                <Pillars />
                 <Team />
                 <PortalAdvertisement ig={portalimg} />
                 <FAQs />
