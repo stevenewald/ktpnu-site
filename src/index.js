@@ -1,15 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Hero from "./hero";
-import WhatIsKTP from "./WhatIsKTP";
-import Header from "./Header";
-//import firebase from 'firebase';
+import Hero from "./Components/Landing/Hero";
+import Header from "./Components/Landing/Header";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MemberPage from "./MemberPage2";
-import MemberLogin from "./GoogleRedirect";
-import SignUp from "./SignUp";
-import NewUser from "./NewUser";
+import MemberPage from "./Components/Portal/MemberPage2";
+import MemberLogin from "./Components/Portal/GoogleRedirect";
+import SignUp from "./Components/Portal/SignUp";
+import NewUser from "./Components/Portal/NewUser";
 
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -29,7 +27,6 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 var provider = new firebase.auth.GoogleAuthProvider();
 provider.addScope("https://www.googleapis.com/auth/userinfo.profile");
-//provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 //firebase.functions().useEmulator("localhost", 5001);
 const database = getDatabase(app);
 
@@ -45,7 +42,6 @@ class Full extends React.Component {
               <div>
                 <Header firebase={firebase} />
                 <Hero />
-                <WhatIsKTP />
               </div>
             }
           ></Route>

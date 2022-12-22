@@ -15,34 +15,38 @@ class SignUp extends React.Component {
     sessionStorage.setItem("fullName", user.displayName);
     sessionStorage.setItem("emailAddress", user.email);
     sessionStorage.setItem("photoURL", user.photoURL);
-    const isAllowable = this.props.firebase.functions().httpsCallable('checkIfAllowed');
-    var truncatedEmail = user.email.substring(0,user.email.indexOf("@"));
+    const isAllowable = this.props.firebase
+      .functions()
+      .httpsCallable("checkIfAllowed");
+    var truncatedEmail = user.email.substring(0, user.email.indexOf("@"));
     isAllowable({
-        email:truncatedEmail
-      }).then((res) => {
-        if(res.data.result==="exists") {
-            Swal.fire({
-                title: "Welcome to KTP, " + user.displayName,
-                icon: "success",
-                text: "We've verified your information, redirecting to account creation",
-                timer: 4000,
-                timerProgressBar: true,
-                willClose: () => {
-                  clearInterval(timerInterval);
-                },
-              }).then((result) => {
-                window.location.href = "/newuser";
-              });
+      email: truncatedEmail,
+    })
+      .then((res) => {
+        if (res.data.result === "exists") {
+          Swal.fire({
+            title: "Welcome to KTP, " + user.displayName,
+            icon: "success",
+            text: "We've verified your information, redirecting to account creation",
+            timer: 4000,
+            timerProgressBar: true,
+            willClose: () => {
+              clearInterval(timerInterval);
+            },
+          }).then((result) => {
+            window.location.href = "/newuser";
+          });
         } else {
-            Swal.fire({
-                title: "Invalid email",
-                icon:'error',
-                text:'If you are a pledge, brother, or alumni, try another email or contact us at support@ktpnu.com.'
-            }).then(() => {
-                window.location.href = "/";
-            })
+          Swal.fire({
+            title: "Invalid email",
+            icon: "error",
+            text: "If you are a pledge, brother, or alumni, try another email or contact us at support@ktpnu.com.",
+          }).then(() => {
+            window.location.href = "/";
+          });
         }
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.log(error);
       });
   }

@@ -29,16 +29,18 @@ class NewUser extends React.Component {
     this.submitButton = React.createRef();
   }
 
-  initNewAcc(db,fb,name,uid,email,ppl) {
+  initNewAcc(db, fb, name, uid, email, ppl) {
     set(ref(db, "users/" + uid), {
       name: name,
       email: email,
-      prof_pic_link:ppl,
-    }).then((res) => {
-        alert(JSON.stringify(res))
-    }).catch((err) => {
+      prof_pic_link: ppl,
+    })
+      .then((res) => {
+        alert(JSON.stringify(res));
+      })
+      .catch((err) => {
         alert(err);
-    });
+      });
   }
   render() {
     return (
@@ -273,28 +275,31 @@ class NewUser extends React.Component {
                       </span>
 
                       <label
-                            htmlFor="file-upload"
-                            className="rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                          >
-                            <span>Upload from device</span>
-                            <input onChange={() => {
-                                var inputElem = document.getElementById("file-upload2");
-                                if(inputElem.files && inputElem.files[0]) {
-                                    var reader = new FileReader();
+                        htmlFor="file-upload"
+                        className="rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      >
+                        <span>Upload from device</span>
+                        <input
+                          onChange={() => {
+                            var inputElem =
+                              document.getElementById("file-upload2");
+                            if (inputElem.files && inputElem.files[0]) {
+                              var reader = new FileReader();
 
-                                    reader.onload = function (e) {
-                                        document.getElementById("profPicImg").src = e.target.result;
-                                    };
+                              reader.onload = function (e) {
+                                document.getElementById("profPicImg").src =
+                                  e.target.result;
+                              };
 
-                                    reader.readAsDataURL(inputElem.files[0]);
-                                }
-                            }}
-                              id="file-upload2"
-                              name="file-upload2"
-                              type="file"
-                              className="sr-only"
-                            />
-                          </label>
+                              reader.readAsDataURL(inputElem.files[0]);
+                            }
+                          }}
+                          id="file-upload2"
+                          name="file-upload2"
+                          type="file"
+                          className="sr-only"
+                        />
+                      </label>
                     </div>
                   </div>
 
@@ -302,8 +307,14 @@ class NewUser extends React.Component {
                     <label className="block text-sm font-medium text-gray-700">
                       Cover photo
                     </label>
-                    <img id="fullCover" className="w-full hidden flex justify-center rounded-md border-2 px-6 object-cover h-[188px]"></img>
-                    <div id="mtCover" className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+                    <img
+                      id="fullCover"
+                      className="w-full hidden flex justify-center rounded-md border-2 px-6 object-cover h-[188px]"
+                    ></img>
+                    <div
+                      id="mtCover"
+                      className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6"
+                    >
                       <div className="space-y-1 text-center">
                         <svg
                           className="mx-auto h-12 w-12 text-gray-400"
@@ -325,20 +336,27 @@ class NewUser extends React.Component {
                             className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
                             <span>Upload a file</span>
-                            <input onChange={() => {
-                                var inputElem = document.getElementById("file-upload");
-                                if(inputElem.files && inputElem.files[0]) {
-                                    document.getElementById("mtCover").classList.add('hidden');
-                                    var reader = new FileReader();
+                            <input
+                              onChange={() => {
+                                var inputElem =
+                                  document.getElementById("file-upload");
+                                if (inputElem.files && inputElem.files[0]) {
+                                  document
+                                    .getElementById("mtCover")
+                                    .classList.add("hidden");
+                                  var reader = new FileReader();
 
-                                    reader.onload = function (e) {
-                                        document.getElementById("fullCover").src = e.target.result;
-                                        document.getElementById("fullCover").classList.remove('hidden');
-                                    };
+                                  reader.onload = function (e) {
+                                    document.getElementById("fullCover").src =
+                                      e.target.result;
+                                    document
+                                      .getElementById("fullCover")
+                                      .classList.remove("hidden");
+                                  };
 
-                                    reader.readAsDataURL(inputElem.files[0]);
+                                  reader.readAsDataURL(inputElem.files[0]);
                                 }
-                            }}
+                              }}
                               id="file-upload"
                               name="file-upload"
                               type="file"
@@ -515,7 +533,7 @@ class NewUser extends React.Component {
                     this.user.displayName,
                     this.user.uid,
                     this.user.email,
-                    "google.com",
+                    "google.com"
                   );
 
                   let timerInterval;

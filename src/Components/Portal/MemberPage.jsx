@@ -1,6 +1,6 @@
 import React from "react";
-import { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   CalendarIcon,
@@ -10,48 +10,59 @@ import {
   MapIcon,
   MegaphoneIcon,
   XMarkIcon,
-} from '@heroicons/react/24/outline'
-import { ChevronLeftIcon, EnvelopeIcon, FunnelIcon, MagnifyingGlassIcon, PhoneIcon } from '@heroicons/react/20/solid'
+} from "@heroicons/react/24/outline";
+import {
+  ChevronLeftIcon,
+  EnvelopeIcon,
+  FunnelIcon,
+  MagnifyingGlassIcon,
+  PhoneIcon,
+} from "@heroicons/react/20/solid";
 
 const user = {
-  name: 'Steve Ewald',
+  name: "Steve Ewald",
   imageUrl:
-    'https://media-exp1.licdn.com/dms/image/C4D03AQHPxYjOagRJig/profile-displayphoto-shrink_400_400/0/1649132175326?e=1675900800&v=beta&t=jsUaFv0Zp9zUnywJvvQTvDl_70PxLiuNSmjhf68srIs',
-}
+    "https://media-exp1.licdn.com/dms/image/C4D03AQHPxYjOagRJig/profile-displayphoto-shrink_400_400/0/1649132175326?e=1675900800&v=beta&t=jsUaFv0Zp9zUnywJvvQTvDl_70PxLiuNSmjhf68srIs",
+};
 const navigation = [
-  { name: 'Summary', href: '#', icon: HomeIcon, current: false },
-  { name: 'Events', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Brothers', href: '#', icon: MagnifyingGlassCircleIcon, current: true },
-  { name: 'Rush process', href: '#', icon: MapIcon, current: false },
-  { name: 'Announcements', href: '#', icon: MegaphoneIcon, current: false },
-]
+  { name: "Summary", href: "#", icon: HomeIcon, current: false },
+  { name: "Events", href: "#", icon: CalendarIcon, current: false },
+  {
+    name: "Brothers",
+    href: "#",
+    icon: MagnifyingGlassCircleIcon,
+    current: true,
+  },
+  { name: "Rush process", href: "#", icon: MapIcon, current: false },
+  { name: "Announcements", href: "#", icon: MegaphoneIcon, current: false },
+];
 const secondaryNavigation = [
-  { name: 'Edit Profile', href: '#', icon: CogIcon },
-]
+  { name: "Edit Profile", href: "#", icon: CogIcon },
+];
 const tabs = [
-  { name: 'Profile', href: '#', current: true },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-]
+  { name: "Profile", href: "#", current: true },
+  { name: "Calendar", href: "#", current: false },
+  { name: "Projects", href: "#", current: false },
+];
 const profile = {
-  name: 'Damien Koh',
+  name: "Damien Koh",
   imageUrl:
-    'https://media.licdn.com/dms/image/C5603AQGjHa8RFpDKhA/profile-displayphoto-shrink_400_400/0/1656946309926?e=1677110400&v=beta&t=mSIRjcaPvxGM6SNV6HUxntnDc-tfJGJsKe3zvtARVfU',
+    "https://media.licdn.com/dms/image/C5603AQGjHa8RFpDKhA/profile-displayphoto-shrink_400_400/0/1656946309926?e=1677110400&v=beta&t=mSIRjcaPvxGM6SNV6HUxntnDc-tfJGJsKe3zvtARVfU",
   coverImageUrl:
-    'https://media.licdn.com/dms/image/C4E16AQGFJSoP2FlSpQ/profile-displaybackgroundimage-shrink_350_1400/0/1620110492095?e=1677110400&v=beta&t=Mm3tilVD1hw3S7qtnXVRNhSuS4CkTmqTrrxFPM_TlPU',
+    "https://media.licdn.com/dms/image/C4E16AQGFJSoP2FlSpQ/profile-displaybackgroundimage-shrink_350_1400/0/1620110492095?e=1677110400&v=beta&t=Mm3tilVD1hw3S7qtnXVRNhSuS4CkTmqTrrxFPM_TlPU",
   about: `
     <p>I am currently enrolled as a sophomore in the McCormick School of Engineering at Northwestern University. Through Northwestern's BSMS Program, I am currently pursuing a Bachelor's degree in Computer Engineering along with a Master's in Mechanical Engineering Specializing in Robotics and Control. I am interested in control systems, computer vision, and machine learning, but am still constantly exploring different Robotics subfields of potential interest.</p>
   `,
   fields: {
-    'Graduation date': '2025 (Sophomore)',
-    Major: 'Computer Engineering',
-    'Notable internships':'Robotics Intern at Weston Robot',
-    Position: 'Executive Board, VP of Member Recruitment',
+    "Graduation date": "2025 (Sophomore)",
+    Major: "Computer Engineering",
+    "Notable internships": "Robotics Intern at Weston Robot",
+    Position: "Executive Board, VP of Member Recruitment",
   },
   social: [
     {
-      name: 'Instagram',
-      href: '#',
+      name: "Instagram",
+      href: "#",
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -63,8 +74,8 @@ const profile = {
       ),
     },
     {
-      name: 'GitHub',
-      href: '#',
+      name: "GitHub",
+      href: "#",
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -76,114 +87,118 @@ const profile = {
       ),
     },
   ],
-}
+};
 const directory = {
   A: [
     {
       id: 1,
-      name: 'Alexis Robles',
-      role: 'VP of Technology',
+      name: "Alexis Robles",
+      role: "VP of Technology",
       imageUrl:
-        'https://media.licdn.com/dms/image/C4E03AQHxKbf9gRhDYw/profile-displayphoto-shrink_100_100/0/1660923581630?e=1677110400&v=beta&t=WFQuedtnE9aUVQ_m1-AVqpGX2xNMmHfa-tIBuqWJ9AI',
+        "https://media.licdn.com/dms/image/C4E03AQHxKbf9gRhDYw/profile-displayphoto-shrink_100_100/0/1660923581630?e=1677110400&v=beta&t=WFQuedtnE9aUVQ_m1-AVqpGX2xNMmHfa-tIBuqWJ9AI",
     },
     {
-        id: 3,
-        name: 'A Freshman',
-        role: 'Pledge',
-        imageUrl:
-          'https://www.seekpng.com/png/detail/41-410093_circled-user-icon-user-profile-icon-png.png',
-      },
+      id: 3,
+      name: "A Freshman",
+      role: "Pledge",
+      imageUrl:
+        "https://www.seekpng.com/png/detail/41-410093_circled-user-icon-user-profile-icon-png.png",
+    },
   ],
   D: [
     {
-        id: 4,
-        name: 'Damien Koh',
-        role: 'VP of Recruitment',
-        imageUrl:
-          'https://media.licdn.com/dms/image/C5603AQGjHa8RFpDKhA/profile-displayphoto-shrink_400_400/0/1656946309926?e=1677110400&v=beta&t=mSIRjcaPvxGM6SNV6HUxntnDc-tfJGJsKe3zvtARVfU',
-        active:true,
+      id: 4,
+      name: "Damien Koh",
+      role: "VP of Recruitment",
+      imageUrl:
+        "https://media.licdn.com/dms/image/C5603AQGjHa8RFpDKhA/profile-displayphoto-shrink_400_400/0/1656946309926?e=1677110400&v=beta&t=mSIRjcaPvxGM6SNV6HUxntnDc-tfJGJsKe3zvtARVfU",
+      active: true,
     },
   ],
   E: [
     {
-        id: 5,
-        name: 'Eagan Notokusumo',
-        role: 'VP of Finance',
-        imageUrl:
-        'https://media.licdn.com/dms/image/C4D03AQEX-pJelYP9lQ/profile-displayphoto-shrink_400_400/0/1642469910535?e=1677110400&v=beta&t=xO4xs2sjT6Owexmbp2-Wg7mgAFk8WyC3eKhCC0HQixQ',
-    }
+      id: 5,
+      name: "Eagan Notokusumo",
+      role: "VP of Finance",
+      imageUrl:
+        "https://media.licdn.com/dms/image/C4D03AQEX-pJelYP9lQ/profile-displayphoto-shrink_400_400/0/1642469910535?e=1677110400&v=beta&t=xO4xs2sjT6Owexmbp2-Wg7mgAFk8WyC3eKhCC0HQixQ",
+    },
   ],
   J: [
     {
-        id: 6,
-        name: 'Julie Park',
-        role: 'VP of Marketing',
-        imageUrl:
-        'https://media.licdn.com/dms/image/D5603AQHdZPGTHWZKJQ/profile-displayphoto-shrink_400_400/0/1669337453128?e=1677110400&v=beta&t=AmhLbaajCtLz8OaWrFpGFzZcgHuk-J43gRZMLMbiSbY',
-    }
+      id: 6,
+      name: "Julie Park",
+      role: "VP of Marketing",
+      imageUrl:
+        "https://media.licdn.com/dms/image/D5603AQHdZPGTHWZKJQ/profile-displayphoto-shrink_400_400/0/1669337453128?e=1677110400&v=beta&t=AmhLbaajCtLz8OaWrFpGFzZcgHuk-J43gRZMLMbiSbY",
+    },
   ],
   N: [
     {
-        id: 7,
-        name: 'Nam Nguyen',
-        role: 'VP of Internal Affairs',
-        imageUrl:
-        'https://media.licdn.com/dms/image/C5603AQEtz1wN1PeAmw/profile-displayphoto-shrink_400_400/0/1624822282607?e=1677110400&v=beta&t=IaigaQP4cMDmA0QquIeT8UzH21zT9Eaow7krp38JWtk',
-    }
+      id: 7,
+      name: "Nam Nguyen",
+      role: "VP of Internal Affairs",
+      imageUrl:
+        "https://media.licdn.com/dms/image/C5603AQEtz1wN1PeAmw/profile-displayphoto-shrink_400_400/0/1624822282607?e=1677110400&v=beta&t=IaigaQP4cMDmA0QquIeT8UzH21zT9Eaow7krp38JWtk",
+    },
   ],
   S: [
     {
-        id: 8,
-        name: 'Samar Saleem',
-        role: 'President/Founder',
-        imageUrl:
-        'https://media.licdn.com/dms/image/C4E03AQEhnMuPtE0eGw/profile-displayphoto-shrink_400_400/0/1657907779939?e=1677110400&v=beta&t=7CxrhEz1WD-lLP4oGe3Xjl6WngS6c24H3yqfESR87ig',
+      id: 8,
+      name: "Samar Saleem",
+      role: "President/Founder",
+      imageUrl:
+        "https://media.licdn.com/dms/image/C4E03AQEhnMuPtE0eGw/profile-displayphoto-shrink_400_400/0/1657907779939?e=1677110400&v=beta&t=7CxrhEz1WD-lLP4oGe3Xjl6WngS6c24H3yqfESR87ig",
     },
     {
       id: 9,
-      name: 'Sneh Deshpande',
-      role: 'VP of Internal Affairs',
+      name: "Sneh Deshpande",
+      role: "VP of Internal Affairs",
       imageUrl:
-      'https://media.licdn.com/dms/image/C4D03AQEVH1jm84ax0A/profile-displayphoto-shrink_400_400/0/1649042616875?e=1677110400&v=beta&t=VxBCPGOWUAlXGvk0bSi8n1flSEy6IBRccQhKVGtkYO0',
-  },
-  {
-    id: 10,
-    name: 'Steve Ewald',
-    role: 'VP of Technology',
-    imageUrl:
-    'https://media.licdn.com/dms/image/C4D03AQHPxYjOagRJig/profile-displayphoto-shrink_400_400/0/1649132175326?e=1677110400&v=beta&t=4_IxWqZY2o5GECcPwGyIfVQX0w8tX5mp1kFUvZPyCjQ',
-}
-  ]
-}
+        "https://media.licdn.com/dms/image/C4D03AQEVH1jm84ax0A/profile-displayphoto-shrink_400_400/0/1649042616875?e=1677110400&v=beta&t=VxBCPGOWUAlXGvk0bSi8n1flSEy6IBRccQhKVGtkYO0",
+    },
+    {
+      id: 10,
+      name: "Steve Ewald",
+      role: "VP of Technology",
+      imageUrl:
+        "https://media.licdn.com/dms/image/C4D03AQHPxYjOagRJig/profile-displayphoto-shrink_400_400/0/1649132175326?e=1677110400&v=beta&t=4_IxWqZY2o5GECcPwGyIfVQX0w8tX5mp1kFUvZPyCjQ",
+    },
+  ],
+};
 const team = [
   {
-    name: 'Josh Brice',
-    role: 'VP of Member Recruitment',
+    name: "Josh Brice",
+    role: "VP of Member Recruitment",
     imageUrl:
-      'https://media.licdn.com/dms/image/C5603AQE7b12wJDGvtg/profile-displayphoto-shrink_400_400/0/1648564209595?e=1677110400&v=beta&t=SFPXEed0FNCB9CXnbu-cNba95eiJ9SPVht1gWpSDyM4',
+      "https://media.licdn.com/dms/image/C5603AQE7b12wJDGvtg/profile-displayphoto-shrink_400_400/0/1648564209595?e=1677110400&v=beta&t=SFPXEed0FNCB9CXnbu-cNba95eiJ9SPVht1gWpSDyM4",
   },
-]
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 class MemberPage extends React.Component {
-    constructor() {
-        super();
-        this.state = {sidebarOpen:false};
-        this.setSidebarOpen = this.setSidebarOpen.bind(this);
-    }
+  constructor() {
+    super();
+    this.state = { sidebarOpen: false };
+    this.setSidebarOpen = this.setSidebarOpen.bind(this);
+  }
 
-    setSidebarOpen(val) {
-        this.setState({sidebarOpen:val});
-    }
+  setSidebarOpen(val) {
+    this.setState({ sidebarOpen: val });
+  }
 
-    render() {
-        return (
-        <div className="flex h-screen">
+  render() {
+    return (
+      <div className="flex h-screen">
         <Transition.Root show={this.state.sidebarOpen} as={Fragment}>
-          <Dialog as="div" className="relative z-40 lg:hidden" onClose={this.setSidebarOpen}>
+          <Dialog
+            as="div"
+            className="relative z-40 lg:hidden"
+            onClose={this.setSidebarOpen}
+          >
             <Transition.Child
               as={Fragment}
               enter="transition-opacity ease-linear duration-300"
@@ -223,7 +238,10 @@ class MemberPage extends React.Component {
                         onClick={() => this.setSidebarOpen(false)}
                       >
                         <span className="sr-only">Close sidebar</span>
-                        <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                        <XMarkIcon
+                          className="h-6 w-6 text-white"
+                          aria-hidden="true"
+                        />
                       </button>
                     </div>
                   </Transition.Child>
@@ -243,16 +261,18 @@ class MemberPage extends React.Component {
                             href={item.href}
                             className={classNames(
                               item.current
-                                ? 'bg-gray-100 text-gray-900'
-                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                              'group flex items-center px-2 py-2 text-base font-medium rounded-md'
+                                ? "bg-gray-100 text-gray-900"
+                                : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+                              "group flex items-center px-2 py-2 text-base font-medium rounded-md"
                             )}
-                            aria-current={item.current ? 'page' : undefined}
+                            aria-current={item.current ? "page" : undefined}
                           >
                             <item.icon
                               className={classNames(
-                                item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                                'mr-4 h-6 w-6'
+                                item.current
+                                  ? "text-gray-500"
+                                  : "text-gray-400 group-hover:text-gray-500",
+                                "mr-4 h-6 w-6"
                               )}
                               aria-hidden="true"
                             />
@@ -260,7 +280,10 @@ class MemberPage extends React.Component {
                           </a>
                         ))}
                       </div>
-                      <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
+                      <hr
+                        className="my-5 border-t border-gray-200"
+                        aria-hidden="true"
+                      />
                       <div className="space-y-1 px-2">
                         {secondaryNavigation.map((item) => (
                           <a
@@ -282,11 +305,19 @@ class MemberPage extends React.Component {
                     <a href="#" className="group block flex-shrink-0">
                       <div className="flex items-center">
                         <div>
-                          <img className="inline-block h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                          <img
+                            className="inline-block h-10 w-10 rounded-full"
+                            src={user.imageUrl}
+                            alt=""
+                          />
                         </div>
                         <div className="ml-3">
-                          <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">{user.name}</p>
-                          <p className="text-sm font-medium text-gray-500 group-hover:text-gray-700">View profile</p>
+                          <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">
+                            {user.name}
+                          </p>
+                          <p className="text-sm font-medium text-gray-500 group-hover:text-gray-700">
+                            View profile
+                          </p>
                         </div>
                       </div>
                     </a>
@@ -321,16 +352,18 @@ class MemberPage extends React.Component {
                         href={item.href}
                         className={classNames(
                           item.current
-                            ? 'bg-gray-200 text-gray-900'
-                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                          'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                            ? "bg-gray-200 text-gray-900"
+                            : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+                          "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                         )}
-                        aria-current={item.current ? 'page' : undefined}
+                        aria-current={item.current ? "page" : undefined}
                       >
                         <item.icon
                           className={classNames(
-                            item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                            'mr-3 flex-shrink-0 h-6 w-6'
+                            item.current
+                              ? "text-gray-500"
+                              : "text-gray-400 group-hover:text-gray-500",
+                            "mr-3 flex-shrink-0 h-6 w-6"
                           )}
                           aria-hidden="true"
                         />
@@ -338,7 +371,10 @@ class MemberPage extends React.Component {
                       </a>
                     ))}
                   </div>
-                  <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
+                  <hr
+                    className="my-5 border-t border-gray-200"
+                    aria-hidden="true"
+                  />
                   <div className="flex-1 space-y-1 px-2">
                     {secondaryNavigation.map((item) => (
                       <a
@@ -357,19 +393,27 @@ class MemberPage extends React.Component {
                 </nav>
               </div>
               <div className="fixed bottom-0">
-              <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
-                <a href="#" className="group block w-full flex-shrink-0">
-                  <div className="flex items-center">
-                    <div>
-                      <img className="inline-block h-9 w-9 rounded-full" src={user.imageUrl} alt="" />
+                <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
+                  <a href="#" className="group block w-full flex-shrink-0">
+                    <div className="flex items-center">
+                      <div>
+                        <img
+                          className="inline-block h-9 w-9 rounded-full"
+                          src={user.imageUrl}
+                          alt=""
+                        />
+                      </div>
+                      <div className="ml-3">
+                        <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
+                          {user.name}
+                        </p>
+                        <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
+                          View profile
+                        </p>
+                      </div>
                     </div>
-                    <div className="ml-3">
-                      <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">{user.name}</p>
-                      <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">View profile</p>
-                    </div>
-                  </div>
-                </a>
-              </div>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -399,9 +443,18 @@ class MemberPage extends React.Component {
           <div className="relative z-0 flex flex-1 overflow-hidden">
             <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none xl:order-last">
               {/* Breadcrumb */}
-              <nav className="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden" aria-label="Breadcrumb">
-                <a href="#" className="inline-flex items-center space-x-3 text-sm font-medium text-gray-900">
-                  <ChevronLeftIcon className="-ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />
+              <nav
+                className="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden"
+                aria-label="Breadcrumb"
+              >
+                <a
+                  href="#"
+                  className="inline-flex items-center space-x-3 text-sm font-medium text-gray-900"
+                >
+                  <ChevronLeftIcon
+                    className="-ml-2 h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
                   <span>Directory</span>
                 </a>
               </nav>
@@ -410,7 +463,11 @@ class MemberPage extends React.Component {
                 {/* Profile header */}
                 <div>
                   <div>
-                    <img className="h-32 w-full object-cover lg:h-48" src={profile.coverImageUrl} alt="" />
+                    <img
+                      className="h-32 w-full object-cover lg:h-48"
+                      src={profile.coverImageUrl}
+                      alt=""
+                    />
                   </div>
                   <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
                     <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
@@ -423,21 +480,33 @@ class MemberPage extends React.Component {
                       </div>
                       <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                         <div className="mt-6 min-w-0 flex-1 sm:hidden 2xl:block">
-                          <h1 className="truncate text-2xl font-bold text-gray-900">{profile.name}</h1>
+                          <h1 className="truncate text-2xl font-bold text-gray-900">
+                            {profile.name}
+                          </h1>
                         </div>
                         <div className="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
                           <button
                             type="button"
                             className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
                           >
-                            <EnvelopeIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" aria-hidden="true" />
+                            <EnvelopeIcon
+                              className="-ml-1 mr-2 h-5 w-5 text-gray-400"
+                              aria-hidden="true"
+                            />
                             <span>Email</span>
                           </button>
                           <div className="flex space-x-6 md:order-2 items-center">
                             {profile.social.map((item) => (
-                              <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
+                              <a
+                                key={item.name}
+                                href={item.href}
+                                className="text-gray-400 hover:text-gray-500"
+                              >
                                 <span className="sr-only">{item.name}</span>
-                                <item.icon className="h-6 w-6" aria-hidden="true" />
+                                <item.icon
+                                  className="h-6 w-6"
+                                  aria-hidden="true"
+                                />
                               </a>
                             ))}
                           </div>
@@ -445,7 +514,9 @@ class MemberPage extends React.Component {
                       </div>
                     </div>
                     <div className="mt-6 hidden min-w-0 flex-1 sm:block 2xl:hidden">
-                      <h1 className="truncate text-2xl font-bold text-gray-900">{profile.name}</h1>
+                      <h1 className="truncate text-2xl font-bold text-gray-900">
+                        {profile.name}
+                      </h1>
                     </div>
                   </div>
                 </div>
@@ -461,11 +532,11 @@ class MemberPage extends React.Component {
                             href={tab.href}
                             className={classNames(
                               tab.current
-                                ? 'border-indigo-600 text-gray-900'
-                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
-                              'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
+                                ? "border-indigo-600 text-gray-900"
+                                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
+                              "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
                             )}
-                            aria-current={tab.current ? 'page' : undefined}
+                            aria-current={tab.current ? "page" : undefined}
                           >
                             {tab.name}
                           </a>
@@ -480,12 +551,18 @@ class MemberPage extends React.Component {
                   <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                     {Object.keys(profile.fields).map((field) => (
                       <div key={field} className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">{field}</dt>
-                        <dd className="mt-1 text-sm text-gray-900">{profile.fields[field]}</dd>
+                        <dt className="text-sm font-medium text-gray-500">
+                          {field}
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900">
+                          {profile.fields[field]}
+                        </dd>
                       </div>
                     ))}
                     <div className="sm:col-span-2">
-                      <dt className="text-sm font-medium text-gray-500">About</dt>
+                      <dt className="text-sm font-medium text-gray-500">
+                        About
+                      </dt>
                       <dd
                         className="mt-1 max-w-prose space-y-5 text-sm text-gray-900"
                         dangerouslySetInnerHTML={{ __html: profile.about }}
@@ -496,7 +573,9 @@ class MemberPage extends React.Component {
 
                 {/* Team member list */}
                 <div className="mx-auto mt-8 max-w-5xl px-4 pb-12 sm:px-6 lg:px-8">
-                  <h2 className="text-sm font-medium text-gray-500">Team members</h2>
+                  <h2 className="text-sm font-medium text-gray-500">
+                    Team members
+                  </h2>
                   <div className="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
                     {team.map((person) => (
                       <div
@@ -504,13 +583,24 @@ class MemberPage extends React.Component {
                         className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-pink-500 focus-within:ring-offset-2 hover:border-gray-400"
                       >
                         <div className="flex-shrink-0">
-                          <img className="h-10 w-10 rounded-full" src={person.imageUrl} alt="" />
+                          <img
+                            className="h-10 w-10 rounded-full"
+                            src={person.imageUrl}
+                            alt=""
+                          />
                         </div>
                         <div className="min-w-0 flex-1">
                           <a href="#" className="focus:outline-none">
-                            <span className="absolute inset-0" aria-hidden="true" />
-                            <p className="text-sm font-medium text-gray-900">{person.name}</p>
-                            <p className="truncate text-sm text-gray-500">{person.role}</p>
+                            <span
+                              className="absolute inset-0"
+                              aria-hidden="true"
+                            />
+                            <p className="text-sm font-medium text-gray-900">
+                              {person.name}
+                            </p>
+                            <p className="truncate text-sm text-gray-500">
+                              {person.role}
+                            </p>
                           </a>
                         </div>
                       </div>
@@ -521,8 +611,12 @@ class MemberPage extends React.Component {
             </main>
             <aside className="hidden w-96 flex-shrink-0 border-r border-gray-200 xl:order-first xl:flex xl:flex-col">
               <div className="px-6 pt-6 pb-4">
-                <h2 className="text-lg font-medium text-gray-900">Brother Directory</h2>
-                <p className="mt-1 text-sm text-gray-600">Search directory of 8 brothers</p>
+                <h2 className="text-lg font-medium text-gray-900">
+                  Brother Directory
+                </h2>
+                <p className="mt-1 text-sm text-gray-600">
+                  Search directory of 8 brothers
+                </p>
                 <form className="mt-6 flex space-x-4" action="#">
                   <div className="min-w-0 flex-1">
                     <label htmlFor="search" className="sr-only">
@@ -530,7 +624,10 @@ class MemberPage extends React.Component {
                     </label>
                     <div className="relative rounded-md shadow-sm">
                       <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                        <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                        <MagnifyingGlassIcon
+                          className="h-5 w-5 text-gray-400"
+                          aria-hidden="true"
+                        />
                       </div>
                       <input
                         type="search"
@@ -545,36 +642,58 @@ class MemberPage extends React.Component {
                     type="submit"
                     className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
                   >
-                    <FunnelIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                    <FunnelIcon
+                      className="h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
                     <span className="sr-only">Search</span>
                   </button>
                 </form>
               </div>
               {/* Directory list */}
-              <nav className="min-h-0 flex-1 overflow-y-auto" aria-label="Directory">
+              <nav
+                className="min-h-0 flex-1 overflow-y-auto"
+                aria-label="Directory"
+              >
                 {Object.keys(directory).map((letter) => (
                   <div key={letter} className="relative">
                     <div className="sticky top-0 z-10 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
                       <h3>{letter}</h3>
                     </div>
-                    <ul role="list" className="relative z-0 divide-y divide-gray-200">
+                    <ul
+                      role="list"
+                      className="relative z-0 divide-y divide-gray-200"
+                    >
                       {directory[letter].map((person) => (
                         <li key={person.id}>
-                          <div className={classNames(
+                          <div
+                            className={classNames(
                               person.active
-                                ? 'bg-gray-100'
-                                : 'hover:bg-gray-50',
-                              'relative flex items-center space-x-3 px-6 py-5 focus-within:ring-2 focus-within:ring-inset focus-within:ring-pink-500'
-                            )}>
+                                ? "bg-gray-100"
+                                : "hover:bg-gray-50",
+                              "relative flex items-center space-x-3 px-6 py-5 focus-within:ring-2 focus-within:ring-inset focus-within:ring-pink-500"
+                            )}
+                          >
                             <div className="flex-shrink-0">
-                              <img className="h-10 w-10 rounded-full" src={person.imageUrl} alt="" />
+                              <img
+                                className="h-10 w-10 rounded-full"
+                                src={person.imageUrl}
+                                alt=""
+                              />
                             </div>
                             <div className="min-w-0 flex-1">
                               <a href="#" className="focus:outline-none">
                                 {/* Extend touch target to entire panel */}
-                                <span className="absolute inset-0" aria-hidden="true" />
-                                <p className="text-sm font-medium text-gray-900">{person.name}</p>
-                                <p className="truncate text-sm text-gray-500">{person.role}</p>
+                                <span
+                                  className="absolute inset-0"
+                                  aria-hidden="true"
+                                />
+                                <p className="text-sm font-medium text-gray-900">
+                                  {person.name}
+                                </p>
+                                <p className="truncate text-sm text-gray-500">
+                                  {person.role}
+                                </p>
                               </a>
                             </div>
                           </div>
@@ -588,13 +707,10 @@ class MemberPage extends React.Component {
           </div>
         </div>
       </div>
-        )
-    }
+    );
+  }
 }
 export default MemberPage;
-
-
-
 
 /*export default function Example() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
