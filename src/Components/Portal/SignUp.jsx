@@ -79,7 +79,7 @@ class SignUp extends React.Component {
               <img
                 className="h-12 w-auto"
                 src="https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/f3/9b/6e/f39b6e96-766a-39cd-184b-2f5286f40c81/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp"
-                alt="Your Company"
+                alt="Kappa Theta Pi"
               />
               <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">
                 Welcome to Kappa Theta Pi!
