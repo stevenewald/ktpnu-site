@@ -10,9 +10,8 @@ class GoogleRedirect extends React.Component {
   }
 
   componentDidMount() {
-    this.props.firebase.auth().onAuthStateChanged((user) => {
+    this.props.firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
-        alert(user.displayName);
         document.getElementById("loadingtext").innerHTML =
           "Redirecting to member page...";
         window.location.href = "/member";

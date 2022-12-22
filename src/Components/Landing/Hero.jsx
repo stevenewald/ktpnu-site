@@ -1,4 +1,5 @@
 import React from "react";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
 
 class Hero extends React.Component {
   constructor() {
@@ -31,9 +32,24 @@ class Hero extends React.Component {
               <p className="max-w-3xl mx-auto mt-6 text-lg text-center text-gray-700 md:text-xl">
                 Join Northwestern's premiere co-ed technology fraternity
               </p>
+              <div className="mt-8 flex justify-center">
+                <div className="inline-flex rounded-md shadow">
+                  <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSey8UlOw4GaKMlJj-W-ZvxwgZk7C47N3VJ8aJ2KlqK8sDqg0Q/viewform"
+                    target="_blank"
+                    className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-5 py-3 text-base font-medium text-white hover:bg-indigo-700"
+                  >
+                    Rush Application
+                    <ArrowTopRightOnSquareIcon
+                      className="-mr-1 ml-3 h-5 w-5 text-white"
+                      aria-hidden="true"
+                    />
+                  </a>
+                </div>
+              </div>
 
               <div
-                className="flex justify-center opacity-0 transition-opacity transition-all duration-1000 -translate-y-6 ease-in-out"
+                className="hidden flex justify-center opacity-0 transition-opacity transition-all duration-1000 -translate-y-6 ease-in-out"
                 ref={this.downArrow}
               >
                 <svg

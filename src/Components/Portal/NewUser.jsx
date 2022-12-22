@@ -1,6 +1,6 @@
 import React from "react";
 import Swal from "sweetalert2";
-import { ref, set } from "firebase/database";
+import { ref, set, update } from "firebase/database";
 
 /*async function initNewAcc(db, config) {
   set(ref(db, "users/" + config.uid), {
@@ -29,8 +29,8 @@ class NewUser extends React.Component {
     this.submitButton = React.createRef();
   }
 
-  initNewAcc(db, fb, name, uid, email, ppl) {
-    set(ref(db, "users/" + uid), {
+  initNewAcc(db, name, uid, email, ppl) {
+    update(ref(db, "users/" + uid), {
       name: name,
       email: email,
       prof_pic_link: ppl,
@@ -529,8 +529,7 @@ class NewUser extends React.Component {
                   };
                   this.initNewAcc(
                     this.props.database,
-                    this.props.firebase,
-                    this.user.displayName,
+                    document.getElementById("last-name").value,
                     this.user.uid,
                     this.user.email,
                     "google.com"

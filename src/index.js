@@ -1,18 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Hero from "./Components/Landing/Hero";
-import Header from "./Components/Landing/Header";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MemberPage from "./Components/Portal/MemberPage2";
 import MemberLogin from "./Components/Portal/GoogleRedirect";
 import SignUp from "./Components/Portal/SignUp";
 import NewUser from "./Components/Portal/NewUser";
 
+import Hero from "./Components/Landing/Hero";
+import Header from "./Components/Landing/Header";
+import Team from "./Components/Landing/Team";
+import FAQs from './Components/Landing/FAQs';
+import Footer from './Components/Landing/Footer';
+import PortalAdvertisement from './Components/Landing/PortalAdvertisement';
+
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/functions";
 import { getDatabase } from "firebase/database";
+
+import portalimg from './Components/Landing/portal.png';
+
 const firebaseConfig = {
   apiKey: "AIzaSyBY_olTq-IJkQs1-VXTCgxIUzlD7_-3MXQ",
   authDomain: "ktp-site.firebaseapp.com",
@@ -27,7 +36,7 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 var provider = new firebase.auth.GoogleAuthProvider();
 provider.addScope("https://www.googleapis.com/auth/userinfo.profile");
-//firebase.functions().useEmulator("localhost", 5001);
+firebase.functions().useEmulator("localhost", 5001);
 const database = getDatabase(app);
 
 class Full extends React.Component {
@@ -42,6 +51,10 @@ class Full extends React.Component {
               <div>
                 <Header firebase={firebase} />
                 <Hero />
+                <Team />
+                <PortalAdvertisement ig={portalimg} />
+                <FAQs />
+                <Footer />
               </div>
             }
           ></Route>

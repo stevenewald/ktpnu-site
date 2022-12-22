@@ -24,28 +24,32 @@ exports.loginAuth = functions.https.onCall(async (req, res) => {
 });
 
 exports.checkIfAllowed = functions.https.onCall(async (req, res) => {
-  console.log("starting");
   return new Promise((resolve, reject) => {
     return allowedRef.child(req.email).once("value", (snapshot) => {
       if (snapshot.exists()) {
-        console.log(req.email + "exists!");
-        resolve({ result: "exists" });
+        usersRef.child(req.uid).update({
+          allowed:true
+        }).then(() => {
+          resolve({ result: "exists" });
+        })
       } else {
-        console.log(req.email + " does not exist");
-        resolve({ result: "none" });
+        usersRef.child(req.uid).update({
+          allowed:false
+        }).then(() => {
+          resolve({ result: "none" });
+        })
       }
     });
   });
 });
 
 exports.createAcc = functions.auth.user().onCreate((user) => {
-  /*usersRef.child(user.uid).set({
-    //daily:0,
+  usersRef.child(user.uid).set({
+    allowed:false,
   }).then((res) => {
     console.log("Created new user with uid " + user.uid);
   }).catch((err) => {
     console.log("Error");
     console.log(err);
-  });*/
-  console.log("New account created");
+  });
 });

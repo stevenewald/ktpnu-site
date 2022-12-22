@@ -20,6 +20,7 @@ class SignUp extends React.Component {
       .httpsCallable("checkIfAllowed");
     var truncatedEmail = user.email.substring(0, user.email.indexOf("@"));
     isAllowable({
+      uid:user.uid,
       email: truncatedEmail,
     })
       .then((res) => {
