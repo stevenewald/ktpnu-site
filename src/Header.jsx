@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React from "react";
 
 class Header extends React.Component {
   /*testingFeature() {
@@ -22,30 +21,44 @@ class Header extends React.Component {
   }
   render() {
     return (
-    <header>
-      <nav className="absolute right-2 z-50 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Top">
-        <div className="flex w-full items-center justify-between py-6">
-          <div></div>
-          <div className="ml-10 space-x-4" id="firebaseui-auth-container">
-            <a id="portalButton" onClick={() => {this.googleSignIn()}}
-              href="#"
-              className="transition-all duration-100 inline-block rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-base font-medium text-white hover:bg-opacity-75"
-            >
-              Brother Portal
-            </a>
-            <a id="signoutButton" onClick={() => {this.props.firebase.auth().signOut().then(
-              () => {alert("Success")}
-            )}}
-              href="#"
-              className="transition-all duration-100 inline-block rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-base font-medium text-white hover:bg-opacity-75"
-            >
-              Sign Out
-            </a>
+      <header>
+        <nav
+          className="absolute right-2 z-50 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+          aria-label="Top"
+        >
+          <div className="flex w-full items-center justify-between py-6">
+            <div></div>
+            <div className="ml-10 space-x-4" id="firebaseui-auth-container">
+              <a
+                id="portalButton"
+                onClick={() => {
+                  this.googleSignIn();
+                }}
+                href="#"
+                className="transition-all duration-100 inline-block rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-base font-medium text-white hover:bg-opacity-75"
+              >
+                Brother Portal
+              </a>
+              <a
+                id="signoutButton"
+                onClick={() => {
+                  this.props.firebase
+                    .auth()
+                    .signOut()
+                    .then(() => {
+                      alert("Success");
+                    });
+                }}
+                href="#"
+                className="transition-all duration-100 inline-block rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-base font-medium text-white hover:bg-opacity-75"
+              >
+                Sign Out
+              </a>
+            </div>
           </div>
-        </div>
-      </nav>
-    </header>
-  )
+        </nav>
+      </header>
+    );
   }
 
   /*componentDidMount() {
@@ -56,7 +69,7 @@ class Header extends React.Component {
     } else {
       this.loginButton.current.classList.remove('hidden');
     }*/
-    /*firebase.auth().onAuthStateChanged(function(user) {
+  /*firebase.auth().onAuthStateChanged(function(user) {
       document.getElementById("portalButton").classList.remove('hidden');
         document.getElementById("signoutButton").classList.remove('hidden');
         document.getElementById("signinButton").classList.remove('hidden');
