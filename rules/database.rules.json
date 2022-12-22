@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "users": {
+      "$user_id": {
+        ".write": "$user_id === auth.uid",
+        ".read": "$user_id === auth.uid"
+      }
+    },
+    "allowed_accounts": {
+      "$user_id": {
+        ".write": false,
+        ".read": true
+      }
+    }
+  }
+}
