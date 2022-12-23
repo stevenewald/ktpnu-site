@@ -6,6 +6,21 @@ class GoogleRedirect extends React.Component {
   render() {
     return <h1 id="loadingtext">Loading...</h1>;
   }
+  
+  accRetFailure() {
+    Swal.fire({
+      icon:'error',
+      title:'Account not in system',
+      text:'If you are a brother, close this popup to be redirected to the sign up page, and sign-in with your northwestern email.'
+    }).then(() => {
+      this.props.firebase
+          .auth()
+          .signOut()
+          .then(() => { 
+            window.location.href = "/signup";
+          });
+    })
+  }
 
   componentDidMount() {
     this.props.firebase.auth().onAuthStateChanged(async (user) => {
@@ -15,17 +30,7 @@ class GoogleRedirect extends React.Component {
           const dbref = ref(this.props.database);
           get(child(dbref, 'users/' + user.uid + '/allowed')).then((snapshot) => {
             if(!snapshot.exists()) {
-              Swal.fire({
-                icon:'error',
-                title:'Account not in system. If you are a brother, sign up with the link emailed to you.'
-              }).then(() => {
-                this.props.firebase
-                    .auth()
-                    .signOut()
-                    .then(() => {
-                      window.location.href = "/";
-                    });
-              })
+              this.accRetFailure();
             }
             const data = snapshot.val();
             if(data===true) {
@@ -33,30 +38,10 @@ class GoogleRedirect extends React.Component {
                 "Redirecting to member page...";
               window.location.href = "/member";
             } else {
-              Swal.fire({
-                icon:'error',
-                title:'Account not in system. If you are a brother, sign up with the link emailed to you.'
-              }).then(() => {
-                this.props.firebase
-                    .auth()
-                    .signOut()
-                    .then(() => {
-                      window.location.href = "/";
-                    });
-              })
+              this.accRetFailure();
             }
           }).catch((err) => {
-            Swal.fire({
-              icon:'error',
-              title:'Account not in system. If you are a brother, sign up with the link emailed to you.'
-            }).then(() => {
-              this.props.firebase
-                  .auth()
-                  .signOut()
-                  .then(() => {
-                    window.location.href = "/";
-                  });
-            })
+            this.accRetFailure();
           })
 
       } else {

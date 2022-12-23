@@ -20,8 +20,9 @@ class SignUp extends React.Component {
       .httpsCallable("checkIfAllowed");
     var truncatedEmail = user.email.substring(0, user.email.indexOf("@"));
     isAllowable({
-      uid:user.uid,
+      uid: user.uid,
       email: truncatedEmail,
+      profile_pic_link: user.photoURL,
     })
       .then((res) => {
         if (res.data.result === "exists") {
@@ -43,7 +44,12 @@ class SignUp extends React.Component {
             icon: "error",
             text: "If you are a pledge, brother, or alumni, try another email or contact us at support@ktpnu.com.",
           }).then(() => {
-            window.location.href = "/";
+            this.props.firebase
+              .auth()
+              .signOut()
+              .then(() => {
+                window.location.reload();
+              });
           });
         }
       })

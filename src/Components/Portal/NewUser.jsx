@@ -42,6 +42,15 @@ class NewUser extends React.Component {
       instagram: config.insta,
       linkedin: config.linkedin,
       about: config.about,
+    }).then((res) => {
+      Swal.fire({
+        title: "Account successfully created!",
+        icon: "success",
+        text: "Your account was successfully created. Next step is to have the brother portal pull the info, this isn't done yet.",
+      }).then((result) => {
+        localStorage.setItem("justSetup", "true");
+        //window.location.href = "/member";
+      });
     });
   }
   render() {
@@ -296,28 +305,28 @@ class NewUser extends React.Component {
                                 this.user.uid + "_profile_pic"
                               );
                               uploadBytes(storageRef, inputElem.files[0])
-                                    .then((snapshot) => {
-                                      console.log("Uploaded bytes");
-                                      getDownloadURL(snapshot.ref)
-                                        .then((downloadURL) => {
-                                          update(
-                                            ref(
-                                              this.props.database,
-                                              "users/" + this.user.uid
-                                            ),
-                                            {
-                                              profile_pic_link: downloadURL,
-                                            }
-                                          );
-                                        })
-                                        .catch((err) => {
-                                          alert(err);
-                                        });
+                                .then((snapshot) => {
+                                  console.log("Uploaded bytes");
+                                  getDownloadURL(snapshot.ref)
+                                    .then((downloadURL) => {
+                                      update(
+                                        ref(
+                                          this.props.database,
+                                          "users/" + this.user.uid
+                                        ),
+                                        {
+                                          profile_pic_link: downloadURL,
+                                        }
+                                      );
                                     })
                                     .catch((err) => {
                                       alert(err);
                                     });
-                                }
+                                })
+                                .catch((err) => {
+                                  alert(err);
+                                });
+                            }
                           }}
                           id="file-upload2"
                           name="file-upload2"
@@ -437,7 +446,7 @@ class NewUser extends React.Component {
                   </p>
                 </div>
                 <div className="mt-5 space-y-6 md:col-span-2 md:mt-0">
-                  <fieldset>
+                  <fieldset className="hidden">
                     <legend className="sr-only">
                       Viewable profile information
                     </legend>
@@ -587,21 +596,6 @@ class NewUser extends React.Component {
                     about: document.getElementById("about").value,
                   };
                   this.initNewAcc(this.props.database, userConfig);
-
-                  let timerInterval;
-                  Swal.fire({
-                    title: "Creating your account",
-                    icon: "success",
-                    text: "Your NUKTP account is being initialized",
-                    timer: 10000,
-                    timerProgressBar: true,
-                    willClose: () => {
-                      clearInterval(timerInterval);
-                    },
-                  }).then((result) => {
-                    localStorage.setItem("justSetup", "true");
-                    //window.location.href = "/member";
-                  });
                 }}
                 className="hidden ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 ref={this.submitButton}

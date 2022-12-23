@@ -11,10 +11,11 @@ import NewUser from "./Components/Portal/NewUser";
 import Hero from "./Components/Landing/Hero";
 import Header from "./Components/Landing/Header";
 import Team from "./Components/Landing/Team";
-import FAQs from './Components/Landing/FAQs';
-import Footer from './Components/Landing/Footer';
-import PortalAdvertisement from './Components/Landing/PortalAdvertisement';
-import Pillars from './Components/Landing/Pillars';
+import FAQs from "./Components/Landing/FAQs";
+import Footer from "./Components/Landing/Footer";
+import PortalAdvertisement from "./Components/Landing/PortalAdvertisement";
+import Pillars from "./Components/Landing/Pillars";
+import Greeting from './Components/Landing/Greeting';
 
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -22,7 +23,7 @@ import "firebase/compat/functions";
 import { getDatabase } from "firebase/database";
 import { getStorage } from "firebase/storage";
 
-import portalimg from './Components/Landing/portal.png';
+import portalimg from "./Components/Landing/portal.png";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBY_olTq-IJkQs1-VXTCgxIUzlD7_-3MXQ",
@@ -38,7 +39,7 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 var provider = new firebase.auth.GoogleAuthProvider();
 provider.addScope("https://www.googleapis.com/auth/userinfo.profile");
-firebase.functions().useEmulator("localhost", 5001);
+//firebase.functions().useEmulator("localhost", 5001);
 const database = getDatabase(app);
 var storage = getStorage(app);
 
@@ -54,6 +55,7 @@ class Full extends React.Component {
               <div>
                 <Header firebase={firebase} />
                 <Hero />
+                <Greeting />
                 <Pillars />
                 <Team />
                 <PortalAdvertisement ig={portalimg} />
@@ -68,7 +70,13 @@ class Full extends React.Component {
           ></Route>
           <Route
             path="/login"
-            element={<MemberLogin firebase={firebase} provider={provider} database = {database}/>}
+            element={
+              <MemberLogin
+                firebase={firebase}
+                provider={provider}
+                database={database}
+              />
+            }
           ></Route>
           <Route
             path="/signup"

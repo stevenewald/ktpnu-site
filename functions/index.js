@@ -28,7 +28,8 @@ exports.checkIfAllowed = functions.https.onCall(async (req, res) => {
     return allowedRef.child(req.email).once("value", (snapshot) => {
       if (snapshot.exists()) {
         usersRef.child(req.uid).update({
-          allowed:true
+          allowed:true,
+          profile_pic_link:req.profile_pic_link,
         }).then(() => {
           resolve({ result: "exists" });
         })

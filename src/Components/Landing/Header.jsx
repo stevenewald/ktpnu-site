@@ -67,7 +67,7 @@ class Header extends React.Component {
                     });
                 }}
                 href="#"
-                className="transition-all duration-100 inline-block rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-base font-medium text-white hover:bg-opacity-75"
+                className="hidden md:inline-block transition-all duration-100 inline-block rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-base font-medium text-white hover:bg-opacity-75"
               >
                 Sign Out (for testing)
               </a>
