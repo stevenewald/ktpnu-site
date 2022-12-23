@@ -1,6 +1,8 @@
 import React from "react";
 import Swal from "sweetalert2";
 import { ref, set, update } from "firebase/database";
+import { uploadBytes } from "firebase/storage";
+import { ref as sRef, getDownloadURL } from "firebase/storage";
 
 /*async function initNewAcc(db, config) {
   set(ref(db, "users/" + config.uid), {
@@ -29,18 +31,18 @@ class NewUser extends React.Component {
     this.submitButton = React.createRef();
   }
 
-  initNewAcc(db, name, uid, email, ppl) {
-    update(ref(db, "users/" + uid), {
-      name: name,
-      email: email,
-      prof_pic_link: ppl,
-    })
-      .then((res) => {
-        alert(JSON.stringify(res));
-      })
-      .catch((err) => {
-        alert(err);
-      });
+  initNewAcc(db, config) {
+    update(ref(db, "users/" + config.uid), {
+      name: config.name,
+      email: config.email,
+      phone: config.phone,
+      year: config.year,
+      major: config.major,
+      internships: config.internships,
+      instagram: config.insta,
+      linkedin: config.linkedin,
+      about: config.about,
+    });
   }
   render() {
     return (
@@ -112,16 +114,16 @@ class NewUser extends React.Component {
 
                     <div className="col-span-6 sm:col-span-4">
                       <label
-                        htmlFor="email-address"
+                        htmlFor="phone-number"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Phone number
                       </label>
                       <input
                         type="text"
-                        name="email-address"
-                        id="email-address"
-                        autoComplete="email"
+                        name="phone-number"
+                        id="phone-number"
+                        autoComplete="phone"
                         placeholder="Not visible by other brothers"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
@@ -129,15 +131,14 @@ class NewUser extends React.Component {
 
                     <div className="col-span-6 sm:col-span-3">
                       <label
-                        htmlFor="country"
+                        htmlFor="year"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Year
                       </label>
                       <select
-                        id="country"
-                        name="country"
-                        autoComplete="country-name"
+                        id="year"
+                        name="year"
                         className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       >
                         <option>Freshman</option>
@@ -150,32 +151,30 @@ class NewUser extends React.Component {
 
                     <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                       <label
-                        htmlFor="city"
+                        htmlFor="major"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Major
                       </label>
                       <input
                         type="text"
-                        name="city"
-                        id="city"
-                        autoComplete="address-level2"
+                        name="major"
+                        id="major"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
 
                     <div className="col-span-6">
                       <label
-                        htmlFor="street-address"
+                        htmlFor="internships"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Notable internships
                       </label>
                       <input
                         type="text"
-                        name="street-address"
-                        id="street-address"
-                        autoComplete="street-address"
+                        name="internships"
+                        id="internships"
                         placeholder="Majority of new brothers will leave this empty"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
@@ -200,7 +199,7 @@ class NewUser extends React.Component {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="col-span-3 sm:col-span-1">
                       <label
-                        htmlFor="company-website"
+                        htmlFor="instagram"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Instagram Username
@@ -211,15 +210,15 @@ class NewUser extends React.Component {
                         </span>
                         <input
                           type="text"
-                          name="company-website"
-                          id="company-website"
+                          name="instagram"
+                          id="instagram"
                           className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
                     </div>
                     <div className="col-span-3 sm:col-span-1">
                       <label
-                        htmlFor="company-website"
+                        htmlFor="linkedin"
                         className="block text-sm font-medium text-gray-700"
                       >
                         LinkedIn Username
@@ -230,8 +229,8 @@ class NewUser extends React.Component {
                         </span>
                         <input
                           type="text"
-                          name="company-website"
-                          id="company-website"
+                          name="linkedin"
+                          id="linkedin"
                           className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
@@ -275,7 +274,7 @@ class NewUser extends React.Component {
                       </span>
 
                       <label
-                        htmlFor="file-upload"
+                        htmlFor="file-upload2"
                         className="rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                       >
                         <span>Upload from device</span>
@@ -292,7 +291,33 @@ class NewUser extends React.Component {
                               };
 
                               reader.readAsDataURL(inputElem.files[0]);
-                            }
+                              const storageRef = sRef(
+                                this.props.storage,
+                                this.user.uid + "_profile_pic"
+                              );
+                              uploadBytes(storageRef, inputElem.files[0])
+                                    .then((snapshot) => {
+                                      console.log("Uploaded bytes");
+                                      getDownloadURL(snapshot.ref)
+                                        .then((downloadURL) => {
+                                          update(
+                                            ref(
+                                              this.props.database,
+                                              "users/" + this.user.uid
+                                            ),
+                                            {
+                                              profile_pic_link: downloadURL,
+                                            }
+                                          );
+                                        })
+                                        .catch((err) => {
+                                          alert(err);
+                                        });
+                                    })
+                                    .catch((err) => {
+                                      alert(err);
+                                    });
+                                }
                           }}
                           id="file-upload2"
                           name="file-upload2"
@@ -355,6 +380,33 @@ class NewUser extends React.Component {
                                   };
 
                                   reader.readAsDataURL(inputElem.files[0]);
+
+                                  const storageRef = sRef(
+                                    this.props.storage,
+                                    this.user.uid + "_cover_pic"
+                                  );
+                                  uploadBytes(storageRef, inputElem.files[0])
+                                    .then((snapshot) => {
+                                      console.log("Uploaded bytes");
+                                      getDownloadURL(snapshot.ref)
+                                        .then((downloadURL) => {
+                                          update(
+                                            ref(
+                                              this.props.database,
+                                              "users/" + this.user.uid
+                                            ),
+                                            {
+                                              cover_page_link: downloadURL,
+                                            }
+                                          );
+                                        })
+                                        .catch((err) => {
+                                          alert(err);
+                                        });
+                                    })
+                                    .catch((err) => {
+                                      alert(err);
+                                    });
                                 }
                               }}
                               id="file-upload"
@@ -524,16 +576,17 @@ class NewUser extends React.Component {
                 onClick={() => {
                   var userConfig = {
                     uid: this.user.uid,
-                    email: this.user.email,
-                    display_name: this.user.displayName,
+                    email: document.getElementById("email-address").value,
+                    name: document.getElementById("last-name").value,
+                    phone: document.getElementById("phone-number").value,
+                    year: document.getElementById("year").value,
+                    major: document.getElementById("major").value,
+                    internships: document.getElementById("internships").value,
+                    insta: document.getElementById("instagram").value,
+                    linkedin: document.getElementById("linkedin").value,
+                    about: document.getElementById("about").value,
                   };
-                  this.initNewAcc(
-                    this.props.database,
-                    document.getElementById("last-name").value,
-                    this.user.uid,
-                    this.user.email,
-                    "google.com"
-                  );
+                  this.initNewAcc(this.props.database, userConfig);
 
                   let timerInterval;
                   Swal.fire({
@@ -563,12 +616,14 @@ class NewUser extends React.Component {
   }
 
   componentDidMount() {
-    document.getElementById("last-name").value =
-      sessionStorage.getItem("fullName");
-    document.getElementById("email-address").value =
-      sessionStorage.getItem("emailAddress");
-    document.getElementById("profPicImg").src =
-      sessionStorage.getItem("photoURL");
+    setTimeout(() => {
+      document.getElementById("last-name").value =
+        sessionStorage.getItem("fullName");
+      document.getElementById("email-address").value =
+        sessionStorage.getItem("emailAddress");
+      document.getElementById("profPicImg").src =
+        sessionStorage.getItem("photoURL");
+    }, 100);
     this.props.firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.user = user;

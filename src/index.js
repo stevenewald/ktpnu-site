@@ -20,6 +20,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/functions";
 import { getDatabase } from "firebase/database";
+import { getStorage } from "firebase/storage";
 
 import portalimg from './Components/Landing/portal.png';
 
@@ -39,6 +40,7 @@ var provider = new firebase.auth.GoogleAuthProvider();
 provider.addScope("https://www.googleapis.com/auth/userinfo.profile");
 firebase.functions().useEmulator("localhost", 5001);
 const database = getDatabase(app);
+var storage = getStorage(app);
 
 class Full extends React.Component {
   render() {
@@ -80,6 +82,7 @@ class Full extends React.Component {
                 firebase={firebase}
                 provider={provider}
                 database={database}
+                storage={storage}
               />
             }
           ></Route>

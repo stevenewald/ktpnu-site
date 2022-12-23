@@ -6,14 +6,6 @@ const navigation = [
   { name: 'Leadership', href: '#' },
   { name: 'FAQ', href: '#' },
 ]
-window.onscroll = function() {
-  var currentScrollPos = window.pageYOffset;
-  if (currentScrollPos > 50) {
-    document.getElementById("navbar").style.opacity = "0%";
-  } else {
-    document.getElementById("navbar").style.opacity = "100%";
-  }
-}
 
 class Header extends React.Component {
   /*testingFeature() {
