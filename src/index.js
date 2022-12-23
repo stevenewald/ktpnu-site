@@ -44,6 +44,7 @@ class Full extends React.Component {
               <div>
                 <Header firebase={firebase} />
                 <Hero />
+                <Greeting />
               </div>
             }
           ></Route>
