@@ -37,14 +37,14 @@ class DesktopDirectory extends React.Component {
                   type="search"
                   name="search"
                   id="search"
-                  className="block w-full rounded-md border-gray-300 pl-10 focus:border-pink-500 focus:ring-pink-500 sm:text-sm"
+                  className="block w-full rounded-md border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                   placeholder="Search"
                 />
               </div>
             </div>
             <button
               type="submit"
-              className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+              className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               <FunnelIcon
                 className="h-5 w-5 text-gray-400"
@@ -67,7 +67,7 @@ class DesktopDirectory extends React.Component {
                     <div
                       className={classNames(
                         person.active ? "bg-gray-100" : "hover:bg-gray-50",
-                        "relative flex items-center space-x-3 px-6 py-5 focus-within:ring-2 focus-within:ring-inset focus-within:ring-pink-500"
+                        "relative flex items-center space-x-3 px-6 py-5 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500"
                       )}
                     >
                       <div className="flex-shrink-0">

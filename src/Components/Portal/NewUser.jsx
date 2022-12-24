@@ -50,7 +50,7 @@ class NewUser extends React.Component {
     update(ref(db, "public_users/" + config.uid), {
       name: config.name,
       email: (document.getElementById("email-visible").checked ? config.email : ""),
-      year: (document.getElementById("standing-visible").checked ? config.email : ""),
+      year: (document.getElementById("standing-visible").checked ? config.year : ""),
       major: config.major,
       internships: (document.getElementById("internships-visible").checked ? config.email : ""),
       instagram: config.insta,
@@ -338,6 +338,15 @@ class NewUser extends React.Component {
                                           profile_pic_link: downloadURL,
                                         }
                                       );
+                                      update(
+                                        ref(
+                                          this.props.database,
+                                          "public_users/" + this.user.uid
+                                        ),
+                                        {
+                                          profile_pic_link: downloadURL,
+                                        }
+                                      );
                                     })
                                     .catch((err) => {
                                       alert(err);
@@ -423,6 +432,15 @@ class NewUser extends React.Component {
                                             ref(
                                               this.props.database,
                                               "users/" + this.user.uid
+                                            ),
+                                            {
+                                              cover_page_link: downloadURL,
+                                            }
+                                          );
+                                          update(
+                                            ref(
+                                              this.props.database,
+                                              "public_users/" + this.user.uid
                                             ),
                                             {
                                               cover_page_link: downloadURL,

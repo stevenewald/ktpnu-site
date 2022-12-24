@@ -40,8 +40,8 @@ function classNames(...classes) {
 }
 
 class MemberPage extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { sidebarOpen: false, notifOpen: localStorage.getItem("justSetup")==="true" };
     this.setSidebarOpen = this.setSidebarOpen.bind(this);
   }
@@ -306,7 +306,7 @@ class MemberPage extends React.Component {
               </div>
             </div>
           </div>
-          <BrotherDirectory />
+          <BrotherDirectory firebase={this.props.firebase} database={this.props.database}/>
           <SuccessNotif showable={this.state.notifOpen} />
         </div>
       </div>

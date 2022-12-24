@@ -15,8 +15,9 @@
     "public_users": {
       "$user_id": {
         ".write": "$user_id === auth.uid  && root.child('users').child(auth.uid).child('allowed').val() === true",
-        ".read": "root.child('users').child(auth.uid).child('allowed').val() === true"
-      }
+        ".read": true
+      },
+      ".read": "root.child('users').child(auth.uid).exists()"
     }
   }
 }

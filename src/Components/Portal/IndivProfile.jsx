@@ -5,13 +5,20 @@ import { ChevronLeftIcon, EnvelopeIcon } from "@heroicons/react/20/solid";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+
+//visible cases:
+//case 1: dir_vis false and not loading
+//case 2: xl size and not loading
 class IndivProfile extends React.Component {
   render() {
     return (
       <main className={classNames(
-        this.props.dir_vis
-          ? ""
-          : "order-first flex flex-col",
+        !this.props.dir_vis && !this.props.loading
+          ? "order-first flex flex-col"
+          : "",
+        this.props.loading
+        ? "invisible"
+        :"",
         "relative z-0 flex-1 overflow-y-auto focus:outline-none xl:order-last"
       )}>
         {/* Breadcrumb */}
@@ -57,7 +64,7 @@ class IndivProfile extends React.Component {
                     </h1>
                   </div>
                   <div className="justify-stretch mt-6 flex space-y-3 flex-row space-y-0 space-x-4">
-                    <button
+                    <button onClick={() => {window.location.href="mailto:" + this.props.profile.email}}
                       type="button"
                       className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
                     >
@@ -72,6 +79,7 @@ class IndivProfile extends React.Component {
                         <a
                           key={item.name}
                           href={item.href}
+                          target="_blank"
                           className="text-gray-400 hover:text-gray-500"
                         >
                           <span className="sr-only">{item.name}</span>
@@ -137,7 +145,7 @@ class IndivProfile extends React.Component {
           </div>
 
           {/* Team member list */}
-          <div className="mx-auto mt-8 max-w-5xl px-4 pb-12 sm:px-6 lg:px-8">
+          <div className="hidden mx-auto mt-8 max-w-5xl px-4 pb-12 sm:px-6 lg:px-8">
             <h2 className="text-sm font-medium text-gray-500">Team members</h2>
             <div className="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {this.props.team.map((person) => (

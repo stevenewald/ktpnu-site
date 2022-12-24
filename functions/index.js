@@ -6,6 +6,7 @@ admin.initializeApp({
 });
 let usersRef = admin.database().ref("users");
 let allowedRef = admin.database().ref("allowed_users");
+let publicRef = admin.database().ref("public_users");
 
 /*exports.loginAuth = functions.https.onCall(async (req, res) => {
   console.log(req.idToken);
@@ -86,6 +87,9 @@ exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
                 profile_pic_link: user.photoURL,
                 email: user.email,
               });
+              publicRef.child(user.uid).set({
+                profile_pic_link: user.photoURL
+              })
               resolve(1); //allowed but needs to sign up, correct
             } else if (user_snapshot.val()["signed_up"]) {
               resolve(2);

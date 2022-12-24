@@ -66,7 +66,7 @@ class Full extends React.Component {
           ></Route>
           <Route
             path="/member"
-            element={<MemberPage firebase={firebase} />}
+            element={<MemberPage firebase={firebase} database={database}/>}
           ></Route>
           <Route
             path="/login"
