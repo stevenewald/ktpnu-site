@@ -5,7 +5,6 @@ import { ref, child, get } from "firebase/database";
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
-    this.memberSignUp = this.memberSignUp.bind(this);
   }
 
   completeSignin(result) {
@@ -23,7 +22,7 @@ class SignUp extends React.Component {
     }
     var credential = result.credential;
     //var token = credential.accessToken;
-    
+
     let timerInterval;
     sessionStorage.setItem("fullName", user.displayName);
     sessionStorage.setItem("emailAddress", user.email);
@@ -83,7 +82,7 @@ class SignUp extends React.Component {
         }
       })
       .catch((err) => {
-        if(String(err).includes("Permission")) {
+        if (String(err).includes("Permission")) {
           this.props.firebase.auth().signOut();
           Swal.fire({
             title: "Invalid email",
@@ -148,20 +147,6 @@ class SignUp extends React.Component {
       });*/
   }
 
-  memberSignUp() {
-    this.props.firebase
-      .auth()
-      .signInWithPopup(this.props.provider)
-      .then((data) => {
-        console.log("Done with sign in");
-        this.completeSignin(data);
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        alert("err1: " + errorMessage);
-      });
-  }
-
   render() {
     return (
       <div className="flex min-h-full">
@@ -190,8 +175,20 @@ class SignUp extends React.Component {
 
                   <div className="mt-1 grid grid-cols-2 gap-3">
                     <div>
-                      <p
-                        onClick={this.memberSignUp}
+                      <button
+                        onClick={() => {
+                          this.props.firebase
+                            .auth()
+                            .signInWithPopup(this.props.provider)
+                            .then((data) => {
+                              console.log("Done with sign in");
+                              this.completeSignin(data);
+                            })
+                            .catch((error) => {
+                              const errorMessage = error.message;
+                              alert("err1: " + errorMessage);
+                            });
+                        }}
                         className="cursor-pointer inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
                       >
                         <span className="sr-only">Sign in with Google</span>
@@ -207,7 +204,7 @@ class SignUp extends React.Component {
                             clipRule="evenodd"
                           />
                         </svg>
-                      </p>
+                      </button>
                     </div>
 
                     <div>

@@ -19,7 +19,7 @@ class DesktopDirectory extends React.Component {
             Brother Directory
           </h2>
           <p className="mt-1 text-sm text-gray-600">
-            Search directory of 8 brothers
+            Search directory of {this.props.directory_size} brothers
           </p>
           <form className="mt-6 flex space-x-4" action="#">
             <div className="min-w-0 flex-1">
@@ -63,12 +63,15 @@ class DesktopDirectory extends React.Component {
               </div>
               <ul role="list" className="relative z-0 divide-y divide-gray-200">
                 {this.props.directory[letter].map((person) => (
-                  <li key={person.id}>
+                  <li key={"dir_"+person.id} onClick={() => {person["handler"](person["fullProfile"]);
+                  this.props.changeActiveHandler("dir_"+person.id);
+                  }}>
                     <div
                       className={classNames(
                         person.active ? "bg-gray-100" : "hover:bg-gray-50",
-                        "relative flex items-center space-x-3 px-6 py-5 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500"
+                        "relative flex items-center space-x-3 px-6 py-5"
                       )}
+                      id={"dir_"+person.id}
                     >
                       <div className="flex-shrink-0">
                         <img
