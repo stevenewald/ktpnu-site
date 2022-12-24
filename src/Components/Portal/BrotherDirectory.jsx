@@ -193,6 +193,8 @@ class BrotherDirectory extends React.Component {
     this.changeProfileHandler = this.changeProfileHandler.bind(this);
     this.changeActiveHandler = this.changeActiveHandler.bind(this);
     this.activeMobile = "1";
+    this.currProfile = "mob_1";
+    this.defaultProfile = {};
   }
 
   toggleVisibility() {
@@ -259,6 +261,10 @@ class BrotherDirectory extends React.Component {
   }
 
   changeActiveHandler(id) {
+    if(id=="none") {
+      id=this.currProfile;
+      this.changeProfileHandler(this.defaultProfile);
+    }
     document
       .getElementById("mob_" + this.activeMobile)
       .classList.remove("bg-gray-100");
@@ -307,7 +313,9 @@ class BrotherDirectory extends React.Component {
               user_dict.email = profile.email;
               user_dict.active = true;
               this.activeDesktop = String(amount);
+              this.currProfile = "mob_"+String(amount);
               this.setState({ profile: this.dictFromProfile(profile) });
+              this.defaultProfile = profile;
             }
             if (first_letter in newDirectory) {
               newDirectory[first_letter].push([user_dict]);
@@ -327,6 +335,7 @@ class BrotherDirectory extends React.Component {
             loading: false,
             directory_size: amount,
           });
+          this.props.setClick(this.changeActiveHandler);
         });
       }
     });

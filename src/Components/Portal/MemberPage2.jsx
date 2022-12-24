@@ -182,7 +182,7 @@ class MemberPage extends React.Component {
                     </nav>
                   </div>
                   <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
-                    <a href="#" className="group block flex-shrink-0">
+                    <a className="cursor-pointer group block flex-shrink-0" onClick={() => this.clickChild("none")}>
                       <div className="flex items-center">
                         <div>
                           <img
@@ -275,7 +275,7 @@ class MemberPage extends React.Component {
               </div>
               <div className="fixed bottom-0">
                 <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
-                  <a href="#" className="group block w-full flex-shrink-0">
+                  <a className="cursor-pointer group block w-full flex-shrink-0" onClick={() => this.clickChild("none")}>
                     <div className="flex items-center">
                       <div>
                         <img
@@ -322,7 +322,7 @@ class MemberPage extends React.Component {
               </div>
             </div>
           </div>
-          <BrotherDirectory firebase={this.props.firebase} database={this.props.database}/>
+          <BrotherDirectory setClick={click => this.clickChild = click} firebase={this.props.firebase} database={this.props.database}/>
           <SuccessNotif showable={this.state.notifOpen} />
         </div>
       </div>

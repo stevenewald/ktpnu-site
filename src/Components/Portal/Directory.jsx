@@ -37,8 +37,8 @@ class MobileDirectory extends React.Component {
             aria-label="Breadcrumb"
           >
             <a
-              href="#"
-              className="inline-flex items-center space-x-3 text-sm font-medium text-gray-900"
+              
+              className="cursor-pointer inline-flex items-center space-x-3 text-sm font-medium text-gray-900"
             >
               <span className="select-none">Profile</span>
               <ChevronRightIcon
@@ -115,7 +115,7 @@ class MobileDirectory extends React.Component {
                         />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <a href="#" className="focus:outline-none">
+                        <a className="cursor-pointer focus:outline-none">
                           {/* Extend touch target to entire panel */}
                           <span
                             className="absolute inset-0"
