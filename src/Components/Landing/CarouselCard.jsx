@@ -76,11 +76,13 @@ function CarouselCard(props) {
             <p className="text-red-500 font-bold mt-1">Event Has Passed</p>
           }
 
-          {/* BImage */}
-          {/* <div className="absolute flex justify-center w-full h-[175px] w-full h-full overflow-hidden mx-auto bottom-0">
-            <img src={props.imgsrc} alt=""/>
-          </div> */}
         </div>
+        {/* BImage */}
+        <div className="flex justify-center content-end h-full overflow-hidden">
+          <img className="object-contain mb-12 " src={props.imgsrc} alt=""/>
+        </div>
+
+        {/* make inner div with content-fill className */}
       </div>
     </>
   )

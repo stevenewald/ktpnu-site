@@ -102,8 +102,10 @@ function RushEvents() {
         <div className="overflow-x-auto scrollbar-hide overscroll-x-none pb-4">
           <div className='flex flex-nowrap items-center inline-flex gap-5 py-2 w-fill h-[475px]'>
 
-            {/* Buffer for spacing */}
+            {/* Buffer for Spacing */}
             <div className="select-none pl-10"></div>
+
+            {/* {Object.keys(events).map((event) => (<CareoselCard…)} */}
 
             {/* Women in KTP */},
             <CarouselCard date={`${daysOfWeek[events["womenInKTP"]["date"].getDay()]}, JAN ${events["womenInKTP"]["date"].getDate()}`}
