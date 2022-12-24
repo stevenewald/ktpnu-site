@@ -126,6 +126,7 @@ const tabs = [
 ];
 const profile = {
   name: "Damien Koh",
+  email: "",
   imageUrl:
     "https://media.licdn.com/dms/image/C5603AQGjHa8RFpDKhA/profile-displayphoto-shrink_400_400/0/1656946309926?e=1677110400&v=beta&t=mSIRjcaPvxGM6SNV6HUxntnDc-tfJGJsKe3zvtARVfU",
   coverImageUrl:
@@ -220,6 +221,9 @@ class BrotherDirectory extends React.Component {
     }
     if (profile.internships) {
       newProfile.fields["Notable Internships"] = profile.internships;
+    }
+    if (profile.email) {
+      newProfile.email = profile.email;
     }
     newProfile.fields["Role"] = "Executive";
     newProfile.social = [];

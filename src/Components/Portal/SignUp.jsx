@@ -12,9 +12,10 @@ class SignUp extends React.Component {
       if(user) {
         const dbRef = ref(this.props.database);
         get(child(dbRef, "users/" + user.uid)).then((snapshot) => {
-          if(snapshot.val()["allowed"] === true) {
+          if(snapshot.val()["allowed"] === true && snapshot.val()["signed_up"]) {
             window.location.href = "/member";
-          } else {
+          } else if(snapshot.val()["allowed"] === false) {
+            alert("Incorrect sign out");
             this.props.firebase.auth().signOut();
           }
         })

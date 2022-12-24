@@ -66,7 +66,7 @@ class IndivProfile extends React.Component {
                   <div className="justify-stretch mt-6 flex space-y-3 flex-row space-y-0 space-x-4">
                     <button onClick={() => {window.location.href="mailto:" + this.props.profile.email}}
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+                      className={classNames(this.props.profile.email ? "" : "hidden", "inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2")}
                     >
                       <EnvelopeIcon
                         className="-ml-1 mr-2 h-5 w-5 text-gray-400"

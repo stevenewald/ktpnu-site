@@ -29,7 +29,7 @@ class NewUser extends React.Component {
     super();
     this.user = null;
     this.submitButton = React.createRef();
-    this.announcementLevel = 1;
+    this.announcementLevel = 3;
   }
 
   initNewAcc(db, config) {
@@ -46,6 +46,9 @@ class NewUser extends React.Component {
       about: config.about,
       signed_up: true,
       announcement_level: this.announcementLevel,
+      email_viewable: config.email_viewable,
+      standing_viewable: config.standing_viewable,
+      internships_viewable: config.internships_viewable,
     });
     update(ref(db, "public_users/" + config.uid), {
       name: config.name,
@@ -575,9 +578,10 @@ class NewUser extends React.Component {
                       <div className="flex items-center">
                         <input onClick={() => {this.announcementLevel = 3}}
                           id="push-everything"
-                          name="push-notifications"
+                          name="push-amounts"
                           type="radio"
                           className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          defaultChecked = {this.props.newuser ? "true" : "false"}
                         />
                         <label
                           htmlFor="push-everything"
@@ -589,7 +593,7 @@ class NewUser extends React.Component {
                       <div className="flex items-center">
                         <input onClick={() => {this.announcementLevel = 2}}
                           id="push-email"
-                          name="push-notifications"
+                          name="push-amounts"
                           type="radio"
                           className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                         />
@@ -603,7 +607,7 @@ class NewUser extends React.Component {
                       <div className="flex items-center">
                         <input onClick={() => {this.announcementLevel = 1}}
                           id="push-nothing"
-                          name="push-notifications"
+                          name="push-amounts"
                           type="radio"
                           className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                         />
@@ -634,6 +638,9 @@ class NewUser extends React.Component {
                     insta: document.getElementById("instagram").value,
                     linkedin: document.getElementById("linkedin").value,
                     about: document.getElementById("about").value,
+                    email_viewable: document.getElementById("email-visible").checked,
+                    standing_viewable: document.getElementById("standing-visible").checked,
+                    internships_viewable: document.getElementById("internships-visible").checked
                   };
                   this.initNewAcc(this.props.database, userConfig);
                 }}
@@ -677,6 +684,15 @@ class NewUser extends React.Component {
             document.getElementById("instagram").value = prof["instagram"] ? prof["instagram"] : "";
             document.getElementById("linkedin").value = prof["linkedin"] ? prof["linkedin"] : "";
             document.getElementById("about").value = prof["about"] ? prof["about"] : "";
+            document.getElementById("push-everything").checked = prof["announcement_level"]===3
+            document.getElementById("push-email").checked = prof["announcement_level"]===2
+            document.getElementById("push-nothing").checked = prof["announcement_level"]===1
+            if(prof["announcement_level"]) {
+              this.announcementLevel = prof["announcement_level"];
+            }
+            document.getElementById("email-visible").checked = prof["email_viewable"]
+            document.getElementById("standing-visible").checked = prof["standing_viewable"]
+            document.getElementById("internships-visible").checked = prof["internships_viewable"]
           })
         }
       } else {
