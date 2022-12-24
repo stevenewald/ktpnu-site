@@ -114,9 +114,10 @@ class MemberPage extends React.Component {
                   <div className="h-0 flex-1 overflow-y-auto pt-5 pb-4">
                     <div className="flex flex-shrink-0 items-center px-4">
                       <img
-                        className="h-8 w-auto"
+                        className="cursor-pointer h-8 w-auto"
                         src="https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/f3/9b/6e/f39b6e96-766a-39cd-184b-2f5286f40c81/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp"
                         alt="Kappa Theta Pi"
+                        onClick={() => {window.location.href = "/"}}
                       />
                     </div>
                     <nav aria-label="Sidebar" className="mt-5">
@@ -205,9 +206,10 @@ class MemberPage extends React.Component {
               <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
                 <div className="flex flex-shrink-0 items-center px-4">
                   <img
-                    className="h-12 w-auto"
+                    className="cursor-pointer h-12 w-auto"
                     src="https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/f3/9b/6e/f39b6e96-766a-39cd-184b-2f5286f40c81/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp"
-                    alt="Your Company"
+                    alt="Kappa Theta Pi"
+                    onClick={() => {window.location.href = "/"}}
                   />
                 </div>
                 <nav className="mt-5 flex-1" aria-label="Sidebar">
@@ -289,9 +291,10 @@ class MemberPage extends React.Component {
             <div className="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-4 py-1.5">
               <div>
                 <img
-                  className="h-8 w-auto"
+                  className="cursor-pointer h-8 w-auto"
                   src="https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/f3/9b/6e/f39b6e96-766a-39cd-184b-2f5286f40c81/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp"
-                  alt="Your Company"
+                  alt="Kappa Theta Pi"
+                  onClick={() => {window.location.href = "/"}}
                 />
               </div>
               <div>

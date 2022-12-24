@@ -189,7 +189,7 @@ class BrotherDirectory extends React.Component {
       directory: {},
       profile: profile,
       directory_size: 0,
-      changeVal:true,
+      changeVal: true,
     };
     this.toggleVisibility = this.toggleVisibility.bind(this);
     this.changeProfileHandler = this.changeProfileHandler.bind(this);
@@ -210,7 +210,7 @@ class BrotherDirectory extends React.Component {
     if (profile.cover_page_link) {
       newProfile.coverImageUrl = profile.cover_page_link;
     }
-    if(profile.about) {
+    if (profile.about) {
       newProfile.about = profile.about;
     }
     newProfile.fields = {};
@@ -259,23 +259,31 @@ class BrotherDirectory extends React.Component {
   }
 
   changeProfileHandler(profile) {
-    this.setState({profile: this.dictFromProfile(profile)})
+    this.setState({ profile: this.dictFromProfile(profile) });
   }
 
   changeActiveDeskHandler(id) {
-    document.getElementById("dir_"+this.activeDesktop).classList.remove('bg-gray-100');
-    document.getElementById("dir_"+this.activeDesktop).classList.add('hover:bg-gray-50');
-    document.getElementById(id).classList.add('bg-gray-100');
-    document.getElementById(id).classList.remove('hover:bg-gray-50');
-    this.activeDesktop = id.substring(4,id.length);
+    document
+      .getElementById("dir_" + this.activeDesktop)
+      .classList.remove("bg-gray-100");
+    document
+      .getElementById("dir_" + this.activeDesktop)
+      .classList.add("hover:bg-gray-50");
+    document.getElementById(id).classList.add("bg-gray-100");
+    document.getElementById(id).classList.remove("hover:bg-gray-50");
+    this.activeDesktop = id.substring(4, id.length);
   }
-  
+
   changeActiveMobileHandler(id) {
-    document.getElementById("mob_"+this.activeMobile).classList.remove('bg-gray-100');
-    document.getElementById("mob_"+this.activeMobile).classList.add('hover:bg-gray-50');
-    document.getElementById(id).classList.add('bg-gray-100');
-    document.getElementById(id).classList.remove('hover:bg-gray-50');
-    this.activeMobile = id.substring(4,id.length);
+    document
+      .getElementById("mob_" + this.activeMobile)
+      .classList.remove("bg-gray-100");
+    document
+      .getElementById("mob_" + this.activeMobile)
+      .classList.add("hover:bg-gray-50");
+    document.getElementById(id).classList.add("bg-gray-100");
+    document.getElementById(id).classList.remove("hover:bg-gray-50");
+    this.activeMobile = id.substring(4, id.length);
   }
 
   componentDidMount() {
@@ -300,7 +308,7 @@ class BrotherDirectory extends React.Component {
           const dir = snapshot.val();
           var amount = 0;
           for (var item in dir) {
-            amount+=1;
+            amount += 1;
             const profile = dir[item];
             //alert(JSON.stringify(dir[item]));
             const first_letter = profile.name.charAt(0).toUpperCase();
@@ -310,7 +318,7 @@ class BrotherDirectory extends React.Component {
             user_dict["imageUrl"] = profile.profile_pic_link;
             user_dict["fullProfile"] = profile;
             user_dict["handler"] = this.changeProfileHandler;
-            user_dict["id"]=String(amount);
+            user_dict["id"] = String(amount);
             if (item === user.uid) {
               user_dict.email = profile.email;
               user_dict.active = true;
@@ -323,7 +331,18 @@ class BrotherDirectory extends React.Component {
               newDirectory[first_letter] = [user_dict];
             }
           }
-          this.setState({ directory: newDirectory, loading: false, directory_size:amount });
+          const ordered = Object.keys(newDirectory).sort().reduce(
+            (obj, key) => { 
+              obj[key] = newDirectory[key]; 
+              return obj;
+            }, 
+            {}
+          );
+          this.setState({
+            directory: ordered,
+            loading: false,
+            directory_size: amount,
+          });
         });
       }
     });

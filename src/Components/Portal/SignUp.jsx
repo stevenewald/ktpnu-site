@@ -7,6 +7,21 @@ class SignUp extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.firebase.auth().onAuthStateChanged((user) => {
+      if(user) {
+        const dbRef = ref(this.props.database);
+        get(child(dbRef, "users/" + user.uid)).then((snapshot) => {
+          if(snapshot.val()["allowed"] === true) {
+            window.location.href = "/member";
+          } else {
+            this.props.firebase.auth().signOut();
+          }
+        })
+      }
+    })
+  }
+
   completeSignin(result) {
     var user = result.user;
     if (!user.email.includes("northwestern.edu")) {
