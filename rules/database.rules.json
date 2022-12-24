@@ -2,8 +2,8 @@
   "rules": {
     "users": {
       "$user_id": {
-        ".write": "$user_id === auth.uid",
-        ".read": "$user_id === auth.uid"
+        ".write": "$user_id === auth.uid  && data.child('allowed').val() === true",
+        ".read": "$user_id === auth.uid && data.child('allowed').val() === true"
       }
     },
     "allowed_accounts": {
@@ -11,6 +11,13 @@
         ".write": false,
         ".read": true
       }
+    },
+    "public_users": {
+      "$user_id": {
+        ".write": "$user_id === auth.uid  && root.child('users').child(auth.uid).child('allowed').val() === true",
+        ".read": true
+      },
+      ".read": "root.child('users').child(auth.uid).exists()"
     }
   }
 }

@@ -1,29 +1,88 @@
 import React from "react";
 import Swal from "sweetalert2";
+import { ref, child, get } from "firebase/database";
 
 class SignUp extends React.Component {
-  constructor() {
-    super();
-    this.memberSignUp = this.memberSignUp.bind(this);
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    this.props.firebase.auth().onAuthStateChanged((user) => {
+      if(user) {
+        const dbRef = ref(this.props.database);
+        get(child(dbRef, "users/" + user.uid)).then((snapshot) => {
+          if(snapshot.val()["allowed"] === true && snapshot.val()["signed_up"]) {
+            window.location.href = "/member";
+          } else if(snapshot.val()["allowed"] === false) {
+            alert("Incorrect sign out");
+            this.props.firebase.auth().signOut();
+          }
+        })
+      }
+    })
   }
 
   completeSignin(result) {
+    var user = result.user;
+    if (!user.email.includes("northwestern.edu")) {
+      this.props.firebase.auth().signOut();
+      Swal.fire({
+        icon: "error",
+        title: "Login from non-northwestern email",
+        text: "Close this popup to signup with your northwestern email",
+      }).then(() => {
+        window.location.reload();
+      });
+      return;
+    }
     var credential = result.credential;
     //var token = credential.accessToken;
-    var user = result.user;
+
     let timerInterval;
     sessionStorage.setItem("fullName", user.displayName);
     sessionStorage.setItem("emailAddress", user.email);
     sessionStorage.setItem("photoURL", user.photoURL);
-    const isAllowable = this.props.firebase
-      .functions()
-      .httpsCallable("checkIfAllowed");
-    var truncatedEmail = user.email.substring(0, user.email.indexOf("@"));
-    isAllowable({
-      email: truncatedEmail,
-    })
-      .then((res) => {
-        if (res.data.result === "exists") {
+
+    /*
+    cases:
+    1. login from authorized nu email that has already been signed up
+    2. login from authorized nu email that has not been signed up (continue)
+    */
+    const dbRef = ref(this.props.database);
+    get(child(dbRef, "users/" + user.uid))
+      .then((user_snapshot) => {
+        if (!user_snapshot.exists()) {
+          Swal.fire({
+            icon: "error",
+            title: "UID not in database",
+            text: "Developer error: this shouldn't happen",
+          });
+        } else if (user_snapshot.val()["authorized"] === false) {
+          this.props.firebase.auth().signOut();
+          Swal.fire({
+            title: "Invalid email",
+            icon: "error",
+            text: "We have not added your account to our system (you are not a ktp brother, pledge, or alumni). If you believe this is an error, please contact support@ktpnu.com",
+          }).then(() => {
+            window.location.reload();
+          });
+        } else if (user_snapshot.val()["signed_up"]) {
+          //already_signed_up
+          Swal.fire({
+            title: "You are already signed up, " + user.displayName + ".",
+            icon: "success",
+            text: "Redirecting you to the brother portal...",
+            timer: 2000,
+            timerProgressBar: true,
+            willClose: () => {
+              clearInterval(timerInterval);
+            },
+          }).then(() => {
+            window.location.href = "/member";
+          });
+        } else {
+          //needs_signup
           Swal.fire({
             title: "Welcome to KTP, " + user.displayName,
             icon: "success",
@@ -36,38 +95,72 @@ class SignUp extends React.Component {
           }).then((result) => {
             window.location.href = "/newuser";
           });
-        } else {
+        }
+      })
+      .catch((err) => {
+        if (String(err).includes("Permission")) {
+          this.props.firebase.auth().signOut();
           Swal.fire({
             title: "Invalid email",
             icon: "error",
-            text: "If you are a pledge, brother, or alumni, try another email or contact us at support@ktpnu.com.",
+            text: "We have not added your account to our system (you are not a ktp brother, pledge, or alumni). If you believe this is an error, please contact support@ktpnu.com",
           }).then(() => {
-            window.location.href = "/";
+            window.location.reload();
+          });
+        }
+      });
+
+    /*isAllowable({
+      uid: user.uid,
+      email: user.email,
+      profile_pic_link: user.photoURL,
+    })
+      .then((res) => {
+        alert(res.data.result);
+        if (res.data.result === "needs_signup") {
+          Swal.fire({
+            title: "Welcome to KTP, " + user.displayName,
+            icon: "success",
+            text: "We've verified your information, redirecting to account creation",
+            timer: 4000,
+            timerProgressBar: true,
+            willClose: () => {
+              clearInterval(timerInterval);
+            },
+          }).then((result) => {
+            window.location.href = "/newuser";
+          });
+        } else if (res.data.result === "unauthorized") {
+          Swal.fire({
+            title: "Invalid email",
+            icon: "error",
+            text: "We have not added your account to our system (you are not a ktp brother, pledge, or alumni). If you believe this is an error, please contact support@ktpnu.com",
+          }).then(() => {
+            this.props.firebase
+              .auth()
+              .signOut()
+              .then(() => {
+                window.location.reload();
+              });
+          });
+        } else if (res.data.result === "already_signed_up") {
+          Swal.fire({
+            title: "You are already signed up, " + user.displayName + ".",
+            icon: "success",
+            text: "Redirecting you to the brother portal...",
+            timer: 2000,
+            timerProgressBar: true,
+            willClose: () => {
+              clearInterval(timerInterval);
+            },
+          }).then(() => {
+            window.location.href = "/member";
           });
         }
       })
       .catch((error) => {
         console.log(error);
-      });
-  }
-
-  memberSignUp() {
-    //sessionStorage.setItem("fullName","testing123");
-    //sessionStorage.setItem("emailAddress","steve@steve.ee");
-    //window.location.href = "/newuser";
-    this.props.firebase
-      .auth()
-      .signInWithPopup(this.props.provider)
-      .then((data) => this.completeSignin(data))
-      .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        alert(errorMessage);
-      });
+      });*/
   }
 
   render() {
@@ -98,8 +191,20 @@ class SignUp extends React.Component {
 
                   <div className="mt-1 grid grid-cols-2 gap-3">
                     <div>
-                      <p
-                        onClick={this.memberSignUp}
+                      <button
+                        onClick={() => {
+                          this.props.firebase
+                            .auth()
+                            .signInWithPopup(this.props.provider)
+                            .then((data) => {
+                              console.log("Done with sign in");
+                              this.completeSignin(data);
+                            })
+                            .catch((error) => {
+                              const errorMessage = error.message;
+                              alert("err1: " + errorMessage);
+                            });
+                        }}
                         className="cursor-pointer inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
                       >
                         <span className="sr-only">Sign in with Google</span>
@@ -115,7 +220,7 @@ class SignUp extends React.Component {
                             clipRule="evenodd"
                           />
                         </svg>
-                      </p>
+                      </button>
                     </div>
 
                     <div>

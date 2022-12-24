@@ -1,6 +1,8 @@
 import React from "react";
 import Swal from "sweetalert2";
-import { ref, set } from "firebase/database";
+import { ref, child, get, update } from "firebase/database";
+import { uploadBytes } from "firebase/storage";
+import { ref as sRef, getDownloadURL } from "firebase/storage";
 
 /*async function initNewAcc(db, config) {
   set(ref(db, "users/" + config.uid), {
@@ -27,37 +29,71 @@ class NewUser extends React.Component {
     super();
     this.user = null;
     this.submitButton = React.createRef();
+    this.announcementLevel = 3;
   }
 
-  initNewAcc(db, fb, name, uid, email, ppl) {
-    set(ref(db, "users/" + uid), {
-      name: name,
-      email: email,
-      prof_pic_link: ppl,
-    })
-      .then((res) => {
-        alert(JSON.stringify(res));
-      })
-      .catch((err) => {
-        alert(err);
-      });
+  initNewAcc(db, config) {
+    let timerInterval;
+    update(ref(db, "users/" + config.uid), {
+      name: config.name,
+      email: config.email,
+      phone: config.phone,
+      year: config.year,
+      major: config.major,
+      internships: config.internships,
+      instagram: config.insta,
+      linkedin: config.linkedin,
+      about: config.about,
+      signed_up: true,
+      announcement_level: this.announcementLevel,
+      email_viewable: config.email_viewable,
+      standing_viewable: config.standing_viewable,
+      internships_viewable: config.internships_viewable,
+    });
+    update(ref(db, "public_users/" + config.uid), {
+      name: config.name,
+      email: (document.getElementById("email-visible").checked ? config.email : ""),
+      year: (document.getElementById("standing-visible").checked ? config.year : ""),
+      major: config.major,
+      internships: (document.getElementById("internships-visible").checked ? config.email : ""),
+      instagram: config.insta,
+      linkedin: config.linkedin,
+      about: config.about,
+      signed_up: true,
+    }).then((res) => {
+      if(this.props.newuser) {
+        Swal.fire({
+          title: "Account successfully created!",
+          icon: "success",
+          text: "Your account was successfully created. Redirecting to the brother portal...",
+          timer: 3000,
+          timerProgressBar: true,
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        }).then((result) => {
+          localStorage.setItem("justSetup", "true");
+          window.location.href = "/member";
+        });
+      } else {
+        Swal.fire({
+          title: "Account information updated!",
+          icon: "success",
+          text: "Your account information was updated.",
+          timer: 3000,
+          timerProgressBar: true,
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        }).then((result) => {
+          window.location.reload();
+        });
+      }
+    });
   }
   render() {
     return (
       <div className="bg-gray-100">
-        <div>
-          <div className="mx-auto max-w-7xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <p className="mt-1 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
-                Let's set up your profile
-              </p>
-              <p className="mx-auto mt-5 max-w-xl text-xl text-gray-500">
-                Your NU KTP account gives you access to events, announcements,
-                and a growing network of brothers.
-              </p>
-            </div>
-          </div>
-        </div>
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           <div className="space-y-6">
             <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:p-6">
@@ -112,16 +148,16 @@ class NewUser extends React.Component {
 
                     <div className="col-span-6 sm:col-span-4">
                       <label
-                        htmlFor="email-address"
+                        htmlFor="phone-number"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Phone number
                       </label>
                       <input
                         type="text"
-                        name="email-address"
-                        id="email-address"
-                        autoComplete="email"
+                        name="phone-number"
+                        id="phone-number"
+                        autoComplete="phone"
                         placeholder="Not visible by other brothers"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
@@ -129,53 +165,50 @@ class NewUser extends React.Component {
 
                     <div className="col-span-6 sm:col-span-3">
                       <label
-                        htmlFor="country"
+                        htmlFor="year"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Year
                       </label>
                       <select
-                        id="country"
-                        name="country"
-                        autoComplete="country-name"
+                        id="year"
+                        name="year"
                         className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       >
-                        <option>Freshman</option>
-                        <option>Sophomore</option>
-                        <option>Junior</option>
-                        <option>Senior</option>
-                        <option>Alumni</option>
+                        <option value="Freshman">Freshman</option>
+                        <option value="Sophomore">Sophomore</option>
+                        <option value="Junior">Junior</option>
+                        <option value="Senior">Senior</option>
+                        <option value="Alumni">Alumni</option>
                       </select>
                     </div>
 
                     <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                       <label
-                        htmlFor="city"
+                        htmlFor="major"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Major
                       </label>
                       <input
                         type="text"
-                        name="city"
-                        id="city"
-                        autoComplete="address-level2"
+                        name="major"
+                        id="major"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
 
                     <div className="col-span-6">
                       <label
-                        htmlFor="street-address"
+                        htmlFor="internships"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Notable internships
                       </label>
                       <input
                         type="text"
-                        name="street-address"
-                        id="street-address"
-                        autoComplete="street-address"
+                        name="internships"
+                        id="internships"
                         placeholder="Majority of new brothers will leave this empty"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
@@ -200,7 +233,7 @@ class NewUser extends React.Component {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="col-span-3 sm:col-span-1">
                       <label
-                        htmlFor="company-website"
+                        htmlFor="instagram"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Instagram Username
@@ -211,15 +244,15 @@ class NewUser extends React.Component {
                         </span>
                         <input
                           type="text"
-                          name="company-website"
-                          id="company-website"
+                          name="instagram"
+                          id="instagram"
                           className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
                     </div>
                     <div className="col-span-3 sm:col-span-1">
                       <label
-                        htmlFor="company-website"
+                        htmlFor="linkedin"
                         className="block text-sm font-medium text-gray-700"
                       >
                         LinkedIn Username
@@ -230,8 +263,8 @@ class NewUser extends React.Component {
                         </span>
                         <input
                           type="text"
-                          name="company-website"
-                          id="company-website"
+                          name="linkedin"
+                          id="linkedin"
                           className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
@@ -275,7 +308,7 @@ class NewUser extends React.Component {
                       </span>
 
                       <label
-                        htmlFor="file-upload"
+                        htmlFor="file-upload2"
                         className="rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                       >
                         <span>Upload from device</span>
@@ -292,6 +325,41 @@ class NewUser extends React.Component {
                               };
 
                               reader.readAsDataURL(inputElem.files[0]);
+                              const storageRef = sRef(
+                                this.props.storage,
+                                this.user.uid + "_profile_pic"
+                              );
+                              uploadBytes(storageRef, inputElem.files[0])
+                                .then((snapshot) => {
+                                  console.log("Uploaded bytes");
+                                  getDownloadURL(snapshot.ref)
+                                    .then((downloadURL) => {
+                                      update(
+                                        ref(
+                                          this.props.database,
+                                          "users/" + this.user.uid
+                                        ),
+                                        {
+                                          profile_pic_link: downloadURL,
+                                        }
+                                      );
+                                      update(
+                                        ref(
+                                          this.props.database,
+                                          "public_users/" + this.user.uid
+                                        ),
+                                        {
+                                          profile_pic_link: downloadURL,
+                                        }
+                                      );
+                                    })
+                                    .catch((err) => {
+                                      alert(err);
+                                    });
+                                })
+                                .catch((err) => {
+                                  alert(err);
+                                });
                             }
                           }}
                           id="file-upload2"
@@ -335,7 +403,7 @@ class NewUser extends React.Component {
                             htmlFor="file-upload"
                             className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
-                            <span>Upload a file</span>
+                            <span>{this.props.newuser ? "Upload a file" : "Upload a file to change"}</span>
                             <input
                               onChange={() => {
                                 var inputElem =
@@ -355,6 +423,42 @@ class NewUser extends React.Component {
                                   };
 
                                   reader.readAsDataURL(inputElem.files[0]);
+
+                                  const storageRef = sRef(
+                                    this.props.storage,
+                                    this.user.uid + "_cover_pic"
+                                  );
+                                  uploadBytes(storageRef, inputElem.files[0])
+                                    .then((snapshot) => {
+                                      console.log("Uploaded bytes");
+                                      getDownloadURL(snapshot.ref)
+                                        .then((downloadURL) => {
+                                          update(
+                                            ref(
+                                              this.props.database,
+                                              "users/" + this.user.uid
+                                            ),
+                                            {
+                                              cover_page_link: downloadURL,
+                                            }
+                                          );
+                                          update(
+                                            ref(
+                                              this.props.database,
+                                              "public_users/" + this.user.uid
+                                            ),
+                                            {
+                                              cover_page_link: downloadURL,
+                                            }
+                                          );
+                                        })
+                                        .catch((err) => {
+                                          alert(err);
+                                        });
+                                    })
+                                    .catch((err) => {
+                                      alert(err);
+                                    });
                                 }
                               }}
                               id="file-upload"
@@ -399,8 +503,8 @@ class NewUser extends React.Component {
                       <div className="flex items-start">
                         <div className="flex h-5 items-center">
                           <input
-                            id="comments"
-                            name="comments"
+                            id="email-visible"
+                            name="email-visible"
                             type="checkbox"
                             defaultChecked="true"
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
@@ -408,7 +512,7 @@ class NewUser extends React.Component {
                         </div>
                         <div className="ml-3 text-sm">
                           <label
-                            htmlFor="comments"
+                            htmlFor="email-visible"
                             className="font-medium text-gray-700"
                           >
                             Email
@@ -421,8 +525,8 @@ class NewUser extends React.Component {
                       <div className="flex items-start">
                         <div className="flex h-5 items-center">
                           <input
-                            id="candidates"
-                            name="candidates"
+                            id="standing-visible"
+                            name="standing-visible"
                             type="checkbox"
                             defaultChecked="true"
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
@@ -430,7 +534,7 @@ class NewUser extends React.Component {
                         </div>
                         <div className="ml-3 text-sm">
                           <label
-                            htmlFor="candidates"
+                            htmlFor="standing-visible"
                             className="font-medium text-gray-700"
                           >
                             Class standing
@@ -443,15 +547,15 @@ class NewUser extends React.Component {
                       <div className="flex items-start">
                         <div className="flex h-5 items-center">
                           <input
-                            id="offers"
-                            name="offers"
+                            id="internships-visible"
+                            name="internships-visible"
                             type="checkbox"
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                           />
                         </div>
                         <div className="ml-3 text-sm">
                           <label
-                            htmlFor="offers"
+                            htmlFor="internships-visible"
                             className="font-medium text-gray-700"
                           >
                             Notable Internships
@@ -472,11 +576,12 @@ class NewUser extends React.Component {
                     </p>
                     <div className="mt-4 space-y-4">
                       <div className="flex items-center">
-                        <input
+                        <input onClick={() => {this.announcementLevel = 3}}
                           id="push-everything"
-                          name="push-notifications"
+                          name="push-amounts"
                           type="radio"
                           className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          defaultChecked = {this.props.newuser ? "true" : "false"}
                         />
                         <label
                           htmlFor="push-everything"
@@ -486,9 +591,9 @@ class NewUser extends React.Component {
                         </label>
                       </div>
                       <div className="flex items-center">
-                        <input
+                        <input onClick={() => {this.announcementLevel = 2}}
                           id="push-email"
-                          name="push-notifications"
+                          name="push-amounts"
                           type="radio"
                           className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                         />
@@ -500,9 +605,9 @@ class NewUser extends React.Component {
                         </label>
                       </div>
                       <div className="flex items-center">
-                        <input
+                        <input onClick={() => {this.announcementLevel = 1}}
                           id="push-nothing"
-                          name="push-notifications"
+                          name="push-amounts"
                           type="radio"
                           className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
                         />
@@ -524,37 +629,25 @@ class NewUser extends React.Component {
                 onClick={() => {
                   var userConfig = {
                     uid: this.user.uid,
-                    email: this.user.email,
-                    display_name: this.user.displayName,
+                    email: document.getElementById("email-address").value,
+                    name: document.getElementById("last-name").value,
+                    phone: document.getElementById("phone-number").value,
+                    year: document.getElementById("year").value,
+                    major: document.getElementById("major").value,
+                    internships: document.getElementById("internships").value,
+                    insta: document.getElementById("instagram").value,
+                    linkedin: document.getElementById("linkedin").value,
+                    about: document.getElementById("about").value,
+                    email_viewable: document.getElementById("email-visible").checked,
+                    standing_viewable: document.getElementById("standing-visible").checked,
+                    internships_viewable: document.getElementById("internships-visible").checked
                   };
-                  this.initNewAcc(
-                    this.props.database,
-                    this.props.firebase,
-                    this.user.displayName,
-                    this.user.uid,
-                    this.user.email,
-                    "google.com"
-                  );
-
-                  let timerInterval;
-                  Swal.fire({
-                    title: "Creating your account",
-                    icon: "success",
-                    text: "Your NUKTP account is being initialized",
-                    timer: 10000,
-                    timerProgressBar: true,
-                    willClose: () => {
-                      clearInterval(timerInterval);
-                    },
-                  }).then((result) => {
-                    localStorage.setItem("justSetup", "true");
-                    //window.location.href = "/member";
-                  });
+                  this.initNewAcc(this.props.database, userConfig);
                 }}
                 className="hidden ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 ref={this.submitButton}
               >
-                Create my account
+                {this.props.newuser ? "Create my account" : "Update my account"}
               </button>
             </div>
           </div>
@@ -564,16 +657,44 @@ class NewUser extends React.Component {
   }
 
   componentDidMount() {
-    document.getElementById("last-name").value =
-      sessionStorage.getItem("fullName");
-    document.getElementById("email-address").value =
-      sessionStorage.getItem("emailAddress");
-    document.getElementById("profPicImg").src =
-      sessionStorage.getItem("photoURL");
+    setTimeout(() => {
+      document.getElementById("last-name").value =
+        sessionStorage.getItem("fullName");
+      document.getElementById("email-address").value =
+        sessionStorage.getItem("emailAddress");
+      document.getElementById("profPicImg").src =
+        sessionStorage.getItem("photoURL");
+    }, 100);
     this.props.firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.user = user;
         this.submitButton.current.classList.remove("hidden");
+        if(!this.props.newuser) {
+          const dbRef = ref(this.props.database);
+          get(child(dbRef, "users/" + user.uid)).then((snapshot) => {
+            const prof = snapshot.val();
+            //todo: abstract (easy, too lazy tho)
+            document.getElementById("last-name").value = prof["name"] ? prof["name"] : "";
+            document.getElementById("email-address").value = prof["email"] ? prof["email"] : "";
+            document.getElementById("profPicImg").src = prof["profile_pic_link"] ? prof["profile_pic_link"] : "";
+            document.getElementById("phone-number").value = prof["phone"] ? prof["phone"] : "";
+            document.getElementById("year").value = prof["year"] ? prof["year"] : "";
+            document.getElementById("major").value = prof["year"] ? prof["major"] : "";
+            document.getElementById("internships").value = prof["internships"] ? prof["internships"] : "";
+            document.getElementById("instagram").value = prof["instagram"] ? prof["instagram"] : "";
+            document.getElementById("linkedin").value = prof["linkedin"] ? prof["linkedin"] : "";
+            document.getElementById("about").value = prof["about"] ? prof["about"] : "";
+            document.getElementById("push-everything").checked = prof["announcement_level"]===3
+            document.getElementById("push-email").checked = prof["announcement_level"]===2
+            document.getElementById("push-nothing").checked = prof["announcement_level"]===1
+            if(prof["announcement_level"]) {
+              this.announcementLevel = prof["announcement_level"];
+            }
+            document.getElementById("email-visible").checked = prof["email_viewable"]
+            document.getElementById("standing-visible").checked = prof["standing_viewable"]
+            document.getElementById("internships-visible").checked = prof["internships_viewable"]
+          })
+        }
       } else {
         alert("Signed out!");
         window.location.href = "/";
