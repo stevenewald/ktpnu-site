@@ -7,6 +7,7 @@ import MemberPage from "./Components/Portal/MemberPage2";
 import MemberLogin from "./Components/Portal/GoogleRedirect";
 import SignUp from "./Components/Portal/SignUp";
 import NewUser from "./Components/Portal/NewUser";
+import NewUserCont from "./Components/Portal/NewUserCont";
 
 import Hero from "./Components/Landing/Hero";
 import Header from "./Components/Landing/Header";
@@ -75,6 +76,7 @@ class Full extends React.Component {
                 firebase={firebase}
                 provider={provider}
                 database={database}
+                storage={storage}
               />
             }
           ></Route>
@@ -86,7 +88,7 @@ class Full extends React.Component {
           <Route
             path="/newuser"
             element={
-              <NewUser
+              <NewUserCont
                 firebase={firebase}
                 provider={provider}
                 database={database}

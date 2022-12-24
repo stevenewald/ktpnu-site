@@ -4,6 +4,7 @@ import SuccessNotif from "./SuccessNotif";
 import BrotherDirectory from "./BrotherDirectory";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import NewUser from "./NewUser";
 import {
   Bars3Icon,
   CalendarIcon,
@@ -19,21 +20,24 @@ const defaultUser = {
   imageUrl:
     "data:image/jpeg;base64,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",
 };
-
-const secondaryNavigation = [
-  { name: "Edit Profile", href: "#", icon: CogIcon },
-];
-const navigation = [
-  {
+var navigation = {
+  A: {
     name: "Brothers",
     href: "#",
     icon: MagnifyingGlassCircleIcon,
     current: true,
   },
-  { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
-  { name: "Pledge process", href: "#", icon: MapIcon, current: false },
-  { name: "Announcements", href: "#", icon: MegaphoneIcon, current: false },
-];
+  B: { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
+  C: { name: "Pledge process", href: "#", icon: MapIcon, current: false },
+  D: { name: "Announcements", href: "#", icon: MegaphoneIcon, current: false },
+  E: {
+    name: "Edit Profile",
+    href: "#",
+    icon: CogIcon,
+    current: false,
+    secondary: true,
+  },
+};
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -42,8 +46,15 @@ function classNames(...classes) {
 class MemberPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { sidebarOpen: false, notifOpen: localStorage.getItem("justSetup")==="true", user:defaultUser };
+    this.state = {
+      sidebarOpen: false,
+      notifOpen: localStorage.getItem("justSetup") === "true",
+      user: defaultUser,
+      navigation: navigation,
+    };
     this.setSidebarOpen = this.setSidebarOpen.bind(this);
+    this.changeNav = this.changeNav.bind(this);
+    this.currNav = "A";
   }
 
   componentDidMount() {
@@ -51,18 +62,29 @@ class MemberPage extends React.Component {
       localStorage.setItem("justSetup", "false");
     }
     this.props.firebase.auth().onAuthStateChanged((user) => {
-      if(user) {
+      if (user) {
         var newUser = {};
         const dbRef = ref(this.props.database);
-        get(child(dbRef, "public_users")).then((snapshot) => {
-          const prof = snapshot.val()[user.uid]
-          newUser.name = prof["name"]
-          newUser.imageUrl = prof["profile_pic_link"]
-        }).then((res) => {
-          this.setState({user:newUser})
-        })
+        get(child(dbRef, "public_users/" + user.uid))
+          .then((snapshot) => {
+            const prof = snapshot.val();
+            newUser.name = prof["name"];
+            newUser.imageUrl = prof["profile_pic_link"];
+          })
+          .then((res) => {
+            this.setState({ user: newUser });
+          });
       }
-    })
+    });
+  }
+
+  changeNav(nextButton) {
+    var newNav = navigation;
+    newNav[this.currNav].current = false;
+    newNav[nextButton].current = true;
+    this.currNav = nextButton;
+    this.setSidebarOpen(false);
+    this.setState({ navigation: newNav });
   }
 
   setSidebarOpen(val) {
@@ -71,7 +93,7 @@ class MemberPage extends React.Component {
 
   render() {
     return (
-      <div className="flex h-screen">
+      <div className={classNames(this.state.navigation.E.current ? "h-full" : "h-screen","flex")}>
         <Transition.Root show={this.state.sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
@@ -130,59 +152,88 @@ class MemberPage extends React.Component {
                         className="cursor-pointer h-8 w-auto"
                         src="https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/f3/9b/6e/f39b6e96-766a-39cd-184b-2f5286f40c81/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp"
                         alt="Kappa Theta Pi"
-                        onClick={() => {window.location.href = "/"}}
+                        onClick={() => {
+                          window.location.href = "/";
+                        }}
                       />
                     </div>
                     <nav aria-label="Sidebar" className="mt-5">
                       <div className="space-y-1 px-2">
-                        {navigation.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.current
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                              "group flex items-center px-2 py-2 text-base font-medium rounded-md"
-                            )}
-                            aria-current={item.current ? "page" : undefined}
-                          >
-                            <item.icon
-                              className={classNames(
-                                item.current
-                                  ? "text-gray-500"
-                                  : "text-gray-400 group-hover:text-gray-500",
-                                "mr-4 h-6 w-6"
-                              )}
-                              aria-hidden="true"
-                            />
-                            {item.name}
-                          </a>
-                        ))}
+                        {Object.keys(this.state.navigation).map((item) => {
+                          const keyVal = item;
+                          item = this.state.navigation[item];
+                          if (!item.secondary) {
+                            return (
+                              <a
+                                key={item.name}
+                                onClick={() => {
+                                  this.changeNav(keyVal);
+                                }}
+                                className={classNames(
+                                  item.current
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+                                  "group flex items-center px-2 py-2 text-base font-medium rounded-md"
+                                )}
+                                aria-current={item.current ? "page" : undefined}
+                              >
+                                <item.icon
+                                  className={classNames(
+                                    item.current
+                                      ? "text-gray-500"
+                                      : "text-gray-400 group-hover:text-gray-500",
+                                    "mr-4 h-6 w-6"
+                                  )}
+                                  aria-hidden="true"
+                                />
+                                {item.name}
+                              </a>
+                            );
+                          }
+                        })}
                       </div>
                       <hr
                         className="my-5 border-t border-gray-200"
                         aria-hidden="true"
                       />
                       <div className="space-y-1 px-2">
-                        {secondaryNavigation.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className="group flex items-center rounded-md px-2 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                          >
-                            <item.icon
-                              className="mr-4 h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                              aria-hidden="true"
-                            />
-                            {item.name}
-                          </a>
-                        ))}
+                        {Object.keys(this.state.navigation).map((item) => {
+                          const keyVal = item;
+                          item = this.state.navigation[item];
+                          if (item.secondary) {
+                            return (
+                              <a
+                                key={item.name}
+                                onClick={() => {
+                                  this.changeNav(keyVal);
+                                }}
+                                className={classNames(
+                                  item.current
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+                                  "group flex items-center px-2 py-2 text-base font-medium rounded-md"
+                                )}
+                              >
+                                <item.icon
+                                  className="mr-4 h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                                  aria-hidden="true"
+                                />
+                                {item.name}
+                              </a>
+                            );
+                          }
+                        })}
                       </div>
                     </nav>
                   </div>
                   <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
-                    <a className="cursor-pointer group block flex-shrink-0" onClick={() => this.clickChild("none")}>
+                    <a
+                      className="cursor-pointer group block flex-shrink-0"
+                      onClick={() => {
+                        this.clickChild("none");
+                        this.setSidebarOpen(false);
+                      }}
+                    >
                       <div className="flex items-center">
                         <div>
                           <img
@@ -222,60 +273,91 @@ class MemberPage extends React.Component {
                     className="cursor-pointer h-12 w-auto"
                     src="https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/f3/9b/6e/f39b6e96-766a-39cd-184b-2f5286f40c81/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp"
                     alt="Kappa Theta Pi"
-                    onClick={() => {window.location.href = "/"}}
+                    onClick={() => {
+                      window.location.href = "/";
+                    }}
                   />
                 </div>
                 <nav className="mt-5 flex-1" aria-label="Sidebar">
                   <div className="space-y-1 px-2">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-200 text-gray-900"
-                            : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                          "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        <item.icon
-                          className={classNames(
-                            item.current
-                              ? "text-gray-500"
-                              : "text-gray-400 group-hover:text-gray-500",
-                            "mr-3 flex-shrink-0 h-6 w-6"
-                          )}
-                          aria-hidden="true"
-                        />
-                        {item.name}
-                      </a>
-                    ))}
+                    {Object.keys(this.state.navigation).map((item) => {
+                      const keyVal = item;
+                      item = this.state.navigation[item];
+                      if (!item.secondary) {
+                        return (
+                          <a
+                            key={item.name}
+                            onClick={() => {
+                              this.changeNav(keyVal);
+                            }}
+                            className={classNames(
+                              item.current
+                                ? "bg-gray-200 text-gray-900"
+                                : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+                              "cursor-pointer group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                            )}
+                            aria-current={item.current ? "page" : undefined}
+                          >
+                            <item.icon
+                              className={classNames(
+                                item.current
+                                  ? "text-gray-500"
+                                  : "text-gray-400 group-hover:text-gray-500",
+                                "mr-3 flex-shrink-0 h-6 w-6"
+                              )}
+                              aria-hidden="true"
+                            />
+                            {item.name}
+                          </a>
+                        );
+                      }
+                    })}
                   </div>
                   <hr
                     className="my-5 border-t border-gray-200"
                     aria-hidden="true"
                   />
                   <div className="flex-1 space-y-1 px-2">
-                    {secondaryNavigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className="group flex items-center rounded-md px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                      >
-                        <item.icon
-                          className="mr-3 h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                          aria-hidden="true"
-                        />
-                        {item.name}
-                      </a>
-                    ))}
+                    {Object.keys(this.state.navigation).map((item) => {
+                      const keyVal = item;
+                      item = this.state.navigation[item];
+                      if (item.secondary) {
+                        return (
+                          <a
+                            key={item.name}
+                            onClick={() => {
+                              this.changeNav(keyVal);
+                            }}
+                            className={classNames(
+                              item.current
+                                ? "bg-gray-200 text-gray-900"
+                                : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+                              "cursor-pointer group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                            )}
+                          >
+                            <item.icon
+                              className={classNames(
+                                item.current
+                                  ? "text-gray-500"
+                                  : "text-gray-400 group-hover:text-gray-500",
+                                "mr-3 flex-shrink-0 h-6 w-6"
+                              )}
+                              aria-hidden="true"
+                            />
+                            {item.name}
+                          </a>
+                        );
+                      }
+                    })}
                   </div>
                 </nav>
               </div>
               <div className="fixed bottom-0">
                 <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
-                  <a className="cursor-pointer group block w-full flex-shrink-0" onClick={() => this.clickChild("none")}>
+                  <a
+                    className="cursor-pointer group block w-full flex-shrink-0"
+                    onClick={() => this.clickChild("none")}
+                  >
                     <div className="flex items-center">
                       <div>
                         <img
@@ -299,7 +381,7 @@ class MemberPage extends React.Component {
             </div>
           </div>
         </div>
-        <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
+        <div className="flex min-w-0 flex-1 flex-col ">
           <div className="lg:hidden">
             <div className="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-4 py-1.5">
               <div>
@@ -307,7 +389,9 @@ class MemberPage extends React.Component {
                   className="cursor-pointer h-8 w-auto"
                   src="https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/f3/9b/6e/f39b6e96-766a-39cd-184b-2f5286f40c81/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp"
                   alt="Kappa Theta Pi"
-                  onClick={() => {window.location.href = "/"}}
+                  onClick={() => {
+                    window.location.href = "/";
+                  }}
                 />
               </div>
               <div>
@@ -322,7 +406,24 @@ class MemberPage extends React.Component {
               </div>
             </div>
           </div>
-          <BrotherDirectory setClick={click => this.clickChild = click} firebase={this.props.firebase} database={this.props.database}/>
+          <div
+            className={
+              this.state.navigation["A"].current === true ? "" : "hidden"
+            }
+          >
+            <BrotherDirectory
+              setClick={(click) => (this.clickChild = click)}
+              firebase={this.props.firebase}
+              database={this.props.database}
+            />
+          </div>
+          <div className={this.state.navigation["E"].current === true ? "" : "hidden"}>
+            <NewUser firebase={this.props.firebase}
+                provider={this.props.provider}
+                database={this.props.database}
+                storage={this.props.storage}
+                newuser={false} />
+          </div>
           <SuccessNotif showable={this.state.notifOpen} />
         </div>
       </div>

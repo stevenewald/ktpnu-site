@@ -1,6 +1,6 @@
 import React from "react";
 import Swal from "sweetalert2";
-import { ref, set, update } from "firebase/database";
+import { ref, child, get, update } from "firebase/database";
 import { uploadBytes } from "firebase/storage";
 import { ref as sRef, getDownloadURL } from "firebase/storage";
 
@@ -29,7 +29,7 @@ class NewUser extends React.Component {
     super();
     this.user = null;
     this.submitButton = React.createRef();
-    this.announcementLevel = 0;
+    this.announcementLevel = 1;
   }
 
   initNewAcc(db, config) {
@@ -58,37 +58,39 @@ class NewUser extends React.Component {
       about: config.about,
       signed_up: true,
     }).then((res) => {
-      Swal.fire({
-        title: "Account successfully created!",
-        icon: "success",
-        text: "Your account was successfully created. Redirecting to the brother portal...",
-        timer: 3000,
-        timerProgressBar: true,
-        willClose: () => {
-          clearInterval(timerInterval);
-        },
-      }).then((result) => {
-        localStorage.setItem("justSetup", "true");
-        window.location.href = "/member";
-      });
+      if(this.props.newuser) {
+        Swal.fire({
+          title: "Account successfully created!",
+          icon: "success",
+          text: "Your account was successfully created. Redirecting to the brother portal...",
+          timer: 3000,
+          timerProgressBar: true,
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        }).then((result) => {
+          localStorage.setItem("justSetup", "true");
+          window.location.href = "/member";
+        });
+      } else {
+        Swal.fire({
+          title: "Account information updated!",
+          icon: "success",
+          text: "Your account information was updated.",
+          timer: 3000,
+          timerProgressBar: true,
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        }).then((result) => {
+          window.location.reload();
+        });
+      }
     });
   }
   render() {
     return (
       <div className="bg-gray-100">
-        <div>
-          <div className="mx-auto max-w-7xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <p className="mt-1 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
-                Let's set up your profile
-              </p>
-              <p className="mx-auto mt-5 max-w-xl text-xl text-gray-500">
-                Your NU KTP account gives you access to events, announcements,
-                and a growing network of brothers.
-              </p>
-            </div>
-          </div>
-        </div>
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           <div className="space-y-6">
             <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:p-6">
@@ -170,11 +172,11 @@ class NewUser extends React.Component {
                         name="year"
                         className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       >
-                        <option>Freshman</option>
-                        <option>Sophomore</option>
-                        <option>Junior</option>
-                        <option>Senior</option>
-                        <option>Alumni</option>
+                        <option value="Freshman">Freshman</option>
+                        <option value="Sophomore">Sophomore</option>
+                        <option value="Junior">Junior</option>
+                        <option value="Senior">Senior</option>
+                        <option value="Alumni">Alumni</option>
                       </select>
                     </div>
 
@@ -398,7 +400,7 @@ class NewUser extends React.Component {
                             htmlFor="file-upload"
                             className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
-                            <span>Upload a file</span>
+                            <span>{this.props.newuser ? "Upload a file" : "Upload a file to change"}</span>
                             <input
                               onChange={() => {
                                 var inputElem =
@@ -638,7 +640,7 @@ class NewUser extends React.Component {
                 className="hidden ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 ref={this.submitButton}
               >
-                Create my account
+                {this.props.newuser ? "Create my account" : "Update my account"}
               </button>
             </div>
           </div>
@@ -660,6 +662,23 @@ class NewUser extends React.Component {
       if (user) {
         this.user = user;
         this.submitButton.current.classList.remove("hidden");
+        if(!this.props.newuser) {
+          const dbRef = ref(this.props.database);
+          get(child(dbRef, "users/" + user.uid)).then((snapshot) => {
+            const prof = snapshot.val();
+            //todo: abstract (easy, too lazy tho)
+            document.getElementById("last-name").value = prof["name"] ? prof["name"] : "";
+            document.getElementById("email-address").value = prof["email"] ? prof["email"] : "";
+            document.getElementById("profPicImg").src = prof["profile_pic_link"] ? prof["profile_pic_link"] : "";
+            document.getElementById("phone-number").value = prof["phone"] ? prof["phone"] : "";
+            document.getElementById("year").value = prof["year"] ? prof["year"] : "";
+            document.getElementById("major").value = prof["year"] ? prof["major"] : "";
+            document.getElementById("internships").value = prof["internships"] ? prof["internships"] : "";
+            document.getElementById("instagram").value = prof["instagram"] ? prof["instagram"] : "";
+            document.getElementById("linkedin").value = prof["linkedin"] ? prof["linkedin"] : "";
+            document.getElementById("about").value = prof["about"] ? prof["about"] : "";
+          })
+        }
       } else {
         alert("Signed out!");
         window.location.href = "/";
