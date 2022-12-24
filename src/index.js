@@ -22,6 +22,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/functions";
 import { getDatabase } from "firebase/database";
+import RushEvents from "./Components/Landing/RushEvents";
 import { getStorage } from "firebase/storage";
 
 import portalimg from "./Components/Landing/portal.png";
@@ -56,6 +57,7 @@ class Full extends React.Component {
               <div>
                 <Header firebase={firebase} />
                 <Hero />
+                <RushEvents />
                 <Greeting />
                 <Pillars />
                 <Team />
