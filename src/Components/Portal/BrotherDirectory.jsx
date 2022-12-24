@@ -3,6 +3,8 @@ import React from "react";
 import IndivProfile from "./IndivProfile";
 import MobileDirectory from "./MobileDirectory";
 import DesktopDirectory from "./DesktopDirectory";
+import LoadingDesktop from "./LoadingDesktop";
+import LoadingMobile from "./LoadingMobile";
 
 const directory = {
   A: [
@@ -83,6 +85,38 @@ const directory = {
   ],
 };
 
+const LoadingDirectory = {
+  A: [
+    {
+      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+    },
+    {
+      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+    },
+    {
+      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+    },
+    {
+      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+    },
+    {
+      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+    },
+    {
+      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+    },
+    {
+      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+    },
+    {
+      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+    },
+    {
+      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+    },
+  ],
+};
+
 const tabs = [
   { name: "Profile", href: "#", current: true },
   { name: "Calendar", href: "#", current: false },
@@ -145,21 +179,46 @@ const team = [
 class BrotherDirectory extends React.Component {
   constructor() {
     super();
-    this.state = {directory_visible:true}
+    this.state = { directory_visible: true,loading:false };
     this.toggleVisibility = this.toggleVisibility.bind(this);
   }
 
   toggleVisibility() {
-    this.setState({directory_visible:!this.state.directory_visible})
+    this.setState({ directory_visible: !this.state.directory_visible });
   }
 
   render() {
     return (
       <div className="relative z-0 flex flex-1 overflow-hidden">
-        <IndivProfile tabs={tabs} profile={profile} team={team} dir_vis={this.state.directory_visible} handler={this.toggleVisibility}/>
-        <MobileDirectory directory={directory} dir_vis={this.state.directory_visible} handler={this.toggleVisibility}/>
-        <DesktopDirectory directory={directory} dir_vis={this.state.directory_visible}/>
-        
+        <IndivProfile
+          tabs={tabs}
+          profile={profile}
+          team={team}
+          dir_vis={this.state.directory_visible}
+          handler={this.toggleVisibility}
+        />
+        <MobileDirectory
+          directory={directory}
+          dir_vis={this.state.directory_visible}
+          handler={this.toggleVisibility}
+          loading={this.state.loading}
+        />
+        <DesktopDirectory
+          directory={directory}
+          dir_vis={this.state.directory_visible}
+          loading={this.state.loading}
+        />
+        <LoadingDesktop
+          directory={LoadingDirectory}
+          dir_vis={this.state.directory_visible}
+          loading={this.state.loading}
+        />
+        <LoadingMobile
+          directory={LoadingDirectory}
+          dir_vis={this.state.directory_visible}
+          handler={this.toggleVisibility}
+          loading={this.state.loading}
+        />
       </div>
     );
   }

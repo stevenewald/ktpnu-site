@@ -9,10 +9,10 @@ class DesktopDirectory extends React.Component {
   render() {
     return (
       <aside className={classNames(
-        this.props.dir_vis
+        this.props.loading
           ? ""
-          : "",
-        "hidden w-96 flex-shrink-0 border-r border-gray-200 xl:order-first xl:flex xl:flex-col"
+          : "xl:order-first xl:flex xl:flex-col",
+        "hidden w-96 flex-shrink-0 border-r border-gray-200"
       )}>
         <div className="px-6 pt-6 pb-4">
           <h2 className="text-lg font-medium text-gray-900">

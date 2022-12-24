@@ -1,35 +1,51 @@
 import React from "react";
-import { FunnelIcon, MagnifyingGlassIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import {
+  FunnelIcon,
+  MagnifyingGlassIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/20/solid";
 
 function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
+  return classes.filter(Boolean).join(" ");
+}
+
+//dir vis but not loading: visible
+//no dir vis and not loading: invisible
+//no dir vis and loading: invisible
+//dir vis and loading: invisible
 
 class MobileDirectory extends React.Component {
   render() {
     return (
-      <aside className={classNames(
-        this.props.dir_vis
-          ? "order-first flex flex-col"
-          : "hidden",
-        "w-full flex-shrink-0 border-r border-gray-200 xl:hidden"
-      )}>
+      <aside
+        className={classNames(
+          this.props.dir_vis && !this.props.loading
+            ? "order-first flex flex-col"
+            : "hidden",
+          "w-full flex-shrink-0 border-r border-gray-200 xl:hidden"
+        )}
+      >
         {/* Breadcrumb */}
-        <div className="cursor-pointer w-full flex bg-gray-50 shadow" onClick={this.props.handler}><nav
-          className="ml-auto flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden"
-          aria-label="Breadcrumb"
+        <div
+          className="cursor-pointer w-full flex bg-gray-50 shadow"
+          onClick={this.props.handler}
         >
-          <a
-            href="#"
-            className="inline-flex items-center space-x-3 text-sm font-medium text-gray-900"
+          <nav
+            className="ml-auto flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden"
+            aria-label="Breadcrumb"
           >
-            <span className="select-none">Profile</span>
-            <ChevronRightIcon
-              className="-ml-2 h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
-          </a>
-        </nav></div>
+            <a
+              href="#"
+              className="inline-flex items-center space-x-3 text-sm font-medium text-gray-900"
+            >
+              <span className="select-none">Profile</span>
+              <ChevronRightIcon
+                className="-ml-2 h-5 w-5 text-gray-400"
+                aria-hidden="true"
+              />
+            </a>
+          </nav>
+        </div>
         <div className="px-6 pt-6 pb-4">
           <h2 className="text-lg font-medium text-gray-900">
             Brother Directory
