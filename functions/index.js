@@ -7,7 +7,7 @@ admin.initializeApp({
 let usersRef = admin.database().ref("users");
 let allowedRef = admin.database().ref("allowed_users");
 
-exports.loginAuth = functions.https.onCall(async (req, res) => {
+/*exports.loginAuth = functions.https.onCall(async (req, res) => {
   console.log(req.idToken);
   admin
     .auth()
@@ -21,36 +21,93 @@ exports.loginAuth = functions.https.onCall(async (req, res) => {
       console.log(error);
     });
   //res.json({result: `Message with ID: 2 added.`});
-});
+});*/
 
-exports.checkIfAllowed = functions.https.onCall(async (req, res) => {
+/*exports.checkIfAllowed = functions.https.onCall(async (req, res) => {
   return new Promise((resolve, reject) => {
-    return allowedRef.child(req.email).once("value", (snapshot) => {
-      if (snapshot.exists()) {
-        usersRef.child(req.uid).update({
-          allowed:true,
-          profile_pic_link:req.profile_pic_link,
-        }).then(() => {
-          resolve({ result: "exists" });
-        })
-      } else {
-        usersRef.child(req.uid).update({
-          allowed:false
-        }).then(() => {
-          resolve({ result: "none" });
+        return usersRef.child(req.uid).once("value", (user_snapshot) => {
+          if(!user_snapshot.val()["allowed"]) {
+            resolve({result:"unauthorized"});
+          } else if (user_snapshot.val()["signed_up"]) {
+            resolve({result:"already_signed_up"});
+          } else {
+            resolve({result:"needs_signup"})
+          }
+          return true;
         })
       }
-    });
-  });
-});
+  )
+});*/
 
-exports.createAcc = functions.auth.user().onCreate((user) => {
-  usersRef.child(user.uid).set({
-    allowed:false,
-  }).then((res) => {
-    console.log("Created new user with uid " + user.uid);
-  }).catch((err) => {
-    console.log("Error");
-    console.log(err);
+/*exports.createAcc = functions.auth.user().onCreate((user) => {
+  allowedRef.child(user.email.substring(0, user.email.indexOf("@"))).once("value", (allowed_snapshot) => {
+    if(allowed_snapshot.exists()) {
+      usersRef.child(user.uid).set({
+        allowed:true,
+        signed_up:false,
+        profile_pic_link:user.photoURL,
+        email:user.email,
+      });
+    } else {
+      usersRef.child(user.uid).set({
+        allowed:false,
+        signed_up:false,
+      });
+    }
+  })
+});*/
+
+exports.beforeSignIn = functions.auth.user().beforeSignIn(async (user) => {
+  if(user.email.includes("northwestern.edu")) {
+    allowedRef.child(user.email.substring(0,user.email.indexOf("@"))).once("value", (snapshot) => {
+      if(snapshot.exists()) {
+        usersRef.child(user.uid).update({allowed:true})
+      }
+    })
+  }
+})
+exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
+  if(!user.email.includes("northwestern.edu")) {
+    await usersRef.child(user.uid).set({
+      allowed: false,
+      signed_up: false,
+    });
+  }
+  const prom = new Promise((resolve, reject) => {
+    allowedRef
+      .child(user.email.substring(0, user.email.indexOf("@")))
+      .once("value", async (allowed_snapshot) => {
+        if (allowed_snapshot.exists()) {
+          usersRef.child(user.uid).once("value", async (user_snapshot) => {
+            if (!user_snapshot.exists()) { 
+              await usersRef.child(user.uid).set({
+                allowed: true,
+                signed_up: false,
+                profile_pic_link: user.photoURL,
+                email: user.email,
+              });
+              resolve(1); //allowed but needs to sign up, correct
+            } else if (user_snapshot.val()["signed_up"]) {
+              resolve(2);
+              //already has uid record and signed up
+            } else if (!user_snapshot.val()["signed_up"]) {
+              //needs to sign up
+              resolve(1);
+            } else {
+              //already has uid record but not signed up - shouldnt be possible
+              resolve(3);
+            }
+          });
+        } else {
+          //unauthorized user
+          await usersRef.child(user.uid).set({
+            allowed: false,
+            signed_up: false,
+          });
+          resolve(4);
+        }
+      });
   });
+  const res = await prom;
+  console.log("Promise result: " + res);
 });

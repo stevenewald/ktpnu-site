@@ -24,7 +24,7 @@ class Header extends React.Component {
     if (user) {
       window.location.href="/member";
     }*/
-    window.location.href = "/login";
+    window.location.href = "/signup";
   }
   
   render() {

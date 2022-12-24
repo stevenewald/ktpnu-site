@@ -32,6 +32,7 @@ class NewUser extends React.Component {
   }
 
   initNewAcc(db, config) {
+    let timerInterval;
     update(ref(db, "users/" + config.uid), {
       name: config.name,
       email: config.email,
@@ -42,14 +43,20 @@ class NewUser extends React.Component {
       instagram: config.insta,
       linkedin: config.linkedin,
       about: config.about,
+      signed_up: true,
     }).then((res) => {
       Swal.fire({
         title: "Account successfully created!",
         icon: "success",
-        text: "Your account was successfully created. Next step is to have the brother portal pull the info, this isn't done yet.",
+        text: "Your account was successfully created. Redirecting to the brother portal...",
+        timer: 3000,
+        timerProgressBar: true,
+        willClose: () => {
+          clearInterval(timerInterval);
+        },
       }).then((result) => {
         localStorage.setItem("justSetup", "true");
-        //window.location.href = "/member";
+        window.location.href = "/member";
       });
     });
   }

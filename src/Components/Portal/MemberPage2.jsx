@@ -1,5 +1,6 @@
 import React from "react";
 import Swal from "sweetalert2";
+import SuccessNotif from "./SuccessNotif";
 import BrotherDirectory from "./BrotherDirectory";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
@@ -41,13 +42,12 @@ function classNames(...classes) {
 class MemberPage extends React.Component {
   constructor() {
     super();
-    this.state = { sidebarOpen: false };
+    this.state = { sidebarOpen: false, notifOpen: localStorage.getItem("justSetup")==="true" };
     this.setSidebarOpen = this.setSidebarOpen.bind(this);
   }
 
   componentDidMount() {
     if (localStorage.getItem("justSetup") === "true") {
-      Swal.fire("test");
       localStorage.setItem("justSetup", "false");
     }
   }
@@ -307,6 +307,7 @@ class MemberPage extends React.Component {
             </div>
           </div>
           <BrotherDirectory />
+          <SuccessNotif showable={this.state.notifOpen} />
         </div>
       </div>
     );
