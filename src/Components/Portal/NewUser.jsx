@@ -29,6 +29,7 @@ class NewUser extends React.Component {
     super();
     this.user = null;
     this.submitButton = React.createRef();
+    this.announcementLevel = 0;
   }
 
   initNewAcc(db, config) {
@@ -40,6 +41,18 @@ class NewUser extends React.Component {
       year: config.year,
       major: config.major,
       internships: config.internships,
+      instagram: config.insta,
+      linkedin: config.linkedin,
+      about: config.about,
+      signed_up: true,
+      announcement_level: this.announcementLevel,
+    });
+    update(ref(db, "public_users/" + config.uid), {
+      name: config.name,
+      email: (document.getElementById("email-visible").checked ? config.email : ""),
+      year: (document.getElementById("standing-visible").checked ? config.email : ""),
+      major: config.major,
+      internships: (document.getElementById("internships-visible").checked ? config.email : ""),
       instagram: config.insta,
       linkedin: config.linkedin,
       about: config.about,
@@ -453,7 +466,7 @@ class NewUser extends React.Component {
                   </p>
                 </div>
                 <div className="mt-5 space-y-6 md:col-span-2 md:mt-0">
-                  <fieldset className="hidden">
+                  <fieldset>
                     <legend className="sr-only">
                       Viewable profile information
                     </legend>
@@ -467,8 +480,8 @@ class NewUser extends React.Component {
                       <div className="flex items-start">
                         <div className="flex h-5 items-center">
                           <input
-                            id="comments"
-                            name="comments"
+                            id="email-visible"
+                            name="email-visible"
                             type="checkbox"
                             defaultChecked="true"
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
@@ -476,7 +489,7 @@ class NewUser extends React.Component {
                         </div>
                         <div className="ml-3 text-sm">
                           <label
-                            htmlFor="comments"
+                            htmlFor="email-visible"
                             className="font-medium text-gray-700"
                           >
                             Email
@@ -489,8 +502,8 @@ class NewUser extends React.Component {
                       <div className="flex items-start">
                         <div className="flex h-5 items-center">
                           <input
-                            id="candidates"
-                            name="candidates"
+                            id="standing-visible"
+                            name="standing-visible"
                             type="checkbox"
                             defaultChecked="true"
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
@@ -498,7 +511,7 @@ class NewUser extends React.Component {
                         </div>
                         <div className="ml-3 text-sm">
                           <label
-                            htmlFor="candidates"
+                            htmlFor="standing-visible"
                             className="font-medium text-gray-700"
                           >
                             Class standing
@@ -511,15 +524,15 @@ class NewUser extends React.Component {
                       <div className="flex items-start">
                         <div className="flex h-5 items-center">
                           <input
-                            id="offers"
-                            name="offers"
+                            id="internships-visible"
+                            name="internships-visible"
                             type="checkbox"
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                           />
                         </div>
                         <div className="ml-3 text-sm">
                           <label
-                            htmlFor="offers"
+                            htmlFor="internships-visible"
                             className="font-medium text-gray-700"
                           >
                             Notable Internships
@@ -540,7 +553,7 @@ class NewUser extends React.Component {
                     </p>
                     <div className="mt-4 space-y-4">
                       <div className="flex items-center">
-                        <input
+                        <input onClick={() => {this.announcementLevel = 3}}
                           id="push-everything"
                           name="push-notifications"
                           type="radio"
@@ -554,7 +567,7 @@ class NewUser extends React.Component {
                         </label>
                       </div>
                       <div className="flex items-center">
-                        <input
+                        <input onClick={() => {this.announcementLevel = 2}}
                           id="push-email"
                           name="push-notifications"
                           type="radio"
@@ -568,7 +581,7 @@ class NewUser extends React.Component {
                         </label>
                       </div>
                       <div className="flex items-center">
-                        <input
+                        <input onClick={() => {this.announcementLevel = 1}}
                           id="push-nothing"
                           name="push-notifications"
                           type="radio"
