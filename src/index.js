@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import Hero from "./Components/Landing/Hero";
 import Header from "./Components/Landing/Header";
-import Greeting from "./Components/Landing/Greeting";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MemberPage from "./Components/Portal/MemberPage2";
 import MemberLogin from "./Components/Portal/GoogleRedirect";
@@ -14,6 +13,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/functions";
 import { getDatabase } from "firebase/database";
+import RushEvents from "./Components/Landing/RushEvents";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBY_olTq-IJkQs1-VXTCgxIUzlD7_-3MXQ",
@@ -44,7 +44,7 @@ class Full extends React.Component {
               <div>
                 <Header firebase={firebase} />
                 <Hero />
-                <Greeting />
+                <RushEvents />
               </div>
             }
           ></Route>
