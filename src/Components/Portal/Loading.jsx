@@ -1,18 +1,26 @@
 import React from "react";
-import { FunnelIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import './Loading.css';
+import { FunnelIcon, MagnifyingGlassIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
 
-class LoadingDesktop extends React.Component {
+  //dir vis but not loading: invisible
+  //no dir vis and not loading: invisible
+  //no dir vis and loading: invisible
+  //dir vis and loading: visible
+
+class LoadingMobile extends React.Component {
   render() {
     return (
       <aside className={classNames(
-        this.props.loading ? "xl:order-first xl:flex xl:flex-col" : "",
-        "hidden w-96 flex-shrink-0 border-r border-gray-200"
+        this.props.dir_vis && this.props.loading
+          ? "order-first flex flex-col"
+          : "hidden",
+          this.props.loading ? "xl:order-first xl:flex xl:flex-col" : "",
+        "w-full xl:w-96 flex-shrink-0 border-r border-gray-200"
       )}>
+        {/* Breadcrumb */}
         <div className="px-6 pt-6 pb-4">
           <h2 className="text-lg font-medium text-gray-900">
             Brother Directory
@@ -90,13 +98,13 @@ class LoadingDesktop extends React.Component {
                             <span>g</span>
                           </div>
                           <div className="truncate loading loading01 text-sm text-gray-500">
-                            <span>P</span>
-                            <span>r</span>
+                            <span>L</span>
                             <span>o</span>
-                            <span>f</span>
+                            <span>a</span>
+                            <span>d</span>
                             <span>i</span>
-                            <span>l</span>
-                            <span>e</span>
+                            <span>n</span>
+                            <span>g</span>
                           </div>
                         </a>
                       </div>
@@ -112,4 +120,4 @@ class LoadingDesktop extends React.Component {
   }
 }
 
-export default LoadingDesktop;
+export default LoadingMobile;

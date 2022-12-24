@@ -1,10 +1,8 @@
 import React from "react";
 
 import IndivProfile from "./IndivProfile";
-import MobileDirectory from "./MobileDirectory";
-import DesktopDirectory from "./DesktopDirectory";
-import LoadingDesktop from "./LoadingDesktop";
-import LoadingMobile from "./LoadingMobile";
+import Directory from "./Directory";
+import Loading from "./Loading";
 
 import Swal from "sweetalert2";
 
@@ -193,9 +191,7 @@ class BrotherDirectory extends React.Component {
     };
     this.toggleVisibility = this.toggleVisibility.bind(this);
     this.changeProfileHandler = this.changeProfileHandler.bind(this);
-    this.changeActiveDeskHandler = this.changeActiveDeskHandler.bind(this);
-    this.changeActiveMobileHandler = this.changeActiveMobileHandler.bind(this);
-    this.activeDesktop = "1";
+    this.changeActiveHandler = this.changeActiveHandler.bind(this);
     this.activeMobile = "1";
   }
 
@@ -262,19 +258,7 @@ class BrotherDirectory extends React.Component {
     this.setState({ profile: this.dictFromProfile(profile) });
   }
 
-  changeActiveDeskHandler(id) {
-    document
-      .getElementById("dir_" + this.activeDesktop)
-      .classList.remove("bg-gray-100");
-    document
-      .getElementById("dir_" + this.activeDesktop)
-      .classList.add("hover:bg-gray-50");
-    document.getElementById(id).classList.add("bg-gray-100");
-    document.getElementById(id).classList.remove("hover:bg-gray-50");
-    this.activeDesktop = id.substring(4, id.length);
-  }
-
-  changeActiveMobileHandler(id) {
+  changeActiveHandler(id) {
     document
       .getElementById("mob_" + this.activeMobile)
       .classList.remove("bg-gray-100");
@@ -359,27 +343,15 @@ class BrotherDirectory extends React.Component {
           handler={this.toggleVisibility}
           loading={this.state.loading}
         />
-        <MobileDirectory
+        <Directory
           directory={this.state.directory}
           dir_vis={this.state.directory_visible}
           handler={this.toggleVisibility}
           loading={this.state.loading}
           directory_size={this.state.directory_size}
-          changeActiveHandler={this.changeActiveMobileHandler}
+          changeActiveHandler={this.changeActiveHandler}
         />
-        <DesktopDirectory
-          directory={this.state.directory}
-          dir_vis={this.state.directory_visible}
-          loading={this.state.loading}
-          directory_size={this.state.directory_size}
-          changeActiveHandler={this.changeActiveDeskHandler}
-        />
-        <LoadingDesktop
-          directory={LoadingDirectory}
-          dir_vis={this.state.directory_visible}
-          loading={this.state.loading}
-        />
-        <LoadingMobile
+        <Loading
           directory={LoadingDirectory}
           dir_vis={this.state.directory_visible}
           handler={this.toggleVisibility}

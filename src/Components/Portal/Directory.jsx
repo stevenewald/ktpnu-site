@@ -22,7 +22,9 @@ class MobileDirectory extends React.Component {
           this.props.dir_vis && !this.props.loading
             ? "order-first flex flex-col"
             : "hidden",
-          "w-full flex-shrink-0 border-r border-gray-200 xl:hidden"
+          this.props.loading
+          ? "" : "xl:order-first xl:flex xl:flex-col",
+          "w-full xl:w-96 flex-shrink-0 border-r border-gray-200"
         )}
       >
         {/* Breadcrumb */}
