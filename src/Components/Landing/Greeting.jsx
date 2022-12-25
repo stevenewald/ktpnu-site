@@ -60,7 +60,7 @@ class Greeting extends React.Component {
                   alt=""
                 />
                 <div className="absolute inset-0 bg-indigo-500 mix-blend-multiply" />
-                <div className="absolute inset-0 bg-gradient-to-t from-indigo-600 via-indigo-600 opacity-90" />
+                <div className="absolute inset-0 bg-gradient-to-t from-indigo-600 via-indigo-600 opacity-80" />
                 <div className="relative px-8">
                   <blockquote className="mt-8">
                     <div className="relative text-lg font-medium text-white md:flex-grow">

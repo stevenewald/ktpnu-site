@@ -302,10 +302,14 @@ class BrotherDirectory extends React.Component {
           const dir = snapshot.val();
           var amount = 0;
           for (var item in dir) {
-            amount += 1;
             const profile = dir[item];
+            if(!profile.name) {
+              continue;
+            }
+            amount += 1;
             //alert(JSON.stringify(dir[item]));
             const first_letter = profile.name.charAt(0).toUpperCase();
+            console.log(profile.name);
             var user_dict = {};
             user_dict["name"] = profile.name;
             user_dict["role"] = "Executive";
@@ -316,13 +320,13 @@ class BrotherDirectory extends React.Component {
             if (item === user.uid) {
               user_dict.email = profile.email;
               user_dict.active = true;
-              this.activeDesktop = String(amount);
+              this.activeMobile = String(amount);
               this.currProfile = "mob_"+String(amount);
               this.setState({ profile: this.dictFromProfile(profile) });
               this.defaultProfile = profile;
             }
             if (first_letter in newDirectory) {
-              newDirectory[first_letter].push([user_dict]);
+              newDirectory[first_letter].push(user_dict);
             } else {
               newDirectory[first_letter] = [user_dict];
             }

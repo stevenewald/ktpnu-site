@@ -26,7 +26,7 @@ class LoadingMobile extends React.Component {
             Brother Directory
           </h2>
           <p className="mt-1 text-sm text-gray-600">
-            Search directory of 47 brothers
+            Loading users...
           </p>
           <form className="mt-6 flex space-x-4" action="#">
             <div className="min-w-0 flex-1">

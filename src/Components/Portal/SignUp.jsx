@@ -202,7 +202,12 @@ class SignUp extends React.Component {
                             })
                             .catch((error) => {
                               const errorMessage = error.message;
-                              alert("err1: " + errorMessage);
+                              if(String(errorMessage).includes("popup-closed")) {
+                                console.log("Tell steve that there's an issue with the popup. Reverting to redirect fallback...");
+                                window.location.href = "/login"
+                              } else {
+                                alert("err1: " + errorMessage);
+                              }
                             });
                         }}
                         className="cursor-pointer inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"

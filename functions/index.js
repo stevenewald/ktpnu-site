@@ -88,8 +88,9 @@ exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
                 cover_page_link: "https://images.ctfassets.net/7thvzrs93dvf/wpImage18643/2f45c72db7876d2f40623a8b09a88b17/linkedin-default-background-cover-photo-1.png?w=790&h=196&q=90&fm=png",
                 email: user.email,
               });
-              publicRef.child(user.uid).set({
-                profile_pic_link: user.photoURL
+              await publicRef.child(user.uid).set({
+                profile_pic_link: user.photoURL,
+                cover_page_link: "https://images.ctfassets.net/7thvzrs93dvf/wpImage18643/2f45c72db7876d2f40623a8b09a88b17/linkedin-default-background-cover-photo-1.png?w=790&h=196&q=90&fm=png",
               })
               resolve(1); //allowed but needs to sign up, correct
             } else if (user_snapshot.val()["signed_up"]) {

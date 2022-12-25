@@ -57,11 +57,11 @@ class Full extends React.Component {
               <div>
                 <Header firebase={firebase} />
                 <Hero />
-                <RushEvents />
-                <Greeting />
+                <Greeting /> {/**/}
                 <Pillars />
-                <Team />
+                <RushEvents />
                 <PortalAdvertisement ig={portalimg} />
+                <Team />
                 <FAQs />
                 <Footer />
               </div>
@@ -69,7 +69,7 @@ class Full extends React.Component {
           ></Route>
           <Route
             path="/member"
-            element={<MemberPage firebase={firebase} database={database}/>}
+            element={<MemberPage firebase={firebase} database={database} storage={storage}/>}
           ></Route>
           <Route
             path="/login"

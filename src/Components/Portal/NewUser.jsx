@@ -25,8 +25,8 @@ import { ref as sRef, getDownloadURL } from "firebase/storage";
 }*/
 
 class NewUser extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.user = null;
     this.submitButton = React.createRef();
     this.announcementLevel = 3;
@@ -52,16 +52,22 @@ class NewUser extends React.Component {
     });
     update(ref(db, "public_users/" + config.uid), {
       name: config.name,
-      email: (document.getElementById("email-visible").checked ? config.email : ""),
-      year: (document.getElementById("standing-visible").checked ? config.year : ""),
+      email: document.getElementById("email-visible").checked
+        ? config.email
+        : "",
+      year: document.getElementById("standing-visible").checked
+        ? config.year
+        : "",
       major: config.major,
-      internships: (document.getElementById("internships-visible").checked ? config.email : ""),
+      internships: document.getElementById("internships-visible").checked
+        ? config.internships
+        : "",
       instagram: config.insta,
       linkedin: config.linkedin,
       about: config.about,
       signed_up: true,
     }).then((res) => {
-      if(this.props.newuser) {
+      if (this.props.newuser) {
         Swal.fire({
           title: "Account successfully created!",
           icon: "success",
@@ -403,7 +409,11 @@ class NewUser extends React.Component {
                             htmlFor="file-upload"
                             className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
-                            <span>{this.props.newuser ? "Upload a file" : "Upload a file to change"}</span>
+                            <span>
+                              {this.props.newuser
+                                ? "Upload a file"
+                                : "Upload a file to change"}
+                            </span>
                             <input
                               onChange={() => {
                                 var inputElem =
@@ -576,12 +586,15 @@ class NewUser extends React.Component {
                     </p>
                     <div className="mt-4 space-y-4">
                       <div className="flex items-center">
-                        <input onClick={() => {this.announcementLevel = 3}}
+                        <input
+                          onClick={() => {
+                            this.announcementLevel = 3;
+                          }}
                           id="push-everything"
                           name="push-amounts"
                           type="radio"
                           className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          defaultChecked = {this.props.newuser ? "true" : "false"}
+                          defaultChecked={this.props.newuser ? "true" : "false"}
                         />
                         <label
                           htmlFor="push-everything"
@@ -591,7 +604,10 @@ class NewUser extends React.Component {
                         </label>
                       </div>
                       <div className="flex items-center">
-                        <input onClick={() => {this.announcementLevel = 2}}
+                        <input
+                          onClick={() => {
+                            this.announcementLevel = 2;
+                          }}
                           id="push-email"
                           name="push-amounts"
                           type="radio"
@@ -605,7 +621,10 @@ class NewUser extends React.Component {
                         </label>
                       </div>
                       <div className="flex items-center">
-                        <input onClick={() => {this.announcementLevel = 1}}
+                        <input
+                          onClick={() => {
+                            this.announcementLevel = 1;
+                          }}
                           id="push-nothing"
                           name="push-amounts"
                           type="radio"
@@ -638,9 +657,13 @@ class NewUser extends React.Component {
                     insta: document.getElementById("instagram").value,
                     linkedin: document.getElementById("linkedin").value,
                     about: document.getElementById("about").value,
-                    email_viewable: document.getElementById("email-visible").checked,
-                    standing_viewable: document.getElementById("standing-visible").checked,
-                    internships_viewable: document.getElementById("internships-visible").checked
+                    email_viewable:
+                      document.getElementById("email-visible").checked,
+                    standing_viewable:
+                      document.getElementById("standing-visible").checked,
+                    internships_viewable: document.getElementById(
+                      "internships-visible"
+                    ).checked,
                   };
                   this.initNewAcc(this.props.database, userConfig);
                 }}
@@ -669,31 +692,57 @@ class NewUser extends React.Component {
       if (user) {
         this.user = user;
         this.submitButton.current.classList.remove("hidden");
-        if(!this.props.newuser) {
+        if (!this.props.newuser) {
           const dbRef = ref(this.props.database);
           get(child(dbRef, "users/" + user.uid)).then((snapshot) => {
             const prof = snapshot.val();
             //todo: abstract (easy, too lazy tho)
-            document.getElementById("last-name").value = prof["name"] ? prof["name"] : "";
-            document.getElementById("email-address").value = prof["email"] ? prof["email"] : "";
-            document.getElementById("profPicImg").src = prof["profile_pic_link"] ? prof["profile_pic_link"] : "";
-            document.getElementById("phone-number").value = prof["phone"] ? prof["phone"] : "";
-            document.getElementById("year").value = prof["year"] ? prof["year"] : "";
-            document.getElementById("major").value = prof["year"] ? prof["major"] : "";
-            document.getElementById("internships").value = prof["internships"] ? prof["internships"] : "";
-            document.getElementById("instagram").value = prof["instagram"] ? prof["instagram"] : "";
-            document.getElementById("linkedin").value = prof["linkedin"] ? prof["linkedin"] : "";
-            document.getElementById("about").value = prof["about"] ? prof["about"] : "";
-            document.getElementById("push-everything").checked = prof["announcement_level"]===3
-            document.getElementById("push-email").checked = prof["announcement_level"]===2
-            document.getElementById("push-nothing").checked = prof["announcement_level"]===1
-            if(prof["announcement_level"]) {
+            document.getElementById("last-name").value = prof["name"]
+              ? prof["name"]
+              : "";
+            document.getElementById("email-address").value = prof["email"]
+              ? prof["email"]
+              : "";
+            document.getElementById("profPicImg").src = prof["profile_pic_link"]
+              ? prof["profile_pic_link"]
+              : "";
+            document.getElementById("phone-number").value = prof["phone"]
+              ? prof["phone"]
+              : "";
+            document.getElementById("year").value = prof["year"]
+              ? prof["year"]
+              : "";
+            document.getElementById("major").value = prof["year"]
+              ? prof["major"]
+              : "";
+            document.getElementById("internships").value = prof["internships"]
+              ? prof["internships"]
+              : "";
+            document.getElementById("instagram").value = prof["instagram"]
+              ? prof["instagram"]
+              : "";
+            document.getElementById("linkedin").value = prof["linkedin"]
+              ? prof["linkedin"]
+              : "";
+            document.getElementById("about").value = prof["about"]
+              ? prof["about"]
+              : "";
+            document.getElementById("push-everything").checked =
+              prof["announcement_level"] === 3;
+            document.getElementById("push-email").checked =
+              prof["announcement_level"] === 2;
+            document.getElementById("push-nothing").checked =
+              prof["announcement_level"] === 1;
+            if (prof["announcement_level"]) {
               this.announcementLevel = prof["announcement_level"];
             }
-            document.getElementById("email-visible").checked = prof["email_viewable"]
-            document.getElementById("standing-visible").checked = prof["standing_viewable"]
-            document.getElementById("internships-visible").checked = prof["internships_viewable"]
-          })
+            document.getElementById("email-visible").checked =
+              prof["email_viewable"];
+            document.getElementById("standing-visible").checked =
+              prof["standing_viewable"];
+            document.getElementById("internships-visible").checked =
+              prof["internships_viewable"];
+          });
         }
       } else {
         alert("Signed out!");
