@@ -62,9 +62,9 @@ class FAQs extends React.Component {
                       <Transition
                         enter="transition-all duration-300 ease-out"
                         enterFrom="transform h-0 mt-0 pr-0 scale-95 opacity-0"
-                        enterTo="transform h-12 mt-2 pr-12 scale-100 opacity-100"
+                        enterTo="transform h-16 scale-100 opacity-100"
                         leave="transition-all duration-100 ease-in"
-                        leaveFrom="transform h-12 mt-2 pr-12 scale-100 opacity-100"
+                        leaveFrom="transform h-16 scale-100 opacity-100"
                         leaveTo="transform h-0 mt-0 pr-0 scale-95 opacity-0"
                       >
                         <Disclosure.Panel static as="dd">

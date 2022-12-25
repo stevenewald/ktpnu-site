@@ -24,7 +24,7 @@ class Hero extends React.Component {
                 <span className="text-transparent bg-gradient-to-br bg-clip-text from-teal-500 via-indigo-500 to-sky-500">
                   Rush &#8203;
                 </span>
-                <span className="text-transparent bg-gradient-to-tr bg-clip-text from-blue-500 via-pink-500 to-red-500">
+                <span className="text-transparent bg-gradient-to-tr bg-clip-text from-sky-500 via-pink-500 to-red-500">
                   KTP
                 </span>
               </h1>
