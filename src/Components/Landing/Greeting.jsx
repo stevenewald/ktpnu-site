@@ -10,7 +10,7 @@ const stats = [
 class Greeting extends React.Component {
   render() {
     return (
-      <div className="relative bg-white py-16 sm:py-24">
+      <div className="relative bg-gray-100 py-16 sm:py-8 md:py-4 lg:py-8">
         <div className="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:items-start lg:gap-24 lg:px-8">
           <div className="relative sm:py-16 lg:py-0">
             <div
@@ -76,7 +76,7 @@ class Greeting extends React.Component {
                         I barely knew how to code when I rushed KTP, and I
                         didn't believe that I would ever truly feel like a
                         “techie”. I expected an intimidating code-bro
-                        environment, but instead I found warmth, and support
+                        environment, but instead I found warmth and support
                         from a diverse and accomplished group.
                       </p>
                     </div>
@@ -94,24 +94,19 @@ class Greeting extends React.Component {
 
           <div className="relative mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-0">
             {/* Content area */}
-            <div className="pt-12 sm:pt-16 lg:pt-20">
+            <div className="pt-8 lg:pt-20">
               <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                On a mission to empower students
+                Celebrating Technological Passion
               </h2>
-              <div className="mt-6 space-y-6 text-gray-500">
-                <p className="text-lg">
-                  This is the first paragraph of text. It's the first paragraph,
-                  a paragraph, and placeholder text. Text text text text text
-                  text text text text text text text text text text text text
-                  text text text text text text text text text text text text
-                  text text text text text text text text text text text text
+              <div className="mt-6 space-y-6 text-gray-500 text-lg">
+                <p>
+                  This space should be used as an introduction to what KTP is as a whole.
+                  It's basically a concise "about me" section but can be as short or long as
+                  we want.
                 </p>
-                <p className="text-base leading-7">
-                  This is the second paragraph of text. It's the second
-                  paragraph, a paragraph, and placeholder text. Text text text
-                  text text text text text text text text text text text text
-                  text text text text text text text text text text text text
-                  text text
+                <p>
+                  I (Alexis) would recommend that the above paragraph is only 1-2 lines
+                  and this second paragraph can be longer if need be.
                 </p>
               </div>
             </div>
