@@ -70,7 +70,7 @@ class Team extends React.Component {
                       We have multiple leaders who all lead in their respective leadership leadings text text text.
                     </p>
                   </div>
-                  <ul role="list" className="grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 md:gap-x-6 sm:max-w-2xl lg:max-w-3xl lg:gap-y-12">
+                  <ul role="list" className="grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 md:gap-x-6 sm:max-w-xl lg:max-w-[38rem] lg:gap-y-12">
                     {people.slice(0,4).map((person, index) => (
                       <motion.li key={person.name}
                         initial={{ x: 200, opacity: 0 }}
@@ -92,7 +92,7 @@ class Team extends React.Component {
                       </motion.li>
                     ))}
                   </ul>
-                  <ul role="list" className="grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 md:gap-x-6 lg:max-w-xl lg:gap-y-12"
+                  <ul role="list" className="grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 md:gap-x-6 max-w-3xl lg:gap-y-12"
                   >
                     {people.slice(4,9).map((person, index) => (
                       <motion.li key={person.name}
