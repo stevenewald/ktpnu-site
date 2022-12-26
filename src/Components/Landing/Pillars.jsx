@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from 'framer-motion'
 
 import {
   BriefcaseIcon,
@@ -43,7 +44,7 @@ const features = [
   {
     name: "One more?",
     description:
-      "Having six of these would look much more clean. Otherwise I can make it work with five. Placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text.",
+      "Having six of these would look much more clean. Otherwise I can make it work with five. ",
     icon: QuestionMarkCircleIcon,
   },
 ];
@@ -57,13 +58,21 @@ class Pillars extends React.Component {
             Pillars of Kappa Theta Pi
           </p>
           <p className="mx-auto mt-5 max-w-prose text-xl text-gray-500">
-            Text text text more text text text text text text text text text text 
+            Text text text more text text text text text text text text text text
           </p>
           <div className="mt-20">
             <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
-              {features.map((feature) => (
-                <div key={feature.name} className="pt-6">
-                  <div className="h-[22rem] flow-root rounded-lg bg-gray-50 px-6 pb-8 sm:transition-all sm:duration-300 sm:ease-in-out sm:hover:scale-110 sm:transform">
+              {features.map((feature, index) => (
+                <motion.div key={feature.name}
+                  initial={{ x: -200, opacity: 0 }}
+                  whileInView={{ x: 0, opacity: 1, transition: {
+                    delay: index / 25,
+                    duration: 0.5,
+                    ease: "easeInOut"
+                  }}}
+                  viewport={{ once: true }}
+                  className="pt-6">
+                  <div className="h-fill flow-root rounded-2xl shadow-lg hover:shadow-xl transition-shadow border hover:scale-105 transition bg-gray-100 px-6 pb-8 sm:transition-all sm:duration-300 sm:ease-in-out sm:hover:scale-110 sm:transform">
                     <div className="-mt-6">
                       <div>
                         <span className="inline-flex items-center justify-center rounded-xl bg-indigo-500 p-3 shadow-lg">
@@ -73,7 +82,7 @@ class Pillars extends React.Component {
                           />
                         </span>
                       </div>
-                      <h3 className="mt-8 text-lg font-semibold leading-8 tracking-tight text-gray-900">
+                      <h3 className="mt-8 text-2xl font-bold tracking-tight leading-8 tracking-tight text-gray-900">
                         {feature.name}
                       </h3>
                       <p className="mt-5 text-base leading-7 text-gray-600">
@@ -81,7 +90,7 @@ class Pillars extends React.Component {
                       </p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>

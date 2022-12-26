@@ -25,7 +25,7 @@ import { getDatabase } from "firebase/database";
 import RushEvents from "./Components/Landing/RushEvents";
 import { getStorage } from "firebase/storage";
 
-import portalimg from "./Components/Landing/portal.png";
+import portalimg from "./Components/Landing/images/portal.png";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBY_olTq-IJkQs1-VXTCgxIUzlD7_-3MXQ",

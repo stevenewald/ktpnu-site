@@ -1,24 +1,22 @@
 import React from "react";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
+import { motion } from 'framer-motion'
 
 class Hero extends React.Component {
   constructor() {
     super();
     this.downArrow = React.createRef();
   }
+
   render() {
     return (
       <section
-        className="w-full min-h-screen bg-white bg-cover bg-full bg-no-repeat"
-        style={{
-          backgroundImage:
-            "url(https://ktpmichigan.com/assets/img/home/landing.png)",
-          backgroundPosition: "0 25px",
-        }}
+        className="w-full min-h-screen bg-white bg-cover bg-center bg-no-repeat mx-auto"
+        style={{ backgroundImage: "url(https://ktpmichigan.com/assets/img/home/landing.png)" }}
         id="Home"
       >
         <div className="container relative flex flex-col min-h-screen px-6 py-8 mx-auto">
-          <section className="flex items-center flex-1 mb-80 lg:mb-64">
+          <section className="flex items-center flex-1 mb-48 lg:mb-64">
             <div className="flex flex-col w-full ">
               <h1 className="text-7xl font-extrabold text-center lg:text-8xl">
                 <span className="text-transparent bg-gradient-to-br bg-clip-text from-teal-500 via-indigo-500 to-sky-500">
@@ -29,10 +27,18 @@ class Hero extends React.Component {
                 </span>
               </h1>
 
-              <p className="max-w-3xl mx-auto mt-6 text-lg text-center text-gray-700 md:text-xl">
+              <motion.p
+                initial={{ y: 200, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.07 }}
+                className="max-w-3xl mx-auto mt-6 text-lg font-semibold text-center text-gray-700 md:text-xl">
                 Join Northwestern's premiere co-ed technology fraternity
-              </p>
-              <div className="mt-8 flex justify-center">
+              </motion.p>
+              <motion.div
+                initial={{ y: 200, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.14 }}
+                className="mt-8 flex justify-center">
                 <div className="inline-flex rounded-md shadow">
                   <a
                     href="https://docs.google.com/forms/d/e/1FAIpQLSey8UlOw4GaKMlJj-W-ZvxwgZk7C47N3VJ8aJ2KlqK8sDqg0Q/viewform"
@@ -46,7 +52,7 @@ class Hero extends React.Component {
                     />
                   </a>
                 </div>
-              </div>
+              </motion.div>
 
               <div
                 className="hidden flex justify-center opacity-0 transition-opacity transition-all duration-1000 -translate-y-6 ease-in-out"
