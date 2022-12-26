@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from 'framer-motion'
 
 const stats = [
   { label: "Alumni Brothers", value: "57" },
@@ -10,9 +11,17 @@ const stats = [
 class Greeting extends React.Component {
   render() {
     return (
-      <div className="relative bg-gray-100 py-16 sm:py-8 md:py-4 lg:py-8">
+      <div id="greeting" className="relative bg-gray-100 py-16 sm:py-8 md:py-4 lg:py-8">
         <div className="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:items-start lg:gap-24 lg:px-8">
-          <div className="relative sm:py-16 lg:py-0">
+          <motion.div
+            initial={{ x: -200, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1, transition: {
+              delay: 0,
+              duration: 0.5,
+              ease: "easeInOut"
+            }}}
+            viewport={{ once: true }}
+            className="relative sm:py-16 lg:py-0">
             <div
               aria-hidden="true"
               className="hidden sm:block lg:absolute lg:inset-y-0 lg:right-0 lg:w-screen"
@@ -90,24 +99,58 @@ class Greeting extends React.Component {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           <div className="relative mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-0">
+
             {/* Content area */}
             <div className="pt-8 lg:pt-20">
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              <motion.p
+                initial={{ x: -200, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1, transition: {
+                  delay: 0,
+                  duration: 0.5,
+                  ease: "easeInOut"
+                }}}
+                viewport={{ once: true }}
+                className="font-bold text-lg pb-2 text-indigo-600">
+                KTP at a Glance
+              </motion.p>
+              <motion.h2
+              initial={{ x: -200, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1, transition: {
+                delay: 0,
+                duration: 0.5,
+                ease: "easeInOut"
+              }}}
+              viewport={{ once: true }}
+              className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                 Celebrating Technological Passion
-              </h2>
-              <div className="mt-6 space-y-6 text-gray-500 text-lg">
-                <p>
+              </motion.h2>
+              <div className="mt-6 space-y-6 text-gray-800 text-lg">
+                <motion.p
+                  initial={{ x: -200, opacity: 0 }}
+                  whileInView={{ x: 0, opacity: 1, transition: {
+                    delay: 0,
+                    duration: 0.5,
+                    ease: "easeInOut"
+                  }}}
+                  viewport={{ once: true }}>
                   This space should be used as an introduction to what KTP is as a whole.
                   It's basically a concise "about me" section but can be as short or long as
                   we want.
-                </p>
-                <p>
+                </motion.p>
+                <motion.p
+                  initial={{ x: -200, opacity: 0 }}
+                  whileInView={{ x: 0, opacity: 1, transition: {
+                    delay: 0,
+                    duration: 0.5,
+                    ease: "easeInOut"
+                  }}}
+                  viewport={{ once: true }}>
                   I (Alexis) would recommend that the above paragraph is only 1-2 lines
                   and this second paragraph can be longer if need be.
-                </p>
+                </motion.p>
               </div>
             </div>
 
@@ -115,7 +158,14 @@ class Greeting extends React.Component {
             <div className="mt-10">
               <dl className="grid grid-cols-2 gap-x-4 gap-y-8">
                 {stats.map((stat) => (
-                  <div
+                  <motion.div
+                  initial={{ x: -200, opacity: 0 }}
+                  whileInView={{ x: 0, opacity: 1, transition: {
+                    delay: 0,
+                    duration: 0.5,
+                    ease: "easeInOut"
+                  }}}
+                  viewport={{ once: true }}
                     key={stat.label}
                     className="border-t-2 border-gray-100 pt-6"
                   >
@@ -125,7 +175,7 @@ class Greeting extends React.Component {
                     <dd className="text-3xl font-bold tracking-tight text-gray-900">
                       {stat.value}
                     </dd>
-                  </div>
+                  </motion.div>
                 ))}
               </dl>
             </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from 'framer-motion'
 
 import {
   BriefcaseIcon,
@@ -51,7 +52,7 @@ const features = [
 class Pillars extends React.Component {
   render() {
     return (
-      <div className="relative bg-white py-16 sm:py-8 md:py-4 lg:py-16">
+      <div id="pillars" className="relative bg-white py-16 sm:py-8 md:py-4 lg:py-16">
         <div className="mx-auto max-w-md px-6 text-center sm:max-w-3xl lg:max-w-7xl lg:px-8">
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Pillars of Kappa Theta Pi
@@ -61,8 +62,16 @@ class Pillars extends React.Component {
           </p>
           <div className="mt-20">
             <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
-              {features.map((feature) => (
-                <div key={feature.name} className="pt-6">
+              {features.map((feature, index) => (
+                <motion.div key={feature.name}
+                  initial={{ x: -200, opacity: 0 }}
+                  whileInView={{ x: 0, opacity: 1, transition: {
+                    delay: index / 25,
+                    duration: 0.5,
+                    ease: "easeInOut"
+                  }}}
+                  viewport={{ once: true }}
+                  className="pt-6">
                   <div className="h-fill flow-root rounded-2xl shadow-lg hover:shadow-xl transition-shadow border hover:scale-105 transition bg-gray-100 px-6 pb-8 sm:transition-all sm:duration-300 sm:ease-in-out sm:hover:scale-110 sm:transform">
                     <div className="-mt-6">
                       <div>
@@ -81,7 +90,7 @@ class Pillars extends React.Component {
                       </p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>

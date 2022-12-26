@@ -84,8 +84,6 @@ function CarouselCard(props) {
           <img className="object-contain mb-12 grayscale" src={props.imgsrc} alt=""/>
           }
         </div>
-
-        {/* make inner div with content-fill className */}
       </div>
     </>
   )
