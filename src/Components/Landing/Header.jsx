@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Logo from './Assets/Logo.png';
 const navigation = [
   { name: "Home", href: "#" },
   { name: "About KTP", href: "#greeting" },
@@ -66,6 +67,7 @@ function Header() {
       >
         <div className="flex w-full items-center justify-between">
           <div className="hidden navscreen:flex items-center">
+          <img className="w-8 transform scale-[200%] mt-2" src={Logo}></img>
             <a href="#" className="hidden">
               <div className="bg-indigo-600 w-fill px-3 h-10 flex items-center border rounded-lg">
                 <span className="font-medium text-white">Home</span>
