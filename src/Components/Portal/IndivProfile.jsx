@@ -52,7 +52,7 @@ class IndivProfile extends React.Component {
               <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
                 <div className="flex">
                   <img
-                    className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
+                    className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32 object-cover"
                     src={this.props.profile.imageUrl}
                     alt=""
                   />
