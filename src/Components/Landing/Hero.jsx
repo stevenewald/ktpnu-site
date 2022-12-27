@@ -11,34 +11,26 @@ class Hero extends React.Component {
   render() {
     return (
       <section
-        className="w-full min-h-screen bg-white bg-cover bg-center bg-no-repeat mx-auto"
+        className="hero-bg w-full min-h-screen bg-white bg-cover bg-no-repeat mx-auto"
         style={{ backgroundImage: "url(https://ktpmichigan.com/assets/img/home/landing.png)" }}
         id="Home"
       >
         <div className="container relative flex flex-col min-h-screen px-6 py-8 mx-auto">
           <section className="flex items-center flex-1 mb-48 lg:mb-64">
             <div className="flex flex-col w-full ">
-              <h1 className="text-7xl font-extrabold text-center lg:text-8xl">
-                <span className="text-transparent bg-gradient-to-br bg-clip-text from-teal-500 via-indigo-500 to-sky-500">
-                  Rush &#8203;
-                </span>
-                <span className="text-transparent bg-gradient-to-tr bg-clip-text from-sky-500 via-pink-500 to-red-500">
-                  KTP
-                </span>
-              </h1>
+              <div
+                className="relative bottom-[50px] text-7xl font-extrabold text-center lg:text-8xl">
+                  <span className="hero-text text-transparent bg-gradient-to-br bg-clip-text from-teal-500 via-indigo-500 to-sky-500">
+                    Kappa Theta Pi
+                  </span>
+              </div>
 
-              <motion.p
-                initial={{ y: 200, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.07 }}
-                className="max-w-3xl mx-auto mt-6 text-lg font-semibold text-center text-gray-700 md:text-xl">
+              <div
+                className="relative bottom-[50px] max-w-3xl mx-auto mt-6 text-lg text-center text-gray-700 md:text-xl">
                 Join Northwestern's premiere co-ed technology fraternity
-              </motion.p>
-              <motion.div
-                initial={{ y: 200, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.14 }}
-                className="mt-8 flex justify-center">
+              </div>
+              <div
+                className="relative bottom-[50px] mt-8 flex justify-center">
                 <div className="inline-flex rounded-md shadow">
                   <a
                     href="https://docs.google.com/forms/d/e/1FAIpQLSey8UlOw4GaKMlJj-W-ZvxwgZk7C47N3VJ8aJ2KlqK8sDqg0Q/viewform"
@@ -52,7 +44,7 @@ class Hero extends React.Component {
                     />
                   </a>
                 </div>
-              </motion.div>
+              </div>
 
               <div
                 className="hidden flex justify-center opacity-0 transition-opacity transition-all duration-1000 -translate-y-6 ease-in-out"

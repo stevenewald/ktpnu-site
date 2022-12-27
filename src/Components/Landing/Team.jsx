@@ -67,10 +67,28 @@ class Team extends React.Component {
                   <div className="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">
                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Our Team</h2>
                     <p className="text-xl text-gray-500">
-                      We have multiple leaders who all lead in their respective leadership leadings text text text.
+                      Our leadership team is committed to supporting an inclusive, supportive experience.
                     </p>
                   </div>
-                  <ul role="list" className="grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 md:gap-x-6 sm:max-w-xl lg:max-w-[38rem] lg:gap-y-12">
+                  <ul
+                    role="list"
+                    className="sm:hidden mx-auto grid grid-cols-3 gap-x-4 gap-y-8 sm:grid-cols-6 md:gap-x-6 lg:max-w-5xl lg:gap-x-8 lg:gap-y-12 xl:grid-cols-6"
+                  >
+                    {people.map((person) => (
+                      <li key={person.name}>
+                        <div className="space-y-4">
+                          <img className="mx-auto h-20 w-20 rounded-full lg:h-24 lg:w-24" src={person.imageUrl} alt="" />
+                          <div className="space-y-2">
+                            <div className="text-xs font-medium lg:text-sm">
+                              <h3>{person.name}</h3>
+                              <p className="text-indigo-600">{person.role}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                  <ul role="list" className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 md:gap-x-6 sm:max-w-2xl lg:max-w-3xl lg:gap-y-12">
                     {people.slice(0,4).map((person, index) => (
                       <motion.li key={person.name}
                         initial={{ x: 200, opacity: 0 }}
@@ -83,7 +101,7 @@ class Team extends React.Component {
                         <div className="space-y-4">
                           <img className="mx-auto h-20 w-20 rounded-full lg:h-24 lg:w-24" src={person.imageUrl} alt="" />
                           <div className="space-y-2">
-                            <div className="text-xs font-medium lg:text-sm">
+                            <div className="text-center lg:whitespace-nowrap text-xs font-medium lg:text-sm">
                               <h3>{person.name}</h3>
                               <p className="text-indigo-600">{person.role}</p>
                             </div>
@@ -92,7 +110,7 @@ class Team extends React.Component {
                       </motion.li>
                     ))}
                   </ul>
-                  <ul role="list" className="grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 md:gap-x-6 max-w-3xl lg:gap-y-12"
+                  <ul role="list" className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 md:gap-x-6 max-w-4xl lg:gap-y-12"
                   >
                     {people.slice(4,9).map((person, index) => (
                       <motion.li key={person.name}

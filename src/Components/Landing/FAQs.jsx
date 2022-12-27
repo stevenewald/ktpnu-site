@@ -4,32 +4,32 @@ import React from "react";
 
 const faqs = [
   {
-    question: "Why should I rush?",
+    question: "What if I have no previous tech experience?",
     answer:
       "Rushing Kappa Theta Pi can be very beneficial. Placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text .",
   },
   {
-    question: "Question 2?",
+    question: "What does the time commitment look like?",
     answer:
       "Rushing Kappa Theta Pi can be very beneficial. Placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text .",
   },
   {
-    question: "Question 3?",
+    question: "What if I can't afford dues?",
     answer:
       "Rushing Kappa Theta Pi can be very beneficial. Placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text .",
   },
   {
-    question: "Question 4?",
+    question: "What is KTP looking for?",
     answer:
       "Rushing Kappa Theta Pi can be very beneficial. Placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text .",
   },
   {
-    question: "Question 5?",
+    question: "How would I benefit from KTP?",
     answer:
       "Rushing Kappa Theta Pi can be very beneficial. Placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text .",
   },
   {
-    question: "Question 6?",
+    question: "Which majors are represented in KTP?",
     answer:
       "Rushing Kappa Theta Pi can be very beneficial. Placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text .",
   },
