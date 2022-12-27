@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 const navigation = [
-  { name: 'Rush Events', href: '#rush-events' },
-  { name: 'About KTP', href: '#greeting' },
-  { name: 'Our Pillars', href: '#pillars' },
-  { name: 'Our Team', href: '#team' },
-  { name: 'FAQ', href: '#faq' },
-]
- function Header() {
+  { name: "Home", href: "#" },
+  { name: "About KTP", href: "#greeting" },
+  { name: "Rush Events", href: "#rush-events" },
+  { name: "Team", href: "#team" },
+  { name: "FAQ", href: "#faq" },
+];
+function Header() {
   /*testingFeature() {
     const addLogin = firebase.functions().httpsCallable('loginAuth');
     addLogin({
@@ -29,89 +29,127 @@ const navigation = [
   const [burgerMenu, setBurgerMenu] = useState(false);
 
   useEffect(() => {
-    console.log(burgerMenu)
-  })
+    console.log(burgerMenu);
+  });
 
   return (
-    <header id="navbar" className="navbar bg-white shadow transition-opacity duration-300 fixed z-40 w-full opacity-100">
-
+    <header
+      id="navbar"
+      className="navbar bg-white shadow transition-opacity duration-300 fixed z-40 w-full opacity-100"
+    >
       {/* Mobile Navbar */}
-      <nav className={`${burgerMenu ? "is-active" : "null" } navscreen:hidden mobile-nav flex py-3 border shadow-xl`}>
+      <nav
+        className={`${
+          burgerMenu ? "is-active" : "null"
+        } navscreen:hidden mobile-nav flex py-3 border shadow-xl`}
+      >
         <div className="w-full h-[1px] bg-gray-200 my-0"></div>
         {navigation.map((link) => (
-          <a onClick={() => setBurgerMenu(!burgerMenu)} key={link.name} href={link.href} className="text-3xl font-semibold hover:text-indigo-700 ">
+          <a
+            onClick={() => setBurgerMenu(!burgerMenu)}
+            key={link.name}
+            href={link.href}
+            className="text-3xl font-semibold hover:text-indigo-700 "
+          >
             {link.name}
           </a>
         ))}
-        <p className="absolute text-lg font-semibold text-gray-500 bottom-[20px] left-[20px]">&copy; 2022 Kappa Theta Pi</p>
+        
+        <p className="absolute text-lg font-semibold text-gray-500 bottom-[20px] left-[20px]">
+          &copy; 2022 Kappa Theta Pi
+        </p>
       </nav>
 
-      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3" aria-label="Top">
+      <nav
+        className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3"
+        aria-label="Top"
+      >
         <div className="flex w-full items-center justify-between">
           <div className="hidden navscreen:flex items-center">
-            <a href="#">
+            <a href="#" className="hidden">
               <div className="bg-indigo-600 w-fill px-3 h-10 flex items-center border rounded-lg">
                 <span className="font-medium text-white">Home</span>
               </div>
             </a>
             <div className="ml-8 pr-2 hidden space-x-8 navscreen:block">
               {navigation.map((link) => (
-                <a key={link.name} href={link.href} className="text-base font-medium text-gray-500 hover:text-gray-900">
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-base font-medium text-gray-500 hover:text-gray-900"
+                >
                   {link.name}
                 </a>
               ))}
             </div>
           </div>
-          <div className="hidden navscreen:flex space-x-4" id="firebaseui-auth-container">
-          <a
-            id="portalButton"
-            onClick={() => {
-              this.googleSignIn();
-            }}
-            href="#"
-            className="transition h-10 flex items-center duration-100 inline-block rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium text-white hover:bg-indigo-700 shadow-sm"
+          <div
+            className="hidden navscreen:flex space-x-4"
+            id="firebaseui-auth-container"
           >
-            Brother Portal
-          </a>
-          <a
-            id="signoutButton"
-            onClick={() => {
-              this.props.firebase
-                .auth()
-                .signOut()
-                .then(() => {
-                  alert("Success");
-                });
-            }}
-            href="#"
-            className="hidden h-[31px] flex items-center transition-all duration-100 rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-base font-medium text-white hover:bg-opacity-75"
-          >
-            Sign Out (for testing)
-          </a>
+            <a
+              id="portalButton"
+              onClick={() => {
+                this.googleSignIn();
+              }}
+              href="/signup"
+              className="transition h-10 flex items-center duration-100 inline-block rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium text-white hover:bg-indigo-700 shadow-sm"
+            >
+              Brother Portal
+            </a>
+            <a
+              id="signoutButton"
+              onClick={() => {
+                this.props.firebase
+                  .auth()
+                  .signOut()
+                  .then(() => {
+                    alert("Success");
+                  });
+              }}
+              href="#"
+              className="hidden h-[31px] flex items-center transition-all duration-100 rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-base font-medium text-white hover:bg-opacity-75"
+            >
+              Sign Out (for testing)
+            </a>
           </div>
         </div>
 
         {/* Hamburger Navbar */}
-        <div className="flex items-center">
-          <button className={`is-${burgerMenu ? "active" : "inactive"} z-50 burger-menu block navscreen:hidden relative w-[30px] h-[35px] cursor-pointer`} onClick={() => setBurgerMenu(!burgerMenu)}>
+        <div className="flex items-center justify-between">
+          <button
+            className={`is-${
+              burgerMenu ? "active" : "inactive"
+            } z-50 burger-menu block navscreen:hidden relative w-[30px] h-[35px] cursor-pointer`}
+            onClick={() => setBurgerMenu(!burgerMenu)}
+          >
             <div className="bar rounded-sm"></div>
             <div className="bar rounded-sm"></div>
             <div className="bar rounded-sm"></div>
           </button>
-          <div className="navscreen:hidden w-full text-center text-lg font-semibold text-gray-500">
-              <p><a className="content-fill" href="#">Kappa Theta Pi</a></p>
+          <div className="hidden navscreen:hidden text-center text-lg font-semibold text-gray-500">
+            <p>
+              <a className="content-fill" href="#">
+                Kappa Theta Pi
+              </a>
+            </p>
           </div>
 
           {/* Invisible hamburger button for middle alignment */}
-          <button className="invisible navscreen:hidden relative w-[30px] h-[35px] cursor-pointer">
-            <div className="block w-full h-[5px] my-[4px] bg-indigo-600 rounded-sm block"></div>
-            <div className="block w-full h-[5px] my-[4px] bg-indigo-600 rounded-sm block"></div>
-            <div className="block w-full h-[5px] my-[4px] bg-indigo-600 rounded-sm block"></div>
-          </button>
+          <a
+          id="portalButton2"
+          onClick={() => {
+            this.googleSignIn();
+          }}
+          href="/signup"
+          className="whitespace-nowrap navscreen:hidden transition h-10 flex items-center duration-100 inline-block rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium text-white hover:bg-indigo-700 shadow-sm"
+        >
+          Brother Portal
+        </a>
         </div>
       </nav>
     </header>
-  )
+  );
 
   /*componentDidMount() {
     const user = firebase.auth().currentUser;
