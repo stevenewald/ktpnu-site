@@ -11,7 +11,7 @@ const stats = [
 class Greeting extends React.Component {
   render() {
     return (
-      <div id="greeting" className="relative bg-white py-16 sm:py-8 md:py-4 lg:py-8">
+      <div id="greeting" className="relative bg-gray-50 py-16 sm:py-8 md:py-4 lg:py-8">
         <div className="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:items-start lg:gap-24 lg:px-8">
           <motion.div
             initial={{ x: -200, opacity: 0 }}

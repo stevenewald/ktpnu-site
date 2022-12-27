@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Logo from './Assets/Logo.png';
 const navigation = [
-  { name: "Home", href: "#" },
-  { name: "About KTP", href: "#greeting" },
   { name: "Rush Events", href: "#rush-events" },
+  { name: "About KTP", href: "#greeting" },
   { name: "Team", href: "#team" },
   { name: "FAQ", href: "#faq" },
 ];
@@ -55,7 +54,7 @@ function Header() {
             {link.name}
           </a>
         ))}
-        
+
         <p className="absolute text-lg font-semibold text-gray-500 bottom-[20px] left-[20px]">
           &copy; 2022 Kappa Theta Pi
         </p>
@@ -67,11 +66,8 @@ function Header() {
       >
         <div className="flex w-full items-center justify-between">
           <div className="hidden navscreen:flex items-center">
-          <img className="w-8 transform scale-[200%] mt-2" src={Logo}></img>
-            <a href="#" className="hidden">
-              <div className="bg-indigo-600 w-fill px-3 h-10 flex items-center border rounded-lg">
-                <span className="font-medium text-white">Home</span>
-              </div>
+            <a href="#" className="pr-4">
+              <img className="w-8 transform scale-[200%] mt-2" src={Logo}></img>
             </a>
             <div className="ml-8 pr-2 hidden space-x-8 navscreen:block">
               {navigation.map((link) => (

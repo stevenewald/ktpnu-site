@@ -57,9 +57,9 @@ class Full extends React.Component {
               <div>
                 <Header firebase={firebase} />
                 <Hero />
-                <Greeting /> {/**/}
-                <Pillars />
                 <RushEvents />
+                <Greeting />
+                <Pillars />
                 <PortalAdvertisement ig={portalimg} />
                 <Team />
                 <FAQs />

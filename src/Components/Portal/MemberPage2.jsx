@@ -7,6 +7,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import NewUser from "./NewUser";
 import RushEvents from "./../Landing/RushEvents";
 import { CheckCircleIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import Logo from "../Landing/Assets/Logo.png"
 import {
   Bars3Icon,
   CurrencyDollarIcon,
@@ -167,7 +168,7 @@ class MemberPage extends React.Component {
                     <div className="flex flex-shrink-0 items-center px-4">
                       <img
                         className="cursor-pointer h-8 w-auto"
-                        src="https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/f3/9b/6e/f39b6e96-766a-39cd-184b-2f5286f40c81/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp"
+                        src={Logo}
                         alt="Kappa Theta Pi"
                         onClick={() => {
                           window.location.href = "/";
@@ -288,7 +289,7 @@ class MemberPage extends React.Component {
                 <div className="flex flex-shrink-0 items-center px-4">
                   <img
                     className="cursor-pointer h-12 w-auto"
-                    src="https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/f3/9b/6e/f39b6e96-766a-39cd-184b-2f5286f40c81/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp"
+                    src={Logo}
                     alt="Kappa Theta Pi"
                     onClick={() => {
                       window.location.href = "/";
@@ -494,7 +495,7 @@ export default MemberPage;
         <body class="h-full">
         ```
       }
-      
+
     </>
   )
 }*/

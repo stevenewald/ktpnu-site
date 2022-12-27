@@ -1,6 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function CarouselCard(props) {
+
+  // Picture assets
+  const assets = require('../../assets.js')
 
   // Background
   let dimmedBG
@@ -47,8 +51,16 @@ function CarouselCard(props) {
             <div className="flex items-center justify-between font-semibold text-sm">
 
               {/* Date */}
-              <div style={dimmedDate}>
-                <p>{props.date}</p>
+              <div className="flex" style={dimmedDate}>
+                {props.gcalLink &&
+                  <Link to={{ pathname: props.gcalLink }} className="inline-block" target="_blank">
+                    <img src={assets["gcal"]} width="20px" alt="GCal"/>
+                  </Link>
+                }
+
+                <p className='ml-2 inline-block'>
+                  {props.date}
+                </p>
               </div>
 
               {/* Lock Icon */}

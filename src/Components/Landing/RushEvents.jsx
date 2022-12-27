@@ -8,6 +8,7 @@ const events = {
     "date": new Date("January 5, 2023"),
     "time": "4:15 PM",
     "location": "ANNENBERG G15",
+    "gcalLink": "www.google.com",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     "inviteOnly": false
   },
@@ -16,6 +17,7 @@ const events = {
     "date": new Date("January 8, 2023"),
     "time": "TIME",
     "location": "LOCATION",
+    "gcalLink": "www.google.com",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     "inviteOnly": false
   },
@@ -24,6 +26,7 @@ const events = {
     "date": new Date("January 9, 2023"),
     "time": "TIME",
     "location": "LOCATION",
+    "gcalLink": "www.google.com",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     "inviteOnly": false
   },
@@ -103,8 +106,8 @@ function RushEvents() {
 
   return (
     <>
-      <div id="rush-events" className="flex flex-col justify-center mx-auto py-8 lg:py-12 mx-auto max-w-full">
-        <div className="relative bg-white sm:pl-0 md:pl-6 lg:pl-12">
+      <div id="rush-events" className="flex bg-white flex-col justify-center mx-auto py-8 lg:py-12 mx-auto max-w-full">
+        <div className="relative m:pl-0 md:pl-6 lg:pl-12">
           <div className="h-full">
             <div className="py-4 mr-3 ml-6 md:ml-10 lg:ml-10">
               <motion.p
@@ -118,6 +121,17 @@ function RushEvents() {
                 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                 Upcoming Rush Events
               </motion.p>
+              <motion.div
+                initial={{ x: -200, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1, transition: {
+                  delay: 0.05,
+                  duration: 0.35,
+                  ease: "easeInOut"
+                }}}
+                viewport={{ once: true }}
+                className="mx-auto mt-2 text-lg inline-block text-gray-500 text-xl flex items-center">
+                <p>Events marked with&nbsp;<svg className="align-middle inline-block transform -translate-y-[3px]" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" fill="#6366f1" width="20px"><path d="M 25 3 C 18.363281 3 13 8.363281 13 15 L 13 20 L 9 20 C 7.300781 20 6 21.300781 6 23 L 6 47 C 6 48.699219 7.300781 50 9 50 L 41 50 C 42.699219 50 44 48.699219 44 47 L 44 23 C 44 21.300781 42.699219 20 41 20 L 37 20 L 37 15 C 37 8.363281 31.636719 3 25 3 Z M 25 5 C 30.566406 5 35 9.433594 35 15 L 35 20 L 15 20 L 15 15 C 15 9.433594 19.433594 5 25 5 Z M 25 30 C 26.699219 30 28 31.300781 28 33 C 28 33.898438 27.601563 34.6875 27 35.1875 L 27 38 C 27 39.101563 26.101563 40 25 40 C 23.898438 40 23 39.101563 23 38 L 23 35.1875 C 22.398438 34.6875 22 33.898438 22 33 C 22 31.300781 23.300781 30 25 30 Z"/></svg>&nbsp;are invite-only.</p>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -137,10 +151,10 @@ function RushEvents() {
                             title={events[event]["title"]}
                             location={events[event]["location"]}
                             imgsrc={assets[event]}
+                            gcalLink={events[event]["gcalLink"]}
                             inviteOnly={events[event]["inviteOnly"]}
                             light={today.getTime() > events[event]["date"].getTime() ? "false" : "true"}
-                            passed={today.getTime() > events[event]["date"].getTime() ? "true" : "false"}
-                            delay={index/80}/>))}
+                            passed={today.getTime() > events[event]["date"].getTime() ? "true" : "false"}/>))}
 
             {/* Buffer for spacing */}
             <div className="select-none px-4"></div>

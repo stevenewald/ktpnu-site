@@ -3,7 +3,7 @@ import React from "react";
 class PortalAdvertisement extends React.Component {
   render() {
     return (
-      <div className="relative overflow-hidden bg-gray-100 pt-12 sm:pt-14 lg:pt-20">
+      <div className="relative overflow-hidden bg-white pt-12 sm:pt-14 lg:pt-20">
         <div className="mx-auto max-w-md px-6 text-center sm:max-w-3xl lg:max-w-7xl lg:px-8">
           <div>
           <h2 className="text-lg font-semibold text-indigo-600">
