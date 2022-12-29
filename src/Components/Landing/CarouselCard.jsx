@@ -57,6 +57,10 @@ function CarouselCard(props) {
                     <img src={assets["gcal"]} width="20px" alt="GCal"/>
                   </Link>
                 }
+                {!props.gcalLink &&
+                  // Put logic for "You should have received an invite-only link through email" modal here
+                  <img src={assets["gcal"]} width="20px" alt="GCal"/>
+                }
 
                 <p className='ml-2 inline-block'>
                   {props.date}
