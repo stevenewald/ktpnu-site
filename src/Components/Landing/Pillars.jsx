@@ -44,7 +44,7 @@ const features = [
   {
     name: "Diversity, Equity, and Inclusion",
     description:
-      "At KTP, we recruit the best in tech, regardless of your gender, race, religion, or sexual orientation. As an inclusive workplace, our brothers are comfortable bringing their authentic, whole selves to KTP.",
+      "At KTP, we recruit the best in tech, regardless of gender, race, religion, or sexual orientation. As an inclusive workplace, our brothers are comfortable bringing their authentic, whole selves to KTP.",
     icon: QuestionMarkCircleIcon,
   },
 ];
