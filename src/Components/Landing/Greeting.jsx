@@ -148,8 +148,8 @@ class Greeting extends React.Component {
                   }}}
                   viewport={{ once: true }}>
                   Celebrate a culture of growth with some of Northwestern's most
-                  brilliant and ambitious aspiring software developers, designers,
-                  biomedical engineers, entrepreneurs, and machine learning engineers.
+                  brilliant and ambitious software developers, designers,
+                  biomedical engineers, and entrepreneurs.
                 </motion.p>
               </div>
             </div>
