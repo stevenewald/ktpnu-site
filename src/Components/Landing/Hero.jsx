@@ -21,7 +21,7 @@ class Hero extends React.Component {
               <div
                 className="relative bottom-[100px] lg:bottom-[50px] text-[3.2rem] w-full md:text-7xl font-extrabold text-center lg:text-8xl">
                   <span className="hero-text text-transparent bg-gradient-to-br bg-clip-text from-teal-500 via-indigo-500 to-sky-500">
-                    Poop
+                    Kappa Theta Pi
                   </span>
               </div>
 
