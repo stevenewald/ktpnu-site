@@ -65,7 +65,7 @@ function Header() {
         aria-label="Top"
       >
         <div className="flex w-full items-center justify-between">
-          <div className="hidden navscreen:flex items-center">
+          <div className="hidden navscreen:flex pl-4 items-center">
             <a href="#" className="pr-4">
               <img className="w-8 transform scale-[200%] mt-2" src={Logo}></img>
             </a>
