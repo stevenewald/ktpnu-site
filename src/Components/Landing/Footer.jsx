@@ -3,7 +3,7 @@ import React from 'react';
 const navigation = [
   {
     name: 'Email',
-    href: '#',
+    href: 'mailto:ktpnorthwestern@gmail.com',
     icon: (props) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props} className="w-5 mt-[1.5px]" onClick={() => {window.location.href="mailto:info@ktpnu.com"}}>
         <path
@@ -16,7 +16,7 @@ const navigation = [
   },
   {
       name: 'Instagram',
-      href: '#',
+      href: 'https://www.instagram.com/ktpnorthwestern/',
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props} onClick={() => {window.location.href="https://www.instagram.com/ktpnorthwestern/"}}>
           <path
@@ -29,7 +29,7 @@ const navigation = [
     },
     {
         name: 'LinkedIn',
-        href: '#',
+        href: 'https://www.linkedin.com/company/ktp-northwestern/',
         icon: (props) => (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props} className="w-5 mt-[1.5px]" onClick={() => {window.location.href="https://www.linkedin.com/company/kappa-theta-pi-northwestern/"}}>
             <path
