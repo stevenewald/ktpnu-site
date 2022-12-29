@@ -55,8 +55,7 @@ function CarouselCard(props) {
                 {props.gcalLink &&
                 <div className='inline-block'>
                   <a href={props.gcalLink} target="_blank"><img src={assets["gcal"]} width="20px" alt="GCal"/></a>
-                  
-                  </div>
+                </div>
                 }
                 {!props.gcalLink &&
                   // Put logic for "You should have received an invite-only link through email" modal here

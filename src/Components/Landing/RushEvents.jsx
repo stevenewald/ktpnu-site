@@ -17,7 +17,7 @@ const events = {
     "date": new Date("January 8, 2023"),
     "time": "TIME",
     "location": "LOCATION",
-    "gcalLink": "www.google.com",
+    "gcalLink": "https://www.google.com",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     "inviteOnly": false
   },
@@ -26,7 +26,7 @@ const events = {
     "date": new Date("January 9, 2023"),
     "time": "TIME",
     "location": "LOCATION",
-    "gcalLink": "www.google.com",
+    "gcalLink": "https://www.google.com",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     "inviteOnly": false
   },

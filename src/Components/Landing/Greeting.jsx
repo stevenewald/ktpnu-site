@@ -2,17 +2,15 @@ import React from "react";
 import { motion } from 'framer-motion'
 
 const stats = [
-  { label: "Alumni Brothers", value: "57" },
-  { label: "Statistic 2", value: "20" },
-  { label: "Statistic 3", value: "25" },
-  { label: "Statistic 4", value: "17" },
+  { label: "Chapter Alumni", value: "57" },
+  { label: "National Chapters", value: "9" },
 ];
 
 class Greeting extends React.Component {
   render() {
     return (
       <div id="greeting" className="relative bg-white py-16 sm:py-8 md:py-4 lg:py-8">
-        <div className="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:items-start lg:gap-24 lg:px-8">
+        <div className="lg:mx-auto lg:flex lg:items-center lg:grid lg:max-w-7xl lg:grid-cols-2 lg:items-start lg:gap-24 lg:px-8">
           <motion.div
             initial={{ x: -200, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1, transition: {
@@ -101,10 +99,10 @@ class Greeting extends React.Component {
             </div>
           </motion.div>
 
-          <div className="relative mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-0">
+          <div className="relative mx-auto max-w-md px-4 lg:mt-2 sm:max-w-3xl sm:px-6 lg:px-0">
 
             {/* Content area */}
-            <div className="pt-8 lg:pt-20">
+            <div className="">
               <motion.p
                 initial={{ x: -200, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1, transition: {
@@ -136,9 +134,10 @@ class Greeting extends React.Component {
                     ease: "easeInOut"
                   }}}
                   viewport={{ once: true }}>
-                  This space should be used as an introduction to what KTP is as a whole.
-                  It's basically a concise "about me" section but can be as short or long as
-                  we want.
+                  Welcome to the Kappa Chapter of Kappa Theta Pi, Northwestern's
+                  premier professional technology fraternity. At KTP, we prepare
+                  brothers for their prospective careers through professional
+                  development, taught by those who have been in the industry.
                 </motion.p>
                 <motion.p
                   initial={{ x: -200, opacity: 0 }}
@@ -148,8 +147,9 @@ class Greeting extends React.Component {
                     ease: "easeInOut"
                   }}}
                   viewport={{ once: true }}>
-                  I (Alexis) would recommend that the above paragraph is only 1-2 lines
-                  and this second paragraph can be longer if need be.
+                  Celebrate a culture of growth with some of Northwestern's most
+                  brilliant and ambitious software developers, designers,
+                  biomedical engineers, and entrepreneurs.
                 </motion.p>
               </div>
             </div>
