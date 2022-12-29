@@ -11,12 +11,12 @@ const faqs = [
   {
     question: "What does the time commitment look like?",
     answer:
-      "You can expect to put aside 2-5 hours per week during pledging, and this time commitment decreases after initiation; however, as with all campus organizations, what you get out of KTP depends on what you put into it. We believe that our pledging process is not too strenuous and can be accommodated by most schedules. For further questions regarding KTP's time commitment, contact us with the links below."
+      "You can expect to put aside 2-5 hours per week during pledging, and this time commitment decreases after initiation; however, as with all campus organizations, what you get out of KTP depends on what you put into it. We believe that our pledging process is not too strenuous and can be accommodated by most schedules. For further questions regarding KTP's time commitment, contact us."
   },
   {
     question: "What if I can't afford dues?",
     answer:
-      "Although we aim to minimize quarterly costs, we offer financial aid for those unable to afford dues. For further questions about finances, contact us with the links below."
+      "Although we aim to minimize quarterly costs, we offer financial aid for those unable to afford dues. For further questions about finances, contact us."
   },
   {
     question: "Which majors are represented in KTP?",
