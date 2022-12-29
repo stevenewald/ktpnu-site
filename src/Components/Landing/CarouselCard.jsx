@@ -53,9 +53,10 @@ function CarouselCard(props) {
               {/* Date */}
               <div className="flex" style={dimmedDate}>
                 {props.gcalLink &&
-                  <Link to={{ pathname: props.gcalLink }} className="inline-block" target="_blank">
-                    <img src={assets["gcal"]} width="20px" alt="GCal"/>
-                  </Link>
+                <div className='inline-block'>
+                  <a href={props.gcalLink} target="_blank"><img src={assets["gcal"]} width="20px" alt="GCal"/></a>
+                  
+                  </div>
                 }
                 {!props.gcalLink &&
                   // Put logic for "You should have received an invite-only link through email" modal here

@@ -10,7 +10,7 @@ const people = [
       },
       {
       name: 'Damien Koh',
-      role: 'VP of Member Development',
+      role: 'VP of Recruitment',
       imageUrl:
       'https://media.licdn.com/dms/image/C5603AQGjHa8RFpDKhA/profile-displayphoto-shrink_400_400/0/1656946309926?e=1677110400&v=beta&t=mSIRjcaPvxGM6SNV6HUxntnDc-tfJGJsKe3zvtARVfU',
       },
@@ -22,7 +22,7 @@ const people = [
       },
       {
       name: 'Josh Brice',
-      role: 'VP of Member Development',
+      role: 'VP of Recruitment',
       imageUrl:
       'https://media.licdn.com/dms/image/C5603AQE7b12wJDGvtg/profile-displayphoto-shrink_400_400/0/1648564209595?e=1677110400&v=beta&t=SFPXEed0FNCB9CXnbu-cNba95eiJ9SPVht1gWpSDyM4',
       },
@@ -61,7 +61,7 @@ const people = [
 class Team extends React.Component {
     render() {
         return (
-            <div id="team" className="overflow-hidden bg-gray-50 border">
+            <div id="team" className="overflow-hidden bg-white border">
               <div className="mx-auto max-w-7xl py-12 px-4 text-center sm:px-6 lg:px-8 lg:py-24">
                 <div className="space-y-8 sm:space-y-12">
                   <div className="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">
