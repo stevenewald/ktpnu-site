@@ -42,7 +42,7 @@ function classNames(...classes) {
 class FAQs extends React.Component {
   render() {
     return (
-      <div>
+      <div id="faq">
         <div className="hidden bg-gray-100 pt-10">
           <div className="mx-auto max-w-7xl py-12 px-4 sm:py-16 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-4xl divide-y-2 divide-gray-200">
