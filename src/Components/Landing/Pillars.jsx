@@ -26,7 +26,7 @@ const features = [
   {
     name: "Social Growth",
     description:
-      "We understand that strong bonds create brotherhood. We host a variety of social events throughout the year, including tailgates, bowling, apple picking, and KTP formal, where you will find your next best friends at Northwestern.",
+      "At KTP, we understand that strong bonds create brotherhood. We host a variety of social events throughout the year, including tailgates, bowling, apple picking, and KTP formal, where you might find your next best friends at Northwestern.",
     icon: ArrowTrendingUpIcon,
   },
   {
@@ -44,7 +44,7 @@ const features = [
   {
     name: "Diversity, Equity, and Inclusion",
     description:
-      "At KTP, we recruit the best in tech, regardless of your gender, race, religion, sexual orientation. As an inclusive workplace, our brothers are comfortable bringing their authentic whole selves to the table.",
+      "At KTP, we recruit the best in tech, regardless of your gender, race, religion, or sexual orientation. As an inclusive workplace, our brothers are comfortable bringing their authentic, whole selves to KTP.",
     icon: QuestionMarkCircleIcon,
   },
 ];
