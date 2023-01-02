@@ -6,22 +6,22 @@ const faqs = [
   {
     question: "What if I have no previous tech experience?",
     answer:
-      "No previous tech experience is necessary. We look not for experience but for potential which can appear in the form of problem solving, communication, and analytical skills. We are united by our genuine love for technology, so those who are truly passionate about tech and are able to have fun with it are the ones who usually fit in the best. See our Pillars section for more information on the values we place upon our brothers."
+      "No prior tech experience is needed to join KTP. We seek potential in problem-solving, communication, and analytical skills, as well as a genuine passion for tech. If these qualities resonate with you, you'll fit right in!"
   },
   {
     question: "What does the time commitment look like?",
     answer:
-      "You can expect to put aside 2-5 hours per week during pledging, and this time commitment decreases after initiation; however, as with all campus organizations, what you get out of KTP depends on what you put into it. We believe that our pledging process is not too strenuous and can be accommodated by most schedules. For further questions regarding KTP's time commitment, contact us."
+      "Pledging for KTP typically requires a 2-5 hour per week commitment. After initiation, this time commitment decreases. How much you get out of KTP depends on what you put into it, as is the case with all campus organizations."
   },
   {
     question: "What if I can't afford dues?",
     answer:
-      "Although we aim to minimize quarterly costs, we offer financial aid for those unable to afford dues. For further questions about finances, contact us."
+      "Although we aim to minimize quarterly costs, we offer financial aid for those unable to afford dues. For accomodation requests or more information, contact us."
   },
   {
     question: "Which majors are represented in KTP?",
     answer:
-      "Kappa Theta Pi's brothers represent a variety of majors spanning myriad fields in tech. Our majors include but are not limited to Computer Science, Economics, MatSci, Industrial Engienering, Biomedical Engineering, Computer Engineering, and more. While this is our current major demographic, we do not discriminate on major—we only ask for passion in tech.",
+      "Kappa Theta Pi's brothers come from many tech-related majors, including Computer Science, Economics, MatSci, Industrial Engienering, Biomedical Engineering, Computer Engineering, and more. We welcome all who are passionate about tech, regardless of major.",
   },
 ];
 
@@ -87,7 +87,7 @@ class FAQs extends React.Component {
             <h2 className="text-3xl font-bold tracking-tight text-white">
               Frequently asked questions
             </h2>
-            <p className="pt-1 leading-6 text-indigo-200">For further questions, email us at <a href="mailto:ktpnorthwestern@gmail.com" className="font-semibold">ktpnorthwestern@gmail.com</a></p>
+            <p className="pt-1 leading-6 text-indigo-200">For further questions, email us at <a href="mailto:info@ktpnu.com" className="font-semibold">info@ktpnu.com</a></p>
             <div className="mt-6 border-t border-indigo-300 border-opacity-25 pt-10">
               <dl className="space-y-10 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-12 md:space-y-0">
                 {faqs.map((faq) => (
