@@ -8,7 +8,7 @@ const events = {
     "date": new Date("January 5, 2023"),
     "time": "4:15 PM",
     "location": "ANNENBERG G15",
-    "gcalLink": "https://www.northwestern.edu",
+    "gcalLink": "https://www.ktpnu.com",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     "inviteOnly": false
   },
