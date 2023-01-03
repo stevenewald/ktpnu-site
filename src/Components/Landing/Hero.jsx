@@ -16,21 +16,22 @@ class Hero extends React.Component {
         id="Home"
       >
         <div className="container relative flex flex-col min-h-screen px-6 py-8 mx-auto">
-          <section className="flex items-center flex-1 mb-48 lg:mb-64">
+          <div className="h-10 md:h-32"></div>
+          <section className="flex flex-1 mb-48 lg:mb-64">
             <div className="flex flex-col w-full ">
               <div
-                className="relative bottom-[100px] lg:bottom-[50px] text-[3.2rem] w-full md:text-7xl font-extrabold text-center lg:text-8xl">
+                className="relative md:bottom-[20px] text-[12vw] whitespace-nowrap w-full md:text-8xl font-extrabold text-center">
                   <span className="hero-text text-transparent bg-gradient-to-br bg-clip-text from-teal-500 via-indigo-500 to-sky-500">
                     Kappa Theta Pi
                   </span>
               </div>
 
               <div
-                className="relative bottom-[125px] md:bottom-[100px] lg:bottom-[50px] max-w-3xl mx-auto mt-6 text-lg text-center text-gray-700 md:text-xl">
+                className="relative bottom-[20px] max-w-3xl mx-auto mt-6 text-lg text-center text-gray-700 md:text-xl">
                 Join Northwestern's premiere co-ed technology fraternity
               </div>
               <div
-                className="relative bottom-[125px] md:bottom-[100px] lg:bottom-[50px] mt-8 flex justify-center">
+                className="relative bottom-[25px] mt-8 flex justify-center">
                 <div className="inline-flex rounded-md shadow">
                   <a
                     href="https://docs.google.com/forms/d/e/1FAIpQLSey8UlOw4GaKMlJj-W-ZvxwgZk7C47N3VJ8aJ2KlqK8sDqg0Q/viewform"

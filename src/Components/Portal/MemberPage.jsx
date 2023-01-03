@@ -18,6 +18,7 @@ import {
   MagnifyingGlassIcon,
   PhoneIcon,
 } from "@heroicons/react/20/solid";
+import Messaging from "./Messaging";
 
 const user = {
   name: "Steve Ewald",
@@ -193,6 +194,7 @@ class MemberPage extends React.Component {
   render() {
     return (
       <div className="flex h-screen">
+        <Messaging />
         <Transition.Root show={this.state.sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
