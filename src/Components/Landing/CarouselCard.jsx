@@ -94,10 +94,10 @@ function CarouselCard(props) {
         {/* BImage */}
         <div className="flex justify-center content-end h-full overflow-hidden">
           {props.passed === "false" &&
-          <img className="object-contain mb-12" src={props.imgsrc} alt=""/>
+          <img className="object-contain mb-32" src={props.imgsrc} alt=""/>
           }
           {props.passed === "true" &&
-          <img className="object-contain mb-12 grayscale" src={props.imgsrc} alt=""/>
+          <img className="object-contain mb-32 grayscale" src={props.imgsrc} alt=""/>
           }
         </div>
       </div>
