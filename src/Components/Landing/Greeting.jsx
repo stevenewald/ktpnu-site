@@ -152,7 +152,7 @@ class Greeting extends React.Component {
 
             {/* Stats section */}
             <div className="mt-10">
-              <dl className="grid grid-cols-2 gap-x-4 gap-y-8">
+              <dl className="grid sm:grid-cols-2 gap-x-1 sm:gap-x-4 gap-y-8">
                 {stats.map((stat) => (
                   <motion.div
                   initial={{ x: -200, opacity: 0 }}
