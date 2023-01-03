@@ -41,7 +41,7 @@ function CarouselCard(props) {
     <>
 
       {/* Light Themed */}
-      <div className='h-full container inline-block w-[20rem] sm:w-96 md:w-96 lg:w-96 h-[80%] sm:h-[90%] md:h-[90%] lg:h-[90%] rounded-2xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden border hover:scale-105 transition' style={dimmedBG}>
+      <div className='h-full container inline-block w-[20rem] sm:w-96 md:w-96 lg:w-96 h-[80%] sm:h-[90%] md:h-[90%] lg:h-[90%] rounded-2xl shadow-lg sm:hover:shadow-xl transition-shadow overflow-hidden border sm:hover:scale-105 transition' style={dimmedBG}>
 
         {/* Body */}
         <div className="p-6">

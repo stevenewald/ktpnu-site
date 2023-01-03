@@ -66,7 +66,7 @@ class Pillars extends React.Component {
                 <div key={feature.name}
                   viewport={{ once: true }}
                   className="pt-6">
-                  <div className="h-[22rem] h-fill flow-root rounded-2xl shadow-lg hover:shadow-xl transition-shadow border hover:scale-105 transition bg-gray-100 px-6 pb-8 sm:transition-all sm:duration-300 sm:ease-in-out sm:hover:scale-110 sm:transform">
+                  <div className="h-[22rem] h-fill flow-root rounded-2xl shadow-lg sm:hover:shadow-xl transition-shadow border transition bg-gray-100 px-6 pb-8 sm:transition-all sm:duration-300 sm:ease-in-out sm:hover:scale-110 sm:transform">
                     <div className="-mt-6">
                       <div>
                         <span className="inline-flex items-center justify-center rounded-xl bg-indigo-500 p-2 shadow-lg">
