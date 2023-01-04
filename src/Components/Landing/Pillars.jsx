@@ -14,37 +14,37 @@ const features = [
   {
     name: "Professional Development",
     description:
-      "A culture of rigorous professional development is brotherhood in KTP. We will prepare you for success in your prospective tech career through interview training, resume building, one-on-one mentorship, private company recruiting, and more.",
+      "KTP provides professional development and support for tech careers, including interview training, resume building, mentorship, and private company recruiting.",
     icon: BriefcaseIcon,
   },
   {
     name: "Alumni Connections",
     description:
-      "Across the globe, our alumni work on cutting-edge technology. Through our alumni network and chapter's brotherhood portal, you will have connections to brothers at Microsoft, Amazon, Facebook, Apple, Google, consulting firms, financial technology firms, startups, and more.",
+      "Our alumni network connects you to brothers at top tech companies, including Microsoft, Amazon, Facebook, Apple, Google, consulting firms, financial technology firms, and startups.",
     icon: UserPlusIcon,
   },
   {
     name: "Social Growth",
     description:
-      "At KTP, we understand that strong bonds create brotherhood. We host a variety of social events throughout the year, including tailgates, bowling, apple picking, and KTP formal, where you might find your next best friends at Northwestern.",
+      "At KTP, we understand that strong bonds create brotherhood. KTP fosters these friendships through social events, including tailgates, bowling, apple picking, and KTP formal.",
     icon: ArrowTrendingUpIcon,
   },
   {
     name: "Technical Advancement",
     description:
-      "Strengthen and expand on your technical skillset with KTP technical advancement. You will attend technical workshops and join project teams to gain experience ripe for entrance into your prospepctive industry through our new member education and beyond.",
+      "Let us expand your technical skillset through workshops, projects, and more to enhance your technical skills and prepare you for your industry through new member education and beyond.",
     icon: ComputerDesktopIcon,
   },
   {
     name: "Academic Support",
     description:
-      "We strive to foster academic growth and excellence. We will provide you with a supportive network of the brightest minds in tech at Northwestern who you can rely on for support, inside and outside of the classroom.",
+      "KTP helps foster academic growth and excellence by providing a network of the brightest tech minds at Northwestern for support in and out of the classroom.",
     icon: AcademicCapIcon,
   },
   {
     name: "Diversity, Equity, and Inclusion",
     description:
-      "At KTP, we recruit the best in tech, regardless of gender, race, religion, or sexual orientation. As an inclusive workplace, our brothers are comfortable bringing their authentic, whole selves to KTP.",
+      "KTP is an inclusive workplace that recruits the best in tech, regardless of gender, race, religion, or sexual orientation, and encourages brothers to bring their authentic selves.",
     icon: QuestionMarkCircleIcon,
   },
 ];
@@ -66,7 +66,7 @@ class Pillars extends React.Component {
                 <div key={feature.name}
                   viewport={{ once: true }}
                   className="pt-6">
-                  <div className="h-[22rem] h-fill flow-root rounded-2xl shadow-lg sm:hover:shadow-xl transition-shadow border transition bg-gray-100 px-6 pb-8 sm:transition-all sm:duration-300 sm:ease-in-out sm:hover:scale-110 sm:transform">
+                  <div className="h-[20rem] sm:h-[10rem] lg:h-[18rem] h-fill flow-root rounded-2xl shadow-lg sm:hover:shadow-xl transition-shadow border transition bg-gray-100 px-6 pb-8 sm:transition-all sm:duration-300 sm:ease-in-out sm:hover:scale-110 sm:transform">
                     <div className="-mt-6">
                       <div>
                         <span className="inline-flex items-center justify-center rounded-xl bg-indigo-500 p-2 shadow-lg">
