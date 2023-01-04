@@ -3,7 +3,7 @@ import React from 'react';
 const navigation = [
   {
     name: 'Email',
-    href: 'mailto:ktpnorthwestern@gmail.com',
+    href: 'mailto:info@ktpnu.com',
     icon: (props) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props} className="w-5 mt-[1.5px]" onClick={() => {window.location.href="mailto:info@ktpnu.com"}}>
         <path

@@ -6,12 +6,12 @@ const faqs = [
   {
     question: "What if I have no previous tech experience?",
     answer:
-      "No prior tech experience is needed to join KTP. We seek potential in problem-solving, communication, and analytical skills, as well as a genuine passion for tech. If these qualities resonate with you, you'll fit right in!"
+      "No prior tech experience is needed to join KTP. We seek potential in problem-solving, communication, and analytical skills, as well as a genuine passion for tech. If these qualities resonate with you, you'll fit right in."
   },
   {
     question: "What does the time commitment look like?",
     answer:
-      "Pledging for KTP typically requires a 2-5 hour per week commitment. After initiation, this time commitment decreases. How much you get out of KTP depends on what you put into it, as is the case with all campus organizations."
+      "Pledging for KTP typically requires a 2-5 hour per week commitment. After initiation, this time commitment decreases, but how much you get out of KTP depends on what you put into it, as is the case with all campus organizations."
   },
   {
     question: "What if I can't afford dues?",
