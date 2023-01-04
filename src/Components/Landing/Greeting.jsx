@@ -2,8 +2,8 @@ import React from "react";
 import { motion } from 'framer-motion'
 
 const stats = [
-  { label: "Chapter Alumni", value: "60+" },
   { label: "National Chapters", value: "9" },
+  { label: "Chapter Alumni", value: "60+" },
 ];
 
 class Greeting extends React.Component {
