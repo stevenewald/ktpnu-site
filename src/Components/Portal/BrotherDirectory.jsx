@@ -225,7 +225,7 @@ class BrotherDirectory extends React.Component {
     if (profile.email) {
       newProfile.email = profile.email;
     }
-    newProfile.fields["Role"] = "Executive";
+    newProfile.fields["Role"] = profile.role;
     newProfile.social = [];
     if (profile.instagram) {
       newProfile.social.push({
@@ -312,7 +312,7 @@ class BrotherDirectory extends React.Component {
             console.log(profile.name);
             var user_dict = {};
             user_dict["name"] = profile.name;
-            user_dict["role"] = "Executive";
+            user_dict["role"] = profile.role;
             user_dict["imageUrl"] = profile.profile_pic_link;
             user_dict["fullProfile"] = profile;
             user_dict["handler"] = this.changeProfileHandler;
@@ -351,7 +351,7 @@ class BrotherDirectory extends React.Component {
 
   render() {
     return (
-      <div className="relative z-0 flex flex-1 overflow-hidden">
+      <div className="relative z-0 flex flex-1 h-screen">
         <IndivProfile
           tabs={tabs}
           profile={this.state.profile}

@@ -34,68 +34,105 @@ class NewUser extends React.Component {
 
   initNewAcc(db, config) {
     let timerInterval;
-    update(ref(db, "users/" + config.uid), {
-      name: config.name,
-      email: config.email,
-      phone: config.phone,
-      year: config.year,
-      major: config.major,
-      internships: config.internships,
-      instagram: config.insta,
-      linkedin: config.linkedin,
-      about: config.about,
-      signed_up: true,
-      announcement_level: this.announcementLevel,
-      email_viewable: config.email_viewable,
-      standing_viewable: config.standing_viewable,
-      internships_viewable: config.internships_viewable,
-    });
-    update(ref(db, "public_users/" + config.uid), {
-      name: config.name,
-      email: document.getElementById("email-visible").checked
-        ? config.email
-        : "",
-      year: document.getElementById("standing-visible").checked
-        ? config.year
-        : "",
-      major: config.major,
-      internships: document.getElementById("internships-visible").checked
-        ? config.internships
-        : "",
-      instagram: config.insta,
-      linkedin: config.linkedin,
-      about: config.about,
-      signed_up: true,
-    }).then((res) => {
-      if (this.props.newuser) {
-        Swal.fire({
-          title: "Account successfully created!",
-          icon: "success",
-          text: "Your account was successfully created. Redirecting to the brother portal...",
-          timer: 3000,
-          timerProgressBar: true,
-          willClose: () => {
-            clearInterval(timerInterval);
-          },
-        }).then((result) => {
-          localStorage.setItem("justSetup", "true");
-          window.location.href = "/member";
-        });
-      } else {
-        Swal.fire({
-          title: "Account information updated!",
-          icon: "success",
-          text: "Your account information was updated.",
-          timer: 3000,
-          timerProgressBar: true,
-          willClose: () => {
-            clearInterval(timerInterval);
-          },
-        }).then((result) => {
-          window.location.reload();
-        });
-      }
-    });
+    if(config.name.length==0) {
+      Swal.fire({
+        icon:'error',
+        title:'Name form not filled'
+      });
+    } else if(config.email.length==0) {
+      Swal.fire({
+        icon:'error',
+        title:'Email form not filled'
+      })
+    } else if(config.year.length==0) {
+      Swal.fire({
+        icon:'error',
+        title:'Year not filled'
+      })
+    } else if(config.major.length==0) {
+      Swal.fire({
+        icon:'error',
+        title:'Major form not filled'
+      })
+    } else if(config.phone.length==0) {
+      Swal.fire({
+        icon:'error',
+        title:'Phone input not filled in'
+      })
+    } else if(config.linkedin.length==0) {
+      Swal.fire({
+        icon:'error',
+        title:'LinkedIn username not filled in'
+      })
+    } else if (config.about.length<20) {
+      Swal.fire({
+        icon:'error',
+        title:'About section must be at least 20 characters long'
+      })
+    } else {
+      update(ref(db, "users/" + config.uid), {
+        name: config.name,
+        email: config.email,
+        phone: config.phone,
+        year: config.year,
+        major: config.major,
+        internships: config.internships,
+        instagram: config.insta,
+        linkedin: config.linkedin,
+        about: config.about,
+        signed_up: true,
+        announcement_level: this.announcementLevel,
+        email_viewable: config.email_viewable,
+        standing_viewable: config.standing_viewable,
+        internships_viewable: config.internships_viewable,
+      });
+      update(ref(db, "public_users/" + config.uid), {
+        name: config.name,
+        email: document.getElementById("email-visible").checked
+          ? config.email
+          : "",
+        year: document.getElementById("standing-visible").checked
+          ? config.year
+          : "",
+        major: config.major,
+        internships: document.getElementById("internships-visible").checked
+          ? config.internships
+          : "",
+        instagram: config.insta,
+        linkedin: config.linkedin,
+        about: config.about,
+        signed_up: true,
+      }).then((res) => {
+        if (this.props.newuser) {
+          Swal.fire({
+            title: "Account successfully created!",
+            icon: "success",
+            text: "Your account was successfully created. Redirecting to the brother portal...",
+            timer: 3000,
+            timerProgressBar: true,
+            willClose: () => {
+              clearInterval(timerInterval);
+            },
+          }).then((result) => {
+            localStorage.setItem("justSetup", "true");
+            window.location.href = "/member";
+          });
+        } else {
+          Swal.fire({
+            title: "Account information updated!",
+            icon: "success",
+            text: "Your account information was updated.",
+            timer: 3000,
+            timerProgressBar: true,
+            willClose: () => {
+              clearInterval(timerInterval);
+            },
+          }).then((result) => {
+            window.location.reload();
+          });
+        }
+      });
+    }
   }
   render() {
     return (
@@ -205,12 +242,16 @@ class NewUser extends React.Component {
                     </div>
 
                     <div className="col-span-6">
+                      <div className="block"><label
+                        htmlFor="internships"
+                        className="inline-block text-sm font-medium text-gray-700"
+                      >
+                        Notable internships&nbsp;
+                      </label>
                       <label
                         htmlFor="internships"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Notable internships
-                      </label>
+                        className="inline-block text-sm font-medium font-light text-gray-500"
+                      >(Optional)</label></div>
                       <input
                         type="text"
                         name="internships"
@@ -237,26 +278,7 @@ class NewUser extends React.Component {
                 </div>
                 <div className="mt-5 space-y-6 md:col-span-2 md:mt-0">
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="col-span-3 sm:col-span-1">
-                      <label
-                        htmlFor="instagram"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Instagram Username
-                      </label>
-                      <div className="mt-1 flex rounded-md shadow-sm">
-                        <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">
-                          instagram.com/u/
-                        </span>
-                        <input
-                          type="text"
-                          name="instagram"
-                          id="instagram"
-                          className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-span-3 sm:col-span-1">
+                  <div className="col-span-3 sm:col-span-1">
                       <label
                         htmlFor="linkedin"
                         className="block text-sm font-medium text-gray-700"
@@ -275,15 +297,44 @@ class NewUser extends React.Component {
                         />
                       </div>
                     </div>
+                    <div className="col-span-3 sm:col-span-1">
+                      <div>
+                      <label
+                        htmlFor="instagram"
+                        className="inline-block text-sm font-medium text-gray-700"
+                      >
+                        Instagram Username&nbsp;
+                      </label>
+                      <label
+                        htmlFor="instagram"
+                        className="inline-block text-sm font-medium font-light text-gray-500"
+                      >(Optional)</label></div>
+                      <div className="mt-1 flex rounded-md shadow-sm">
+                        <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">
+                          instagram.com/u/
+                        </span>
+                        <input
+                          type="text"
+                          name="instagram"
+                          id="instagram"
+                          className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                    </div>
+                    
                   </div>
 
                   <div>
-                    <label
+                    <div><label
                       htmlFor="about"
-                      className="block text-sm font-medium text-gray-700"
+                      className="inline-block text-sm font-medium text-gray-700"
                     >
-                      About
+                      About&nbsp;
                     </label>
+                    <label
+                        htmlFor="about"
+                        className="inline-block text-sm font-medium font-extrabold text-gray-700"
+                      >(Min. 20 characters)</label></div>
                     <div className="mt-1">
                       <textarea
                         id="about"

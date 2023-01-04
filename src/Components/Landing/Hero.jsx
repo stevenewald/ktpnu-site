@@ -16,7 +16,7 @@ class Hero extends React.Component {
         id="Home"
       >
         <div className="container relative flex flex-col min-h-screen px-6 py-8 mx-auto">
-          <div className="h-10 md:h-32"></div>
+          <div className="h-12 md:h-32"></div>
           <section className="flex flex-1 mb-48 lg:mb-64">
             <div className="flex flex-col w-full ">
               <div

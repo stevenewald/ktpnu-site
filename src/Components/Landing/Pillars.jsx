@@ -7,7 +7,7 @@ import {
   ArrowTrendingUpIcon,
   ComputerDesktopIcon,
   AcademicCapIcon,
-  QuestionMarkCircleIcon,
+  UserGroupIcon,
 } from "@heroicons/react/24/outline";
 
 const features = [
@@ -45,7 +45,7 @@ const features = [
     name: "Diversity, Equity, and Inclusion",
     description:
       "KTP is an inclusive workplace that recruits the best in tech, regardless of gender, race, religion, or sexual orientation, and encourages brothers to bring their authentic selves.",
-    icon: QuestionMarkCircleIcon,
+    icon: UserGroupIcon,
   },
 ];
 
