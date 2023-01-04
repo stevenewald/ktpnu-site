@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 function CarouselCard(props) {
 
@@ -58,8 +59,7 @@ function CarouselCard(props) {
                 </div>
                 }
                 {!props.gcalLink &&
-                  // Put logic for "You should have received an invite-only link through email" modal here
-                  <img src={assets["gcal"]} width="20px" alt="GCal"/>
+                  <img className="cursor-pointer" onClick={() => {Swal.fire({icon:'info',title:'Invite-only event',text:'Invitations will be extended via email'})}} src={assets["gcal"]} width="20px" alt="GCal"/>
                 }
 
                 <p className='ml-2 inline-block'>
