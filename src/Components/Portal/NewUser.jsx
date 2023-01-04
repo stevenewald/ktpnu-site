@@ -107,7 +107,7 @@ class NewUser extends React.Component {
           Swal.fire({
             title: "Account successfully created!",
             icon: "success",
-            text: "Your account was successfully created. Redirecting to the brother portal...",
+            text: "Your account was successfully created. Redirecting to the member portal...",
             timer: 3000,
             timerProgressBar: true,
             willClose: () => {
@@ -201,7 +201,7 @@ class NewUser extends React.Component {
                         name="phone-number"
                         id="phone-number"
                         autoComplete="phone"
-                        placeholder="Not visible by other brothers"
+                        placeholder="Not visible by other members"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
@@ -256,7 +256,7 @@ class NewUser extends React.Component {
                         type="text"
                         name="internships"
                         id="internships"
-                        placeholder="Majority of new brothers will leave this empty"
+                        placeholder="Majority of new members will leave this empty"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
@@ -273,7 +273,7 @@ class NewUser extends React.Component {
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">
                     This information will be visible to other NU KTP
-                    brothers/alumni.
+                    members/alumni.
                   </p>
                 </div>
                 <div className="mt-5 space-y-6 md:col-span-2 md:mt-0">
@@ -546,7 +546,7 @@ class NewUser extends React.Component {
                     Settings
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">
-                    Customize your KTPortal experience
+                    Customize your KTP Member Portal experience
                   </p>
                 </div>
                 <div className="mt-5 space-y-6 md:col-span-2 md:mt-0">
@@ -579,7 +579,7 @@ class NewUser extends React.Component {
                             Email
                           </label>
                           <p className="text-gray-500">
-                            Allow other brothers to reach out to you.
+                            Allow other members to reach out to you.
                           </p>
                         </div>
                       </div>
@@ -601,7 +601,7 @@ class NewUser extends React.Component {
                             Class standing
                           </label>
                           <p className="text-gray-500">
-                            Let brothers see your year (sophomore, alumni, etc).
+                            Let members see your year (sophomore, alumni, etc).
                           </p>
                         </div>
                       </div>
