@@ -1,6 +1,6 @@
 const assetsObject = {
-  womenInKTP: require('./Components/Landing/images/presentation.png'),
-  infoSession: require('./Components/Landing/images/presentation2.png'),
+  womenInKTP: require('./Components/Landing/images/womeninktp.png'),
+  infoSession: require('./Components/Landing/images/infosession.png'),
   networkingNight: require('./Components/Landing/images/networking.png'),
   coffeeChats: require('./Components/Landing/images/conversation.png'),
   groupInterviews: require('./Components/Landing/images/group.png'),
