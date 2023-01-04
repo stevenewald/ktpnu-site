@@ -15,6 +15,38 @@ function classNames(...classes) {
 //dir vis and loading: invisible
 
 class MobileDirectory extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {searchVal:""};
+    this.searchBarChange = this.searchBarChange.bind(this);
+    this.elemMatches = this.elemMatches.bind(this);
+    this.oneMatches = this.oneMatches.bind(this);
+  }
+
+  searchBarChange(val) {
+    this.setState({searchVal:val.target.value.toLowerCase()});
+  }
+
+  elemMatches(elem) {
+    if(this.state.searchVal==="") {
+      return true;
+    } else {
+      if(elem.includes(this.state.searchVal)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+  oneMatches(letter) {
+    for (var i = 0; i < this.props.directory[letter].length; i++) {
+      if(this.elemMatches(JSON.stringify(this.props.directory[letter][i]).toLowerCase())) {
+        return true;
+      }
+    }
+    return false;
+  }
   render() {
     return (
       <aside
@@ -71,6 +103,7 @@ class MobileDirectory extends React.Component {
                   type="search"
                   name="search"
                   id="search"
+                  onChange={this.searchBarChange}
                   className="block w-full rounded-md border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                   placeholder="Search"
                 />
@@ -91,13 +124,13 @@ class MobileDirectory extends React.Component {
         {/* Directory list */}
         <nav className="min-h-0 flex-1 overflow-y-auto" aria-label="Directory">
           {Object.keys(this.props.directory).map((letter) => (
-            <div key={letter} className="relative">
+            <div key={letter} className={classNames(this.oneMatches(letter) ? "" : "hidden", "relative")}>
               <div className="sticky top-0 z-10 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
                 <h3>{letter}</h3>
               </div>
               <ul role="list" className="relative z-0 divide-y divide-gray-200">
                 {this.props.directory[letter].map((person) => (
-                  <li key={"mob_"+person.id} onClick={() => {person["handler"](person["fullProfile"]);
+                  <li className={this.elemMatches(JSON.stringify(person).toLowerCase()) ? "" : "hidden"} key={"mob_"+person.id} onClick={() => {person["handler"](person["fullProfile"]);
                   this.props.changeActiveHandler("mob_"+person.id);
                   }}>
                     <div
