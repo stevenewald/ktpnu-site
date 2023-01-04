@@ -19,7 +19,7 @@ class IndivProfile extends React.Component {
         this.props.loading
         ? "invisible"
         :"",
-        "h-screen relative z-0 flex-1 overflow-y-auto focus:outline-none xl:order-last"
+        "h-screen relative z-0 flex-1 overflow-hidden focus:outline-none xl:order-last"
       )}>
         {/* Breadcrumb */}
         <nav
