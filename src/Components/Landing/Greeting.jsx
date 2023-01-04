@@ -132,7 +132,7 @@ class Greeting extends React.Component {
                   viewport={{ once: true }}>
                   Welcome to the Kappa Chapter of Kappa Theta Pi, Northwestern's
                   premier pre-professional technology fraternity. At KTP, we prepare
-                  brothers for their prospective careers through professional
+                  members for their prospective careers through professional
                   development, taught by those who have been in the industry.
                 </motion.p>
                 <motion.p

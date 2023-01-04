@@ -82,10 +82,10 @@ class MobileDirectory extends React.Component {
         </div>
         <div className="px-6 pt-6 pb-4">
           <h2 className="text-lg font-medium text-gray-900">
-            Brother Directory
+            Member Directory
           </h2>
           <p className="mt-1 text-sm text-gray-600">
-            Search directory of {this.props.directory_size} brothers
+            Search directory of {this.props.directory_size} members
           </p>
           <form className="mt-6 flex space-x-4" action="#">
             <div className="min-w-0 flex-1">

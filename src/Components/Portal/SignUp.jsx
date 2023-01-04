@@ -63,7 +63,7 @@ class SignUp extends React.Component {
           Swal.fire({
             title: "Invalid email",
             icon: "error",
-            text: "We have not added your account to our system (you are not a ktp brother, pledge, or alumni). If you believe this is an error, please contact support@ktpnu.com",
+            text: "We have not added your account to our system (you are not a ktp member, pledge, or alumni). If you believe this is an error, please contact support@ktpnu.com",
           }).then(() => {
             window.location.reload();
           });
@@ -72,7 +72,7 @@ class SignUp extends React.Component {
           Swal.fire({
             title: "You are already signed up, " + user.displayName + ".",
             icon: "success",
-            text: "Redirecting you to the brother portal...",
+            text: "Redirecting you to the member portal...",
             timer: 2000,
             timerProgressBar: true,
             willClose: () => {
@@ -103,7 +103,7 @@ class SignUp extends React.Component {
           Swal.fire({
             title: "Invalid email",
             icon: "error",
-            text: "We have not added your account to our system (you are not a ktp brother, pledge, or alumni). If you believe this is an error, please contact support@ktpnu.com",
+            text: "We have not added your account to our system (you are not a ktp member, pledge, or alumni). If you believe this is an error, please contact support@ktpnu.com",
           }).then(() => {
             window.location.reload();
           });

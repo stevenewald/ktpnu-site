@@ -93,7 +93,7 @@ function Header() {
               href="/signup"
               className="transition h-10 flex items-center duration-100 inline-block rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium text-white hover:bg-indigo-700 shadow-sm"
             >
-              Brother Portal
+              Member Portal
             </a>
             <a
               id="signoutButton"
@@ -142,7 +142,7 @@ function Header() {
           href="/signup"
           className="whitespace-nowrap navscreen:hidden transition h-10 flex items-center duration-100 inline-block rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium text-white hover:bg-indigo-700 shadow-sm"
         >
-          Brother Portal
+          Member Portal
         </a>
         </div>
       </nav>

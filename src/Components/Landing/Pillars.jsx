@@ -20,7 +20,7 @@ const features = [
   {
     name: "Alumni Connections",
     description:
-      "Our alumni network connects you to brothers at top tech companies, including Microsoft, Amazon, Facebook, Apple, Google, consulting firms, financial technology firms, and startups.",
+      "Our alumni network connects you to members at top tech companies, including Microsoft, Amazon, Facebook, Apple, Google, consulting firms, financial technology firms, and startups.",
     icon: UserPlusIcon,
   },
   {
@@ -44,7 +44,7 @@ const features = [
   {
     name: "Diversity, Equity, and Inclusion",
     description:
-      "KTP is an inclusive workplace that recruits the best in tech, regardless of gender, race, religion, or sexual orientation, and encourages brothers to bring their authentic selves.",
+      "KTP is an inclusive workplace that recruits the best in tech, regardless of gender, race, religion, or sexual orientation, and encourages members to bring their authentic selves.",
     icon: UserGroupIcon,
   },
 ];
