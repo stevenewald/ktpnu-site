@@ -97,7 +97,7 @@ class MemberPage extends React.Component {
     newNav[nextButton].current = true;
     this.currNav = nextButton;
     this.setSidebarOpen(false);
-    this.setState({ navigation: newNav });
+    this.state = {navigation:newNav,searchVal:""}
   }
 
   setSidebarOpen(val) {
