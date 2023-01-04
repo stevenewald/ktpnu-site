@@ -470,10 +470,16 @@ class MemberPage extends React.Component {
               />
             }
           />
-          <div
-            className={this.state.navigation["Rush"].current ? "" : "hidden"}
-          >
+          <div className={this.state.navigation["Rush"].current ? "" : "hidden"} >
             <RushEvents />
+          </div>
+
+          <div className={this.state.navigation["Dues"].current ? "" : "hidden"} >
+            <p className="text-3xl text-center text-gray-400 p-4 font-bold m-auto h-full pt-20 pb-20">Coming Soon</p>
+          </div>
+
+          <div className={this.state.navigation["Announcements"].current ? "" : "hidden"} >
+            <p className="text-3xl text-center text-gray-400 p-4 font-bold m-auto h-full pt-20 pb-20">Coming Soon</p>
           </div>
         </div>
       </div>
