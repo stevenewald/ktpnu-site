@@ -5,52 +5,52 @@ import { motion } from 'framer-motion'
 const events = {
   "womenInKTP": {
     "title": "Women in KTP",
-    "date": new Date("January 5, 2023"),
-    "time": "4:15 PM",
-    "location": "ANNENBERG G15",
+    "date": new Date("January 4, 2023 12:00:00"),
+    "time": "7:00 PM",
+    "location": "TECH M177",
     "gcalLink": "https://www.ktpnu.com",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     "inviteOnly": false
   },
   "infoSession": {
     "title": "General Info Session",
-    "date": new Date("January 8, 2023"),
-    "time": "TIME",
-    "location": "LOCATION",
+    "date": new Date("January 8, 2023 20:00:00"),
+    "time": "7:00 PM",
+    "location": "ANNENBERG G15",
     "gcalLink": "https://www.northwestern.edu",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     "inviteOnly": false
   },
   "networkingNight": {
     "title": "Networking Night",
-    "date": new Date("January 9, 2023"),
-    "time": "TIME",
-    "location": "LOCATION",
+    "date": new Date("January 9, 2023 20:00:00"),
+    "time": "7:00 PM",
+    "location": "TECH LR2",
     "gcalLink": "https://www.google.com",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     "inviteOnly": false
   },
   "coffeeChats": {
     "title": "Coffee Chats",
-    "date": new Date("January 10, 2023"),
-    "time": "TIME",
-    "location": "LOCATION",
+    "date": new Date("January 10, 2023 20:00:00"),
+    "time": "",
+    "location": "VARIOUS LOCATIONS",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     "inviteOnly": true
   },
   "groupInterviews": {
     "title": "Group Interviews",
     "date": new Date("January 11, 2023"),
-    "time": "TIME",
-    "location": "LOCATION",
+    "time": "",
+    "location": "VARIOUS LOCATIONS",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     "inviteOnly": true
   },
   "interviews": {
     "title": "Individual Interviews",
     "date": new Date("January 13, 2023"),
-    "time": "TIME",
-    "location": "LOCATION",
+    "time": "",
+    "location": "VARIOUS LOCATIONS",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     "inviteOnly": true
   }
