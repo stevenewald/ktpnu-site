@@ -21,7 +21,7 @@ import Greeting from './Components/Landing/Greeting';
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/functions";
-import { getDatabase } from "firebase/database";
+import { getDatabase, connectDatabaseEmulator } from "firebase/database";
 import RushEvents from "./Components/Landing/RushEvents";
 import { getStorage } from "firebase/storage";
 

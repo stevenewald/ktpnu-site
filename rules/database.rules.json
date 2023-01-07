@@ -2,13 +2,15 @@
   "rules": {
     "users": {
       "$user_id": {
-        ".write": "$user_id === auth.uid  && data.child('allowed').val() === true",
-        ".read": "$user_id === auth.uid && data.child('allowed').val() === true"
+        ".read": "$user_id === auth.uid && root.child('users').child(auth.uid).child('allowed').val() === true",
+        "$child": {
+          ".write": "$user_id === auth.uid  && root.child('users').child(auth.uid).child('allowed').val() === true && ($child !== 'admin')"
+        }
       }
     },
     "allowed_accounts": {
       "$user_id": {
-        ".write": false,
+        ".write": "root.child('users').child(auth.uid).child('admin').val() === true",
         ".read": true
       }
     },

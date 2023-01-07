@@ -8,6 +8,7 @@ import NewUser from "./NewUser";
 import RushEvents from "./../Landing/RushEvents";
 import { CheckCircleIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import Logo from "../Landing/Assets/Logo.png"
+import AdminPanel from "./AdminPanel";
 import {
   Bars3Icon,
   CurrencyDollarIcon,
@@ -16,6 +17,7 @@ import {
   MapIcon,
   MegaphoneIcon,
   XMarkIcon,
+  WrenchScrewdriverIcon
 } from "@heroicons/react/24/outline";
 
 const defaultUser = {
@@ -43,6 +45,7 @@ var navigation = {
     current: false,
   },
   Rush: { name: "Rush process", href: "#", icon: MapIcon, current: false },
+  Admin: {name: "Admin", href:"#",icon:WrenchScrewdriverIcon,current:false,secondary:true,adminonly:true},
   Profile: {
     name: "Edit Profile",
     href: "#",
@@ -64,6 +67,7 @@ class MemberPage extends React.Component {
       notifOpen: localStorage.getItem("justSetup") === "true",
       user: defaultUser,
       navigation: navigation,
+      admin:false,
     };
     this.setSidebarOpen = this.setSidebarOpen.bind(this);
     this.changeNav = this.changeNav.bind(this);
@@ -83,6 +87,16 @@ class MemberPage extends React.Component {
             const prof = snapshot.val();
             newUser.name = prof["name"];
             newUser.imageUrl = prof["profile_pic_link"];
+          })
+          .then((res) => {
+            this.setState({ user: newUser });
+          });
+          get(child(dbRef, "users/" + user.uid))
+          .then((snapshot) => {
+            const prof = snapshot.val();
+            if(prof["admin"]) {
+              this.setState({admin:true});
+            }
           })
           .then((res) => {
             this.setState({ user: newUser });
@@ -339,7 +353,7 @@ class MemberPage extends React.Component {
                     {Object.keys(this.state.navigation).map((item) => {
                       const keyVal = item;
                       item = this.state.navigation[item];
-                      if (item.secondary) {
+                      if (item.secondary && ((this.state.admin || !item.adminonly))) {
                         return (
                           <a
                             key={item.name}
@@ -480,6 +494,9 @@ class MemberPage extends React.Component {
 
           <div className={this.state.navigation["Announcements"].current ? "" : "hidden"} >
             <p className="text-3xl text-center text-gray-400 p-4 font-bold m-auto h-full pt-20 pb-20">Coming Soon</p>
+          </div>
+          <div className={this.state.navigation["Admin"].current ? "" : "hidden"}>
+            <AdminPanel database={this.props.database}/>
           </div>
         </div>
       </div>
