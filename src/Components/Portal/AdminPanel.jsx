@@ -40,7 +40,7 @@ class AdminPanel extends React.Component {
             confirmButtonText: 'Yes, add them as a member'
           }).then((result) => {
             if (result.isConfirmed) {
-                set(ref(this.props.database, "allowed_accounts/" + formattedEmail), "").then((res) => {
+                set(ref(this.props.database, "allowed_users/" + formattedEmail), "").then((res) => {
                     Swal.fire({icon:'success',title:'Successfully added!',text:'Successfully added ' + newEmail});
                 }).catch((err) => {
                     Swal.fire({icon:'error',title:'Couldn\'t add ' + newEmail,text:err})

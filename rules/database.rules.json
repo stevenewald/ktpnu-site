@@ -8,7 +8,7 @@
         }
       }
     },
-    "allowed_accounts": {
+    "allowed_users": {
       "$user_id": {
         ".write": "root.child('users').child(auth.uid).child('admin').val() === true",
         ".read": true
