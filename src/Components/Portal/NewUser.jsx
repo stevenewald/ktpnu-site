@@ -30,45 +30,52 @@ class NewUser extends React.Component {
     this.user = null;
     this.submitButton = React.createRef();
     this.announcementLevel = 3;
+    this.resumeAdded = !this.props.newuser; //if new user, default to false. if existing user, defaults to true
+    this.initNewAcc = this.initNewAcc.bind(this);
   }
 
   initNewAcc(db, config) {
     let timerInterval;
-    if(config.name.length==0) {
+    if (config.name.length == 0) {
       Swal.fire({
-        icon:'error',
-        title:'Name form not filled'
+        icon: "error",
+        title: "Name form not filled",
       });
-    } else if(config.email.length==0) {
+    } else if (config.email.length == 0) {
       Swal.fire({
-        icon:'error',
-        title:'Email form not filled'
-      })
-    } else if(config.year.length==0) {
+        icon: "error",
+        title: "Email form not filled",
+      });
+    } else if (config.year.length == 0) {
       Swal.fire({
-        icon:'error',
-        title:'Year not filled'
-      })
-    } else if(config.major.length==0) {
+        icon: "error",
+        title: "Year not filled",
+      });
+    } else if (config.major.length == 0) {
       Swal.fire({
-        icon:'error',
-        title:'Major form not filled'
-      })
-    } else if(config.phone.length==0) {
+        icon: "error",
+        title: "Major form not filled",
+      });
+    } else if (config.phone.length == 0) {
       Swal.fire({
-        icon:'error',
-        title:'Phone input not filled in'
-      })
-    } else if(config.linkedin.length==0) {
+        icon: "error",
+        title: "Phone input not filled in",
+      });
+    } else if (config.linkedin.length == 0) {
       Swal.fire({
-        icon:'error',
-        title:'LinkedIn username not filled in'
-      })
-    } else if (config.about.length<20) {
+        icon: "error",
+        title: "LinkedIn username not filled in",
+      });
+    } else if (config.about.length < 20) {
       Swal.fire({
-        icon:'error',
-        title:'About section must be at least 20 characters long'
-      })
+        icon: "error",
+        title: "About section must be at least 20 characters long",
+      });
+    } else if (!this.resumeAdded) {
+      Swal.fire({
+        icon: "error",
+        title: "All members are required to upload a resume",
+      });
     } else {
       update(ref(db, "users/" + config.uid), {
         name: config.name,
@@ -242,16 +249,20 @@ class NewUser extends React.Component {
                     </div>
 
                     <div className="col-span-6">
-                      <div className="block"><label
-                        htmlFor="internships"
-                        className="inline-block text-sm font-medium text-gray-700"
-                      >
-                        Notable internships&nbsp;
-                      </label>
-                      <label
-                        htmlFor="internships"
-                        className="inline-block text-sm font-medium font-light text-gray-500"
-                      >(Optional)</label></div>
+                      <div className="block">
+                        <label
+                          htmlFor="internships"
+                          className="inline-block text-sm font-medium text-gray-700"
+                        >
+                          Notable internships&nbsp;
+                        </label>
+                        <label
+                          htmlFor="internships"
+                          className="inline-block text-sm font-medium font-light text-gray-500"
+                        >
+                          (Optional)
+                        </label>
+                      </div>
                       <input
                         type="text"
                         name="internships"
@@ -278,7 +289,7 @@ class NewUser extends React.Component {
                 </div>
                 <div className="mt-5 space-y-6 md:col-span-2 md:mt-0">
                   <div className="grid grid-cols-2 gap-4">
-                  <div className="col-span-3 sm:col-span-1">
+                    <div className="col-span-3 sm:col-span-1">
                       <label
                         htmlFor="linkedin"
                         className="block text-sm font-medium text-gray-700"
@@ -299,16 +310,19 @@ class NewUser extends React.Component {
                     </div>
                     <div className="col-span-3 sm:col-span-1">
                       <div>
-                      <label
-                        htmlFor="instagram"
-                        className="inline-block text-sm font-medium text-gray-700"
-                      >
-                        Instagram Username&nbsp;
-                      </label>
-                      <label
-                        htmlFor="instagram"
-                        className="inline-block text-sm font-medium font-light text-gray-500"
-                      >(Optional)</label></div>
+                        <label
+                          htmlFor="instagram"
+                          className="inline-block text-sm font-medium text-gray-700"
+                        >
+                          Instagram Username&nbsp;
+                        </label>
+                        <label
+                          htmlFor="instagram"
+                          className="inline-block text-sm font-medium font-light text-gray-500"
+                        >
+                          (Optional)
+                        </label>
+                      </div>
                       <div className="mt-1 flex rounded-md shadow-sm">
                         <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">
                           instagram.com/u/
@@ -321,20 +335,23 @@ class NewUser extends React.Component {
                         />
                       </div>
                     </div>
-                    
                   </div>
 
                   <div>
-                    <div><label
-                      htmlFor="about"
-                      className="inline-block text-sm font-medium text-gray-700"
-                    >
-                      About&nbsp;
-                    </label>
-                    <label
+                    <div>
+                      <label
+                        htmlFor="about"
+                        className="inline-block text-sm font-medium text-gray-700"
+                      >
+                        About&nbsp;
+                      </label>
+                      <label
                         htmlFor="about"
                         className="inline-block text-sm font-medium font-extrabold text-gray-700"
-                      >(Min. 20 characters)</label></div>
+                      >
+                        (Min. 20 characters)
+                      </label>
+                    </div>
                     <div className="mt-1">
                       <textarea
                         id="about"
@@ -348,6 +365,96 @@ class NewUser extends React.Component {
                     <p className="mt-2 text-sm text-gray-500">
                       Brief description for your profile. URLs are hyperlinked.
                     </p>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">
+                      Resume
+                    </label>
+                    <div className="mt-1 flex items-center">
+                      <p
+                        className="text-sm font-medium hidden pr-3"
+                        id="filename2"
+                      ></p>
+                      <label
+                        htmlFor="file-upload3"
+                        className="rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      >
+                        <span>Upload from device</span>
+                        <input
+                          onChange={() => {
+                            var inputElem =
+                              document.getElementById("file-upload3");
+                            if (inputElem.files && inputElem.files[0]) {
+                              const fileName = inputElem.files[0].name;
+                              const storageRef = sRef(
+                                this.props.storage,
+                                this.user.displayName +
+                                  "_Resume" +
+                                  fileName.substring(
+                                    fileName.indexOf("."),
+                                    fileName.length
+                                  )
+                              );
+                              if (
+                                !(fileName.substring(
+                                  fileName.indexOf("."),
+                                  fileName.length
+                                ) === ".pdf")
+                              ) {
+                                Swal.fire({
+                                  icon: "error",
+                                  title: "Resume uploads must be in pdf format",
+                                });
+                              } else {
+                                document
+                                  .getElementById("filename2")
+                                  .classList.remove("hidden");
+                                document.getElementById(
+                                  "filename2"
+                                ).textContent = fileName;
+                                uploadBytes(storageRef, inputElem.files[0])
+                                  .then((snapshot) => {
+                                    console.log("Uploaded bytes");
+                                    getDownloadURL(snapshot.ref)
+                                      .then((downloadURL) => {
+                                        update(
+                                          ref(
+                                            this.props.database,
+                                            "users/" + this.user.uid
+                                          ),
+                                          {
+                                            resume_link: downloadURL,
+                                          }
+                                        );
+                                        update(
+                                          ref(
+                                            this.props.database,
+                                            "public_users/" + this.user.uid
+                                          ),
+                                          {
+                                            resume_link: downloadURL,
+                                          }
+                                        );
+                                        this.resumeAdded = true;
+                                      })
+                                      .catch((err) => {
+                                        alert(err);
+                                      });
+                                  })
+                                  .catch((err) => {
+                                    alert(err);
+                                  });
+                              }
+                            }
+                          }}
+                          id="file-upload3"
+                          name="file-upload3"
+                          type="file"
+                          className="sr-only"
+                        />
+                      </label>
+                    </div>
                   </div>
 
                   <div>

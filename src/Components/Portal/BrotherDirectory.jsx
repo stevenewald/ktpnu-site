@@ -212,6 +212,10 @@ class BrotherDirectory extends React.Component {
     if (profile.about) {
       newProfile.about = profile.about;
     }
+    if (profile.resume_link) {
+      newProfile.resume_link = profile.resume_link;
+    }
+    
     newProfile.fields = {};
     if (profile.year) {
       newProfile.fields["Class Standing"] = profile.year;

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ChevronLeftIcon, EnvelopeIcon } from "@heroicons/react/20/solid";
+import { ChevronLeftIcon, EnvelopeIcon, DocumentTextIcon } from "@heroicons/react/20/solid";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -66,7 +66,7 @@ class IndivProfile extends React.Component {
                   <div className="justify-stretch mt-6 flex space-y-3 flex-row space-y-0 space-x-4">
                     <button onClick={() => {window.location.href="mailto:" + this.props.profile.email}}
                       type="button"
-                      className={classNames(this.props.profile.email ? "" : "hidden", "inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2")}
+                      className={classNames(this.props.profile.email ? "" : "hidden", "inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2")}
                     >
                       <EnvelopeIcon
                         className="-ml-1 mr-2 h-5 w-5 text-gray-400"
@@ -74,6 +74,16 @@ class IndivProfile extends React.Component {
                       />
                       <span>Email</span>
                     </button>
+                    <a href={this.props.profile.resume_link} target="_blank"
+                      type="button"
+                      className={classNames(this.props.profile.resume_link ? "" : "hidden", "inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2")}
+                    >
+                      <DocumentTextIcon
+                        className="-ml-1 mr-2 h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                      />
+                      <span>Resume</span>
+                    </a>
                     <div className="flex space-x-6 md:order-2 items-center">
                       {this.props.profile.social.map((item) => (
                         <a

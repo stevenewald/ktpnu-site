@@ -81,6 +81,7 @@ exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
         if (allowed_snapshot.exists()) {
           usersRef.child(user.uid).once("value", async (user_snapshot) => {
             if (!user_snapshot.exists()) { 
+              functions.logger.log("Adding user " + user.email);
               await usersRef.child(user.uid).set({
                 allowed: true,
                 signed_up: false,
@@ -96,17 +97,21 @@ exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
               })
               resolve(1); //allowed but needs to sign up, correct
             } else if (user_snapshot.val()["signed_up"]) {
+              functions.logger.log("Already signed up:" + user.email);
               resolve(2);
               //already has uid record and signed up
             } else if (!user_snapshot.val()["signed_up"]) {
+              functions.logger.log("Needs to sign up:" + user.email);
               //needs to sign up
               resolve(1);
             } else {
+              functions.logger.log("Shouldn't be possible:" + user.email);
               //already has uid record but not signed up - shouldnt be possible
               resolve(3);
             }
           });
         } else {
+          functions.logger.log("Rejected account creation by " + user.email);
           reject(4);
         }
       });
@@ -114,6 +119,7 @@ exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
   try {
     const res = await prom;
     console.log("Promise result: " + res);
+    return true;
   } catch(err) {
     throw new functions.auth.HttpsError('permission-denied');;
   }

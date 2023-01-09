@@ -22,7 +22,7 @@ import "firebase/compat/auth";
 import "firebase/compat/functions";
 import { getDatabase, connectDatabaseEmulator } from "firebase/database";
 import RushEvents from "./Components/Landing/RushEvents";
-import { getStorage } from "firebase/storage";
+import { getStorage, connectStorageEmulator } from "firebase/storage";
 
 import portalimg from "./Components/Landing/images/portal.png";
 
@@ -40,9 +40,24 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 var provider = new firebase.auth.GoogleAuthProvider();
 provider.addScope("https://www.googleapis.com/auth/userinfo.profile");
-//firebase.functions().useEmulator("localhost", 5001);
-const database = getDatabase(app);
-var storage = getStorage(app);
+var database;
+var storage;
+
+if (window.location.hostname === "localhost") {
+  database = getDatabase();
+  storage = getStorage();
+  connectDatabaseEmulator(database, "localhost", 9000);
+  connectStorageEmulator(storage, "localhost", 9199);
+  firebase.functions().useEmulator("localhost", 5001);
+  firebase.auth().useEmulator("http://localhost:9099");
+  if(!sessionStorage.getItem("givenWarning")) {
+    alert("Initializing in emulator mode. If you aren't a developer, contact support@ktpnu.com immediately.")
+    sessionStorage.setItem("givenWarning", true);
+  }
+} else {
+  storage = getStorage(app);
+  database = getDatabase(app);
+}
 
 class Full extends React.Component {
   render() {
