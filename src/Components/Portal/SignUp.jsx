@@ -98,7 +98,7 @@ class SignUp extends React.Component {
         }
       })
       .catch((err) => {
-        if (String(err).includes("Permission")) {
+        if (String(err).includes("Permission") || String(err).includes("PERMISSION")) {
           this.props.firebase.auth().signOut();
           Swal.fire({
             title: "Invalid email",
@@ -205,8 +205,15 @@ class SignUp extends React.Component {
                               if(String(errorMessage).includes("popup-closed")) {
                                 console.log("Tell steve that there's an issue with the popup. Reverting to redirect fallback...");
                                 window.location.href = "/login"
-                              } else {
-                                alert("err1: " + errorMessage);
+                              } else if (String(errorMessage.includes("PERMISSION"))) {
+                                this.props.firebase.auth().signOut();
+                                Swal.fire({
+                                  title: "Invalid email",
+                                  icon: "error",
+                                  text: "We have not added your account to our system (you are not a ktp member, pledge, or alumni). If you believe this is an error, please contact support@ktpnu.com",
+                                }).then(() => {
+                                  window.location.reload();
+                                });
                               }
                             });
                         }}

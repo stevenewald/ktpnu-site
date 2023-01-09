@@ -107,15 +107,14 @@ exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
             }
           });
         } else {
-          //unauthorized user
-          await usersRef.child(user.uid).set({
-            allowed: false,
-            signed_up: false,
-          });
-          resolve(4);
+          reject(4);
         }
       });
   });
-  const res = await prom;
-  console.log("Promise result: " + res);
+  try {
+    const res = await prom;
+    console.log("Promise result: " + res);
+  } catch(err) {
+    throw new functions.auth.HttpsError('permission-denied');;
+  }
 });

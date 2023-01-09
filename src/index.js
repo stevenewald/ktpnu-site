@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MemberPage from "./Components/Portal/MemberPage2";
 import MemberLogin from "./Components/Portal/GoogleRedirect";
 import SignUp from "./Components/Portal/SignUp";
-import NewUser from "./Components/Portal/NewUser";
 import NewUserCont from "./Components/Portal/NewUserCont";
 
 import Hero from "./Components/Landing/Hero";
