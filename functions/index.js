@@ -24,6 +24,9 @@ exports.beforeSignIn = functions.auth.user().beforeSignIn(async (user) => {
     allowedRef.child(user.email.substring(0,user.email.indexOf("@"))).once("value", (snapshot) => {
       if(snapshot.exists()) {
         usersRef.child(user.uid).update({allowed:true})
+        admin.auth().setCustomUserClaims(user.uid, {
+          member: true
+        });
       }
     })
   }
@@ -71,6 +74,9 @@ exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
               //already has uid record but not signed up - shouldnt be possible
               resolve(3);
             }
+            admin.auth().setCustomUserClaims(user.uid, {
+              member: true
+            });
           });
         } else {
           functions.logger.log("Rejected account creation by " + user.email);
