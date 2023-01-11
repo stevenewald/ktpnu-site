@@ -389,7 +389,7 @@ class NewUser extends React.Component {
                               const fileName = inputElem.files[0].name;
                               const storageRef = sRef(
                                 this.props.storage,
-                                this.user.displayName +
+                                this.user.uid +
                                   "_Resume" +
                                   fileName.substring(
                                     fileName.indexOf("."),

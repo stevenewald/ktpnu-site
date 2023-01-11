@@ -1,5 +1,7 @@
+const path = require('path');
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const os = require("os");
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
   databaseURL: "https://ktp-site-default-rtdb.firebaseio.com/",
@@ -8,54 +10,13 @@ let usersRef = admin.database().ref("users");
 let allowedRef = admin.database().ref("allowed_users");
 let publicRef = admin.database().ref("public_users");
 
-/*exports.loginAuth = functions.https.onCall(async (req, res) => {
-  console.log(req.idToken);
-  admin
-    .auth()
-    .verifyIdToken(req.idToken)
-    .then((decodedToken) => {
-      const uid = decodedToken.uid;
-      console.log(uid);
-      console.log("allgood!");
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  //res.json({result: `Message with ID: 2 added.`});
-});*/
-
-/*exports.checkIfAllowed = functions.https.onCall(async (req, res) => {
-  return new Promise((resolve, reject) => {
-        return usersRef.child(req.uid).once("value", (user_snapshot) => {
-          if(!user_snapshot.val()["allowed"]) {
-            resolve({result:"unauthorized"});
-          } else if (user_snapshot.val()["signed_up"]) {
-            resolve({result:"already_signed_up"});
-          } else {
-            resolve({result:"needs_signup"})
-          }
-          return true;
-        })
-      }
-  )
-});*/
-
-/*exports.createAcc = functions.auth.user().onCreate((user) => {
-  allowedRef.child(user.email.substring(0, user.email.indexOf("@"))).once("value", (allowed_snapshot) => {
-    if(allowed_snapshot.exists()) {
-      usersRef.child(user.uid).set({
-        allowed:true,
-        signed_up:false,
-        profile_pic_link:user.photoURL,
-        email:user.email,
-      });
-    } else {
-      usersRef.child(user.uid).set({
-        allowed:false,
-        signed_up:false,
-      });
-    }
-  })
+/*exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
+  functions.logger.log("Resizing image...");
+  functions.logger.log(JSON.stringify(object))
+  functions.logger.log(typeof object);
+  const tempFilePath = path.join(os.tmpdir(), object.name);
+  await object.download({destination: tempFilePath});
+  functions.logger.log("Done!");
 });*/
 
 exports.beforeSignIn = functions.auth.user().beforeSignIn(async (user) => {
@@ -67,6 +28,7 @@ exports.beforeSignIn = functions.auth.user().beforeSignIn(async (user) => {
     })
   }
 })
+
 exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
   if(!user.email.includes("northwestern.edu")) {
     await usersRef.child(user.uid).set({
