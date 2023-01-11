@@ -36,14 +36,14 @@ const events = {
   },
   "groupInterviews": {
     "title": "Group Interviews",
-    "date": new Date("January 11, 2023"),
+    "date": new Date("January 11, 2023 20:00:00"),
     "time": "",
     "location": "VARIOUS LOCATIONS",
     "inviteOnly": true
   },
   "interviews": {
     "title": "Individual Interviews",
-    "date": new Date("January 13, 2023"),
+    "date": new Date("January 13, 2023 20:00:00"),
     "time": "",
     "location": "VARIOUS LOCATIONS",
     "inviteOnly": true
