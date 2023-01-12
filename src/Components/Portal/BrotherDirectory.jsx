@@ -318,9 +318,11 @@ class BrotherDirectory extends React.Component {
             user_dict["name"] = profile.name;
             user_dict["role"] = profile.role;
             user_dict["imageUrl"] = profile.profile_pic_link;
+            user_dict["profilePic"] = profile.smaller_pic ? profile.smaller_pic : profile.profile_pic_link;
             user_dict["fullProfile"] = profile;
             user_dict["handler"] = this.changeProfileHandler;
             user_dict["id"] = String(amount);
+            user_dict["uid"] = String(item);
             if (item === user.uid) {
               user_dict.email = profile.email;
               user_dict.active = true;

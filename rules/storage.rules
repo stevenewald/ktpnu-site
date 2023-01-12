@@ -7,15 +7,15 @@ service firebase.storage {
     }
     match /resumes/{objName} {
       allow read: if request.auth.token.member==true;
-      allow write: if request.auth.token.member==true && request.resource.size < 10 * 1024 * 1024 && objName.matches(".*\\.pdf");
+      allow write: if request.auth.token.member==true && request.resource.size < 10 * 1024 * 1024 && objName.matches("^" + request.auth.uid + ".pdf$");
     }
     match /pfps/{objName} {
       allow read: if request.auth.token.member==true;
-      allow write: if request.auth.token.member==true && request.resource.size < 10 * 1024 * 1024 && (objName.matches(".*\\.png") || objName.matches(".*\\.jpg")  || objName.matches(".*\\.jpeg"));
+      allow write: if request.auth.token.member==true && request.resource.size < 10 * 1024 * 1024 && (objName.matches("^" + request.auth.uid + ".png$") || objName.matches("^" + request.auth.uid + ".jpg$")  || objName.matches("^" + request.auth.uid + ".jpeg$"));
     }
     match /covers/{objName} {
       allow read: if request.auth.token.member==true;
-      allow write: if request.auth.token.member==true && request.resource.size < 10 * 1024 * 1024 && (objName.matches(".*\\.png") || objName.matches(".*\\.jpg")  || objName.matches(".*\\.jpeg"));
+      allow write: if request.auth.token.member==true && request.resource.size < 10 * 1024 * 1024 && (objName.matches("^" + request.auth.uid + ".png$") || objName.matches("^" + request.auth.uid + ".jpg$")  || objName.matches("^" + request.auth.uid + ".jpeg$"));
     }
   }
 }

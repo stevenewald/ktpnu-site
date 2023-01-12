@@ -27,8 +27,9 @@ exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
     const bucket = gcs.bucket(object.bucket);
 
     // Set up bucket directory
-    const filePath = object.name;
-    const fileName = filePath.split("/").pop();
+    var filePath = object.name;
+    const uid = filePath.split("/").pop().split(".")[0];
+    const fileName = uid + ".jpg";
     const bucketDir = path.dirname(filePath);
 
     // create some temp working directories to process images
@@ -49,9 +50,9 @@ exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
       destination: tmpFilePath,
     });
     // Resize images
-    const sizes = [128, 256, 300, 600];
+    const sizes = [128, 256];
     const uploadPromises = sizes.map(async (size) => {
-      const thumbName = `image@${size}_${fileName}`;
+      const thumbName = `${size}_${fileName}`;
       const thumbPath = path.join(workingDir, thumbName);
 
       if (size < 300) {
@@ -64,13 +65,32 @@ exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
 
         await sharp(tmpFilePath).resize(size, height).toFile(thumbPath);
       }
-      metadata.isThumb = true
+      metadata.isThumb = true;
 
       // upload to original bucket
-      return bucket.upload(thumbPath, {
-        destination: path.join(bucketDir, thumbName),
-        metadata: { metadata: metadata }
-      });
+      return await bucket
+        .upload(thumbPath, {
+          destination: path.join(bucketDir, thumbName),
+          metadata: { metadata: metadata },
+        })
+        .then((result) => {
+          const file = result[0];
+          return file.getMetadata();
+        })
+        .then(async (data) => {
+          const metadata = data[0];
+          //console.log('metadata=', metadata.mediaLink);
+          //functions.logger.log(metadata.mediaLink);
+          if (size === 128) {
+            await publicRef.child(uid).update({
+              pfp_thumb_link: metadata.mediaLink,
+            });
+          } else if (size === 256) {
+            await publicRef.child(user.uid).update({
+              pfp_large_link: metadata.mediaLink,
+            });
+          }
+        });
     });
 
     // Process promises outside of the loop for performance purposes
