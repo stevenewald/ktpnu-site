@@ -19,7 +19,7 @@ let allowedRef = admin.database().ref("allowed_users");
 let publicRef = admin.database().ref("public_users");
 
 exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
-  try {
+  try { 
     // generate a unique name we'll use for the temp directories
     const uniqueName = uuid.v1();
 
@@ -80,6 +80,8 @@ exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
         .upload(thumbPath, {
           destination: path.join(bucketDir, thumbName),
           metadata: { metadata: metadata },
+          predefinedAcl: 'publicRead',
+          public:true,
         })
         .then((result) => {
           const file = result[0];
