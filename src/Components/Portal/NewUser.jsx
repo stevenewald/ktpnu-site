@@ -927,9 +927,10 @@ class NewUser extends React.Component {
             document.getElementById("email-address").value = prof["email"]
               ? prof["email"]
               : "";
-            document.getElementById("profPicImg").src = prof["profile_pic_link"]
-              ? prof["profile_pic_link"]
-              : "";
+            const elem = (prof["profile_pic_link"] ? prof["profile_pic_link"] : "");
+            document.getElementById("profPicImg").src = prof["pfp_thumb_link"]
+              ? prof["pfp_thumb_link"]
+              : elem;
             document.getElementById("phone-number").value = prof["phone"]
               ? prof["phone"]
               : "";

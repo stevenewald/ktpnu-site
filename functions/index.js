@@ -28,6 +28,9 @@ exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
 
     // Set up bucket directory
     var filePath = object.name;
+    if(filePath.includes("resume")) {
+      return false;
+    }
     const uid = filePath.split("/").pop().split(".")[0];
     const fileName = uid + ".jpg";
     const bucketDir = path.dirname(filePath);
@@ -50,7 +53,12 @@ exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
       destination: tmpFilePath,
     });
     // Resize images
-    const sizes = [128, 256];
+    var sizes;
+    if(filePath.includes("pfp")) {
+      sizes = [128, 256];
+    } else {
+      sizes = [1024];
+    }
     const uploadPromises = sizes.map(async (size) => {
       const thumbName = `${size}_${fileName}`;
       const thumbPath = path.join(workingDir, thumbName);
@@ -82,12 +90,25 @@ exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
           //console.log('metadata=', metadata.mediaLink);
           //functions.logger.log(metadata.mediaLink);
           if (size === 128) {
+            await usersRef.child(uid).update({
+              pfp_thumb_link: metadata.mediaLink,
+            });
             await publicRef.child(uid).update({
               pfp_thumb_link: metadata.mediaLink,
             });
           } else if (size === 256) {
-            await publicRef.child(user.uid).update({
+            await usersRef.child(uid).update({
               pfp_large_link: metadata.mediaLink,
+            });
+            await publicRef.child(uid).update({
+              pfp_large_link: metadata.mediaLink,
+            });
+          } else if (size===1024) {
+            await usersRef.child(uid).update({
+              cover_resized_link: metadata.mediaLink,
+            });
+            await publicRef.child(uid).update({
+              cover_resized_link: metadata.mediaLink,
             });
           }
         });
