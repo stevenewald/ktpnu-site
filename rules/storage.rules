@@ -1,0 +1,21 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read;
+      allow write: if false;
+    }
+    match /resumes/{objName} {
+      allow read: if request.auth.token.member==true;
+      allow write: if request.auth.token.member==true && request.resource.size < 10 * 1024 * 1024 && objName.matches(".*\\.pdf");
+    }
+    match /pfps/{objName} {
+      allow read: if request.auth.token.member==true;
+      allow write: if request.auth.token.member==true && request.resource.size < 10 * 1024 * 1024 && (objName.matches(".*\\.png") || objName.matches(".*\\.jpg")  || objName.matches(".*\\.jpeg"));
+    }
+    match /covers/{objName} {
+      allow read: if request.auth.token.member==true;
+      allow write: if request.auth.token.member==true && request.resource.size < 10 * 1024 * 1024 && (objName.matches(".*\\.png") || objName.matches(".*\\.jpg")  || objName.matches(".*\\.jpeg"));
+    }
+  }
+}

@@ -1,7 +1,15 @@
-const path = require('path');
+const path = require("path");
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const os = require("os");
+
+const { Storage } = require("@google-cloud/storage");
+const gcs = new Storage();
+
+const sharp = require("sharp");
+const fs = require("fs-extra");
+const uuid = require("uuid");
+
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
   databaseURL: "https://ktp-site-default-rtdb.firebaseio.com/",
@@ -10,30 +18,93 @@ let usersRef = admin.database().ref("users");
 let allowedRef = admin.database().ref("allowed_users");
 let publicRef = admin.database().ref("public_users");
 
-/*exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
-  functions.logger.log("Resizing image...");
-  functions.logger.log(JSON.stringify(object))
-  functions.logger.log(typeof object);
-  const tempFilePath = path.join(os.tmpdir(), object.name);
-  await object.download({destination: tempFilePath});
-  functions.logger.log("Done!");
-});*/
+exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
+  try {
+    // generate a unique name we'll use for the temp directories
+    const uniqueName = uuid.v1();
+
+    // Get the bucket original image was uploaded to
+    const bucket = gcs.bucket(object.bucket);
+
+    // Set up bucket directory
+    const filePath = object.name;
+    const fileName = filePath.split("/").pop();
+    const bucketDir = path.dirname(filePath);
+
+    // create some temp working directories to process images
+    const workingDir = path.join(os.tmpdir(), `images_${uniqueName}`);
+    const tmpFilePath = path.join(workingDir, `source_${uniqueName}.png`);
+    const metadata = object.metadata;
+
+    if (metadata.isThumb) {
+      console.log("Exiting image resizer!");
+      return false;
+    }
+
+    // Ensure directory exists
+    await fs.ensureDir(workingDir);
+
+    // Download source file
+    await bucket.file(filePath).download({
+      destination: tmpFilePath,
+    });
+    // Resize images
+    const sizes = [128, 256, 300, 600];
+    const uploadPromises = sizes.map(async (size) => {
+      const thumbName = `image@${size}_${fileName}`;
+      const thumbPath = path.join(workingDir, thumbName);
+
+      if (size < 300) {
+        // Square aspect ratio
+        // Good for profile images
+        await sharp(tmpFilePath).resize(size, size).toFile(thumbPath);
+      } else {
+        // 16:9 aspect ratio
+        let height = Math.floor(size * 0.5625);
+
+        await sharp(tmpFilePath).resize(size, height).toFile(thumbPath);
+      }
+      metadata.isThumb = true
+
+      // upload to original bucket
+      return bucket.upload(thumbPath, {
+        destination: path.join(bucketDir, thumbName),
+        metadata: { metadata: metadata }
+      });
+    });
+
+    // Process promises outside of the loop for performance purposes
+    await Promise.all(uploadPromises);
+
+    // Remove the temp directories
+    await fs.remove(workingDir);
+    await fs.remove(bucketDir);
+
+    return Promise.resolve();
+  } catch (error) {
+    // If we have an error, return it
+    // This will allow us to view it in the firebase function logs
+    return Promise.reject(error);
+  }
+});
 
 exports.beforeSignIn = functions.auth.user().beforeSignIn(async (user) => {
-  if(user.email.includes("northwestern.edu")) {
-    allowedRef.child(user.email.substring(0,user.email.indexOf("@"))).once("value", (snapshot) => {
-      if(snapshot.exists()) {
-        usersRef.child(user.uid).update({allowed:true})
-        admin.auth().setCustomUserClaims(user.uid, {
-          member: true
-        });
-      }
-    })
+  if (user.email.includes("northwestern.edu")) {
+    allowedRef
+      .child(user.email.substring(0, user.email.indexOf("@")))
+      .once("value", (snapshot) => {
+        if (snapshot.exists()) {
+          usersRef.child(user.uid).update({ allowed: true });
+          admin.auth().setCustomUserClaims(user.uid, {
+            member: true,
+          });
+        }
+      });
   }
-})
+});
 
 exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
-  if(!user.email.includes("northwestern.edu")) {
+  if (!user.email.includes("northwestern.edu")) {
     await usersRef.child(user.uid).set({
       allowed: false,
       signed_up: false,
@@ -45,21 +116,23 @@ exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
       .once("value", async (allowed_snapshot) => {
         if (allowed_snapshot.exists()) {
           usersRef.child(user.uid).once("value", async (user_snapshot) => {
-            if (!user_snapshot.exists()) { 
+            if (!user_snapshot.exists()) {
               functions.logger.log("Adding user " + user.email);
               await usersRef.child(user.uid).set({
                 allowed: true,
                 signed_up: false,
                 role: "Member",
                 profile_pic_link: user.photoURL,
-                cover_page_link: "https://images.ctfassets.net/7thvzrs93dvf/wpImage18643/2f45c72db7876d2f40623a8b09a88b17/linkedin-default-background-cover-photo-1.png?w=790&h=196&q=90&fm=png",
+                cover_page_link:
+                  "https://images.ctfassets.net/7thvzrs93dvf/wpImage18643/2f45c72db7876d2f40623a8b09a88b17/linkedin-default-background-cover-photo-1.png?w=790&h=196&q=90&fm=png",
                 email: user.email,
               });
               await publicRef.child(user.uid).set({
                 profile_pic_link: user.photoURL,
                 role: "Member",
-                cover_page_link: "https://images.ctfassets.net/7thvzrs93dvf/wpImage18643/2f45c72db7876d2f40623a8b09a88b17/linkedin-default-background-cover-photo-1.png?w=790&h=196&q=90&fm=png",
-              })
+                cover_page_link:
+                  "https://images.ctfassets.net/7thvzrs93dvf/wpImage18643/2f45c72db7876d2f40623a8b09a88b17/linkedin-default-background-cover-photo-1.png?w=790&h=196&q=90&fm=png",
+              });
               resolve(1); //allowed but needs to sign up, correct
             } else if (user_snapshot.val()["signed_up"]) {
               functions.logger.log("Already signed up:" + user.email);
@@ -75,7 +148,7 @@ exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
               resolve(3);
             }
             admin.auth().setCustomUserClaims(user.uid, {
-              member: true
+              member: true,
             });
           });
         } else {
@@ -88,7 +161,7 @@ exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
     const res = await prom;
     console.log("Promise result: " + res);
     return true;
-  } catch(err) {
-    throw new functions.auth.HttpsError('permission-denied');;
+  } catch (err) {
+    throw new functions.auth.HttpsError("permission-denied");
   }
 });

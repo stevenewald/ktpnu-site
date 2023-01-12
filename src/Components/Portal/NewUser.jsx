@@ -34,6 +34,10 @@ class NewUser extends React.Component {
     this.initNewAcc = this.initNewAcc.bind(this);
   }
 
+  catchUploadException(err) {
+    Swal.fire({ icon: "error", title: "Your file was over 10MB", text: err });
+  }
+
   initNewAcc(db, config) {
     let timerInterval;
     if (config.name.length == 0) {
@@ -387,26 +391,29 @@ class NewUser extends React.Component {
                               document.getElementById("file-upload3");
                             if (inputElem.files && inputElem.files[0]) {
                               const fileName = inputElem.files[0].name;
-                              const storageRef = sRef(
-                                this.props.storage,
-                                this.user.uid +
-                                  "_Resume" +
+                              if (
+                                !(
                                   fileName.substring(
                                     fileName.indexOf("."),
                                     fileName.length
-                                  )
-                              );
-                              if (
-                                !(fileName.substring(
-                                  fileName.indexOf("."),
-                                  fileName.length
-                                ) === ".pdf")
+                                  ) === ".pdf"
+                                )
                               ) {
                                 Swal.fire({
                                   icon: "error",
                                   title: "Resume uploads must be in pdf format",
                                 });
                               } else {
+                                const storageRef = sRef(
+                                  this.props.storage,
+                                  "resumes/" +
+                                    this.user.uid +
+                                    fileName.substring(
+                                      fileName.indexOf("."),
+                                      fileName.length
+                                    )
+                                );
+
                                 document
                                   .getElementById("filename2")
                                   .classList.remove("hidden");
@@ -443,7 +450,7 @@ class NewUser extends React.Component {
                                       });
                                   })
                                   .catch((err) => {
-                                    alert(err);
+                                    this.catchUploadException(err);
                                   });
                               }
                             }
@@ -481,49 +488,79 @@ class NewUser extends React.Component {
                             var inputElem =
                               document.getElementById("file-upload2");
                             if (inputElem.files && inputElem.files[0]) {
-                              var reader = new FileReader();
-
-                              reader.onload = function (e) {
-                                document.getElementById("profPicImg").src =
-                                  e.target.result;
-                              };
-
-                              reader.readAsDataURL(inputElem.files[0]);
-                              const storageRef = sRef(
-                                this.props.storage,
-                                this.user.uid + "_profile_pic"
-                              );
-                              uploadBytes(storageRef, inputElem.files[0])
-                                .then((snapshot) => {
-                                  console.log("Uploaded bytes");
-                                  getDownloadURL(snapshot.ref)
-                                    .then((downloadURL) => {
-                                      update(
-                                        ref(
-                                          this.props.database,
-                                          "users/" + this.user.uid
-                                        ),
-                                        {
-                                          profile_pic_link: downloadURL,
-                                        }
-                                      );
-                                      update(
-                                        ref(
-                                          this.props.database,
-                                          "public_users/" + this.user.uid
-                                        ),
-                                        {
-                                          profile_pic_link: downloadURL,
-                                        }
-                                      );
-                                    })
-                                    .catch((err) => {
-                                      alert(err);
-                                    });
-                                })
-                                .catch((err) => {
-                                  alert(err);
+                              const fileName = inputElem.files[0].name;
+                              if (
+                                !(
+                                  fileName.substring(
+                                    fileName.indexOf("."),
+                                    fileName.length
+                                  ) === ".jpeg" ||
+                                  fileName.substring(
+                                    fileName.indexOf("."),
+                                    fileName.length
+                                  ) === ".png" ||
+                                  fileName.substring(
+                                    fileName.indexOf("."),
+                                    fileName.length
+                                  ) === ".jpg"
+                                )
+                              ) {
+                                Swal.fire({
+                                  icon: "error",
+                                  title:
+                                    "Profile picture uploads must be in jpeg or pdf format",
                                 });
+                              } else {
+                                var reader = new FileReader();
+
+                                reader.onload = function (e) {
+                                  document.getElementById("profPicImg").src =
+                                    e.target.result;
+                                };
+
+                                reader.readAsDataURL(inputElem.files[0]);
+                                const storageRef = sRef(
+                                  this.props.storage,
+                                  "pfps/" +
+                                    this.user.uid +
+                                    fileName.substring(
+                                      fileName.indexOf("."),
+                                      fileName.length
+                                    )
+                                );
+
+                                uploadBytes(storageRef, inputElem.files[0])
+                                  .then((snapshot) => {
+                                    console.log("Uploaded bytes");
+                                    getDownloadURL(snapshot.ref)
+                                      .then((downloadURL) => {
+                                        update(
+                                          ref(
+                                            this.props.database,
+                                            "users/" + this.user.uid
+                                          ),
+                                          {
+                                            profile_pic_link: downloadURL,
+                                          }
+                                        );
+                                        update(
+                                          ref(
+                                            this.props.database,
+                                            "public_users/" + this.user.uid
+                                          ),
+                                          {
+                                            profile_pic_link: downloadURL,
+                                          }
+                                        );
+                                      })
+                                      .catch((err) => {
+                                        alert(err);
+                                      });
+                                  })
+                                  .catch((err) => {
+                                    this.catchUploadException(err);
+                                  });
+                              }
                             }
                           }}
                           id="file-upload2"
@@ -577,56 +614,85 @@ class NewUser extends React.Component {
                                 var inputElem =
                                   document.getElementById("file-upload");
                                 if (inputElem.files && inputElem.files[0]) {
-                                  document
-                                    .getElementById("mtCover")
-                                    .classList.add("hidden");
-                                  var reader = new FileReader();
-
-                                  reader.onload = function (e) {
-                                    document.getElementById("fullCover").src =
-                                      e.target.result;
-                                    document
-                                      .getElementById("fullCover")
-                                      .classList.remove("hidden");
-                                  };
-
-                                  reader.readAsDataURL(inputElem.files[0]);
-
-                                  const storageRef = sRef(
-                                    this.props.storage,
-                                    this.user.uid + "_cover_pic"
-                                  );
-                                  uploadBytes(storageRef, inputElem.files[0])
-                                    .then((snapshot) => {
-                                      console.log("Uploaded bytes");
-                                      getDownloadURL(snapshot.ref)
-                                        .then((downloadURL) => {
-                                          update(
-                                            ref(
-                                              this.props.database,
-                                              "users/" + this.user.uid
-                                            ),
-                                            {
-                                              cover_page_link: downloadURL,
-                                            }
-                                          );
-                                          update(
-                                            ref(
-                                              this.props.database,
-                                              "public_users/" + this.user.uid
-                                            ),
-                                            {
-                                              cover_page_link: downloadURL,
-                                            }
-                                          );
-                                        })
-                                        .catch((err) => {
-                                          alert(err);
-                                        });
-                                    })
-                                    .catch((err) => {
-                                      alert(err);
+                                  const fileName = inputElem.files[0].name;
+                                  if (
+                                    !(
+                                      fileName.substring(
+                                        fileName.indexOf("."),
+                                        fileName.length
+                                      ) === ".jpeg" ||
+                                      fileName.substring(
+                                        fileName.indexOf("."),
+                                        fileName.length
+                                      ) === ".png" ||
+                                      fileName.substring(
+                                        fileName.indexOf("."),
+                                        fileName.length
+                                      ) === ".jpg"
+                                    )
+                                  ) {
+                                    Swal.fire({
+                                      icon: "error",
+                                      title:
+                                        "Profile picture uploads must be in jpeg or pdf format",
                                     });
+                                  } else {
+                                    document
+                                      .getElementById("mtCover")
+                                      .classList.add("hidden");
+                                    var reader = new FileReader();
+
+                                    reader.onload = function (e) {
+                                      document.getElementById("fullCover").src =
+                                        e.target.result;
+                                      document
+                                        .getElementById("fullCover")
+                                        .classList.remove("hidden");
+                                    };
+
+                                    reader.readAsDataURL(inputElem.files[0]);
+
+                                    const storageRef = sRef(
+                                      this.props.storage,
+                                      "covers/" +
+                                        this.user.uid +
+                                        fileName.substring(
+                                          fileName.indexOf("."),
+                                          fileName.length
+                                        )
+                                    );
+                                    uploadBytes(storageRef, inputElem.files[0])
+                                      .then((snapshot) => {
+                                        console.log("Uploaded bytes");
+                                        getDownloadURL(snapshot.ref)
+                                          .then((downloadURL) => {
+                                            update(
+                                              ref(
+                                                this.props.database,
+                                                "users/" + this.user.uid
+                                              ),
+                                              {
+                                                cover_page_link: downloadURL,
+                                              }
+                                            );
+                                            update(
+                                              ref(
+                                                this.props.database,
+                                                "public_users/" + this.user.uid
+                                              ),
+                                              {
+                                                cover_page_link: downloadURL,
+                                              }
+                                            );
+                                          })
+                                          .catch((err) => {
+                                            alert(err);
+                                          });
+                                      })
+                                      .catch((err) => {
+                                        this.catchUploadException(err);
+                                      });
+                                  }
                                 }
                               }}
                               id="file-upload"
