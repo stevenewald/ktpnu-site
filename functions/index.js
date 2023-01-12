@@ -57,7 +57,7 @@ exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
     if(filePath.includes("pfp")) {
       sizes = [128, 256];
     } else {
-      sizes = [1024];
+      sizes = [1400];
     }
     const uploadPromises = sizes.map(async (size) => {
       const thumbName = `${size}_${fileName}`;
@@ -103,7 +103,7 @@ exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
             await publicRef.child(uid).update({
               pfp_large_link: metadata.mediaLink,
             });
-          } else if (size===1024) {
+          } else if (size===1400) {
             await usersRef.child(uid).update({
               cover_resized_link: metadata.mediaLink,
             });
