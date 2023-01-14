@@ -44,7 +44,6 @@ var navigation = {
     icon: MegaphoneIcon,
     current: false,
   },
-  Rush: { name: "Rush process", href: "#", icon: MapIcon, current: false },
   Admin: {name: "Admin", href:"#",icon:WrenchScrewdriverIcon,current:false,secondary:true,adminonly:true},
   Profile: {
     name: "Edit Profile",
@@ -484,7 +483,7 @@ class MemberPage extends React.Component {
               />
             }
           />
-          <div className={this.state.navigation["Rush"].current ? "" : "hidden"} >
+          <div className={false ? "" : "hidden"} >
             <RushEvents />
           </div>
 
