@@ -53,7 +53,7 @@ class IndivProfile extends React.Component {
                 <div className="flex">
                   <img
                     className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32 object-cover"
-                    src={this.props.profile.imageUrl}
+                    src={this.props.profile.largeProfilePic}
                     alt=""
                   />
                 </div>
@@ -166,7 +166,7 @@ class IndivProfile extends React.Component {
                   <div className="flex-shrink-0">
                     <img
                       className="h-10 w-10 rounded-full"
-                      src={person.imageUrl}
+                      src={person.largeProfilePic}
                       alt=""
                     />
                   </div>

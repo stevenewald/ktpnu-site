@@ -86,7 +86,7 @@ class MemberPage extends React.Component {
           .then((snapshot) => {
             const prof = snapshot.val();
             newUser.name = prof["name"];
-            newUser.imageUrl = prof["profile_pic_link"];
+            newUser.imageUrl = prof["pfp_thumb_link"] ? prof["pfp_thumb_link"] : prof["profile_pic_link"];
           })
           .then((res) => {
             this.setState({ user: newUser });
