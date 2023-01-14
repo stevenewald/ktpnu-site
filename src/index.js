@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MemberPage from "./Components/Portal/MemberPage2";
+import MemberPage from "./Components/Portal/MemberPage";
 import MemberLogin from "./Components/Portal/GoogleRedirect";
 import SignUp from "./Components/Portal/SignUp";
 import NewUserCont from "./Components/Portal/NewUserCont";
