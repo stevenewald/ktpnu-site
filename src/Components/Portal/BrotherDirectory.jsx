@@ -205,9 +205,10 @@ class BrotherDirectory extends React.Component {
   dictFromProfile(profile) {
     var newProfile = {};
     newProfile.name = profile.name;
-    newProfile.imageUrl = profile.profile_pic_link;
+    newProfile.largeProfilePic = profile.pfp_large_link ? profile.pfp_large_link : profile.profile_pic_link;
+    newProfile.smallProfilePic = profile.pfp_thumb_link ? profile.pfp_thumb_link : profile.profile_pic_link;
     if (profile.cover_page_link) {
-      newProfile.coverImageUrl = profile.cover_page_link;
+      newProfile.coverImageUrl = profile.cover_resized_link ? profile.cover_resized_link : profile.cover_page_link;
     }
     if (profile.about) {
       newProfile.about = profile.about;
@@ -317,7 +318,8 @@ class BrotherDirectory extends React.Component {
             var user_dict = {};
             user_dict["name"] = profile.name;
             user_dict["role"] = profile.role;
-            user_dict["imageUrl"] = profile.profile_pic_link;
+            user_dict["largeProfilePic"] = profile.pfp_large_link ? profile.pfp_large_link : profile.profile_pic_link;
+            user_dict["smallProfilePic"] = profile.pfp_thumb_link ? profile.pfp_thumb_link : profile.profile_pic_link;
             user_dict["fullProfile"] = profile;
             user_dict["handler"] = this.changeProfileHandler;
             user_dict["id"] = String(amount);

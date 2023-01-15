@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MemberPage from "./Components/Portal/MemberPage2";
+import MemberPage from "./Components/Portal/MemberPage";
 import MemberLogin from "./Components/Portal/GoogleRedirect";
 import SignUp from "./Components/Portal/SignUp";
 import NewUserCont from "./Components/Portal/NewUserCont";
@@ -21,10 +21,10 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/functions";
 import { getDatabase, connectDatabaseEmulator } from "firebase/database";
-import RushEvents from "./Components/Landing/RushEvents";
+//import RushEvents from "./Components/Landing/RushEvents";
 import { getStorage, connectStorageEmulator } from "firebase/storage";
 
-import portalimg from "./Components/Landing/images/portal.png";
+import portalimg from "./Components/Landing/images/portal.jpeg";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBY_olTq-IJkQs1-VXTCgxIUzlD7_-3MXQ",
@@ -71,7 +71,6 @@ class Full extends React.Component {
               <div>
                 <Header firebase={firebase} />
                 <Hero />
-                <RushEvents />
                 <Greeting />
                 <Pillars />
                 <PortalAdvertisement ig={portalimg} />
