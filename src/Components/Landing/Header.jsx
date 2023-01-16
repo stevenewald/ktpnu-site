@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Logo from './Assets/Logo.png';
 const navigation = [
-  { name: "Rush Events", href: "#rush-events" },
   { name: "About KTP", href: "#greeting" },
   { name: "Team", href: "#team" },
   { name: "FAQ", href: "#faq" },
