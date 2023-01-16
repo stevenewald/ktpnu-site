@@ -22,7 +22,7 @@ class AdminPanel extends React.Component {
 
   
   addNewUser() {
-    const newEmail = this.emailButton.current.value;
+    const newEmail = this.emailButton.current.value.toLowerCase();
     this.emailButton.current.value = "";
     if(!newEmail.includes("@u.northwestern.edu")) {
         Swal.fire({icon:'error',title:'Invalid email',text:'Email must be a u.northwestern.edu email.'})
@@ -52,7 +52,7 @@ class AdminPanel extends React.Component {
   render() {
     return (
       <div className="flex">
-        <div className="mt-4 pl-4 w-1/2">
+        <div className="mt-4 pl-4 w-full lg:w-3/4">
           <div className="bg-gray-100 shadow sm:rounded-lg">
             <div className="px-4 py-5 sm:p-6">
               <h3 className="text-lg font-medium leading-6 text-gray-900">
