@@ -135,7 +135,7 @@ class AdminPanel extends React.Component {
                 Send a text
               </h3>
               <div className="mt-2 max-w-xl text-sm text-gray-500">
-                <p>Enter the message you'd like to send to the pledges</p>
+                <p>Enter the message you'd like to send to the members</p>
               </div>
               <form className="mt-5 sm:flex sm:items-center">
                 <div className="w-full sm:max-w-sm mb-3 sm:mb-0">
