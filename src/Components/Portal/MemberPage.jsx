@@ -495,7 +495,7 @@ class MemberPage extends React.Component {
             <p className="text-3xl text-center text-gray-400 p-4 font-bold m-auto h-full pt-20 pb-20">Coming Soon</p>
           </div>
           <div className={this.state.navigation["Admin"].current ? "" : "hidden"}>
-            <AdminPanel database={this.props.database}/>
+            <AdminPanel firebase={this.props.firebase} database={this.props.database}/>
           </div>
         </div>
       </div>

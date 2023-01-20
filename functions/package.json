@@ -15,9 +15,11 @@
   "main": "index.js",
   "dependencies": {
     "firebase-admin": "^10.0.2",
-    "firebase-functions": "^3.18.0",
+    "firebase-functions": "^4.2.0",
     "fs-extra": "^11.1.0",
-    "sharp": "^0.31.3"
+    "google-libphonenumber": "^3.2.31",
+    "sharp": "^0.31.3",
+    "twilio": "^3.84.1"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.0"

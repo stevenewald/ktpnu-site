@@ -2,9 +2,14 @@ const path = require("path");
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const os = require("os");
-
 const { Storage } = require("@google-cloud/storage");
 const gcs = new Storage();
+
+const ACC_SID = "AC099209d721444b627637504d0606c2dc";
+const AUTH_TOKEN = "b518bb1535e0a8f0425e87f5ae63896c";
+const twilio_client = require("twilio")(ACC_SID, AUTH_TOKEN);
+const phoneUtil =
+  require("google-libphonenumber").PhoneNumberUtil.getInstance();
 
 const sharp = require("sharp");
 const fs = require("fs-extra");
@@ -18,8 +23,95 @@ let usersRef = admin.database().ref("users");
 let allowedRef = admin.database().ref("allowed_users");
 let publicRef = admin.database().ref("public_users");
 
+exports.sendText = functions.https.onCall(async (data, context) => {
+  const prom = new Promise((resolve, reject) => {
+    usersRef.child(context.auth.uid).once("value", (user_snapshot) => {
+      if (
+        user_snapshot.val()["admin"] === true &&
+        (user_snapshot.val()["name"] === "Steven Ewald" ||
+          user_snapshot.val()["name"] === "Samar Saleem")
+      ) {
+        usersRef.once("value", (all_users) => {
+          const message = data["message"];
+          const whoTo = data["whoTo"];
+          const type = data["type"];
+          var success = 0;
+          for (let currUser in all_users.val()) {
+            try {
+              const actualUser = all_users.val()[currUser];
+              if (
+                !actualUser["role"] ||
+                !actualUser["phone"] ||
+                !actualUser["announcement_level"]
+              ) {
+                console.log(
+                  "Skipping " +
+                    actualUser["name"] +
+                    " due to them having an incomplete profile"
+                );
+                continue;
+              }
+              if (whoTo != "Everyone") {
+                if (
+                  actualUser["role"].substring(0, 2) != "VP" &&
+                  whoTo === "Pledges" &&
+                  actualUser["role"] != "Pledge"
+                ) {
+                  console.log("Skipping " + actualUser["name"]);
+                  continue;
+                } else if (
+                  actualUser["role"].substring(0, 2) != "VP" &&
+                  whoTo === "Brothers" &&
+                  actualUser["role"] != "Member" &&
+                  actualUser["role"] != "Brother"
+                ) {
+                  console.log("Skipping " + actualUser["name"]);
+                  continue;
+                }
+              }
+
+              if (
+                actualUser["role"].substring(0, 2) != "VP" &&
+                actualUser["announcement_level"] === 1
+              ) {
+                console.log("Skipping " + actualUser["name"]);
+                continue;
+              }
+
+              if (
+                actualUser["role"].substring(0, 2) != "VP" &&
+                actualUser["announcement_level"] === 2 &&
+                type === "Event"
+              ) {
+                console.log("Skipping " + actualUser["name"]);
+                continue;
+              }
+              try {
+                console.log("Texting " + actualUser["name"]);
+                twilio_client.messages.create({
+                  body: message,
+                  from: "+17579193238",
+                  to:
+                    "+1" +
+                    phoneUtil
+                      .parse(actualUser["phone"], "US")
+                      .getNationalNumber(),
+                });
+                success++;
+              } catch (error) {}
+            } catch (error2) {}
+          }
+          resolve({ status: "Success", amount: success });
+        });
+      }
+    });
+  });
+  const val = await prom;
+  return prom;
+});
+
 exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
-  try { 
+  try {
     // generate a unique name we'll use for the temp directories
     const uniqueName = uuid.v1();
 
@@ -28,7 +120,7 @@ exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
 
     // Set up bucket directory
     var filePath = object.name;
-    if(filePath.includes("resume")) {
+    if (filePath.includes("resume")) {
       return false;
     }
     const uid = filePath.split("/").pop().split(".")[0];
@@ -54,7 +146,7 @@ exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
     });
     // Resize images
     var sizes;
-    if(filePath.includes("pfp")) {
+    if (filePath.includes("pfp")) {
       sizes = [128, 256];
     } else {
       sizes = [1400];
@@ -80,8 +172,8 @@ exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
         .upload(thumbPath, {
           destination: path.join(bucketDir, thumbName),
           metadata: { metadata: metadata },
-          predefinedAcl: 'publicRead',
-          public:true,
+          predefinedAcl: "publicRead",
+          public: true,
         })
         .then((result) => {
           const file = result[0];
@@ -105,7 +197,7 @@ exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
             await publicRef.child(uid).update({
               pfp_large_link: metadata.mediaLink,
             });
-          } else if (size===1400) {
+          } else if (size === 1400) {
             await usersRef.child(uid).update({
               cover_resized_link: metadata.mediaLink,
             });
