@@ -19,7 +19,7 @@ class IndivProfile extends React.Component {
         this.props.loading
         ? "invisible"
         :"",
-        "h-screen relative z-0 flex-1 overflow-hidden focus:outline-none xl:order-last"
+        "relative flex-1 overflow-y-scroll focus:outline-none xl:order-last mobileProfHeight"
       )}>
         {/* Breadcrumb */}
         <nav
@@ -38,7 +38,7 @@ class IndivProfile extends React.Component {
           </a>
         </nav>
 
-        <article>
+        <article className="pb-32 sm:pb-0">
           {/* Profile header */}
           <div>
             <div>

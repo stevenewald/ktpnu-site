@@ -27,9 +27,7 @@ exports.sendText = functions.https.onCall(async (data, context) => {
   const prom = new Promise((resolve, reject) => {
     usersRef.child(context.auth.uid).once("value", (user_snapshot) => {
       if (
-        user_snapshot.val()["admin"] === true &&
-        (user_snapshot.val()["name"] === "Steven Ewald" ||
-          user_snapshot.val()["name"] === "Samar Saleem")
+        user_snapshot.val()["admin"] === true
       ) {
         usersRef.once("value", (all_users) => {
           const message = data["message"];
