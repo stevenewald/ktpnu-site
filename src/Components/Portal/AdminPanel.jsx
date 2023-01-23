@@ -142,11 +142,11 @@ class AdminPanel extends React.Component {
                   <label htmlFor="email" className="sr-only">
                     Message
                   </label>
-                  <input
+                  <textarea
                     type="text"
                     name="text"
                     id="text"
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="block w-full h-[2.5rem] rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     placeholder="Pledge meeting tonight @ 7:00..."
                     ref={this.sendTextButton}
                   />

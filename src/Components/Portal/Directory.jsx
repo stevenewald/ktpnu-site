@@ -69,7 +69,7 @@ class MobileDirectory extends React.Component {
             aria-label="Breadcrumb"
           >
             <a
-              
+
               className="cursor-pointer inline-flex items-center space-x-3 text-sm font-medium text-gray-900"
             >
               <span className="select-none">Profile</span>
