@@ -6,19 +6,29 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import NewUser from "./NewUser";
 import RushEvents from "./../Landing/RushEvents";
-import { CheckCircleIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import Logo from "../Landing/Assets/Logo.png"
+import Announcements from './Announcements';
 import AdminPanel from "./AdminPanel";
+import {
+  MegaphoneIcon as MegaphoneIconSolid,
+  CalendarDaysIcon,
+} from "@heroicons/react/20/solid";
 import {
   Bars3Icon,
   CurrencyDollarIcon,
   CogIcon,
   MagnifyingGlassCircleIcon,
-  MapIcon,
   MegaphoneIcon,
   XMarkIcon,
   WrenchScrewdriverIcon
 } from "@heroicons/react/24/outline";
+
+function formatTime(time, timezone) {
+  const date = new Date(time);
+  const options = { timeZone: timezone, weekday: 'long', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+  return date.toLocaleString('en-US', options);
+}
 
 const defaultUser = {
   name: "Loading",
@@ -67,6 +77,8 @@ class MemberPage extends React.Component {
       user: defaultUser,
       navigation: navigation,
       admin:false,
+      announcements:[],
+      memberType:"Member",
     };
     this.setSidebarOpen = this.setSidebarOpen.bind(this);
     this.changeNav = this.changeNav.bind(this);
@@ -94,8 +106,43 @@ class MemberPage extends React.Component {
           .then((snapshot) => {
             const prof = snapshot.val();
             if(prof["admin"]) {
-              this.setState({admin:true});
+              this.setState({admin:true, memberType:prof["role"]});
             }
+          })
+          
+          get(child(dbRef, "announcements")).then((snapshot) => {
+            var announcements_list = Object.values(snapshot.val());
+            announcements_list.sort((a, b) => a.timestamp - b.timestamp);
+            for(var i = 0; i < announcements_list.length; i++) {
+              announcements_list[i].timestamp_formatted = formatTime(announcements_list[i].timestamp, Intl.DateTimeFormat().resolvedOptions().timeZone);
+            }
+            var filterVar = "Member";
+            if(this.state.memberType==="Pledge") {
+              filterVar = "Pledges";
+            } else if (this.state.memberType==="Member" || this.state.memberType==="Brother") {
+              filterVar = "Members";
+            }
+            announcements_list = announcements_list.filter((obj, _) => obj.whoTo==="Everyone" || obj.whoTo===filterVar);
+            var new_ann_list = [];
+            for(var i = 0; i < announcements_list.length;i++) {
+              const indiv_announcement = announcements_list[i];
+              var curr_ann = {};
+              curr_ann["id"]=i;
+              curr_ann["message"]=indiv_announcement.text;
+              var newDate = new Date(indiv_announcement.timestamp);
+              curr_ann["date"]=newDate.toLocaleString('en-US', {month: 'long', day: 'numeric'});
+              curr_ann["datetime"]=newDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })
+              if(indiv_announcement["messageType"]==="Announcement") {
+                curr_ann["icon"]=MegaphoneIconSolid;
+                curr_ann["iconBackground"]="bg-blue-500";
+              } else {
+                curr_ann["icon"]=CalendarDaysIcon;
+                curr_ann["iconBackground"]="bg-indigo-500";
+              }
+              new_ann_list.push(curr_ann);
+            }
+            new_ann_list = new_ann_list.reverse();
+            this.setState({announcements:new_ann_list});
           })
           .then((res) => {
             this.setState({ user: newUser });
@@ -472,17 +519,6 @@ class MemberPage extends React.Component {
               />
             }
           />
-          <Notification
-            showable={false}
-            title="Pay member dues"
-            text="Dues are due."
-            icon={
-              <ExclamationCircleIcon
-                className="h-6 w-6 text-gray-400"
-                aria-hidden="true"
-              />
-            }
-          />
           <div className={false ? "" : "hidden"} >
             <RushEvents />
           </div>
@@ -491,8 +527,8 @@ class MemberPage extends React.Component {
             <p className="text-3xl text-center text-gray-400 p-4 font-bold m-auto h-full pt-20 pb-20">Coming Soon</p>
           </div>
 
-          <div className={this.state.navigation["Announcements"].current ? "" : "hidden"} >
-            <p className="text-3xl text-center text-gray-400 p-4 font-bold m-auto h-full pt-20 pb-20">Coming Soon</p>
+          <div className={this.state.navigation["Announcements"].current ? "flex justify-center items-center h-screen" : "hidden"} >
+            <Announcements announcements={this.state.announcements}/>
           </div>
           <div className={this.state.navigation["Admin"].current ? "" : "hidden"}>
             <AdminPanel firebase={this.props.firebase} database={this.props.database}/>

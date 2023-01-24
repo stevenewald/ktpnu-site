@@ -20,6 +20,10 @@
         ".read": true
       },
       ".read": "root.child('users').child(auth.uid).exists()"
+    },
+    "announcements": {
+      ".write": false,
+      ".read": "root.child('users').child(auth.uid).exists()"
     }
   }
 }
