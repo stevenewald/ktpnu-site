@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@ericz1803/react-google-calendar": "^4.2.2",
     "@firebase/auth": "^0.20.11",
     "@firebase/storage": "^0.10.0",
     "@headlessui/react": "^1.7.4",
@@ -24,6 +26,7 @@
     "notion-client": "^6.15.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-embedded-google-calendar": "^1.0.11",
     "react-notion": "^0.10.0",
     "react-notion-x": "^6.15.7",
     "react-router-dom": "^6.4.4",

@@ -1,6 +1,10 @@
 import React from 'react'
 import request from 'axios';
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
+import { Tab } from '@headlessui/react'
+import Calendar from "@ericz1803/react-google-calendar";
+
+const tabNames = ['All Posts', 'Calendar View']
 
 class PledgeCalendar extends React.Component {
 
@@ -25,6 +29,12 @@ class PledgeCalendar extends React.Component {
 
     // ID of notion page
     this.NOTION_ID = '7b33ed2c5812421187ac0e0d1b38e416'
+    this.GCAL_ID = 'c82f1fdd31eb61e26a3646e34ebde02efff386dff751179c6733a9e372c61cda@group.calendar.google.com'
+    this.API_KEY = 'AIzaSyBj2UQzQuZJrqC4SI5MZ_tBL6jWD9z-sVE'
+
+    this.calendars = [
+      { calendarId: this.GCAL_ID },
+    ]
   }
 
   componentDidMount() {
@@ -106,66 +116,97 @@ class PledgeCalendar extends React.Component {
     return apiCompletionPromise;
   }
 
+  classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+  }
+
   render() {
     return (
       <>
-        {this.state.notionPageData ?
-          <div className="bg-white w-full h-full">
-            <div className="m-6 bg-white sm:rounded-lg">
+        <div className="overflow-y-auto m-8">
 
-              {/* Header */}
-              <div className="">
+          {/* Header */}
+          <div className="">
 
-                {/* Icon and Title */}
-                <div className="flex items-center">
+            {/* Icon and Title */}
+            <div className="flex items-center pb-2">
 
-                  {/* Calendar Icon */}
-                  <div className="flex">
-                    <CalendarDaysIcon className="ktp-color ml-4 mt-4 mb-4 mr-2 h-8 w-8"/>
-                  </div>
-
-                  {/* Title */}
-                  <div className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
-                    KTP Pledge Calendar
-                  </div>
-                </div>
-
-                {/* Subtitle */}
-                <div className="mx-auto ml-4 text-sm inline-block text-gray-500 flex items-center">
-                  Use this calendar to plan and stay on top of all your pledge events.
-                </div>
+              {/* Calendar Icon */}
+              <div className="flex justify-center items-center">
+                <CalendarDaysIcon className="text-blue-900 mr-[0.5rem] h-[2.5rem] w-[2.5rem]"/>
               </div>
 
-              {/* Table */}
-              <div className="ml-4 mr-4 mt-6 overflow-x-auto scrollbar-hide overscroll-x-none">
-                <table>
-                  <thead>
-
-                    {/* Render columns */}
-                    <tr>
-                      {this.state.notionCols.map((column, index) => (
-                        <th key={index}>{column}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                    {/* Render rows */}
-                    {this.state.notionEvents.map((event, index) => (
-                      <tr key={index}>
-
-                        {/* Render each point in each row */}
-                        {Object.entries(event).map(([key, value]) => (
-                          <td>{value}</td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              {/* Title */}
+              <div className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
+                KTP Pledge Calendar
               </div>
             </div>
+
+            {/* Subtitle */}
+            <div className="mx-auto text-sm inline-block text-gray-500 flex items-center">
+              Use this calendar to plan and stay on top of all your pledge events.
+            </div>
           </div>
-        : <div className="p-4">Loading...</div>}
+
+          <Tab.Group>
+            <Tab.List className="flex space-x-1 drop-shadow-md mb-4 mt-6">
+              {/* Render tabs */}
+              {Object.values(tabNames).map((tabName) => (
+                <Tab className={({ selected }) =>
+                  this.classNames(
+                    'w-[10rem] rounded-lg py-2 text-sm font-medium leading-5 text-white',
+                    'focus:outline-none shadow',
+                    selected
+                      ? 'bg-blue-900'
+                      : 'bg-white text-blue-900 hover:bg-white/[0.2] border border-blue-900'
+                )}>
+                  {tabName}
+                </Tab>
+              ))}
+            </Tab.List>
+            <Tab.Panels>
+              <Tab.Panel>
+                {this.state.notionPageData ?
+                  <div className="bg-white w-full h-full">
+                    <div className="bg-white sm:rounded-lg">
+
+                      {/* Table */}
+                      <div className="mt-6 overflow-x-auto scrollbar-hide overscroll-x-none">
+                        <table>
+                          <thead>
+
+                            {/* Render columns */}
+                            <tr>
+                              {this.state.notionCols.map((column, index) => (
+                                <th key={index}>{column}</th>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                            {/* Render rows */}
+                            {this.state.notionEvents.map((event, index) => (
+                              <tr key={index}>
+
+                                {/* Render each point in each row */}
+                                {Object.entries(event).map(([key, value]) => (
+                                  <td>{value}</td>
+                                ))}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                : <div className="p-4">Loading...</div>}
+              </Tab.Panel>
+              <Tab.Panel>
+                <Calendar apiKey={this.API_KEY} calendars={this.calendars} />
+              </Tab.Panel>
+            </Tab.Panels>
+          </Tab.Group>
+        </div>
       </>
     );
   }

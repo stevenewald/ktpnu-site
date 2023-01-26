@@ -1,6 +1,5 @@
 import React from "react";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
-import { motion } from 'framer-motion'
 
 class Hero extends React.Component {
   constructor() {
