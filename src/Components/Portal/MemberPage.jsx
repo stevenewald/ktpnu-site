@@ -6,12 +6,8 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import NewUser from "./NewUser";
 import RushEvents from "./../Landing/RushEvents";
-<<<<<<< HEAD
 import PledgeCalendar from "./PledgeCalendar";
 import { CheckCircleIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
-=======
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
->>>>>>> origin/announcements
 import Logo from "../Landing/Assets/Logo.png"
 import Announcements from './Announcements';
 import AdminPanel from "./AdminPanel";
@@ -121,7 +117,7 @@ class MemberPage extends React.Component {
               this.setState({admin:true, memberType:prof["role"]});
             }
           })
-          
+
           get(child(dbRef, "announcements")).then((snapshot) => {
             var announcements_list = Object.values(snapshot.val());
             announcements_list.sort((a, b) => a.timestamp - b.timestamp);

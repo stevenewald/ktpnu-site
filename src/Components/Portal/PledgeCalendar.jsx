@@ -4,7 +4,8 @@ import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { Tab } from '@headlessui/react'
 import Calendar from "@ericz1803/react-google-calendar";
 
-const tabNames = ['All Posts', 'Calendar View']
+const tabNames = ['All Posts',
+                  'Calendar View']
 
 class PledgeCalendar extends React.Component {
 
