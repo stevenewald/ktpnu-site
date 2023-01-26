@@ -160,7 +160,7 @@ class AdminPanel extends React.Component {
                     ref={this.whoToButton}
                   >
                     <option>Pledges</option>
-                    <option>Brothers</option>
+                    <option>Members</option>
                     <option>Everyone</option>
                   </select>
                 </div>

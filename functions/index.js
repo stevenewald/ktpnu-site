@@ -22,6 +22,7 @@ admin.initializeApp({
 let usersRef = admin.database().ref("users");
 let allowedRef = admin.database().ref("allowed_users");
 let publicRef = admin.database().ref("public_users");
+let announcementsRef = admin.database().ref("announcements");
 
 exports.sendText = functions.https.onCall(async (data, context) => {
   const prom = new Promise((resolve, reject) => {
@@ -34,6 +35,13 @@ exports.sendText = functions.https.onCall(async (data, context) => {
           const whoTo = data["whoTo"];
           const type = data["type"];
           var success = 0;
+          var newAnnouncement = {
+            text: message,
+            whoTo: whoTo,
+            timestamp: admin.database.ServerValue.TIMESTAMP, // use firebase server timestamp
+            messageType:type,
+          };
+          announcementsRef.push(newAnnouncement);
           for (let currUser in all_users.val()) {
             try {
               const actualUser = all_users.val()[currUser];
@@ -105,7 +113,7 @@ exports.sendText = functions.https.onCall(async (data, context) => {
     });
   });
   const val = await prom;
-  return prom;
+  return val;
 });
 
 exports.resizeCover = functions.storage.object().onFinalize(async (object) => {

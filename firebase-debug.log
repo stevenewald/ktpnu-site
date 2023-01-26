@@ -13041,3 +13041,50 @@ Issues? Report them at https://github.com/firebase/firebase-tools/issues and att
 [info] i  hosting: 127.0.0.1 - - [26/Jan/2023:18:54:24 +0000] "GET /static/media/group.947dc292ded4a64677d7.png HTTP/1.1" 200 39793 "http://localhost:5000/member" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [26/Jan/2023:18:54:24 +0000] \"GET /static/media/group.947dc292ded4a64677d7.png HTTP/1.1\" 200 39793 \"http://localhost:5000/member\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36\""}}
 [info] i  hosting: 127.0.0.1 - - [26/Jan/2023:18:54:24 +0000] "GET /static/media/interview.4712e42ba5f70eb8d7c8.png HTTP/1.1" 200 46487 "http://localhost:5000/member" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [26/Jan/2023:18:54:24 +0000] \"GET /static/media/interview.4712e42ba5f70eb8d7c8.png HTTP/1.1\" 200 46487 \"http://localhost:5000/member\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36\""}}
 [info] i  hosting: 127.0.0.1 - - [26/Jan/2023:18:54:24 +0000] "GET /null HTTP/1.1" 304 - "http://localhost:5000/member" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [26/Jan/2023:18:54:24 +0000] \"GET /null HTTP/1.1\" 304 - \"http://localhost:5000/member\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36\""}}
+[debug] [2023-01-26T19:25:52.803Z] File /Users/alexisrobles/Desktop/Northwestern/KTP/ktp-revamp/functions/index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File /Users/alexisrobles/Desktop/Northwestern/KTP/ktp-revamp/functions/index.js changed, reloading triggers"}}
+[debug] [2023-01-26T19:25:52.902Z] File /Users/alexisrobles/Desktop/Northwestern/KTP/ktp-revamp/functions/index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File /Users/alexisrobles/Desktop/Northwestern/KTP/ktp-revamp/functions/index.js changed, reloading triggers"}}
+[info] i  database: Change detected, updating rules for ktp-site-default-rtdb... {"metadata":{"emulator":{"name":"database"},"message":"Change detected, updating rules for ktp-site-default-rtdb..."}}
+[debug] [2023-01-26T19:25:52.907Z] >>> [apiv2][query] PUT http://127.0.0.1:9000/.settings/rules.json ns=ktp-site-default-rtdb
+[debug] [2023-01-26T19:25:52.908Z] >>> [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json "{\n  \"rules\": {\n    \"users\": {\n      \"$user_id\": {\n        \".read\": \"$user_id === auth.uid && root.child('users').child(auth.uid).child('allowed').val() === true\",\n        \"$child\": {\n          \".write\": \"$user_id === auth.uid  && root.child('users').child(auth.uid).child('allowed').val() === true && ($child !== 'admin')\"\n        }\n      }\n    },\n    \"allowed_users\": {\n      \"$user_id\": {\n        \".write\": \"root.child('users').child(auth.uid).child('admin').val() === true\",\n        \".read\": true\n      }\n    },\n    \"public_users\": {\n      \"$user_id\": {\n        \".write\": \"$user_id === auth.uid  && root.child('users').child(auth.uid).child('allowed').val() === true\",\n        \".read\": true\n      },\n      \".read\": \"root.child('users').child(auth.uid).exists()\"\n    },\n    \"announcements\": {\n      \".write\": false,\n      \".read\": \"root.child('users').child(auth.uid).exists()\"\n    }\n  }\n}"
+[debug] [2023-01-26T19:25:52.934Z] 13:25:52.934 [NamespaceSystem-blocking-namespace-operation-dispatcher-15] INFO com.firebase.core.namespace.StateManager - Namespace ktp-site-default-rtdb status Active to Active
+ {"metadata":{"emulator":{"name":"database"},"message":"13:25:52.934 [NamespaceSystem-blocking-namespace-operation-dispatcher-15] INFO com.firebase.core.namespace.StateManager - Namespace ktp-site-default-rtdb status Active to Active\n"}}
+[debug] [2023-01-26T19:25:52.938Z] <<< [apiv2][status] PUT http://127.0.0.1:9000/.settings/rules.json 200
+[debug] [2023-01-26T19:25:52.938Z] <<< [apiv2][body] PUT http://127.0.0.1:9000/.settings/rules.json {"status":"ok"}
+[info] ✔  database: Rules updated. {"metadata":{"emulator":{"name":"database"},"message":"Rules updated."}}
+[debug] [2023-01-26T19:25:53.906Z] Validating nodejs source
+[debug] [2023-01-26T19:25:54.685Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "build": "",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^4.2.0",
+    "fs-extra": "^11.1.0",
+    "google-libphonenumber": "^3.2.31",
+    "sharp": "^0.31.3",
+    "twilio": "^3.84.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2023-01-26T19:25:54.686Z] Building nodejs source
+[debug] [2023-01-26T19:25:54.688Z] Could not find functions.yaml. Must use http discovery
+[debug] [2023-01-26T19:25:55.175Z] Serving at port 9005
+
+[debug] [2023-01-26T19:25:56.063Z] Got response from /__/functions.yaml {"endpoints":{"sendText":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"sendText"},"resizeCover":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"eventTrigger":{"eventType":"google.storage.object.finalize","eventFilters":{"resource":"projects/_/buckets/ktp-site.appspot.com"},"retry":false},"labels":{},"entryPoint":"resizeCover"},"beforeSignIn":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"blockingTrigger":{"eventType":"providers/cloud.auth/eventTypes/user.beforeSignIn","options":{"accessToken":false,"idToken":false,"refreshToken":false}},"entryPoint":"beforeSignIn"},"beforeAcc":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"blockingTrigger":{"eventType":"providers/cloud.auth/eventTypes/user.beforeCreate","options":{"accessToken":false,"idToken":false,"refreshToken":false}},"entryPoint":"beforeAcc"}},"specVersion":"v1alpha1","requiredAPIs":[{"api":"identitytoolkit.googleapis.com","reason":"Needed for auth blocking functions"}]}
+[debug] [2023-01-26T19:25:56.072Z] shutdown requested via /__/quitquitquit
+
+[info] ✔  functions: Loaded functions definitions from source: sendText, resizeCover, beforeSignIn, beforeAcc. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: sendText, resizeCover, beforeSignIn, beforeAcc."}}
