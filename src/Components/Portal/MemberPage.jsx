@@ -6,6 +6,7 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import NewUser from "./NewUser";
 import RushEvents from "./../Landing/RushEvents";
+import PledgeCalendar from "./PledgeCalendar";
 import { CheckCircleIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import Logo from "../Landing/Assets/Logo.png"
 import AdminPanel from "./AdminPanel";
@@ -17,7 +18,8 @@ import {
   MapIcon,
   MegaphoneIcon,
   XMarkIcon,
-  WrenchScrewdriverIcon
+  WrenchScrewdriverIcon,
+  CalendarIcon
 } from "@heroicons/react/24/outline";
 
 const defaultUser = {
@@ -31,6 +33,12 @@ var navigation = {
     href: "#",
     icon: MagnifyingGlassCircleIcon,
     current: true,
+  },
+  Calendar: {
+    name: "Calendar",
+    href: "#",
+    icon: CalendarIcon,
+    current: false,
   },
   Dues: {
     name: "Pay Dues",
@@ -487,6 +495,10 @@ class MemberPage extends React.Component {
             <RushEvents />
           </div>
 
+          <div className={this.state.navigation["Calendar"].current ? "" : "hidden"} >
+            <PledgeCalendar />
+          </div>
+
           <div className={this.state.navigation["Dues"].current ? "" : "hidden"} >
             <p className="text-3xl text-center text-gray-400 p-4 font-bold m-auto h-full pt-20 pb-20">Coming Soon</p>
           </div>
@@ -494,6 +506,7 @@ class MemberPage extends React.Component {
           <div className={this.state.navigation["Announcements"].current ? "" : "hidden"} >
             <p className="text-3xl text-center text-gray-400 p-4 font-bold m-auto h-full pt-20 pb-20">Coming Soon</p>
           </div>
+
           <div className={this.state.navigation["Admin"].current ? "" : "hidden"}>
             <AdminPanel firebase={this.props.firebase} database={this.props.database}/>
           </div>
