@@ -94,7 +94,7 @@ exports.sendText = functions.https.onCall(async (data, context) => {
               }
               try {
                 console.log("Texting " + actualUser["name"]);
-                /*twilio_client.messages.create({
+                twilio_client.messages.create({
                   body: message,
                   from: "+17579193238",
                   to:
@@ -102,7 +102,7 @@ exports.sendText = functions.https.onCall(async (data, context) => {
                     phoneUtil
                       .parse(actualUser["phone"], "US")
                       .getNationalNumber(),
-                });*/
+                });
                 success++;
               } catch (error) {}
             } catch (error2) {}
