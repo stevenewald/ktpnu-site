@@ -26,11 +26,10 @@ class PledgeCalendar extends React.Component {
       // the corresponding row's data points as each value
       notionEvents: [],
 
-      // [{}]
     }
 
     // ID of notion page
-    this.NOTION_ID = '7b33ed2c5812421187ac0e0d1b38e416'
+    this.NOTION_ID = '97757d83c1bc42708c8a2cd51f96e9aa'
     this.GCAL_ID = 'c82f1fdd31eb61e26a3646e34ebde02efff386dff751179c6733a9e372c61cda@group.calendar.google.com'
     this.API_KEY = 'AIzaSyBj2UQzQuZJrqC4SI5MZ_tBL6jWD9z-sVE'
 
@@ -135,7 +134,7 @@ class PledgeCalendar extends React.Component {
 
               {/* Calendar Icon */}
               <div className="flex justify-center items-center">
-                <CalendarDaysIcon className="text-blue-900 mr-[0.5rem] h-[2.5rem] w-[2.5rem]"/>
+                <CalendarDaysIcon className="text-indigo-700 mr-[0.5rem] h-[2.5rem] w-[2.5rem]"/>
               </div>
 
               {/* Title */}
@@ -159,8 +158,8 @@ class PledgeCalendar extends React.Component {
                     'w-[10rem] rounded-lg py-2 text-sm font-medium leading-5 text-white',
                     'focus:outline-none shadow',
                     selected
-                      ? 'bg-blue-900'
-                      : 'bg-white text-blue-900 hover:bg-white/[0.2] border border-blue-900'
+                      ? 'bg-indigo-700'
+                      : 'bg-white text-indigo-700 hover:bg-white/[0.2] border border-indigo-700'
                 )}>
                   {tabName}
                 </Tab>
