@@ -20,6 +20,7 @@ class AdminPanel extends React.Component {
     this.sendTextButton = React.createRef();
     this.whoToButton = React.createRef();
     this.messageTypeButton = React.createRef();
+    this.typeOfMember = React.createRef();
     //the backend only allows this if they are already set as admin
     //dw about the security, i set up all the database rules correctly - steve
   }
@@ -66,7 +67,12 @@ class AdminPanel extends React.Component {
                     Swal.fire({
                       title: "Success!",
                       icon: "success",
-                      text: "Sent message to " + whoTo.toLowerCase() + " (total of " + String(res["data"]["amount"]) + " people).",
+                      text:
+                        "Sent message to " +
+                        whoTo.toLowerCase() +
+                        " (total of " +
+                        String(res["data"]["amount"]) +
+                        " people).",
                     });
                   } else {
                     Swal.fire({
@@ -106,7 +112,8 @@ class AdminPanel extends React.Component {
         confirmButtonText: "Yes, add them as a member",
       }).then((result) => {
         if (result.isConfirmed) {
-          set(ref(this.props.database, "allowed_users/" + formattedEmail), "")
+          var typeOfUser = this.typeOfMember.current.value;
+          set(ref(this.props.database, "allowed_users/" + formattedEmail), typeOfUser)
             .then((res) => {
               Swal.fire({
                 icon: "success",
@@ -156,7 +163,7 @@ class AdminPanel extends React.Component {
                     id="who-to-text"
                     name="who-to-text"
                     className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    defaultValue="Canada"
+                    defaultValue="Pledges"
                     ref={this.whoToButton}
                   >
                     <option>Pledges</option>
@@ -169,7 +176,7 @@ class AdminPanel extends React.Component {
                     id="event-type"
                     name="event-type"
                     className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    defaultValue="Canada"
+                    defaultValue="Event"
                     ref={this.messageTypeButton}
                   >
                     <option>Event</option>
@@ -210,6 +217,19 @@ class AdminPanel extends React.Component {
                     placeholder="person@u.northwestern.edu"
                     ref={this.emailButton}
                   />
+                </div>
+                <div className="sm:ml-1 sm:mr-1 relative bottom-[2px] my-2 sm:my-0">
+                  <select
+                    id="type-of-user"
+                    name="type-of-user"
+                    className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    defaultValue="Member"
+                    ref={this.typeOfMember}
+                  >
+                    <option>Pledge</option>
+                    <option>Member</option>
+                    <option>Alumni</option>
+                  </select>
                 </div>
                 <button
                   type="button"

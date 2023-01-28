@@ -259,10 +259,14 @@ exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
           usersRef.child(user.uid).once("value", async (user_snapshot) => {
             if (!user_snapshot.exists()) {
               functions.logger.log("Adding user " + user.email);
+              var newuser_role = "Member";
+              if(allowed_snapshot.val() != "") {
+                newuser_role = allowed_snapshot.val();
+              }
               await usersRef.child(user.uid).set({
                 allowed: true,
                 signed_up: false,
-                role: "Member",
+                role: newuser_role,
                 profile_pic_link: user.photoURL,
                 cover_page_link:
                   "https://images.ctfassets.net/7thvzrs93dvf/wpImage18643/2f45c72db7876d2f40623a8b09a88b17/linkedin-default-background-cover-photo-1.png?w=790&h=196&q=90&fm=png",
@@ -270,7 +274,7 @@ exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
               });
               await publicRef.child(user.uid).set({
                 profile_pic_link: user.photoURL,
-                role: "Member",
+                role: newuser_role,
                 cover_page_link:
                   "https://images.ctfassets.net/7thvzrs93dvf/wpImage18643/2f45c72db7876d2f40623a8b09a88b17/linkedin-default-background-cover-photo-1.png?w=790&h=196&q=90&fm=png",
               });

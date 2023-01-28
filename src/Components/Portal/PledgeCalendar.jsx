@@ -2,7 +2,6 @@ import React from 'react'
 import request from 'axios';
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { Tab } from '@headlessui/react'
-import Calendar from "@ericz1803/react-google-calendar";
 
 const tabNames = ['All Posts',
                   'Calendar View']
@@ -26,6 +25,8 @@ class PledgeCalendar extends React.Component {
       // List of dictionaries for each event, with the columns as keys and
       // the corresponding row's data points as each value
       notionEvents: [],
+
+      // [{}]
     }
 
     // ID of notion page
@@ -203,7 +204,7 @@ class PledgeCalendar extends React.Component {
                 : <div className="p-4">Loading...</div>}
               </Tab.Panel>
               <Tab.Panel>
-                <Calendar apiKey={this.API_KEY} calendars={this.calendars} />
+                {/* CALENDAR */}
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
