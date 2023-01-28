@@ -43,7 +43,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "stopall": "lsof -t -i:9099 -i:5001 -i:9000 -i:5002 -i:9199 | xargs kill -9"
   },
   "eslintConfig": {
     "extends": [
