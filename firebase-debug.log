@@ -347,3 +347,122 @@ WARNING: All illegal access operations will be denied in a future release
     at processTicksAndRejections (node:internal/process/task_queues:83:21)
 [error] 
 [error] Error: An unexpected error has occurred.
+[debug] [2023-01-28T20:20:04.152Z] ----------------------------------------------------------------------
+[debug] [2023-01-28T20:20:04.154Z] Command:       /usr/local/bin/firebase /Users/alexisrobles/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase emulators:start --import=emulator-storage
+[debug] [2023-01-28T20:20:04.154Z] CLI Version:   11.20.0
+[debug] [2023-01-28T20:20:04.154Z] Platform:      darwin
+[debug] [2023-01-28T20:20:04.154Z] Node Version:  v16.16.0
+[debug] [2023-01-28T20:20:04.155Z] Time:          Sat Jan 28 2023 14:20:04 GMT-0600 (Central Standard Time)
+[debug] [2023-01-28T20:20:04.156Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-01-28T20:20:04.233Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-01-28T20:20:04.234Z] > authorizing via signed-in user (alexisrobles2025@u.northwestern.edu)
+[debug] [2023-01-28T20:20:04.510Z] java version "11.0.18" 2023-01-17 LTS
+
+[debug] [2023-01-28T20:20:04.511Z] Java(TM) SE Runtime Environment 18.9 (build 11.0.18+9-LTS-195)
+Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.18+9-LTS-195, mixed mode)
+
+[debug] [2023-01-28T20:20:04.528Z] Parsed Java major version: 11
+[info] i  emulators: Starting emulators: auth, functions, database, hosting, storage {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, functions, database, hosting, storage"}}
+[debug] [2023-01-28T20:20:06.039Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-01-28T20:20:06.040Z] [auth] Authentication Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-01-28T20:20:06.040Z] [database] Database Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-01-28T20:20:06.040Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-01-28T20:20:06.040Z] [storage] Storage Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[warn] ⚠  ui: Emulator UI unable to start on port 4000, starting on 4002 instead. {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI unable to start on port 4000, starting on 4002 instead."}}
+[debug] [2023-01-28T20:20:06.041Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4002},{"address":"::1","family":"IPv6","port":4002}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[warn] ⚠  emulators: It seems that you are running multiple instances of the emulator suite for project ktp-site. This may result in unexpected behavior. 
+[debug] [2023-01-28T20:20:06.053Z] [hub] writing locator at /var/folders/6p/s766r_dj7gjgr385_wql51f00000gn/T/hub-ktp-site.json
+[debug] [2023-01-28T20:20:06.425Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-01-28T20:20:06.426Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-01-28T20:20:06.426Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4002},{"address":"::1","family":"IPv6","port":4002}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] ⚠  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: firestore, pubsub {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mfirestore, pubsub\u001b[22m"}}
+[info] ✔  functions: Using node@16 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Using node@16 from host."}}
+[debug] [2023-01-28T20:20:06.441Z] defaultcredentials: writing to file /Users/alexisrobles/.config/firebase/alexisrobles2025_u_northwestern.edu_application_default_credentials.json
+[debug] [2023-01-28T20:20:06.446Z] Setting GAC to /Users/alexisrobles/.config/firebase/alexisrobles2025_u_northwestern.edu_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to /Users/alexisrobles/.config/firebase/alexisrobles2025_u_northwestern.edu_application_default_credentials.json"}}
+[debug] [2023-01-28T20:20:06.449Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ktp-site/adminSdkConfig [none]
+[debug] [2023-01-28T20:20:06.588Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ktp-site/adminSdkConfig 200
+[debug] [2023-01-28T20:20:06.588Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ktp-site/adminSdkConfig {"projectId":"ktp-site","databaseURL":"https://ktp-site-default-rtdb.firebaseio.com","storageBucket":"ktp-site.appspot.com","locationId":"us-central"}
+[debug] [2023-01-28T20:20:06.624Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ktp-site [none]
+[debug] [2023-01-28T20:20:06.744Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ktp-site 200
+[debug] [2023-01-28T20:20:06.745Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ktp-site {"projectId":"ktp-site","projectNumber":"239929865580","displayName":"KTP-Site","name":"projects/ktp-site","resources":{"hostingSite":"ktp-site","realtimeDatabaseInstance":"ktp-site-default-rtdb","storageBucket":"ktp-site.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_bca3ef7f-f9b5-49ff-9019-e099c241fc8d"}
+[debug] [2023-01-28T20:20:06.745Z] database rules config:  [{"instance":"ktp-site-default-rtdb","rules":"/Users/alexisrobles/Desktop/Northwestern/KTP/ktp-revamp/rules/database.rules.json"}]
+[debug] [2023-01-28T20:20:06.750Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2023-01-28T20:20:06.750Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2023-01-28T20:20:06.750Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2023-01-28T20:20:06.750Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","/Users/alexisrobles/.cache/firebase/emulators/firebase-database-emulator-v4.11.0.jar","--host","127.0.0.1","--port",9000,"--single_project_mode","Warning","--functions_emulator_host","127.0.0.1","--functions_emulator_port",5001],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"/Users/alexisrobles/.cache/firebase/emulators/firebase-database-emulator-v4.11.0.jar\",\"--host\",\"127.0.0.1\",\"--port\",9000,\"--single_project_mode\",\"Warning\",\"--functions_emulator_host\",\"127.0.0.1\",\"--functions_emulator_port\",5001],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\",\"single_project_mode\"],\"joinArgs\":false}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[debug] [2023-01-28T20:20:07.741Z] WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by io.netty.util.internal.ReflectionUtil (file:/Users/alexisrobles/.cache/firebase/emulators/firebase-database-emulator-v4.11.0.jar) to field sun.nio.ch.SelectorImpl.selectedKeys
+WARNING: Please consider reporting this to the maintainers of io.netty.util.internal.ReflectionUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+ {"metadata":{"emulator":{"name":"database"},"message":"WARNING: An illegal reflective access operation has occurred\nWARNING: Illegal reflective access by io.netty.util.internal.ReflectionUtil (file:/Users/alexisrobles/.cache/firebase/emulators/firebase-database-emulator-v4.11.0.jar) to field sun.nio.ch.SelectorImpl.selectedKeys\nWARNING: Please consider reporting this to the maintainers of io.netty.util.internal.ReflectionUtil\nWARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations\nWARNING: All illegal access operations will be denied in a future release\n"}}
+[debug] [2023-01-28T20:20:08.727Z] 14:20:08.725 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+ {"metadata":{"emulator":{"name":"database"},"message":"14:20:08.725 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started\n"}}
+[debug] [2023-01-28T20:20:09.053Z] 14:20:09.053 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+ {"metadata":{"emulator":{"name":"database"},"message":"14:20:09.053 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000\n"}}
+[info] i  database: Importing data from /Users/alexisrobles/Desktop/Northwestern/KTP/ktp-revamp/emulator-storage/database_export/ktp-site-default-rtdb.json {"metadata":{"emulator":{"name":"database"},"message":"Importing data from /Users/alexisrobles/Desktop/Northwestern/KTP/ktp-revamp/emulator-storage/database_export/ktp-site-default-rtdb.json"}}
+[debug] [2023-01-28T20:20:09.820Z] 14:20:09.820 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - ktp-site-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 248ms, init: 0ms
+ {"metadata":{"emulator":{"name":"database"},"message":"14:20:09.820 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - ktp-site-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 248ms, init: 0ms\n"}}
+[info] i  auth: Importing config from /Users/alexisrobles/Desktop/Northwestern/KTP/ktp-revamp/emulator-storage/auth_export/config.json {"metadata":{"emulator":{"name":"auth"},"message":"Importing config from /Users/alexisrobles/Desktop/Northwestern/KTP/ktp-revamp/emulator-storage/auth_export/config.json"}}
+[info] i  auth: Importing accounts from /Users/alexisrobles/Desktop/Northwestern/KTP/ktp-revamp/emulator-storage/auth_export/accounts.json {"metadata":{"emulator":{"name":"auth"},"message":"Importing accounts from /Users/alexisrobles/Desktop/Northwestern/KTP/ktp-revamp/emulator-storage/auth_export/accounts.json"}}
+[debug] [2023-01-28T20:20:16.915Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"storage"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2023-01-28T20:20:18.595Z] Temp file directory for storage emulator: /var/folders/6p/s766r_dj7gjgr385_wql51f00000gn/T/firebase/storage/blobs {"metadata":{"emulator":{"name":"storage"},"message":"Temp file directory for storage emulator: /var/folders/6p/s766r_dj7gjgr385_wql51f00000gn/T/firebase/storage/blobs"}}
+[debug] [2023-01-28T20:20:18.606Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/ktp-site/sites 
+[debug] [2023-01-28T20:20:18.900Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/ktp-site/sites 200
+[debug] [2023-01-28T20:20:18.900Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/ktp-site/sites {"sites":[{"name":"projects/ktp-site/sites/ktp-site","defaultUrl":"https://ktp-site.web.app","appId":"1:239929865580:web:8871c4295a78dc93076f49","type":"DEFAULT_SITE"}]}
+[debug] [2023-01-28T20:20:18.901Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ktp-site/webApps/1:239929865580:web:8871c4295a78dc93076f49/config [none]
+[debug] [2023-01-28T20:20:19.114Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ktp-site/webApps/1:239929865580:web:8871c4295a78dc93076f49/config 200
+[debug] [2023-01-28T20:20:19.114Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ktp-site/webApps/1:239929865580:web:8871c4295a78dc93076f49/config {"projectId":"ktp-site","appId":"1:239929865580:web:8871c4295a78dc93076f49","databaseURL":"https://ktp-site-default-rtdb.firebaseio.com","storageBucket":"ktp-site.appspot.com","locationId":"us-central","apiKey":"AIzaSyBY_olTq-IJkQs1-VXTCgxIUzlD7_-3MXQ","authDomain":"ktp-site.firebaseapp.com","messagingSenderId":"239929865580","measurementId":"G-K67BS563H9"}
+[debug] [2023-01-28T20:20:19.138Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ktp-site [none]
+[debug] [2023-01-28T20:20:19.238Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ktp-site 200
+[debug] [2023-01-28T20:20:19.238Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ktp-site {"projectId":"ktp-site","projectNumber":"239929865580","displayName":"KTP-Site","name":"projects/ktp-site","resources":{"hostingSite":"ktp-site","realtimeDatabaseInstance":"ktp-site-default-rtdb","storageBucket":"ktp-site.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_bca3ef7f-f9b5-49ff-9019-e099c241fc8d"}
+[info] i  hosting[ktp-site]: Serving hosting files from: build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mbuild\u001b[22m"}}
+[info] ✔  hosting[ktp-site]: Local server: http://127.0.0.1:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://127.0.0.1:5000\u001b[22m\u001b[24m"}}
+[debug] [2023-01-28T20:20:19.360Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2023-01-28T20:20:19.360Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2023-01-28T20:20:19.360Z] Starting Emulator UI with command {"binary":"node","args":["/Users/alexisrobles/.cache/firebase/emulators/ui-v1.11.2/server/server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/Users/alexisrobles/.cache/firebase/emulators/ui-v1.11.2/server/server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2023-01-28T20:20:19.567Z] Web / API server started at 127.0.0.1:4002
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4002\n"}}
+[debug] [2023-01-28T20:20:19.568Z] Web / API server started at ::1:4002
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4002\n"}}
+[info] i  functions: Watching "/Users/alexisrobles/Desktop/Northwestern/KTP/ktp-revamp/functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"/Users/alexisrobles/Desktop/Northwestern/KTP/ktp-revamp/functions\" for Cloud Functions..."}}
+[debug] [2023-01-28T20:20:19.631Z] Validating nodejs source
+[debug] [2023-01-28T20:20:20.547Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "build": "",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^4.2.0",
+    "fs-extra": "^11.1.0",
+    "google-libphonenumber": "^3.2.31",
+    "sharp": "^0.31.3",
+    "twilio": "^3.84.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2023-01-28T20:20:20.548Z] Building nodejs source
+[debug] [2023-01-28T20:20:20.551Z] Could not find functions.yaml. Must use http discovery
+[debug] [2023-01-28T20:20:20.572Z] Error: spawn ./node_modules/.bin/firebase-functions ENOENT
+    at Process.ChildProcess._handle.onexit (node:internal/child_process:283:19)
+    at onErrorNT (node:internal/child_process:478:16)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21)
+[error] 
+[error] Error: An unexpected error has occurred.
