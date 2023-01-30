@@ -18,30 +18,53 @@ function classNames(...classes) {
 class MobileDirectory extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { searchVal: "", showType: "Everyone" };
+    this.state = { searchVal: "", showType: "Everyone", results_amount: 0 };
     this.searchBarChange = this.searchBarChange.bind(this);
     this.elemMatches = this.elemMatches.bind(this);
     this.oneMatches = this.oneMatches.bind(this);
     this.funnelChange = this.funnelChange.bind(this);
+    this.total_results = 0;
   }
 
   searchBarChange(val) {
-    this.setState({ searchVal: val.target.value.toLowerCase() });
+    this.total_results = 0;
+    this.setState({ searchVal: val.target.value.toLowerCase() }, () => {
+      this.setState({ results_amount: this.total_results });
+    });
   }
 
   funnelChange(val) {
-    this.setState({ showType: val });
+    this.total_results = 0;
+    this.setState({ showType: val }, () => {
+      this.setState({ results_amount: this.total_results });
+    });
   }
 
-  elemMatches(elem) {
+  elemMatches(elem, update_res) {
     if (this.state.searchVal === "" && this.state.showType === "Everyone") {
+      if (update_res) {
+        this.total_results += 1;
+      }
       return true;
     } else {
       if (elem.includes(this.state.searchVal)) {
-        if(this.state.showType==="Everyone") {
+        if (this.state.showType === "Everyone") {
+          if (update_res) {
+            this.total_results += 1;
+          }
           return true;
         } else {
-          return elem.includes('"role":"' + this.state.showType);
+          if (
+            elem.includes('"role":"' + this.state.showType) ||
+            (this.state.showType === "member" && elem.includes('"role":"vp of'))
+          ) {
+            if (update_res) {
+              this.total_results += 1;
+            }
+            return true;
+          } else {
+            return false;
+          }
         }
       } else {
         return false;
@@ -53,7 +76,10 @@ class MobileDirectory extends React.Component {
     for (var i = 0; i < this.props.directory[letter].length; i++) {
       if (
         this.elemMatches(
-          JSON.stringify(this.props.directory[letter][i]).toLowerCase()
+          JSON.stringify(
+            this.props.directory[letter][i]["fullProfile"]
+          ).toLowerCase(),
+          false
         )
       ) {
         return true;
@@ -94,9 +120,20 @@ class MobileDirectory extends React.Component {
           <h2 className="text-lg font-medium text-gray-900">
             Member Directory
           </h2>
-          <p className="mt-1 text-sm text-gray-600">
-            Search directory of {this.props.directory_size} members
-          </p>
+          {this.state.searchVal === "" &&
+            this.state.showType === "Everyone" && (
+              <p className="mt-1 text-sm text-gray-600">
+                Search directory of {this.props.directory_size} members
+              </p>
+            )}
+          {!(
+            this.state.searchVal === "" && this.state.showType === "Everyone"
+          ) && (
+            <p className="mt-1 text-sm text-gray-600">
+              Showing {this.state.results_amount} search result
+              {this.state.results_amount != 1 && "s"}
+            </p>
+          )}
           <form className="mt-6 flex space-x-4" action="#">
             <div className="min-w-0 flex-1">
               <label htmlFor="search" className="sr-only">
@@ -146,7 +183,9 @@ class MobileDirectory extends React.Component {
                     <Menu.Item>
                       {({ active }) => (
                         <a
-                          onClick={() => {this.funnelChange("pledge")}}
+                          onClick={() => {
+                            this.funnelChange("pledge");
+                          }}
                           className={classNames(
                             active
                               ? "bg-gray-100 text-gray-900"
@@ -161,7 +200,9 @@ class MobileDirectory extends React.Component {
                     <Menu.Item>
                       {({ active }) => (
                         <a
-                          onClick={() => {this.funnelChange("member")}}
+                          onClick={() => {
+                            this.funnelChange("member");
+                          }}
                           className={classNames(
                             active
                               ? "bg-gray-100 text-gray-900"
@@ -176,7 +217,9 @@ class MobileDirectory extends React.Component {
                     <Menu.Item>
                       {({ active }) => (
                         <a
-                        onClick={() => {this.funnelChange("alumni")}}
+                          onClick={() => {
+                            this.funnelChange("alumni");
+                          }}
                           className={classNames(
                             active
                               ? "bg-gray-100 text-gray-900"
@@ -191,7 +234,9 @@ class MobileDirectory extends React.Component {
                     <Menu.Item>
                       {({ active }) => (
                         <a
-                        onClick={() => {this.funnelChange("Everyone")}}
+                          onClick={() => {
+                            this.funnelChange("Everyone");
+                          }}
                           className={classNames(
                             active
                               ? "bg-gray-100 text-gray-900"
@@ -236,7 +281,10 @@ class MobileDirectory extends React.Component {
                 {this.props.directory[letter].map((person) => (
                   <li
                     className={
-                      this.elemMatches(JSON.stringify(person).toLowerCase())
+                      this.elemMatches(
+                        JSON.stringify(person["fullProfile"]).toLowerCase(),
+                        true
+                      )
                         ? ""
                         : "hidden"
                     }
