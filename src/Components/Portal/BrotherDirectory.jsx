@@ -325,9 +325,7 @@ class BrotherDirectory extends React.Component {
               continue;
             }
             amount += 1;
-            //alert(JSON.stringify(dir[item]));
             const first_letter = profile.name.charAt(0).toUpperCase();
-            console.log(profile.name);
             var user_dict = {};
             user_dict["name"] = profile.name;
             user_dict["role"] = profile.role;

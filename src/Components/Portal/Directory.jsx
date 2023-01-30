@@ -40,6 +40,26 @@ class MobileDirectory extends React.Component {
     });
   }
 
+  profileIncludesSearch(profile, search_val) {
+    const searches = [
+      "about",
+      "email",
+      "internships",
+      "linkedin",
+      "instagram",
+      "major",
+      "name",
+      "role",
+      "year",
+    ];
+    for (var i = 0; i < searches.length; i++) {
+      if (profile[searches[i]] && profile[searches[i]].toLowerCase().includes(search_val)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   elemMatches(elem, update_res) {
     if (this.state.searchVal === "" && this.state.showType === "Everyone") {
       if (update_res) {
@@ -47,7 +67,7 @@ class MobileDirectory extends React.Component {
       }
       return true;
     } else {
-      if (elem.includes(this.state.searchVal)) {
+      if (this.profileIncludesSearch(elem, this.state.searchVal)) {
         if (this.state.showType === "Everyone") {
           if (update_res) {
             this.total_results += 1;
@@ -55,8 +75,8 @@ class MobileDirectory extends React.Component {
           return true;
         } else {
           if (
-            elem.includes('"role":"' + this.state.showType) ||
-            (this.state.showType === "member" && elem.includes('"role":"vp of'))
+            elem["role"] &&  (elem["role"] === this.state.showType ||
+            (this.state.showType === "Member" && elem["role"].includes("VP of")))
           ) {
             if (update_res) {
               this.total_results += 1;
@@ -75,12 +95,7 @@ class MobileDirectory extends React.Component {
   oneMatches(letter) {
     for (var i = 0; i < this.props.directory[letter].length; i++) {
       if (
-        this.elemMatches(
-          JSON.stringify(
-            this.props.directory[letter][i]["fullProfile"]
-          ).toLowerCase(),
-          false
-        )
+        this.elemMatches(this.props.directory[letter][i]["fullProfile"], false)
       ) {
         return true;
       }
@@ -184,7 +199,7 @@ class MobileDirectory extends React.Component {
                       {({ active }) => (
                         <a
                           onClick={() => {
-                            this.funnelChange("pledge");
+                            this.funnelChange("Pledge");
                           }}
                           className={classNames(
                             active
@@ -201,7 +216,7 @@ class MobileDirectory extends React.Component {
                       {({ active }) => (
                         <a
                           onClick={() => {
-                            this.funnelChange("member");
+                            this.funnelChange("Member");
                           }}
                           className={classNames(
                             active
@@ -218,7 +233,7 @@ class MobileDirectory extends React.Component {
                       {({ active }) => (
                         <a
                           onClick={() => {
-                            this.funnelChange("alumni");
+                            this.funnelChange("Alumni");
                           }}
                           className={classNames(
                             active
@@ -281,10 +296,7 @@ class MobileDirectory extends React.Component {
                 {this.props.directory[letter].map((person) => (
                   <li
                     className={
-                      this.elemMatches(
-                        JSON.stringify(person["fullProfile"]).toLowerCase(),
-                        true
-                      )
+                      this.elemMatches(person["fullProfile"], true)
                         ? ""
                         : "hidden"
                     }
