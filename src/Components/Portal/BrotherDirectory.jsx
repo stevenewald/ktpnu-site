@@ -205,10 +205,16 @@ class BrotherDirectory extends React.Component {
   dictFromProfile(profile) {
     var newProfile = {};
     newProfile.name = profile.name;
-    newProfile.largeProfilePic = profile.pfp_large_link ? profile.pfp_large_link : profile.profile_pic_link;
-    newProfile.smallProfilePic = profile.pfp_thumb_link ? profile.pfp_thumb_link : profile.profile_pic_link;
+    newProfile.largeProfilePic = profile.pfp_large_link
+      ? profile.pfp_large_link
+      : profile.profile_pic_link;
+    newProfile.smallProfilePic = profile.pfp_thumb_link
+      ? profile.pfp_thumb_link
+      : profile.profile_pic_link;
     if (profile.cover_page_link) {
-      newProfile.coverImageUrl = profile.cover_resized_link ? profile.cover_resized_link : profile.cover_page_link;
+      newProfile.coverImageUrl = profile.cover_resized_link
+        ? profile.cover_resized_link
+        : profile.cover_page_link;
     }
     if (profile.about) {
       newProfile.about = profile.about;
@@ -216,7 +222,7 @@ class BrotherDirectory extends React.Component {
     if (profile.resume_link) {
       newProfile.resume_link = profile.resume_link;
     }
-    
+
     newProfile.fields = {};
     if (profile.year) {
       newProfile.fields["Class Standing"] = profile.year;
@@ -270,8 +276,8 @@ class BrotherDirectory extends React.Component {
   }
 
   changeActiveHandler(id) {
-    if(id=="none") {
-      id=this.currProfile;
+    if (id == "none") {
+      id = this.currProfile;
       this.changeProfileHandler(this.defaultProfile);
     }
     document
@@ -280,9 +286,16 @@ class BrotherDirectory extends React.Component {
     document
       .getElementById("mob_" + this.activeMobile)
       .classList.add("hover:bg-gray-50");
+    document
+      .getElementById("mob_" + this.activeMobile)
+      .classList.remove("currProfile");
     document.getElementById(id).classList.add("bg-gray-100");
     document.getElementById(id).classList.remove("hover:bg-gray-50");
+    document.getElementById(id).classList.add("currProfile");
     this.activeMobile = id.substring(4, id.length);
+    document
+      .getElementById(id)
+      .scrollIntoView({ block: "start", behavior: "smooth" });
   }
 
   componentDidMount() {
@@ -308,18 +321,20 @@ class BrotherDirectory extends React.Component {
           var amount = 0;
           for (var item in dir) {
             const profile = dir[item];
-            if(!profile.name) {
+            if (!profile.name) {
               continue;
             }
             amount += 1;
-            //alert(JSON.stringify(dir[item]));
             const first_letter = profile.name.charAt(0).toUpperCase();
-            console.log(profile.name);
             var user_dict = {};
             user_dict["name"] = profile.name;
             user_dict["role"] = profile.role;
-            user_dict["largeProfilePic"] = profile.pfp_large_link ? profile.pfp_large_link : profile.profile_pic_link;
-            user_dict["smallProfilePic"] = profile.pfp_thumb_link ? profile.pfp_thumb_link : profile.profile_pic_link;
+            user_dict["largeProfilePic"] = profile.pfp_large_link
+              ? profile.pfp_large_link
+              : profile.profile_pic_link;
+            user_dict["smallProfilePic"] = profile.pfp_thumb_link
+              ? profile.pfp_thumb_link
+              : profile.profile_pic_link;
             user_dict["fullProfile"] = profile;
             user_dict["handler"] = this.changeProfileHandler;
             user_dict["id"] = String(amount);
@@ -327,7 +342,7 @@ class BrotherDirectory extends React.Component {
               user_dict.email = profile.email;
               user_dict.active = true;
               this.activeMobile = String(amount);
-              this.currProfile = "mob_"+String(amount);
+              this.currProfile = "mob_" + String(amount);
               this.setState({ profile: this.dictFromProfile(profile) });
               this.defaultProfile = profile;
             }
@@ -337,13 +352,12 @@ class BrotherDirectory extends React.Component {
               newDirectory[first_letter] = [user_dict];
             }
           }
-          const ordered = Object.keys(newDirectory).sort().reduce(
-            (obj, key) => { 
-              obj[key] = newDirectory[key]; 
+          const ordered = Object.keys(newDirectory)
+            .sort()
+            .reduce((obj, key) => {
+              obj[key] = newDirectory[key];
               return obj;
-            }, 
-            {}
-          );
+            }, {});
           this.setState({
             directory: ordered,
             loading: false,

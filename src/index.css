@@ -6,6 +6,10 @@
   height: calc(100vh - 63px);
 }
 
+.currProfile {
+  scroll-margin-top: 30px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
