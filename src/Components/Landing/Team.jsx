@@ -42,7 +42,7 @@ const people = [
         name: 'Steve Ewald',
         role: 'VP of Technology',
         imageUrl:
-          'https://media.licdn.com/dms/image/C4D03AQHPxYjOagRJig/profile-displayphoto-shrink_400_400/0/1649132175326?e=1677110400&v=beta&t=4_IxWqZY2o5GECcPwGyIfVQX0w8tX5mp1kFUvZPyCjQ',
+          'https://media.licdn.com/dms/image/D5603AQHvSaIXd1EdOw/profile-displayphoto-shrink_400_400/0/1675266556753?e=1680739200&v=beta&t=N7si4M4xhXqC7z7RastlwzU41qWzJk5utKlb3v4eqt4',
       },
       {
         name: 'Alexis Robles',
