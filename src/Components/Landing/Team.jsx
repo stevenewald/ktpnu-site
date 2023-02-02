@@ -36,7 +36,7 @@ const people = [
       name: 'Eagan Notokusumo',
       role: 'VP of Finance',
       imageUrl:
-      'https://media.licdn.com/dms/image/C4D03AQEX-pJelYP9lQ/profile-displayphoto-shrink_400_400/0/1642469910535?e=1677110400&v=beta&t=xO4xs2sjT6Owexmbp2-Wg7mgAFk8WyC3eKhCC0HQixQ',
+      'https://media.licdn.com/dms/image/D5603AQE7nd_TWcdX0A/profile-displayphoto-shrink_400_400/0/1675294610641?e=1680739200&v=beta&t=YUApzCmeuIa9_9SMsD2bFNyKHBKa4NaOWbvRkjJLCdI',
       },
       {
         name: 'Steve Ewald',
