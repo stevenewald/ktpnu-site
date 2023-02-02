@@ -286,16 +286,16 @@ class BrotherDirectory extends React.Component {
     document
       .getElementById("mob_" + this.activeMobile)
       .classList.add("hover:bg-gray-50");
-    document
-      .getElementById("mob_" + this.activeMobile)
-      .classList.remove("currProfile");
     document.getElementById(id).classList.add("bg-gray-100");
     document.getElementById(id).classList.remove("hover:bg-gray-50");
-    document.getElementById(id).classList.add("currProfile");
     this.activeMobile = id.substring(4, id.length);
-    document
+    if(id==this.currProfile) {
+      document.getElementById(id).classList.add("currProfile");
+      document
       .getElementById(id)
       .scrollIntoView({ block: "start", behavior: "smooth" });
+    }
+    this.toggleVisibility();
   }
 
   componentDidMount() {
