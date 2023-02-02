@@ -293,7 +293,13 @@ class MobileDirectory extends React.Component {
                 <h3>{letter}</h3>
               </div>
               <ul role="list" className="relative z-0 divide-y divide-gray-200">
-                {this.props.directory[letter].map((person) => (
+                {this.props.directory[letter].sort(function(a, b) {
+                  if(a.name < b.name) {
+                    return -1;
+                  } else {
+                    return 1;
+                  }
+                }).map((person) => (
                   <li
                     className={
                       this.elemMatches(person["fullProfile"], true)
