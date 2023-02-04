@@ -494,6 +494,10 @@ class NewUser extends React.Component {
                                   fileName.substring(
                                     fileName.indexOf("."),
                                     fileName.length
+                                  ) === ".JPEG" ||
+                                  fileName.substring(
+                                    fileName.indexOf("."),
+                                    fileName.length
                                   ) === ".jpeg" ||
                                   fileName.substring(
                                     fileName.indexOf("."),
@@ -502,7 +506,15 @@ class NewUser extends React.Component {
                                   fileName.substring(
                                     fileName.indexOf("."),
                                     fileName.length
-                                  ) === ".jpg"
+                                  ) === ".PNG" ||
+                                  fileName.substring(
+                                    fileName.indexOf("."),
+                                    fileName.length
+                                  ) === ".jpg" ||
+                                  fileName.substring(
+                                    fileName.indexOf("."),
+                                    fileName.length
+                                  ) === ".JPG"
                                 )
                               ) {
                                 Swal.fire({
