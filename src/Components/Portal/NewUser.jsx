@@ -520,7 +520,7 @@ class NewUser extends React.Component {
                                 Swal.fire({
                                   icon: "error",
                                   title:
-                                    "Profile picture uploads must be in jpeg or pdf format",
+                                    "Cover picture uploads must be in jpeg or pdf format",
                                 });
                               } else {
                                 var reader = new FileReader();
@@ -632,6 +632,10 @@ class NewUser extends React.Component {
                                       fileName.substring(
                                         fileName.indexOf("."),
                                         fileName.length
+                                      ) === ".JPEG" ||
+                                      fileName.substring(
+                                        fileName.indexOf("."),
+                                        fileName.length
                                       ) === ".jpeg" ||
                                       fileName.substring(
                                         fileName.indexOf("."),
@@ -640,7 +644,15 @@ class NewUser extends React.Component {
                                       fileName.substring(
                                         fileName.indexOf("."),
                                         fileName.length
-                                      ) === ".jpg"
+                                      ) === ".PNG" ||
+                                      fileName.substring(
+                                        fileName.indexOf("."),
+                                        fileName.length
+                                      ) === ".jpg" ||
+                                      fileName.substring(
+                                        fileName.indexOf("."),
+                                        fileName.length
+                                      ) === ".JPG"
                                     )
                                   ) {
                                     Swal.fire({
