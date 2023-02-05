@@ -280,7 +280,7 @@ class MobileDirectory extends React.Component {
           </form>
         </div>
         {/* Directory list */}
-        <nav className="min-h-0 flex-1 overflow-y-auto" aria-label="Directory">
+        <nav className="min-h-0 flex-1 overflow-y-auto pb-[61px]" aria-label="Directory">
           {Object.keys(this.props.directory).map((letter) => (
             <div
               key={letter}

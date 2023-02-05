@@ -16,9 +16,9 @@ class IndivProfile extends React.Component {
         className={classNames(
           !this.props.dir_vis && !this.props.loading
             ? "order-first flex flex-col"
-            : "",
+            : "hidden",
           this.props.loading ? "invisible" : "",
-          "relative flex-1 focus:outline-none xl:order-last"
+          "relative flex-1 focus:outline-none xl:order-last xl:flex xl:flex-col xl:order-first"
         )}
       >
         {/* Breadcrumb */}
