@@ -252,14 +252,22 @@ class AdminPanel extends React.Component {
           <div className="bg-gray-100 shadow sm:rounded-lg">
             <div className="px-4 py-5 sm:p-6">
               <h3 className="text-lg font-medium leading-6 text-gray-900">
-                Link to Editable Pledge Calendar on Notion
+                Notion Links
               </h3>
-              <form className="mt-5 min-w-[85px] sm:flex sm:items-center">
-                <a target="_blank" className="mt-3 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm" href="https://www.notion.so/97757d83c1bc42708c8a2cd51f96e9aa?v=542627b9c9d4412b8aec5711552f4bb9">
-                  <LinkIcon className="-ml-1 mr-2 h-5 w-5" />
-                  Notion
-                </a>
-              </form>
+              <div className="sm:flex sm:flex-row sm:gap-2">
+                <form className="sm:mt-5 min-w-[85px] sm:flex sm:items-center">
+                  <a target="_blank" className="mt-3 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm" href="https://www.notion.so/97757d83c1bc42708c8a2cd51f96e9aa?v=542627b9c9d4412b8aec5711552f4bb9">
+                    <LinkIcon className="-ml-1 mr-2 h-5 w-5" />
+                    Pledge Calendar
+                  </a>
+                </form>
+                <form className="sm:mt-5 min-w-[85px] sm:flex sm:items-center">
+                  <a target="_blank" className="mt-3 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm" href="https://www.notion.so/d1fe9440ad2e489299f645134a2bf7a9?v=1909dd71e41f40c0b23c6be525c7a8a6">
+                    <LinkIcon className="-ml-1 mr-2 h-5 w-5" />
+                    Sprint
+                  </a>
+                </form>
+              </div>
             </div>
           </div>
         </div>
