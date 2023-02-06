@@ -2,9 +2,30 @@ import React from 'react'
 import request from 'axios';
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { Tab } from '@headlessui/react'
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import Modal from 'react-modal';
 
 const tabNames = ['All Posts',
                   'Calendar View']
+
+const localizer = momentLocalizer(moment);
+
+const customStyles = {
+  content : {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    background: '#fff',
+    borderRadius: '10px',
+    borderColor: '#7c3aed',
+    boxShadow: 'rgb(0 0 0 / 10%) 0px 0px 5px 2px'
+  }
+};
 
 class PledgeCalendar extends React.Component {
 
@@ -26,21 +47,71 @@ class PledgeCalendar extends React.Component {
       // the corresponding row's data points as each value
       notionEvents: [],
 
+      // Calendar UI
+      calEvents: [],
+
+      // Modal
+      showModal: false,
+      selectedEvent: null,
     }
+
 
     // ID of notion page
     this.NOTION_ID = '97757d83c1bc42708c8a2cd51f96e9aa'
     this.GCAL_ID = 'c82f1fdd31eb61e26a3646e34ebde02efff386dff751179c6733a9e372c61cda@group.calendar.google.com'
     this.API_KEY = 'AIzaSyBj2UQzQuZJrqC4SI5MZ_tBL6jWD9z-sVE'
 
-    this.calendars = [
-      { calendarId: this.GCAL_ID },
-    ]
   }
+
+  createEventDates() {
+
+    this.setState({ calEvents: this.state.notionEvents.map((event, index) => {
+
+      // Parse each event's fields
+      let name = event["Name"]
+      let date = new Date(Date.parse(event["Date"]))
+      let type = event["Type"]
+      let mand = event['Mandatory?']
+      let desc = event['Description']
+
+      // Turn "Yes" for the mandatory field into
+      // "Mandatory" or "Not Mandatory"
+      let mandDesc = ""
+      if (mand == "Yes") {
+        mandDesc = "Mandatory"
+      } else {
+        mandDesc = "Not Mandatory"
+      }
+
+      // Add the type and whether or not the
+      // event is mandatory to the description
+      let fullDesc = `${type} Event (${mandDesc}): ${desc}`
+
+      // Create a new event
+      let currEvent = {
+        id: index,
+        title: name,
+        start: date,
+        end: date,
+        desc: fullDesc
+      }
+
+      return currEvent;
+
+    })})
+  }
+
+  onSelectEvent = event => {
+    this.setState({ showModal: true, selectedEvent: event });
+  };
+
+  closeModal = () => {
+    this.setState({ showModal: false, selectedEvent: null });
+  };
 
   componentDidMount() {
     this.loadNotionPage();
-  }
+  };
 
   // Parse data from notion
   loadNotionPage() {
@@ -97,7 +168,9 @@ class PledgeCalendar extends React.Component {
                   })
 
                 // Make notionEvents equal to the temporary one we just created
-                this.setState({ notionEvents: newNotionEvents })
+                this.setState({ notionEvents: newNotionEvents, }, () => {
+                  this.createEventDates()
+                })
             })}});
         }});
     }).catch(err => {
@@ -179,7 +252,7 @@ class PledgeCalendar extends React.Component {
                             {/* Render columns */}
                             <tr>
                               {this.state.notionCols.map((column, index) => (
-                                <th key={index}>{column}</th>
+                                <th key={index} className={`th-${index}`}>{column}</th>
                               ))}
                             </tr>
                           </thead>
@@ -202,8 +275,29 @@ class PledgeCalendar extends React.Component {
                   </div>
                 : <div className="p-4">Loading...</div>}
               </Tab.Panel>
-              <Tab.Panel>
-                {/* CALENDAR */}
+              <Tab.Panel className="h-[72vh]">
+                <BigCalendar
+                  localizer={localizer}
+                  events={this.state.calEvents}
+                  defaultView='month'
+                  selectable
+                  onSelectEvent={this.onSelectEvent}
+                />
+                <Modal
+                  isOpen={this.state.showModal}
+                  onRequestClose={this.closeModal}
+                  style={customStyles}
+                  contentLabel="Event Details"
+                  portalClassName="modal-portal"
+                  >
+                  {this.state.selectedEvent && (
+                    <div>
+                      <h3 style={{ fontWeight: 'bold' }}>{this.state.selectedEvent.title}</h3>
+                      <p>Date: {this.state.selectedEvent.start.toDateString()}</p>
+                      <p>Description: {this.state.selectedEvent.desc}</p>
+                    </div>
+                  )}
+                </Modal>
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>

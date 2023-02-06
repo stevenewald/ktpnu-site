@@ -154,7 +154,7 @@ class AdminPanel extends React.Component {
                       type="text"
                       name="text"
                       id="text"
-                      className="block w-full min-h-[2.5rem] h-[2.5rem] rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full sm:min-w-[13rem] min-h-[2.5rem] h-[2.5rem] rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       placeholder="Pledge meeting tonight @ 7:00..."
                       ref={this.sendTextButton}
                     />
@@ -163,7 +163,7 @@ class AdminPanel extends React.Component {
                     <select
                       id="who-to-text"
                       name="who-to-text"
-                      className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      className="mt-1 block min-w-[7rem] w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       defaultValue="Pledges"
                       ref={this.whoToButton}
                     >
@@ -176,7 +176,7 @@ class AdminPanel extends React.Component {
                     <select
                       id="event-type"
                       name="event-type"
-                      className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full min-w-[7rem] rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       defaultValue="Event"
                       ref={this.messageTypeButton}
                     >
@@ -226,7 +226,7 @@ class AdminPanel extends React.Component {
                     <select
                       id="type-of-user"
                       name="type-of-user"
-                      className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      className="mt-1 block min-w-[7rem] w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       defaultValue="Member"
                       ref={this.typeOfMember}
                     >

@@ -531,7 +531,7 @@ class MemberPage extends React.Component {
             <RushEvents />
           </div>
 
-          <div className={this.state.navigation["Calendar"].current ? "" : "hidden"} >
+          <div className={this.state.navigation["Calendar"].current ? "overflow-y-auto" : "hidden"} >
             <PledgeCalendar />
           </div>
 

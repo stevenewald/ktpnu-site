@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --indigo-600: #7c3aed;
+  --indigo-700: #4338ca;
+  --indigo-unselected: #645cc5;
+}
+
 .mobileProfHeight {
   height: calc(100vh - 63px);
 }
@@ -141,8 +147,16 @@ td {
 }
 
 th {
-  background-color: #4338ca;
+  background-color: var(--indigo-700);
   color: white;
+}
+
+.th-0 {
+  border-radius: 10px 0 0 0;
+}
+
+.th-4 {
+  border-radius: 0 10px 0 0;
 }
 
 td {
@@ -157,4 +171,21 @@ form {
 form td:last-child {
   display: flex;
   justify-content: space-evenly;
+}
+
+.rbc-event {
+  background-color: var(--indigo-unselected);
+}
+
+.rbc-event.rbv-selected {
+  background-color: var(--indigo-700);
+}
+
+.rbc-event:focus {
+  outline: 5px auto var(--indigo-700);
+}
+
+.modal-portal {
+  z-index: 10;
+  position: absolute;
 }
