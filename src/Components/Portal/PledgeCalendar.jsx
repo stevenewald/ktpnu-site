@@ -7,7 +7,7 @@ import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import Modal from 'react-modal';
 
-const tabNames = ['All Posts',
+const tabNames = ['Upcoming Events',
                   'Calendar View']
 
 const localizer = momentLocalizer(moment);
@@ -47,7 +47,10 @@ class PledgeCalendar extends React.Component {
       // the corresponding row's data points as each value
       notionEvents: [],
 
-      // Calendar UI
+      // Same as notion events but does not contain past events (for Upcoming Events)
+      notionEventsFuture: [],
+
+      // Calendar UI data structure
       calEvents: [],
 
       // Modal
@@ -63,8 +66,26 @@ class PledgeCalendar extends React.Component {
 
   }
 
+  filterOutPastEvents() {
+
+      // If event is in the past, don't include it (return null,
+      // then remove the null elements later)
+      const today = new Date();
+      const millisecondsPerDay = 24 * 60 * 60 * 1000;
+
+      this.setState(prevState => {
+        return {
+          notionEventsFuture: prevState.notionEvents.filter(event => {
+            return (today - new Date(Date.parse(event["Date"]))) < millisecondsPerDay;
+          })
+        };
+      });
+  }
+
   createEventDates() {
 
+    // Create calEvents DS in the correct form for
+    // BigCalender with data from notionEvents
     this.setState({ calEvents: this.state.notionEvents.map((event, index) => {
 
       // Parse each event's fields
@@ -97,7 +118,6 @@ class PledgeCalendar extends React.Component {
       }
 
       return currEvent;
-
     })})
   }
 
@@ -155,8 +175,8 @@ class PledgeCalendar extends React.Component {
                               let dateStr = event[col] + 'T12:00:00.000-0600';
 
                               // Convert date field to more readable format
-                              let date = new Date(dateStr);
-                              newEvent[col] = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                              let eventDate = new Date(dateStr);
+                              newEvent[col] = eventDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
                             // Every other field is a 1-to-1 mapping
                             } else {
@@ -164,11 +184,19 @@ class PledgeCalendar extends React.Component {
                             }
                         }
                     });
+
                     return newEvent;
                   })
 
                 // Make notionEvents equal to the temporary one we just created
-                this.setState({ notionEvents: newNotionEvents, }, () => {
+                this.setState({ notionEvents: newNotionEvents }, () => {
+
+                  // Remove empty events caused by them having passed
+                  // this.setState({ notionEventsFuture: this.state.notionEvents.filter(event => Object.keys(event).length !== 0) }, () => {
+
+                  this.filterOutPastEvents()
+
+                  // After notionEvents is created, add them to the UI
                   this.createEventDates()
                 })
             })}});
@@ -178,7 +206,7 @@ class PledgeCalendar extends React.Component {
     })
 
     // Notion API fetch is no longer in progress
-    this.setState({loading: false});
+    this.setState({ loading: false });
   }
 
   // Fetch data from Notion's API endpoint
@@ -218,7 +246,7 @@ class PledgeCalendar extends React.Component {
 
             {/* Subtitle */}
             <div className="mx-auto text-sm inline-block text-gray-500 flex items-center">
-              Use this calendar to plan and stay on top of all your pledge events.
+              Use this calendar to plan and stay on top of all your pledge events and deadlines.
             </div>
           </div>
 
@@ -259,7 +287,7 @@ class PledgeCalendar extends React.Component {
                           <tbody>
 
                             {/* Render rows */}
-                            {this.state.notionEvents.map((event, index) => (
+                            {this.state.notionEventsFuture.map((event, index) => (
                               <tr key={index}>
 
                                 {/* Render each point in each row */}

@@ -174,15 +174,15 @@ form td:last-child {
 }
 
 .rbc-event {
-  background-color: var(--indigo-unselected);
+  background-color: var(--indigo-700) !important;
 }
 
 .rbc-event.rbv-selected {
-  background-color: var(--indigo-700);
+  background-color: var(--indigo-700) !important;
 }
 
 .rbc-event:focus {
-  outline: 5px auto var(--indigo-700);
+  outline: 5px auto var(--indigo-700) !important;
 }
 
 .modal-portal {
