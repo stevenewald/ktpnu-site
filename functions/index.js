@@ -43,7 +43,7 @@ exports.onLeetcodeUpdate = functions.database
         console.log("Error fetching Leetcode data for user " + newLeetcode);
       } else {
         console.log(JSON.stringify({easySolved:res.easySolved,mediumSolved:res.mediumSolved,hardSolved:res.hardSolved}));
-        await publicRef.child(context.auth.uid+"/leetcode/offsets").set({easySolved:res.easySolved,mediumSolved:res.mediumSolved,hardSolved:res.hardSolved});
+        await publicRef.child(context.params.user_id+"/leetcode/offsets").set({easySolved:res.easySolved,mediumSolved:res.mediumSolved,hardSolved:res.hardSolved});
       }
       resolve();
     }})
