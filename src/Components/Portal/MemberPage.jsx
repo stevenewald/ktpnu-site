@@ -9,6 +9,7 @@ import RushEvents from "./../Landing/RushEvents";
 import { CheckCircleIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import Logo from "../Landing/Assets/Logo.png"
 import AdminPanel from "./AdminPanel";
+import LcLeaderboard from './LcLeaderboard';
 import {
   Bars3Icon,
   CurrencyDollarIcon,
@@ -17,7 +18,8 @@ import {
   MapIcon,
   MegaphoneIcon,
   XMarkIcon,
-  WrenchScrewdriverIcon
+  WrenchScrewdriverIcon,
+  BoltIcon
 } from "@heroicons/react/24/outline";
 
 const defaultUser = {
@@ -32,16 +34,16 @@ var navigation = {
     icon: MagnifyingGlassCircleIcon,
     current: true,
   },
-  Dues: {
-    name: "Pay Dues",
-    href: "#",
-    icon: CurrencyDollarIcon,
-    current: false,
-  },
   Announcements: {
     name: "Announcements",
     href: "#",
     icon: MegaphoneIcon,
+    current: false,
+  },
+  Leaderboard: {
+    name: "Leetcode Leaderboard",
+    href: "#",
+    icon: BoltIcon,
     current: false,
   },
   Admin: {name: "Admin", href:"#",icon:WrenchScrewdriverIcon,current:false,secondary:true,adminonly:true},
@@ -487,15 +489,14 @@ class MemberPage extends React.Component {
             <RushEvents />
           </div>
 
-          <div className={this.state.navigation["Dues"].current ? "" : "hidden"} >
-            <p className="text-3xl text-center text-gray-400 p-4 font-bold m-auto h-full pt-20 pb-20">Coming Soon</p>
-          </div>
-
           <div className={this.state.navigation["Announcements"].current ? "" : "hidden"} >
             <p className="text-3xl text-center text-gray-400 p-4 font-bold m-auto h-full pt-20 pb-20">Coming Soon</p>
           </div>
           <div className={this.state.navigation["Admin"].current ? "" : "hidden"}>
             <AdminPanel firebase={this.props.firebase} database={this.props.database}/>
+          </div>
+          <div className={this.state.navigation["Leaderboard"].current ? "h-full" : "hidden"}>
+            <LcLeaderboard firebase={this.props.firebase} database={this.props.database} />
           </div>
         </div>
       </div>

@@ -2,6 +2,97 @@
 @tailwind components;
 @tailwind utilities;
 
+.header {
+  font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
+  fill: #d500f9;
+  animation: fadeInAnimation 0.8s ease-in-out forwards;
+}
+
+.stat {
+  font: 600 14px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif;
+  fill: #333;
+}
+
+.easy {
+  fill: #00a152;
+}
+
+.medium {
+  fill: #ff9100
+}
+
+.hard {
+  fill: #f50057
+}
+
+.stagger {
+  opacity: 0;
+  animation: fadeInAnimation 0.3s ease-in-out forwards;
+}
+
+.acceptance-text {
+  font: 800 24px 'Segoe UI', Ubuntu, Sans-Serif;
+  fill: #333;
+}
+
+.acceptance-title {
+  font: 600 14px 'Segoe UI', Ubuntu, "Helvetica Neue", Sans-Serif;
+  fill: #333;
+}
+
+.bold {
+  font-weight: 700
+}
+
+.acceptance-circle-rim {
+  stroke: #d500f9;
+  fill: none;
+  stroke-width: 6;
+  opacity: 0.2;
+}
+
+.acceptance-circle {
+  stroke: #d500f9;
+  stroke-dasharray: 377;
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+  opacity: 0.8;
+  transform-origin: -10px 8px;
+  transform: rotate(-90deg);
+  animation: acceptanceAnimation 1s forwards ease-in-out;
+}
+:root {
+  --stroke-end-width: 30;
+}
+@keyframes acceptanceAnimation {
+  from {
+    stroke-dashoffset: 377;
+  }
+  to {
+    stroke-dashoffset: var(--stroke-end-width);
+  }
+}
+/* Animations */
+
+@keyframes scaleInAnimation {
+  from {
+    transform: translate(-5px, 5px) scale(0);
+  }
+  to {
+    transform: translate(-5px, 5px) scale(1);
+  }
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .mobileProfHeight {
   height: calc(100vh - 63px);
 }

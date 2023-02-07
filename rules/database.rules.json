@@ -20,6 +20,13 @@
         ".read": true
       },
       ".read": "root.child('users').child(auth.uid).exists()"
+    },
+    "leetcode_offsets": {
+      "$user_id": {
+        ".write": false,
+        ".read": true
+      },
+      ".read": "root.child('users').child(auth.uid).exists()"
     }
   }
 }

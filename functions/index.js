@@ -23,6 +23,26 @@ let usersRef = admin.database().ref("users");
 let allowedRef = admin.database().ref("allowed_users");
 let publicRef = admin.database().ref("public_users");
 
+exports.onLeetcodeUpdate = functions.database
+  .ref("/public_users/{user_id}/leetcode/username")
+  .onUpdate((change, context) => {
+    const previousLeetcode = change.before.val();
+    const newLeetcode = change.after.val();
+    const url = "https://leetcode-stats-api.herokuapp.com/" + newLeetcode;
+    console.log("Generating offsets for Leetcode user " + newLeetcode);
+    const prom = new Promise(async (resolve, reject) => {
+      const resw = await fetch(url);
+      const res = await resw.json();
+      if(res.status!="success") {
+        console.log("Error fetching Leetcode data for user " + newLeetcode);
+      } else {
+        await publicRef.child(context.auth.uid+"/leetcode/offsets").set({easySolved:res.easySolved,mediumSolved:res.mediumSolved,hardSolved:res.hardSolved});
+      }
+      resolve();
+    });
+    return prom;
+  });
+
 exports.sendText = functions.https.onCall(async (data, context) => {
   const prom = new Promise((resolve, reject) => {
     usersRef.child(context.auth.uid).once("value", (user_snapshot) => {

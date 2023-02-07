@@ -32,6 +32,8 @@ class NewUser extends React.Component {
     this.announcementLevel = 3;
     this.resumeAdded = !this.props.newuser; //if new user, default to false. if existing user, defaults to true
     this.initNewAcc = this.initNewAcc.bind(this);
+    this.state = {existingLC:false};
+    this.old_lc = "";
   }
 
   catchUploadException(err) {
@@ -89,6 +91,7 @@ class NewUser extends React.Component {
         major: config.major,
         internships: config.internships,
         instagram: config.insta,
+        "leetcode/username": config.leetcode,
         linkedin: config.linkedin,
         about: config.about,
         signed_up: true,
@@ -109,6 +112,7 @@ class NewUser extends React.Component {
         internships: document.getElementById("internships-visible").checked
           ? config.internships
           : "",
+        "leetcode/username": config.leetcode,
         instagram: config.insta,
         linkedin: config.linkedin,
         about: config.about,
@@ -118,12 +122,17 @@ class NewUser extends React.Component {
           Swal.fire({
             title: "Account successfully created!",
             icon: "success",
-            text: "Your account was successfully created. Redirecting to the member portal...",
-            timer: 3000,
+            text: "Processing account creation. Redirecting to the member portal...",
+            timer: 2000,
             timerProgressBar: true,
             willClose: () => {
               clearInterval(timerInterval);
             },
+            showCloseButton:false,
+            showConfirmButton:false,
+            allowOutsideClick:false,
+            allowEnterKey:false,
+            allowEscapeKey:false,
           }).then((result) => {
             localStorage.setItem("justSetup", "true");
             window.location.href = "/member";
@@ -132,12 +141,16 @@ class NewUser extends React.Component {
           Swal.fire({
             title: "Account information updated!",
             icon: "success",
-            text: "Your account information was updated.",
-            timer: 3000,
+            text: "Processing account update.",
+            timer: this.old_lc===config.leetcode ? 1000 : 2000,
             timerProgressBar: true,
             willClose: () => {
               clearInterval(timerInterval);
             },
+            showConfirmButton:this.old_lc===config.leetcode,
+            allowOutsideClick:this.old_lc===config.leetcode,
+            allowEnterKey:this.old_lc===config.leetcode,
+            allowEscapeKey:this.old_lc===config.leetcode,
           }).then((result) => {
             window.location.reload();
           });
@@ -294,25 +307,6 @@ class NewUser extends React.Component {
                 <div className="mt-5 space-y-6 md:col-span-2 md:mt-0">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="col-span-3 sm:col-span-1">
-                      <label
-                        htmlFor="linkedin"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        LinkedIn Username
-                      </label>
-                      <div className="mt-1 flex rounded-md shadow-sm">
-                        <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">
-                          linkedin.com/in/
-                        </span>
-                        <input
-                          type="text"
-                          name="linkedin"
-                          id="linkedin"
-                          className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-span-3 sm:col-span-1">
                       <div>
                         <label
                           htmlFor="instagram"
@@ -335,6 +329,52 @@ class NewUser extends React.Component {
                           type="text"
                           name="instagram"
                           id="instagram"
+                          className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-span-3 sm:col-span-1 whitespace-nowrap">
+                      <div>
+                        <label
+                          htmlFor="leetcode"
+                          className="inline-block text-sm font-medium text-gray-700"
+                        >
+                          Leetcode Username&nbsp;
+                        </label>
+                        <label
+                          htmlFor="leetcode"
+                          className="inline-block text-sm font-medium font-light text-gray-500"
+                        >
+                          {this.state.existingLC ? "(Resets Progress)" : "(Optional)"}
+                        </label>
+                      </div>
+                      <div className="mt-1 flex rounded-md shadow-sm">
+                        <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">
+                          leetcode.com/
+                        </span>
+                        <input
+                          type="text"
+                          name="leetcode"
+                          id="leetcode"
+                          className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-span-1">
+                      <label
+                        htmlFor="linkedin"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        LinkedIn Username
+                      </label>
+                      <div className="mt-1 flex rounded-md shadow-sm">
+                        <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">
+                          linkedin.com/in/
+                        </span>
+                        <input
+                          type="text"
+                          name="linkedin"
+                          id="linkedin"
                           className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
@@ -903,6 +943,7 @@ class NewUser extends React.Component {
                     major: document.getElementById("major").value,
                     internships: document.getElementById("internships").value,
                     insta: document.getElementById("instagram").value,
+                    leetcode: document.getElementById("leetcode").value,
                     linkedin: document.getElementById("linkedin").value,
                     about: document.getElementById("about").value,
                     email_viewable:
@@ -945,13 +986,16 @@ class NewUser extends React.Component {
           get(child(dbRef, "users/" + user.uid)).then((snapshot) => {
             const prof = snapshot.val();
             //todo: abstract (easy, too lazy tho)
+            this.old_lc = prof["leetcode"] ? prof["leetcode"].username : "";
             document.getElementById("last-name").value = prof["name"]
               ? prof["name"]
               : "";
             document.getElementById("email-address").value = prof["email"]
               ? prof["email"]
               : "";
-            const elem = (prof["profile_pic_link"] ? prof["profile_pic_link"] : "");
+            const elem = prof["profile_pic_link"]
+              ? prof["profile_pic_link"]
+              : "";
             document.getElementById("profPicImg").src = prof["pfp_thumb_link"]
               ? prof["pfp_thumb_link"]
               : elem;
@@ -976,6 +1020,12 @@ class NewUser extends React.Component {
             document.getElementById("about").value = prof["about"]
               ? prof["about"]
               : "";
+            document.getElementById("leetcode").value = prof["leetcode"]
+              ? prof["leetcode"].username
+              : "";
+            if(prof["leetcode"]) {
+              this.setState({existingLC:true});
+            }
             document.getElementById("push-everything").checked =
               prof["announcement_level"] === 3;
             document.getElementById("push-email").checked =
