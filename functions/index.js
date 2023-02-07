@@ -28,9 +28,12 @@ let publicRef = admin.database().ref("public_users");
 
 exports.onLeetcodeUpdate = functions.database
   .ref("/public_users/{user_id}/leetcode/username")
-  .onUpdate((change, context) => {
+  .onWrite((change, context) => {
     const previousLeetcode = change.before.val();
     const newLeetcode = change.after.val();
+    if(!newLeetcode) {
+      return null;
+    }
     const url = "https://leetcode-stats-api.herokuapp.com/" + newLeetcode;
     console.log("Generating offsets for Leetcode user " + newLeetcode);
     const prom = new Promise(async (resolve, reject) => {
