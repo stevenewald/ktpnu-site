@@ -25,7 +25,10 @@
       "$user_id": {
         ".write": false,
         ".read": true
-      },
+      }
+    },
+    "announcements": {
+      ".write": false,
       ".read": "root.child('users').child(auth.uid).exists()"
     }
   }

@@ -2,6 +2,9 @@ import React from "react";
 import Swal from "sweetalert2";
 import { ref, child, get } from "firebase/database";
 
+// Picture assets
+const assets = require('../../assets.js')
+
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -292,7 +295,7 @@ class SignUp extends React.Component {
         <div className="relative hidden w-0 flex-1 lg:block">
           <img
             className="absolute inset-0 h-screen w-full object-cover"
-            src="https://www.northwestern.edu/brand/images/deering.jpg"
+            src={assets["damien"]}
             alt=""
           />
         </div>

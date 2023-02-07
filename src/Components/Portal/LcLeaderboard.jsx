@@ -157,10 +157,11 @@ class LcLeaderboard extends React.Component {
                 {this.state.lcStats
                   .slice(
                     0,
-                    Math.max(
+                    /*Math.max(
                       Math.min(5, this.state.lcStats.length),
                       Math.ceil(this.state.lcStats.length / 2)
-                    )
+                    )*/
+                    this.state.lcStats.length
                   )
                   .map((currUser, index) => (
                     <li key={currUser.name} className="sm:py-8">

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 10:25:07.273 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
 10:25:07.370 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
 10:25:07.816 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - ktp-site-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 72ms, init: 0ms
@@ -28,3 +29,14 @@ the firebase.json emulators config.
 16:09:36.243 [NamespaceSystem-blocking-namespace-operation-dispatcher-692] INFO com.firebase.core.namespace.StateManager - Namespace ktp-site-default-rtdb status Active to Active
 16:10:22.465 [NamespaceSystem-blocking-namespace-operation-dispatcher-695] INFO com.firebase.core.stats.EventAuditLog - {"eventId":"TLfpx1XObYzvQBQNTc+SEHVodWg=","namespace":"ktp-site-default-rtdb","projectNumber":"123456789","eventType":"providers/google.firebase.database/eventTypes/ref.write","flowName":"projects/ktp-site/topics/us-central1-onLeetcodeUpdate-0","resource":"projects/_/instances/ktp-site-default-rtdb/refs/public_users/XC53tO5vY4Qfsw0BEhm0TIaIz4Tn/leetcode/username","evaluationTimestamp":"2023-02-07T22:10:22.457Z","stage":"TRIGGERED"}
 16:10:34.841 [NamespaceSystem-blocking-namespace-operation-dispatcher-701] INFO com.firebase.core.stats.EventAuditLog - {"eventId":"CK33w37in+s1GZ425fG0sqysFtY=","namespace":"ktp-site-default-rtdb","projectNumber":"123456789","eventType":"providers/google.firebase.database/eventTypes/ref.write","flowName":"projects/ktp-site/topics/us-central1-onLeetcodeUpdate-0","resource":"projects/_/instances/ktp-site-default-rtdb/refs/public_users/XC53tO5vY4Qfsw0BEhm0TIaIz4Tn/leetcode/username","evaluationTimestamp":"2023-02-07T22:10:34.837Z","stage":"TRIGGERED"}
+=======
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by io.netty.util.internal.ReflectionUtil (file:/Users/alexisrobles/.cache/firebase/emulators/firebase-database-emulator-v4.11.0.jar) to field sun.nio.ch.SelectorImpl.selectedKeys
+WARNING: Please consider reporting this to the maintainers of io.netty.util.internal.ReflectionUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+19:07:54.095 [NamespaceSystem-akka.actor.default-dispatcher-6] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+19:07:54.598 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+19:07:55.713 [NamespaceSystem-akka.actor.default-dispatcher-7] INFO com.firebase.core.namespace.NamespaceActor - ktp-site-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 253ms, init: 0ms
+19:08:18.564 [NamespaceSystem-blocking-namespace-operation-dispatcher-12] INFO com.firebase.core.namespace.StateManager - Namespace ktp-site-default-rtdb status Active to Active
+>>>>>>> d7f897f834e0f7299eabd591e708dc9ea7f3d680
