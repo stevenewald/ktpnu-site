@@ -3,6 +3,9 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const os = require("os");
 const { Storage } = require("@google-cloud/storage");
+var request = require('request').defaults({
+  encoding: null
+});
 const gcs = new Storage();
 
 const ACC_SID = "AC099209d721444b627637504d0606c2dc";
@@ -31,15 +34,19 @@ exports.onLeetcodeUpdate = functions.database
     const url = "https://leetcode-stats-api.herokuapp.com/" + newLeetcode;
     console.log("Generating offsets for Leetcode user " + newLeetcode);
     const prom = new Promise(async (resolve, reject) => {
-      const resw = await fetch(url);
-      const res = await resw.json();
-      if(res.status!="success") {
+      request.get(url, async (error, response, body) => {
+        if (error) {
+          res.status(500).send(error);
+        } else {
+          const res = JSON.parse(body);
+      if(!res.easySolved) {
         console.log("Error fetching Leetcode data for user " + newLeetcode);
       } else {
         console.log(JSON.stringify({easySolved:res.easySolved,mediumSolved:res.mediumSolved,hardSolved:res.hardSolved}));
         await publicRef.child(context.auth.uid+"/leetcode/offsets").set({easySolved:res.easySolved,mediumSolved:res.mediumSolved,hardSolved:res.hardSolved});
       }
       resolve();
+    }})
     });
     return prom;
   });
