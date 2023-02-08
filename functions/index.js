@@ -195,12 +195,12 @@ exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
       if (size < 300) {
         // Square aspect ratio
         // Good for profile images
-        await sharp(tmpFilePath).resize(size, size).toFile(thumbPath);
+        await sharp(tmpFilePath).resize(size, size).withMetadata().toFile(thumbPath);
       } else {
         // 16:9 aspect ratio
         let height = Math.floor(size * 0.5625);
 
-        await sharp(tmpFilePath).resize(size, height).toFile(thumbPath);
+        await sharp(tmpFilePath).resize(size, height).withMetadata().toFile(thumbPath);
       }
       metadata.isThumb = true;
 
