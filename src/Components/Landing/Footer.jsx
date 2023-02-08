@@ -86,7 +86,7 @@ class Footer extends React.Component {
           </div>
           <div className="mt-8 lg:order-1 lg:mt-0">
             <p className="text-center text-base text-gray-50">
-              &copy; 2022 Kappa Theta Pi Kappa Chapter. All Rights Reserved.
+              &copy; 2023 Kappa Theta Pi Kappa Chapter. All Rights Reserved.
             </p>
           </div>
           <div className="lg:order-2 lg:mt-0 mt-8"><p className="text-base text-center text-gray-50">Website made by <a className="text-white underline" target="_blank" href="https://www.instagram.com/stevenewald/">Steve Ewald</a> and <a target="_blank" className="text-white underline" href="https://www.instagram.com/al3xisrobles/">Alexis Robles</a></p></div>

@@ -7,3 +7,8 @@ namespace ktp-site, but the emulator is configured for ktp-site-default-rtdb. To
 opt-out of single project mode add/set the single_project_mode: false property in 
 the firebase.json emulators config. 
 10:36:50.168 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - ktp-site successfully activated FBKV (SurveyIdle(0)) wait: 1ms, init: 0ms
+11:10:28.049 [Thread-0] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
+11:10:28.062 [NamespaceSystem-akka.actor.default-dispatcher-70] INFO com.firebase.core.namespace.Terminator$Terminator - 2 actors left to terminate: ktp-site-default-rtdb, ktp-site
+11:10:28.066 [NamespaceSystem-akka.actor.default-dispatcher-74] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for ktp-site
+11:10:28.066 [NamespaceSystem-akka.actor.default-dispatcher-71] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for ktp-site-default-rtdb
+11:10:28.068 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.
