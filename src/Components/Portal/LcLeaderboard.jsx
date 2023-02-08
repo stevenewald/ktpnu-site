@@ -1,16 +1,39 @@
-import React from 'react';
-const places_to_20 = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth", "Eleventh", "Twelfth", "Thirteenth", "Fourteenth", "Fifteenth", "Sixteenth", "Seventeenth", "Eighteenth", "Nineteenth", "Twentieth"];
+import React from "react";
+const places_to_20 = [
+  "First",
+  "Second",
+  "Third",
+  "Fourth",
+  "Fifth",
+  "Sixth",
+  "Seventh",
+  "Eighth",
+  "Ninth",
+  "Tenth",
+  "Eleventh",
+  "Twelfth",
+  "Thirteenth",
+  "Fourteenth",
+  "Fifteenth",
+  "Sixteenth",
+  "Seventeenth",
+  "Eighteenth",
+  "Nineteenth",
+  "Twentieth",
+];
 import { ref, child, get } from "firebase/database";
 function weightedScoreCalc(easy, med, hard) {
-  return easy+med*3+hard*10
-};
+  return easy + med * 3 + hard * 10;
+}
 
 class LcLeaderboard extends React.Component {
   constructor(props) {
     super(props);
     //"Steven Ewald":"stevenewald","Ford Holmen":"fholmen1","Tahira ":"tahiragrewal","Cat Tawadros":"ctawadros","Eagan Deshpande":"ikan9989","Conor Olson":"cbolson03","Mia Scarpati":"mscarpati","Andy Vu":"Andy_V_123","Kelly Meng":"kellymeng","Eli G":"Eligottlieb","Sneh Deshpande":"SnehDeshpande"
-    this.state = {users:{},totalQuestions:0,totalEasy:0,totalMedium:0,totalHard:0,lcStats:[]};
-    this.offsets = {}
+    this.state = {
+      lcStats: [],
+    };
+    this.offsets = {};
   }
 
   componentDidMount() {
@@ -20,120 +43,55 @@ class LcLeaderboard extends React.Component {
           const dbRef = ref(this.props.database);
           const snapshot = await get(child(dbRef, "public_users"));
           const dir = snapshot.val();
-          var new_users = {};
-          var new_offsets = {};
+          var lc_users = {};
           for (var user3 in dir) {
             const user2 = dir[user3];
             if (user2.leetcode && user2.leetcode.username) {
-                const prof_pic = user2.pfp_large_link ? user2.pfp_large_link : user2.profile_pic_link;
-              new_users[user2.name] = {uname: user2.leetcode.username, pic_link:prof_pic};
-              new_offsets[user2.leetcode.username] = user2.leetcode.offsets;
-            }
-          }
-          this.setState({ users: new_users });
-          this.offsets = new_offsets;
-
-          const urls = [];
-          for (var user4 in new_users) {
-            urls.push({
-              user: user4,
-              lcUser: new_users[user4].uname,
-              profPicLink: new_users[user4].pic_link,
-              url:
-                "https://leetcode-stats-api.herokuapp.com/" +
-                new_users[user4].uname,
-            });
-          }
-          const requests = urls.map((url) => fetch(url.url));
-          const responses = await Promise.all(requests);
-          const errors = responses.filter((response) => !response.ok);
-
-          if (errors.length > 0) {
-            throw errors.map((response) => Error(response.statusText));
-          }
-
-          const json = responses.map((response, index) => ({
-            user: urls[index].user,
-            lcUser: urls[index].lcUser,
-            profPicLink: urls[index].profPicLink,
-            response: response.json(),
-          }));
-          const data = await Promise.all(
-            json.map(async ({ user, lcUser, profPicLink, response }) => ({
-              user,
-              lcUser,
-              profPicLink,
-              response: await response,
-            }))
-          );
-          var formattedStats = [];
-          var totalQuestions = 0;
-          var totalEasy = 0;
-          var totalMedium = 0;
-          var totalHard = 0;
-          for (var indivLcUser in data) {
-            const lcUser = data[indivLcUser].lcUser;
-            const profPicLink = data[indivLcUser].profPicLink;
-            const cUR = data[indivLcUser].response;
-            const oUR = this.offsets[lcUser];
-            if(!cUR || !cUR.easySolved || !oUR || !oUR.easySolved) {
-                console.log("Skipping leetcode generation for " + user.name + "\n\n");
+              if (!user2.leetcode.answers) {
+                console.log(user2.leetcode + " has no answers, skipping\n");
                 continue;
+              } else if (!user2.leetcode.offsets) {
+                console.log(user2.leetcode + " has no offsets, skipping\n");
+                continue;
+              }
+              const prof_pic = user2.pfp_large_link
+                ? user2.pfp_large_link
+                : user2.profile_pic_link;
+              lc_users[user2.leetcode.username] = {name:user2.name, offsets:user2.leetcode.offsets, answers:user2.leetcode.answers, pfp:prof_pic};
             }
-            if (lcUser in this.offsets) {
-              formattedStats.push({
-                lcUser: lcUser,
-                name: data[indivLcUser].user,
-                easySolved: cUR.easySolved - oUR.easySolved,
-                mediumSolved: cUR.mediumSolved - oUR.mediumSolved,
-                hardSolved: cUR.hardSolved - oUR.hardSolved,
-                acceptanceRate: cUR.acceptanceRate,
-                weightedScore: weightedScoreCalc(
-                  cUR.easySolved - oUR.easySolved,
-                  cUR.mediumSolved - oUR.mediumSolved,
-                  cUR.hardSolved - oUR.hardSolved
-                ),
-                pictureLink:profPicLink,
-              });
-            } else {
-              formattedStats.push({
-                lcUser: lcUser,
-                name: data[indivLcUser].user,
-                easySolved: cUR.easySolved,
-                mediumSolved: cUR.mediumSolved,
-                hardSolved: cUR.hardSolved,
-                acceptanceRate: cUR.acceptanceRate,
-                weightedScore: weightedScoreCalc(
-                  cUR.easySolved,
-                  cUR.mediumSolved,
-                  cUR.hardSolved
-                ),
-                pictureLink:profPicLink,
-              });
-            }
-            totalQuestions = cUR.totalQuestions;
-            totalEasy = cUR.totalEasy;
-            totalMedium = cUR.totalMedium;
-            totalHard = cUR.totalHard;
+          }
+          var formattedStats = [];
+          for(var lcusername in lc_users) {
+            const lc_user_elem = lc_users[lcusername]
+            formattedStats.push({
+              lcUser:lcusername,
+              name: lc_user_elem.name,
+              easySolved: lc_user_elem.answers.easySolved-lc_user_elem.offsets.easySolved,
+              mediumSolved: lc_user_elem.answers.mediumSolved-lc_user_elem.offsets.mediumSolved,
+              hardSolved: lc_user_elem.answers.hardSolved-lc_user_elem.offsets.hardSolved,
+              acceptanceRate: lc_user_elem.answers.acceptanceRate,
+              weightedScore: weightedScoreCalc(
+                lc_user_elem.answers.easySolved-lc_user_elem.offsets.easySolved,
+                lc_user_elem.answers.mediumSolved-lc_user_elem.offsets.mediumSolved,
+                lc_user_elem.answers.hardSolved-lc_user_elem.offsets.hardSolved,
+              ),
+              pictureLink: lc_user_elem.pfp,
+            })
           }
           const sortedData = formattedStats.sort(
             (a, b) => b.weightedScore - a.weightedScore
           );
           this.setState({
-            totalEasy: totalEasy,
-            totalMedium: totalMedium,
-            totalHard: totalHard,
-            totalQuestions: totalQuestions,
             lcStats: sortedData,
           });
         } catch (errors) {
-            console.log(errors);
+          console.log(errors);
           errors.forEach((error) => console.error(error));
         }
       }
     });
   }
-  
+
   render() {
     return (
       <div className="bg-white h-screen overflow-y-scroll">
@@ -169,7 +127,7 @@ class LcLeaderboard extends React.Component {
                         <div className="max-w-[240px] max-h-[240px]">
                           <div className="aspect-square overflow-hidden rounded-lg">
                             <img
-                              className="rounded-lg shadow-lg object-cover"
+                              className="rounded-lg shadow-lg object-cover min-w-full min-h-full"
                               src={currUser.pictureLink}
                               alt=""
                             />

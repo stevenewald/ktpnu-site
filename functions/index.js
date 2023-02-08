@@ -3,8 +3,8 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const os = require("os");
 const { Storage } = require("@google-cloud/storage");
-var request = require('request').defaults({
-  encoding: null
+var request = require("request").defaults({
+  encoding: null,
 });
 const gcs = new Storage();
 
@@ -27,40 +27,62 @@ let allowedRef = admin.database().ref("allowed_users");
 let publicRef = admin.database().ref("public_users");
 let announcementsRef = admin.database().ref("announcements");
 
-exports.onLeetcodeUpdate = functions.database
-  .ref("/public_users/{user_id}/leetcode/username")
-  .onWrite((change, context) => {
-    const previousLeetcode = change.before.val();
-    const newLeetcode = change.after.val();
-    if(!newLeetcode) {
-      return null;
-    }
-    const url = "https://leetcode-stats-api.herokuapp.com/" + newLeetcode;
-    console.log("Generating offsets for Leetcode user " + newLeetcode);
-    const prom = new Promise(async (resolve, reject) => {
-      request.get(url, async (error, response, body) => {
-        if (error) {
-          res.status(500).send(error);
-        } else {
-          const res = JSON.parse(body);
-      if(!res.easySolved) {
-        console.log("Error fetching Leetcode data for user " + newLeetcode);
+//exports.scheduledFunction = functions.pubsub.schedule('every 1 minutes').onRun((context) => {
+exports.scheduledFunction = functions.pubsub.schedule('every 5 minutes').onRun((context) => {
+  const responseFunction = (user_uid2, offsets) => {
+    return async (error, response, body) => {
+      if (error) {
+        console.log("Error fetching leetcode stats for " + user_uid2)
       } else {
-        console.log(JSON.stringify({easySolved:res.easySolved,mediumSolved:res.mediumSolved,hardSolved:res.hardSolved}));
-        await publicRef.child(context.params.user_id+"/leetcode/offsets").set({easySolved:res.easySolved,mediumSolved:res.mediumSolved,hardSolved:res.hardSolved});
+        const res = JSON.parse(body);
+        if (res.easySolved === undefined || res.easySolved === null) {
+          console.log("Error fetching Leetcode data for user " + user.leetcode);
+        } else {
+          var promises = [];
+          if(!offsets) {
+            console.log("Adding offsets for " + user_uid2);
+            const prom1 = publicRef.child(user_uid2+"/leetcode/offsets").set({
+              easySolved: res.easySolved,
+              mediumSolved: res.mediumSolved,
+              hardSolved: res.hardSolved,
+            })
+            promises.push(prom1);
+          }
+          const prom2 = publicRef.child(user_uid2 + "/leetcode/answers").set({
+            easySolved: res.easySolved,
+            mediumSolved: res.mediumSolved,
+            hardSolved: res.hardSolved,
+            acceptanceRate: res.acceptanceRate,
+          });
+          promises.push(prom2);
+          Promise.all(promises);
+        }
+      }
+    };
+  };
+  const prom = new Promise((resolve, reject) => {
+    publicRef.once("value", (pubusers) => {
+      for (var user_uid in pubusers.val()) {
+        const user = pubusers.val()[user_uid];
+        if (user.leetcode) {
+          console.log("Updating leetcode stats of " + user.leetcode.username);
+          request.get(
+            "https://leetcode-stats-api.herokuapp.com/" +
+              user.leetcode.username,
+            responseFunction(user_uid, user.leetcode.offsets)
+          );
+        }
       }
       resolve();
-    }})
     });
-    return prom;
   });
+  return prom;
+});
 
 exports.sendText = functions.https.onCall(async (data, context) => {
   const prom = new Promise((resolve, reject) => {
     usersRef.child(context.auth.uid).once("value", (user_snapshot) => {
-      if (
-        user_snapshot.val()["admin"] === true
-      ) {
+      if (user_snapshot.val()["admin"] === true) {
         usersRef.once("value", (all_users) => {
           const message = data["message"];
           const whoTo = data["whoTo"];
@@ -70,7 +92,7 @@ exports.sendText = functions.https.onCall(async (data, context) => {
             text: message,
             whoTo: whoTo,
             timestamp: admin.database.ServerValue.TIMESTAMP, // use firebase server timestamp
-            messageType:type,
+            messageType: type,
           };
           announcementsRef.push(newAnnouncement);
           for (let currUser in all_users.val()) {
@@ -195,12 +217,18 @@ exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
       if (size < 300) {
         // Square aspect ratio
         // Good for profile images
-        await sharp(tmpFilePath).resize(size, size).withMetadata().toFile(thumbPath);
+        await sharp(tmpFilePath)
+          .resize(size, size)
+          .withMetadata()
+          .toFile(thumbPath);
       } else {
         // 16:9 aspect ratio
         let height = Math.floor(size * 0.5625);
 
-        await sharp(tmpFilePath).resize(size, height).withMetadata().toFile(thumbPath);
+        await sharp(tmpFilePath)
+          .resize(size, height)
+          .withMetadata()
+          .toFile(thumbPath);
       }
       metadata.isThumb = true;
 
@@ -291,7 +319,7 @@ exports.beforeAcc = functions.auth.user().beforeCreate(async (user) => {
             if (!user_snapshot.exists()) {
               functions.logger.log("Adding user " + user.email);
               var newuser_role = "Member";
-              if(allowed_snapshot.val() != "") {
+              if (allowed_snapshot.val() != "") {
                 newuser_role = allowed_snapshot.val();
               }
               await usersRef.child(user.uid).set({
