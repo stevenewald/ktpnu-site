@@ -1,29 +1,29 @@
 import React from "react";
 const places_to_20 = [
-  "First",
-  "Second",
-  "Third",
-  "Fourth",
-  "Fifth",
-  "Sixth",
-  "Seventh",
-  "Eighth",
-  "Ninth",
-  "Tenth",
-  "Eleventh",
-  "Twelfth",
-  "Thirteenth",
-  "Fourteenth",
-  "Fifteenth",
-  "Sixteenth",
-  "Seventeenth",
-  "Eighteenth",
-  "Nineteenth",
-  "Twentieth",
+  "1st",
+  "2nd",
+  "3rd",
+  "4th",
+  "5th",
+  "6th",
+  "7th",
+  "8th",
+  "9th",
+  "10th",
+  "11th",
+  "12th",
+  "13th",
+  "14th",
+  "15th",
+  "16th",
+  "17th",
+  "18th",
+  "19th",
+  "20th",
 ];
 import { ref, child, get } from "firebase/database";
 function weightedScoreCalc(easy, med, hard) {
-  return easy + med * 3 + hard * 10;
+  return easy * 2 + med * 5 + hard * 8;
 }
 
 class LcLeaderboard extends React.Component {
