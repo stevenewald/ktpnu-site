@@ -123,7 +123,7 @@ class NewUser extends React.Component {
             title: "Account successfully created!",
             icon: "success",
             text: "Processing account creation. Redirecting to the member portal...",
-            timer: 2000,
+            timer: 1000,
             timerProgressBar: true,
             willClose: () => {
               clearInterval(timerInterval);
@@ -141,16 +141,12 @@ class NewUser extends React.Component {
           Swal.fire({
             title: "Account information updated!",
             icon: "success",
-            text: "Processing account update.",
-            timer: this.old_lc===config.leetcode ? 1000 : 2000,
+            text: "Please allow up to five minutes for the leetcode leaderboard to update.",
+            timer: this.old_lc===config.leetcode ? 1000 : 3000,
             timerProgressBar: true,
             willClose: () => {
               clearInterval(timerInterval);
             },
-            showConfirmButton:this.old_lc===config.leetcode,
-            allowOutsideClick:this.old_lc===config.leetcode,
-            allowEnterKey:this.old_lc===config.leetcode,
-            allowEscapeKey:this.old_lc===config.leetcode,
           }).then((result) => {
             window.location.reload();
           });

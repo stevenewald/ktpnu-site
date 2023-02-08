@@ -57,26 +57,40 @@ class LcLeaderboard extends React.Component {
               const prof_pic = user2.pfp_large_link
                 ? user2.pfp_large_link
                 : user2.profile_pic_link;
-              lc_users[user2.leetcode.username] = {name:user2.name, offsets:user2.leetcode.offsets, answers:user2.leetcode.answers, pfp:prof_pic};
+              lc_users[user2.leetcode.username] = {
+                name: user2.name,
+                offsets: user2.leetcode.offsets,
+                answers: user2.leetcode.answers,
+                pfp: prof_pic,
+              };
             }
           }
           var formattedStats = [];
-          for(var lcusername in lc_users) {
-            const lc_user_elem = lc_users[lcusername]
+          for (var lcusername in lc_users) {
+            const lc_user_elem = lc_users[lcusername];
             formattedStats.push({
-              lcUser:lcusername,
+              lcUser: lcusername,
               name: lc_user_elem.name,
-              easySolved: lc_user_elem.answers.easySolved-lc_user_elem.offsets.easySolved,
-              mediumSolved: lc_user_elem.answers.mediumSolved-lc_user_elem.offsets.mediumSolved,
-              hardSolved: lc_user_elem.answers.hardSolved-lc_user_elem.offsets.hardSolved,
+              easySolved:
+                lc_user_elem.answers.easySolved -
+                lc_user_elem.offsets.easySolved,
+              mediumSolved:
+                lc_user_elem.answers.mediumSolved -
+                lc_user_elem.offsets.mediumSolved,
+              hardSolved:
+                lc_user_elem.answers.hardSolved -
+                lc_user_elem.offsets.hardSolved,
               acceptanceRate: lc_user_elem.answers.acceptanceRate,
               weightedScore: weightedScoreCalc(
-                lc_user_elem.answers.easySolved-lc_user_elem.offsets.easySolved,
-                lc_user_elem.answers.mediumSolved-lc_user_elem.offsets.mediumSolved,
-                lc_user_elem.answers.hardSolved-lc_user_elem.offsets.hardSolved,
+                lc_user_elem.answers.easySolved -
+                  lc_user_elem.offsets.easySolved,
+                lc_user_elem.answers.mediumSolved -
+                  lc_user_elem.offsets.mediumSolved,
+                lc_user_elem.answers.hardSolved -
+                  lc_user_elem.offsets.hardSolved
               ),
               pictureLink: lc_user_elem.pfp,
-            })
+            });
           }
           const sortedData = formattedStats.sort(
             (a, b) => b.weightedScore - a.weightedScore
@@ -136,12 +150,34 @@ class LcLeaderboard extends React.Component {
                         <div className="sm:col-span-2">
                           <div>
                             <div className="space-y-1 text-lg font-medium leading-6">
-                              <h3>{currUser.name}</h3>
+                              <div className="flex space-x-4">
+                                <h3>{currUser.name}</h3>
+                                <a
+                                  target="_blank"
+                                  href={
+                                    "https://leetcode.com/" + currUser.lcUser
+                                  }
+                                  className="mt-[.075rem] hover:text-gray-600"
+                                >
+                                  <svg
+                                    className="h-5 w-5"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      fill="currentColor"
+                                      d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104a5.35 5.35 0 0 0-.125.513a5.527 5.527 0 0 0 .062 2.362a5.83 5.83 0 0 0 .349 1.017a5.938 5.938 0 0 0 1.271 1.818l4.277 4.193l.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019l-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523a2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382a1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382a1.38 1.38 0 0 0-1.38-1.382z"
+                                    />
+                                  </svg>
+                                </a>
+                              </div>
                               <p className="text-indigo-600">
                                 {places_to_20[index]} Place
                               </p>
                             </div>
-                            <div className="relative right-6 -mt-10 mb-4">
+                            <div className="relative right-6 -mt-4 mb-4">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="455"
@@ -282,29 +318,6 @@ class LcLeaderboard extends React.Component {
                                 </g>
                               </svg>
                             </div>
-                            <ul role="list" className="flex space-x-5">
-                              <li>
-                                <a
-                                  target="_blank"
-                                  href={
-                                    "https://leetcode.com/" + currUser.lcUser
-                                  }
-                                >
-                                  <svg
-                                    className="h-5 w-5"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="1em"
-                                    height="1em"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path
-                                      fill="currentColor"
-                                      d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104a5.35 5.35 0 0 0-.125.513a5.527 5.527 0 0 0 .062 2.362a5.83 5.83 0 0 0 .349 1.017a5.938 5.938 0 0 0 1.271 1.818l4.277 4.193l.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019l-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523a2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382a1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382a1.38 1.38 0 0 0-1.38-1.382z"
-                                    />
-                                  </svg>
-                                </a>
-                              </li>
-                            </ul>
                           </div>
                         </div>
                       </div>
