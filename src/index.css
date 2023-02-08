@@ -276,6 +276,10 @@ form td:last-child {
   outline: 5px auto var(--indigo-700) !important;
 }
 
+.rbc-today {
+  background-color: #e3e3ff !important;
+}
+
 .modal-portal {
   z-index: 10;
   position: absolute;
