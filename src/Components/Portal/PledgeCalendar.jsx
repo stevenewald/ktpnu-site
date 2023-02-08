@@ -157,67 +157,82 @@ class PledgeCalendar extends React.Component {
                 "Description",
               ];
 
-              // To make the columns in the correct order, I want to make sure that
-              // the columns on notion.com match what I want to sort it to. So,
-              // I ensure that each column in the list that I want to sort it to
-              // exists online
-              if (
-                sortedCols.every((element) =>
-                  this.state.notionCols.includes(element)
-                )
-              ) {
-                this.setState({ notionCols: sortedCols }, () => {
-                  // For each data point (row) from the API, put each respective
-                  // data point into each column in the notionEvents list
-                  let newNotionEvents = this.state.notionPageData.map(
-                    (event) => {
-                      let newEvent = {};
-                      this.state.notionCols.forEach((col) => {
-                        // The 'Type' key has a value that is an array for some reason
-                        if (col === "Type") {
-                          newEvent[col] = event[col][0];
+              // Update the notionCols
+              this.setState({ notionCols: sortedCols }, () => {
+                // For each data point (row) from the API, put each respective
+                // data point into each column in the notionEvents list
+                let newNotionEvents = this.state.notionPageData.map(
+                  (event) => {
+                    let newEvent = {};
+                    this.state.notionCols.forEach((col) => {
+                      // The 'Type' key has a value that is an array for some reason
+                      if (col === "Type") {
+                        newEvent[col] = event[col][0];
+                      } else {
+                        // The 'Mandatory?' field is a boolean, so map it to a string
+                        if (col === "Mandatory?") {
+                          newEvent[col] = event[col] ? "Yes" : "No";
+
+                          // Format the "Date" field
+                        } else if (col === "Date") {
+                          // Correct the timezone for CST
+                          let dateStr = event[col] + "T12:00:00.000-0600";
+
+                          // Convert date field to more readable format
+                          let eventDate = new Date(dateStr);
+                          newEvent[col] = eventDate.toLocaleDateString(
+                            "en-US",
+                            { month: "long", day: "numeric", year: "numeric" }
+                          );
+
+                          // Every other field is a 1-to-1 mapping
                         } else {
-                          // The 'Mandatory?' field is a boolean, so map it to a string
-                          if (col === "Mandatory?") {
-                            newEvent[col] = event[col] ? "Yes" : "No";
-
-                            // Format the "Date" field
-                          } else if (col === "Date") {
-                            // Correct the timezone for CST
-                            let dateStr = event[col] + "T12:00:00.000-0600";
-
-                            // Convert date field to more readable format
-                            let eventDate = new Date(dateStr);
-                            newEvent[col] = eventDate.toLocaleDateString(
-                              "en-US",
-                              { month: "long", day: "numeric", year: "numeric" }
-                            );
-
-                            // Every other field is a 1-to-1 mapping
-                          } else {
-                            newEvent[col] = event[col];
-                          }
+                          newEvent[col] = event[col];
                         }
-                      });
+                      }
+                    })
 
-                      return newEvent;
-                    }
-                  );
+                    // Necessitate Name, Date, and Type categories. Otherwise,
+                    // don't add the row to the list
+                    let necessaryCols = {"Name": undefined,
+                                         "Date": "Invalid Date",
+                                         "Type": ""}
+                    for (const key of Object.keys(necessaryCols)) {
+                      if (!newEvent.hasOwnProperty(key) || newEvent[key] === necessaryCols[key]) {
+                        console.log(key, "field is not inputted for a row in Notion.")
+                        newEvent = {}
+                      }
+                    };
 
-                  // Make notionEvents equal to the temporary one we just created
-                  this.setState({ notionEvents: newNotionEvents }, () => {
-                    // Remove empty events caused by them having passed
-                    // this.setState({ notionEventsFuture: this.state.notionEvents.filter(event => Object.keys(event).length !== 0) }, () => {
+                    // If the event is valid, add it to the list
+                    // of events from Notion
+                    return newEvent;
+                  })
 
-                    this.filterOutPastEvents();
+                // Remove empty events from ones that had empty notion data
+                newNotionEvents = newNotionEvents.filter(event => Object.keys(event).length !== 0);
 
-                    // After notionEvents is created, add them to the UI
-                    this.createEventDates();
-                  });
+                // Sort the events by date (oldest to newest)
+                newNotionEvents.sort((a, b) => {
+                  let a_date = new Date(Date.parse(a["Date"]));
+                  let b_date = new Date(Date.parse(b["Date"]));
+                  return a_date - b_date;
+                })
+
+                console.log(newNotionEvents);
+
+                // Make notionEvents equal to the temporary one we just created
+                this.setState({ notionEvents: newNotionEvents }, () => {
+
+                  // Remove empty events caused by them having passed
+                  // this.setState({ notionEventsFuture: this.state.notionEvents.filter(event => Object.keys(event).length !== 0) }, () => {
+                  this.filterOutPastEvents();
+
+                  // After notionEvents is created, add them to the UI
+                  this.createEventDates();
                 });
-              }
-            }
-          );
+              });
+            });
         }});
     }).catch(err => {
       console.log(err)
