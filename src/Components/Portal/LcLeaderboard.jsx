@@ -136,9 +136,9 @@ class LcLeaderboard extends React.Component {
                     this.state.lcStats.length
                   )
                   .map((currUser, index) => (
-                    <li key={currUser.name} className="sm:py-8">
+                    <li key={currUser.name} className="sm:pt-5">
                       <div className="space-y-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-6 sm:space-y-0 max-w-3xl">
-                        <div className="max-w-[240px] max-h-[240px]">
+                        <div className="max-w-[200px] max-h-[200px] mt-[0.335rem]">
                           <div className="aspect-square overflow-hidden rounded-lg">
                             <img
                               className="rounded-lg shadow-lg object-cover min-w-full min-h-full"
@@ -186,54 +186,6 @@ class LcLeaderboard extends React.Component {
                                 fill="none"
                               >
                                 <g transform="translate(0, 55)">
-                                  <g
-                                    transform="translate(400, 47.5)"
-                                    className="hidden sm:block"
-                                  >
-                                    <circle
-                                      class="acceptance-circle-rim"
-                                      cx="-10"
-                                      cy="8"
-                                      r="60"
-                                    />
-                                    <circle
-                                      style={{
-                                        "--stroke-end-width": String(
-                                          377 -
-                                            (currUser.acceptanceRate / 100) *
-                                              377
-                                        ),
-                                      }}
-                                      className="acceptance-circle"
-                                      cx="-10"
-                                      cy="8"
-                                      r="60"
-                                    />
-                                    <text
-                                      class="acceptance-text"
-                                      x="-7"
-                                      y="0"
-                                      alignment-baseline="central"
-                                      dominant-baseline="central"
-                                      text-anchor="middle"
-                                    >
-                                      {" "}
-                                      {Math.round(
-                                        currUser.acceptanceRate
-                                      )}%{" "}
-                                    </text>
-                                    <text
-                                      class="acceptance-title"
-                                      x="-7"
-                                      y="20"
-                                      alignment-baseline="central"
-                                      dominant-baseline="central"
-                                      text-anchor="middle"
-                                    >
-                                      {" "}
-                                      acceptance{" "}
-                                    </text>
-                                  </g>
                                   <svg x="0" y="0">
                                     <g transform="translate(0, 0)">
                                       <g
