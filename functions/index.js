@@ -9,7 +9,7 @@ var request = require("request").defaults({
 const gcs = new Storage();
 
 const ACC_SID = "AC099209d721444b627637504d0606c2dc";
-const AUTH_TOKEN = "b518bb1535e0a8f0425e87f5ae63896c";
+const AUTH_TOKEN = "e32ba877e681bf03817f6db4e771ffaa";
 const twilio_client = require("twilio")(ACC_SID, AUTH_TOKEN);
 const phoneUtil =
   require("google-libphonenumber").PhoneNumberUtil.getInstance();
