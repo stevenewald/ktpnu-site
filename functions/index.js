@@ -62,11 +62,12 @@ exports.scheduledFunction = functions.pubsub.schedule('every 5 minutes').onRun((
         const user = pubusers.val()[user_uid];
         if (user.leetcode && user.leetcode.username) {
           console.log("Updating leetcode stats of " + user.leetcode.username);
-          const clone = user.leetcode.offsets;
+          const indiv_user_offsets = user.leetcode.offsets;
+          const indiv_user_id = String(user_uid);
           request.get(
             "https://leetcode-stats-api.herokuapp.com/" +
               user.leetcode.username,
-            responseFunction(String(user_uid), clone)
+            responseFunction(indiv_user_id, indiv_user_offsets)
           );
         } else if(user.leetcode && !user.leetcode.username) {
           console.log("Removing " + user_uid + "'s leetcode data")
