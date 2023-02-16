@@ -38,24 +38,20 @@ exports.scheduledFunction = functions.pubsub.schedule('every 5 minutes').onRun((
         if (res.easySolved === undefined || res.easySolved === null) {
           console.log("Error fetching Leetcode data for user " + user.leetcode);
         } else {
-          var promises = [];
           if(!offsets) {
             console.log("Adding offsets for " + user_uid2);
-            const prom1 = publicRef.child(user_uid2+"/leetcode/offsets").set({
+            await publicRef.child(user_uid2+"/leetcode/offsets").set({
               easySolved: res.easySolved,
               mediumSolved: res.mediumSolved,
               hardSolved: res.hardSolved,
             })
-            promises.push(prom1);
           }
-          const prom2 = publicRef.child(user_uid2 + "/leetcode/answers").set({
+          await publicRef.child(user_uid2 + "/leetcode/answers").set({
             easySolved: res.easySolved,
             mediumSolved: res.mediumSolved,
             hardSolved: res.hardSolved,
             acceptanceRate: res.acceptanceRate,
           });
-          promises.push(prom2);
-          Promise.all(promises);
         }
       }
     };
@@ -64,13 +60,17 @@ exports.scheduledFunction = functions.pubsub.schedule('every 5 minutes').onRun((
     publicRef.once("value", (pubusers) => {
       for (var user_uid in pubusers.val()) {
         const user = pubusers.val()[user_uid];
-        if (user.leetcode) {
+        if (user.leetcode && user.leetcode.username) {
           console.log("Updating leetcode stats of " + user.leetcode.username);
+          const clone = user.leetcode.offsets;
           request.get(
             "https://leetcode-stats-api.herokuapp.com/" +
               user.leetcode.username,
-            responseFunction(user_uid, user.leetcode.offsets)
+            responseFunction(String(user_uid), clone)
           );
+        } else if(user.leetcode && !user.leetcode.username) {
+          console.log("Removing " + user_uid + "'s leetcode data")
+          usersRef.child(user_uid+"/leetcode").set(null);
         }
       }
       resolve();
