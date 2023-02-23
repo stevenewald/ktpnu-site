@@ -1,60 +1,69 @@
 import React from 'react';
 import { motion } from 'framer-motion'
+import SamarPic from './images/samar.jpeg';
+import SnehPic from './images/sneh.jpeg';
+import JoshPic from './images/josh.jpeg';
+import NamPic from './images/nam.jpeg';
+import EaganPic from './images/eagan.jpeg';
+import StevePic from './images/steve.jpeg';
+import AlexisPic from './images/alexis.jpeg';
+import DamienPic from './images/damien.jpeg';
+import JuliePic from './images/julie.jpeg';
 
 const people = [
       {
       name: 'Samar Saleem',
       role: 'President/Founder',
       imageUrl:
-        'https://media.licdn.com/dms/image/C4E03AQEhnMuPtE0eGw/profile-displayphoto-shrink_400_400/0/1657907779939?e=1677110400&v=beta&t=7CxrhEz1WD-lLP4oGe3Xjl6WngS6c24H3yqfESR87ig',
+        SamarPic
       },
       {
       name: 'Damien Koh',
       role: 'VP of Recruitment',
       imageUrl:
-      'https://media.licdn.com/dms/image/C5603AQGjHa8RFpDKhA/profile-displayphoto-shrink_400_400/0/1656946309926?e=1677110400&v=beta&t=mSIRjcaPvxGM6SNV6HUxntnDc-tfJGJsKe3zvtARVfU',
+        DamienPic
       },
       {
       name: 'Sneh Deshpande',
       role: 'VP of External Affairs',
       imageUrl:
-      'https://media.licdn.com/dms/image/C4D03AQEVH1jm84ax0A/profile-displayphoto-shrink_400_400/0/1649042616875?e=1677110400&v=beta&t=VxBCPGOWUAlXGvk0bSi8n1flSEy6IBRccQhKVGtkYO0',
+      SnehPic
       },
       {
       name: 'Josh Brice',
       role: 'VP of Recruitment',
       imageUrl:
-      'https://media.licdn.com/dms/image/C5603AQE7b12wJDGvtg/profile-displayphoto-shrink_400_400/0/1648564209595?e=1677110400&v=beta&t=SFPXEed0FNCB9CXnbu-cNba95eiJ9SPVht1gWpSDyM4',
+      JoshPic
       },
       {
         name: 'Nam Nguyen',
         role: 'VP of Internal Affairs',
         imageUrl:
-          'https://media.licdn.com/dms/image/C5603AQEtz1wN1PeAmw/profile-displayphoto-shrink_400_400/0/1624822282607?e=1677110400&v=beta&t=IaigaQP4cMDmA0QquIeT8UzH21zT9Eaow7krp38JWtk',
+          NamPic
       },
       {
       name: 'Eagan Notokusumo',
       role: 'VP of Finance',
       imageUrl:
-      'https://media.licdn.com/dms/image/D5603AQE7nd_TWcdX0A/profile-displayphoto-shrink_400_400/0/1675294610641?e=1680739200&v=beta&t=YUApzCmeuIa9_9SMsD2bFNyKHBKa4NaOWbvRkjJLCdI',
+      EaganPic
       },
       {
         name: 'Steve Ewald',
         role: 'VP of Technology',
         imageUrl:
-          'https://media.licdn.com/dms/image/D5603AQFZEpi4KfIkdA/profile-displayphoto-shrink_400_400/0/1675544376371?e=1681344000&v=beta&t=_ddWAl46FrkhekyO2SVxJSpb__PYIuuSeoj27Fer2pQ',
+          StevePic
       },
       {
         name: 'Alexis Robles',
         role: 'VP of Technology',
         imageUrl:
-          'https://media.licdn.com/dms/image/C4E03AQHxKbf9gRhDYw/profile-displayphoto-shrink_400_400/0/1660923581630?e=1677110400&v=beta&t=G8ZU0cCxd_ieU0Re9fxMeYobGdit1yt5eX92PpHp8wo',
+          AlexisPic
       },
       {
         name: 'Julie Park',
         role: 'VP of Marketing',
         imageUrl:
-          'https://media.licdn.com/dms/image/D5603AQHdZPGTHWZKJQ/profile-displayphoto-shrink_400_400/0/1669337453128?e=1677110400&v=beta&t=AmhLbaajCtLz8OaWrFpGFzZcgHuk-J43gRZMLMbiSbY',
+          JuliePic
       },
   ]
 
