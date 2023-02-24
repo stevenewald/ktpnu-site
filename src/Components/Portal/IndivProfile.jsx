@@ -87,12 +87,12 @@ class IndivProfile extends React.Component {
                       </button>
                       <button
                         onClick={() => {Swal.fire({
-                          html: '<div class="w-full h-full overflow-y-scroll"><img class="w-full" src="' + this.props.profile.resume_link + '"></div>',
+                          html: '<div class="w-full max-h-[95vh] min-h-fit overflow-y-scroll"><img class="w-full" src="' + this.props.profile.resume_link + '"></div>',
                           showClass: {
-                            popup: 'animate__animated animate__fadeIn h-[95vh]'
+                            popup: 'animate__animated animate__fadeIn'
                           },
                           hideClass: {
-                            popup: 'animate__animated animate__fadeOut h-[95vh]'
+                            popup: 'animate__animated animate__fadeOut'
                           },
                           width: '95vw',
                           padding: '0em',
