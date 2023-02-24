@@ -1,4 +1,6 @@
 import React from "react";
+import Swal from 'sweetalert2';
+import 'animate.css';
 
 import { ChevronLeftIcon, EnvelopeIcon, DocumentTextIcon } from "@heroicons/react/20/solid";
 
@@ -83,9 +85,20 @@ class IndivProfile extends React.Component {
                         />
                         <span>Email</span>
                       </button>
-                      <a
-                        href={this.props.profile.resume_link}
-                        target="_blank"
+                      <button
+                        onClick={() => {Swal.fire({
+                          html: '<div class="w-full h-full overflow-y-scroll"><img class="w-full" src="' + this.props.profile.resume_link + '"></div>',
+                          showClass: {
+                            popup: 'animate__animated animate__fadeIn h-[95vh]'
+                          },
+                          hideClass: {
+                            popup: 'animate__animated animate__fadeOut h-[95vh]'
+                          },
+                          width: '95vw',
+                          padding: '0em',
+                          showCloseButton: true,
+                          showConfirmButton: false,
+                        })}}
                         type="button"
                         className={classNames(
                           this.props.profile.resume_link ? "" : "hidden",
@@ -97,7 +110,7 @@ class IndivProfile extends React.Component {
                           aria-hidden="true"
                         />
                         <span>Resume</span>
-                      </a>
+                      </button>
                       <div className="flex space-x-6 md:order-2 items-center">
                         {this.props.profile.social.map((item) => (
                           <a

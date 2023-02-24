@@ -556,7 +556,7 @@ class NewUser extends React.Component {
                                 Swal.fire({
                                   icon: "error",
                                   title:
-                                    "Cover picture uploads must be in jpeg or pdf format",
+                                    "Cover picture uploads must be in jpeg or png format",
                                 });
                               } else {
                                 var reader = new FileReader();
@@ -694,7 +694,7 @@ class NewUser extends React.Component {
                                     Swal.fire({
                                       icon: "error",
                                       title:
-                                        "Profile picture uploads must be in jpeg or pdf format",
+                                        "Profile picture uploads must be in jpeg or png format",
                                     });
                                   } else {
                                     document

@@ -1,14 +1,4 @@
-10:35:01.247 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
-10:35:01.345 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
-10:35:01.575 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - ktp-site-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 72ms, init: 0ms
-10:35:17.248 [NamespaceSystem-blocking-namespace-operation-dispatcher-10] INFO com.firebase.core.namespace.StateManager - Namespace ktp-site-default-rtdb status Active to Active
-10:36:50.156 [FirebaseWorkerPool-1-2] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
-namespace ktp-site, but the emulator is configured for ktp-site-default-rtdb. To 
-opt-out of single project mode add/set the single_project_mode: false property in 
-the firebase.json emulators config. 
-10:36:50.168 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - ktp-site successfully activated FBKV (SurveyIdle(0)) wait: 1ms, init: 0ms
-11:10:28.049 [Thread-0] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
-11:10:28.062 [NamespaceSystem-akka.actor.default-dispatcher-70] INFO com.firebase.core.namespace.Terminator$Terminator - 2 actors left to terminate: ktp-site-default-rtdb, ktp-site
-11:10:28.066 [NamespaceSystem-akka.actor.default-dispatcher-74] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for ktp-site
-11:10:28.066 [NamespaceSystem-akka.actor.default-dispatcher-71] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for ktp-site-default-rtdb
-11:10:28.068 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.
+10:12:47.666 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+10:12:47.759 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+10:12:48.133 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - ktp-site-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 70ms, init: 0ms
+10:13:03.358 [NamespaceSystem-blocking-namespace-operation-dispatcher-9] INFO com.firebase.core.namespace.StateManager - Namespace ktp-site-default-rtdb status Active to Active
