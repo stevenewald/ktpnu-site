@@ -71,7 +71,15 @@ exports.scheduledFunction = functions.pubsub.schedule('every 5 minutes').onRun((
           );
         } else if(user.leetcode && !user.leetcode.username) {
           console.log("Removing " + user_uid + "'s leetcode data")
-          usersRef.child(user_uid+"/leetcode").set(null);
+          //remove user_uid's leetcode data
+          try {
+            usersRef.child(user_uid+"/leetcode").remove();
+            publicRef.child(user_uid+"/leetcode").remove();
+          } catch (error) {
+            console.log("Error removing leetcode data for " + user_uid);
+            //print error
+            console.log(error);
+          }
         }
       }
       resolve();
