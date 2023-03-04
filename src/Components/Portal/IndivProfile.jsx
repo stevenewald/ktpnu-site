@@ -85,21 +85,9 @@ class IndivProfile extends React.Component {
                         />
                         <span>Email</span>
                       </button>
-                      <button
-                        onClick={() => {Swal.fire({
-                          html: '<div class="w-full max-h-[95vh] min-h-fit overflow-y-scroll"><img class="w-full" src="' + this.props.profile.resume_link + '"></div>',
-                          showClass: {
-                            popup: 'animate__animated animate__fadeIn'
-                          },
-                          hideClass: {
-                            popup: 'animate__animated animate__fadeOut'
-                          },
-                          width: '95vw',
-                          padding: '0em',
-                          showCloseButton: true,
-                          showConfirmButton: false,
-                        })}}
-                        type="button"
+                      <a
+                        target="_blank"
+                        href={this.props.profile.resume_link}
                         className={classNames(
                           this.props.profile.resume_link ? "" : "hidden",
                           "inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -110,7 +98,7 @@ class IndivProfile extends React.Component {
                           aria-hidden="true"
                         />
                         <span>Resume</span>
-                      </button>
+                      </a>
                       <div className="flex space-x-6 md:order-2 items-center">
                         {this.props.profile.social.map((item) => (
                           <a
