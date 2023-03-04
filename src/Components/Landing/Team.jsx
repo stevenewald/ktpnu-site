@@ -59,12 +59,6 @@ const people = [
         imageUrl:
           AlexisPic
       },
-      {
-        name: 'Julie Park',
-        role: 'VP of Marketing',
-        imageUrl:
-          JuliePic
-      },
   ]
 
 class Team extends React.Component {
@@ -98,7 +92,7 @@ class Team extends React.Component {
                     ))}
                   </ul>
                   <ul role="list" className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 md:gap-x-6 sm:max-w-2xl lg:max-w-3xl lg:gap-y-12">
-                    {people.slice(0,4).map((person, index) => (
+                    {people.map((person, index) => (
                       <motion.li key={person.name}
                         initial={{ x: 200, opacity: 0 }}
                         whileInView={{ x: 0, opacity: 1, transition: {
@@ -111,29 +105,6 @@ class Team extends React.Component {
                           <img className="mx-auto h-20 w-20 rounded-full lg:h-24 lg:w-24" src={person.imageUrl} alt="" />
                           <div className="space-y-2">
                             <div className="text-center lg:whitespace-nowrap text-xs font-medium lg:text-sm">
-                              <h3>{person.name}</h3>
-                              <p className="text-indigo-600">{person.role}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.li>
-                    ))}
-                  </ul>
-                  <ul role="list" className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 md:gap-x-6 max-w-4xl lg:gap-y-12"
-                  >
-                    {people.slice(4,9).map((person, index) => (
-                      <motion.li key={person.name}
-                        initial={{ x: 200, opacity: 0 }}
-                        whileInView={{ x: 0, opacity: 1, transition: {
-                          delay: index / 25,
-                          duration: 0.5,
-                          ease: "easeInOut"
-                        }}}
-                        viewport={{ once: true }}>
-                        <div className="space-y-4">
-                          <img className="mx-auto h-20 w-20 rounded-full lg:h-24 lg:w-24" src={person.imageUrl} alt="" />
-                          <div className="space-y-2">
-                            <div className="text-xs font-medium lg:text-sm">
                               <h3>{person.name}</h3>
                               <p className="text-indigo-600">{person.role}</p>
                             </div>
