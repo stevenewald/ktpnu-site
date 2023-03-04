@@ -28,7 +28,7 @@ import portalimg from "./Components/Landing/images/portal.jpeg";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBY_olTq-IJkQs1-VXTCgxIUzlD7_-3MXQ",
-  authDomain: "ktp-site.firebaseapp.com",
+  authDomain: "www.ktpnu.com",
   projectId: "ktp-site",
   storageBucket: "ktp-site.appspot.com",
   messagingSenderId: "239929865580",
