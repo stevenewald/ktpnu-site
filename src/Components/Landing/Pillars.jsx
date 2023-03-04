@@ -25,7 +25,7 @@ const features = [
   {
     name: "Social Growth",
     description:
-      "At KTP, we understand that strong bonds create brotherhood. KTP fosters these friendships through social events, including tailgates, bowling, apple picking, and KTP formal.",
+      "At KTP, we understand that strong bonds create strong communities. KTP fosters these friendships through social events, including tailgates, bowling, apple picking, and KTP formal.",
     icon: ArrowTrendingUpIcon,
   },
   {

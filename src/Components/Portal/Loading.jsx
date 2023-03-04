@@ -23,7 +23,7 @@ class LoadingMobile extends React.Component {
         {/* Breadcrumb */}
         <div className="px-6 pt-6 pb-4">
           <h2 className="text-lg font-medium text-gray-900">
-            Brother Directory
+            Member Directory
           </h2>
           <p className="mt-1 text-sm text-gray-600">
             Loading users...
