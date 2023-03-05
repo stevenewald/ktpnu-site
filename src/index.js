@@ -7,6 +7,7 @@ import MemberPage from "./Components/Portal/MemberPage";
 import MemberLogin from "./Components/Portal/GoogleRedirect";
 import SignUp from "./Components/Portal/SignUp";
 import NewUserCont from "./Components/Portal/NewUserCont";
+import Maintenance from "./Components/Landing/Maintenance"
 
 import Hero from "./Components/Landing/Hero";
 import Header from "./Components/Landing/Header";
@@ -28,7 +29,7 @@ import portalimg from "./Components/Landing/images/portal.jpeg";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBY_olTq-IJkQs1-VXTCgxIUzlD7_-3MXQ",
-  authDomain: "ktp-site.firebaseapp.com",
+  authDomain: "www.ktpnu.com",
   projectId: "ktp-site",
   storageBucket: "ktp-site.appspot.com",
   messagingSenderId: "239929865580",
@@ -59,6 +60,8 @@ if (window.location.hostname === "localhost") {
   database = getDatabase(app);
 }
 
+const maintenance = false;
+
 class Full extends React.Component {
   render() {
     return (
@@ -69,7 +72,7 @@ class Full extends React.Component {
             path="/"
             element={
               <div>
-                <Header firebase={firebase} />
+                <Header firebase={firebase} maintenance={maintenance}/>
                 <Hero />
                 <Greeting />
                 <Pillars />
@@ -110,6 +113,10 @@ class Full extends React.Component {
                 storage={storage}
               />
             }
+          ></Route>
+          <Route
+          path="/maintenance"
+          element={<Maintenance />}
           ></Route>
         </Routes>
       </Router>

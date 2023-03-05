@@ -5,7 +5,7 @@ const navigation = [
   { name: "Team", href: "#team" },
   { name: "FAQ", href: "#faq" },
 ];
-function Header() {
+function Header(props) {
   /*testingFeature() {
     const addLogin = firebase.functions().httpsCallable('loginAuth');
     addLogin({
@@ -89,7 +89,7 @@ function Header() {
               onClick={() => {
                 this.googleSignIn();
               }}
-              href="/signup"
+              href={props.maintenance ? "/maintenance" : "/signup"}
               className="transition h-10 flex items-center duration-100 inline-block rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium text-white hover:bg-indigo-700 shadow-sm"
             >
               Member Portal
@@ -138,7 +138,7 @@ function Header() {
           onClick={() => {
             this.googleSignIn();
           }}
-          href="/signup"
+          href={props.maintenance ? "/maintenance" : "/signup"}
           className="whitespace-nowrap navscreen:hidden transition h-10 flex items-center duration-100 inline-block rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium text-white hover:bg-indigo-700 shadow-sm"
         >
           Member Portal
