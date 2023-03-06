@@ -3,12 +3,10 @@ import { motion } from 'framer-motion'
 import SamarPic from './images/samar.jpeg';
 import SnehPic from './images/sneh.jpeg';
 import JoshPic from './images/josh.jpeg';
-import NamPic from './images/nam.jpeg';
 import EaganPic from './images/eagan.jpeg';
 import StevePic from './images/steve.jpeg';
 import AlexisPic from './images/alexis.jpeg';
 import DamienPic from './images/damien.jpeg';
-import JuliePic from './images/julie.jpeg';
 
 const people = [
       {
@@ -34,12 +32,6 @@ const people = [
       role: 'VP of Recruitment',
       imageUrl:
       JoshPic
-      },
-      {
-        name: 'Nam Nguyen',
-        role: 'VP of Internal Affairs',
-        imageUrl:
-          NamPic
       },
       {
       name: 'Eagan Notokusumo',
@@ -91,8 +83,8 @@ class Team extends React.Component {
                       </li>
                     ))}
                   </ul>
-                  <ul role="list" className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 md:gap-x-6 sm:max-w-2xl lg:max-w-3xl lg:gap-y-12">
-                    {people.map((person, index) => (
+                  <ul role="list" className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 md:gap-x-6 sm:max-w-2xl lg:max-w-3xl lg:gap-y-12">
+                    {people.slice(0,3).map((person, index) => (
                       <motion.li key={person.name}
                         initial={{ x: 200, opacity: 0 }}
                         whileInView={{ x: 0, opacity: 1, transition: {
@@ -105,6 +97,29 @@ class Team extends React.Component {
                           <img className="mx-auto h-20 w-20 rounded-full lg:h-24 lg:w-24" src={person.imageUrl} alt="" />
                           <div className="space-y-2">
                             <div className="text-center lg:whitespace-nowrap text-xs font-medium lg:text-sm">
+                              <h3>{person.name}</h3>
+                              <p className="text-indigo-600">{person.role}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.li>
+                    ))}
+                  </ul>
+                  <ul role="list" className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 md:gap-x-6 max-w-4xl lg:gap-y-12"
+                  >
+                    {people.slice(3,7).map((person, index) => (
+                      <motion.li key={person.name}
+                        initial={{ x: 200, opacity: 0 }}
+                        whileInView={{ x: 0, opacity: 1, transition: {
+                          delay: index / 25,
+                          duration: 0.5,
+                          ease: "easeInOut"
+                        }}}
+                        viewport={{ once: true }}>
+                        <div className="space-y-4">
+                          <img className="mx-auto h-20 w-20 rounded-full lg:h-24 lg:w-24" src={person.imageUrl} alt="" />
+                          <div className="space-y-2">
+                            <div className="text-xs font-medium lg:text-sm">
                               <h3>{person.name}</h3>
                               <p className="text-indigo-600">{person.role}</p>
                             </div>

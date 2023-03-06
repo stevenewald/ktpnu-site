@@ -2,3 +2,7 @@
 15:25:27.397 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
 15:25:27.603 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - ktp-site-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 69ms, init: 0ms
 15:25:43.274 [NamespaceSystem-blocking-namespace-operation-dispatcher-9] INFO com.firebase.core.namespace.StateManager - Namespace ktp-site-default-rtdb status Active to Active
+18:13:47.338 [Thread-0] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
+18:13:47.353 [NamespaceSystem-akka.actor.default-dispatcher-14] INFO com.firebase.core.namespace.Terminator$Terminator - 1 actors left to terminate: ktp-site-default-rtdb
+18:13:47.357 [NamespaceSystem-akka.actor.default-dispatcher-16] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for ktp-site-default-rtdb
+18:13:47.359 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.
