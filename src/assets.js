@@ -7,6 +7,7 @@ const assetsObject = {
   interviews: require('./Components/Landing/images/interview.png'),
   gcal: require('./Components/Landing/images/gcal.png'),
   damien: require('./Components/Portal/images/damien.JPG'),
+  portalAd: require('./Components/Landing/images/portal.png'),
   julie: require('./Components/Landing/images/julie.jpeg')
 }
 module.exports = assetsObject

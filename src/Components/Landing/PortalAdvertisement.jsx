@@ -16,7 +16,7 @@ class PortalAdvertisement extends React.Component {
               Networking with industry professionals is difficult, time-consuming, and daunting. With KTP's alumni network and member portal, we make it easy.
             </p>
           </div>
-          <div className="mt-12 -mb-10 sm:-mb-24 lg:-mb-80">
+          <div className="mt-12 -mb-10 lg:mb-[-5rem]">
             <img
               className="rounded-lg shadow-xl ring-1 ring-black ring-opacity-5"
               src={this.props.ig}

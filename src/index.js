@@ -25,7 +25,7 @@ import { getDatabase, connectDatabaseEmulator } from "firebase/database";
 import RushEvents from "./Components/Landing/RushEvents";
 import { getStorage, connectStorageEmulator } from "firebase/storage";
 
-import portalimg from "./Components/Landing/images/portal.jpeg";
+const assets = require('./assets.js')
 
 const firebaseConfig = {
   apiKey: "AIzaSyBY_olTq-IJkQs1-VXTCgxIUzlD7_-3MXQ",
@@ -77,7 +77,7 @@ class Full extends React.Component {
                 <RushEvents />
                 <Greeting />
                 <Pillars />
-                <PortalAdvertisement ig={portalimg} />
+                <PortalAdvertisement ig={assets["portalAd"]} />
                 <Team />
                 <FAQs />
                 <Footer />

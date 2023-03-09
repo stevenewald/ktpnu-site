@@ -44,7 +44,7 @@ const events = {
   "interviews": {
     "title": "Individual Interviews",
     "date": new Date("April 6, 2023 20:00:00"),
-    "time": "TIME",
+    "time": "TIME TBA",
     "location": "LOC TBA",
     "inviteOnly": true
   }
