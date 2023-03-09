@@ -5,47 +5,47 @@ import { motion } from 'framer-motion'
 const events = {
   "womenInKTP": {
     "title": "Women in KTP",
-    "date": new Date("January 5, 2023 20:00:00"),
-    "time": "7:00 PM",
-    "location": "TECH M177",
-    "gcalLink": "https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MjY2NzVkZTV1NGk3YXNnanRhcTg1M2xla2sgYzgyZjFmZGQzMWViNjFlMjZhMzY0NmUzNGViZGUwMmVmZmYzODZkZmY3NTExNzljNjczM2E5ZTM3MmM2MWNkYUBn&tmsrc=c82f1fdd31eb61e26a3646e34ebde02efff386dff751179c6733a9e372c61cda%40group.calendar.google.com",
+    "date": new Date("April 2, 2023 20:00:00"),
+    "time": "TIME TBA",
+    "location": "LOC TBA",
+    "gcalLink": "",
     "inviteOnly": false
   },
-  "infoSession": {
-    "title": "General Info Session",
-    "date": new Date("January 8, 2023 20:00:00"),
-    "time": "7:00 PM",
-    "location": "ANNENBERG G15",
-    "gcalLink": "https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NWwxc2FwZnBwN3NzcmVyamVmcWt1bWlqNnIgYzgyZjFmZGQzMWViNjFlMjZhMzY0NmUzNGViZGUwMmVmZmYzODZkZmY3NTExNzljNjczM2E5ZTM3MmM2MWNkYUBn&tmsrc=c82f1fdd31eb61e26a3646e34ebde02efff386dff751179c6733a9e372c61cda%40group.calendar.google.com",
-    "inviteOnly": false
-  },
+  // "infoSession": {
+  //   "title": "General Info Session",
+  //   "date": new Date("January 8, 2023 20:00:00"),
+  //   "time": "7:00 PM",
+  //   "location": "ANNENBERG G15",
+  //   "gcalLink": "https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NWwxc2FwZnBwN3NzcmVyamVmcWt1bWlqNnIgYzgyZjFmZGQzMWViNjFlMjZhMzY0NmUzNGViZGUwMmVmZmYzODZkZmY3NTExNzljNjczM2E5ZTM3MmM2MWNkYUBn&tmsrc=c82f1fdd31eb61e26a3646e34ebde02efff386dff751179c6733a9e372c61cda%40group.calendar.google.com",
+  //   "inviteOnly": false
+  // },
   "networkingNight": {
     "title": "Networking Night",
-    "date": new Date("January 9, 2023 20:00:00"),
-    "time": "7:00 PM",
-    "location": "TECH LR2",
-    "gcalLink": "https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=Njlqc2ZvODJka2ltN2RoZ2Vib3Z1MTdhdHUgYzgyZjFmZGQzMWViNjFlMjZhMzY0NmUzNGViZGUwMmVmZmYzODZkZmY3NTExNzljNjczM2E5ZTM3MmM2MWNkYUBn&tmsrc=c82f1fdd31eb61e26a3646e34ebde02efff386dff751179c6733a9e372c61cda%40group.calendar.google.com",
+    "date": new Date("April 3, 2023 20:00:00"),
+    "time": "TIME TBA",
+    "location": "LOC TBA",
+    "gcalLink": "",
     "inviteOnly": false
   },
   "coffeeChats": {
     "title": "Coffee Chats",
-    "date": new Date("January 10, 2023 20:00:00"),
-    "time": "",
-    "location": "VARIOUS LOCATIONS",
+    "date": new Date("April 4, 2023 20:00:00"),
+    "time": "TIME TBA",
+    "location": "LOC TBA",
     "inviteOnly": true
   },
   "groupInterviews": {
     "title": "Group Interviews",
-    "date": new Date("January 11, 2023 20:00:00"),
-    "time": "",
-    "location": "VARIOUS LOCATIONS",
+    "date": new Date("April 5, 2023 20:00:00"),
+    "time": "TIME TBA",
+    "location": "LOC TBA",
     "inviteOnly": true
   },
   "interviews": {
     "title": "Individual Interviews",
-    "date": new Date("January 13, 2023 20:00:00"),
-    "time": "",
-    "location": "VARIOUS LOCATIONS",
+    "date": new Date("April 6, 2023 20:00:00"),
+    "time": "TIME",
+    "location": "LOC TBA",
     "inviteOnly": true
   }
 }

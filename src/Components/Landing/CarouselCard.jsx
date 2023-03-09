@@ -53,16 +53,17 @@ function CarouselCard(props) {
 
               {/* Date */}
               <div className="flex" style={dimmedDate}>
-                {props.gcalLink &&
+                {/* {props.gcalLink &&
                 <div className='inline-block'>
                   <a href={props.gcalLink} target="_blank"><img src={assets["gcal"]} width="20px" alt="GCal"/></a>
                 </div>
                 }
                 {!props.gcalLink &&
                   <img className="cursor-pointer" onClick={() => {Swal.fire({icon:'info',title:'Invite-only event',text:'Invitations will be extended via email'})}} src={assets["gcal"]} width="20px" alt="GCal"/>
-                }
+                } */}
 
-                <p className='ml-2 inline-block'>
+                {/* <p className='ml-2 inline-block'> */}
+                <p className='inline-block'>
                   {props.date}
                 </p>
               </div>
