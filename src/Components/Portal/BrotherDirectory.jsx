@@ -137,7 +137,7 @@ const profile = {
   fields: {
     "Class Standing": "Sophomore",
     Major: "Computer Engineering",
-    "Notable internships": "Robotics Intern at Weston Robot",
+    "Internships": "Robotics Intern at Weston Robot",
     Position: "Executive Board, VP of Member Recruitment",
   },
   social: [
@@ -234,7 +234,7 @@ class BrotherDirectory extends React.Component {
       newProfile.fields["Major"] = profile.major;
     }
     if (profile.internships) {
-      newProfile.fields["Notable Internships"] = profile.internships;
+      newProfile.fields["Relevant Internships"] = profile.internships;
     }
     if (profile.email) {
       newProfile.email = profile.email;

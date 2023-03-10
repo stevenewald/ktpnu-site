@@ -267,7 +267,7 @@ class NewUser extends React.Component {
                           htmlFor="internships"
                           className="inline-block text-sm font-medium text-gray-700"
                         >
-                          Notable internships&nbsp;
+                          Relevant internships&nbsp;
                         </label>
                         <label
                           htmlFor="internships"
@@ -852,10 +852,10 @@ class NewUser extends React.Component {
                             htmlFor="internships-visible"
                             className="font-medium text-gray-700"
                           >
-                            Notable Internships
+                            Relevant Internships
                           </label>
                           <p className="text-gray-500">
-                            Show any notable internships on your profile.
+                            Show any relevant internships on your profile.
                           </p>
                         </div>
                       </div>
