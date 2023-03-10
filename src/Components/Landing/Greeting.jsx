@@ -6,7 +6,11 @@ const stats = [
   { label: "Chapter Alumni", value: "60+" },
 ];
 
+// Picture assets
+const assets = require('../../assets.js')
+
 class Greeting extends React.Component {
+
   render() {
     return (
       <div id="greeting" className="relative bg-white py-16 sm:py-8 md:py-4 lg:py-8">
@@ -63,7 +67,7 @@ class Greeting extends React.Component {
               <div className="mb-6 sm:mb-0 relative overflow-hidden rounded-2xl pt-64 pb-10 shadow-xl">
                 <img
                   className="absolute inset-0 h-full w-full object-cover"
-                  src="https://media.licdn.com/dms/image/D5603AQHdZPGTHWZKJQ/profile-displayphoto-shrink_400_400/0/1669337453128?e=1678320000&v=beta&t=BlPh-9lZaShEcoga06DK4w2YGVVZCqfR0dGqDUIWFmI"
+                  src={assets["julie"]}
                   alt=""
                 />
                 <div className="absolute inset-0 bg-indigo-500 mix-blend-multiply opacity-70" />

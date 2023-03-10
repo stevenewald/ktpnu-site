@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 15:25:27.303 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
 15:25:27.397 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
 15:25:27.603 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - ktp-site-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 69ms, init: 0ms
@@ -6,3 +7,13 @@
 18:13:47.353 [NamespaceSystem-akka.actor.default-dispatcher-14] INFO com.firebase.core.namespace.Terminator$Terminator - 1 actors left to terminate: ktp-site-default-rtdb
 18:13:47.357 [NamespaceSystem-akka.actor.default-dispatcher-16] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for ktp-site-default-rtdb
 18:13:47.359 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.
+=======
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by io.netty.util.internal.ReflectionUtil (file:/Users/alexisrobles/.cache/firebase/emulators/firebase-database-emulator-v4.11.0.jar) to field sun.nio.ch.SelectorImpl.selectedKeys
+WARNING: Please consider reporting this to the maintainers of io.netty.util.internal.ReflectionUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+14:20:08.725 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+14:20:09.053 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+14:20:09.820 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - ktp-site-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 248ms, init: 0ms
+>>>>>>> c76051269f33c08180b82900b462d271b2beb6f8
