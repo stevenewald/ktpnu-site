@@ -116,9 +116,7 @@ class LcLeaderboard extends React.Component {
                 Leetcode Leaderboard
               </h2>
               <p className="text-xl text-gray-500">
-                Add your Leetcode username to your profile to compete. Everyone
-                starts at 0 and the pledge with the highest questions solved
-                wins a prize, good luck!
+                The Leetcode Leaderboard challenge is now over. Congradulations to Andy Vu for winning the pledge Leetcode challenge!
               </p>
             </div>
             <div className="lg:col-span-2">
@@ -133,7 +131,7 @@ class LcLeaderboard extends React.Component {
                       Math.min(5, this.state.lcStats.length),
                       Math.ceil(this.state.lcStats.length / 2)
                     )*/
-                    this.state.lcStats.length
+                    Math.min(this.state.lcStats.length, 10)
                   )
                   .map((currUser, index) => (
                     <li key={currUser.name} className="sm:pt-5">
