@@ -8,7 +8,7 @@ import NewUser from "./NewUser";
 import RushEvents from "./../Landing/RushEvents";
 import PledgeCalendar from "./PledgeCalendar";
 import { CheckCircleIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
-import Logo from "../Landing/Assets/Logo.png"
+import Logo from "@/Assets/Images/Branding/Logo.png"
 import Announcements from './Announcements';
 import AdminPanel from "./AdminPanel";
 import LcLeaderboard from './LcLeaderboard';

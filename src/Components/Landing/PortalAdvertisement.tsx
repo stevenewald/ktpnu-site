@@ -1,7 +1,5 @@
-import React from "react";
-
-class PortalAdvertisement extends React.Component {
-  render() {
+import PortalPic from '@images/Misc/Portal.jpeg';
+function PortalAdvertisement() {
     return (
       <div className="relative overflow-hidden bg-gray-50 pt-12 sm:pt-14 lg:pt-20">
         <div className="mx-auto max-w-md px-6 text-center sm:max-w-3xl lg:max-w-7xl lg:px-8">
@@ -19,14 +17,13 @@ class PortalAdvertisement extends React.Component {
           <div className="mt-12 -mb-10 lg:mb-[-5rem]">
             <img
               className="rounded-lg shadow-xl ring-1 ring-black ring-opacity-5"
-              src={this.props.ig}
+              src={PortalPic}
               alt=""
             />
           </div>
         </div>
       </div>
     );
-  }
 }
 
 export default PortalAdvertisement;

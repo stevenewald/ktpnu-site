@@ -7,7 +7,7 @@ import MemberPage from "./Components/Portal/MemberPage";
 import MemberLogin from "./Components/Portal/GoogleRedirect";
 import SignUp from "./Components/Portal/SignUp";
 import NewUserCont from "./Components/Portal/NewUserCont";
-import Maintenance from "./Components/Landing/Maintenance"
+import Maintenance from "./Components/Landing/Maintenance";
 
 import Hero from "./Components/Landing/Hero";
 import Header from "./Components/Landing/Header";
@@ -16,7 +16,7 @@ import FAQs from "./Components/Landing/FAQs";
 import Footer from "./Components/Landing/Footer";
 import PortalAdvertisement from "./Components/Landing/PortalAdvertisement";
 import Pillars from "./Components/Landing/Pillars";
-import Greeting from './Components/Landing/Greeting';
+import Greeting from "./Components/Landing/Greeting";
 
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -24,8 +24,6 @@ import "firebase/compat/functions";
 import { getDatabase, connectDatabaseEmulator } from "firebase/database";
 import RushEvents from "./Components/Landing/RushEvents";
 import { getStorage, connectStorageEmulator } from "firebase/storage";
-
-const assets = require('./assets.js')
 
 const firebaseConfig = {
   apiKey: "AIzaSyBY_olTq-IJkQs1-VXTCgxIUzlD7_-3MXQ",
@@ -41,8 +39,8 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 var provider = new firebase.auth.GoogleAuthProvider();
 provider.addScope("https://www.googleapis.com/auth/userinfo.profile");
-var database;
-var storage;
+var database: any;
+var storage: any;
 
 if (window.location.hostname === "localhost") {
   database = getDatabase();
@@ -51,9 +49,11 @@ if (window.location.hostname === "localhost") {
   connectStorageEmulator(storage, "localhost", 9199);
   firebase.functions().useEmulator("localhost", 5001);
   firebase.auth().useEmulator("http://localhost:9099");
-  if(!sessionStorage.getItem("givenWarning")) {
-    alert("Initializing in emulator mode. If you aren't a developer, contact support@ktpnu.com immediately.")
-    sessionStorage.setItem("givenWarning", true);
+  if (!sessionStorage.getItem("givenWarning")) {
+    alert(
+      "Initializing in emulator mode. If you aren't a developer, contact support@ktpnu.com immediately."
+    );
+    sessionStorage.setItem("givenWarning", "true");
   }
 } else {
   storage = getStorage(app);
@@ -68,16 +68,15 @@ class Full extends React.Component {
       <Router>
         <Routes>
           <Route
-            exact
             path="/"
             element={
               <div>
-                <Header firebase={firebase} maintenance={maintenance}/>
+                <Header firebase={firebase} maintenance={maintenance} />
                 <Hero />
                 <RushEvents />
                 <Greeting />
                 <Pillars />
-                <PortalAdvertisement ig={assets["portalAd"]} />
+                <PortalAdvertisement />
                 <Team />
                 <FAQs />
                 <Footer />
@@ -86,7 +85,13 @@ class Full extends React.Component {
           ></Route>
           <Route
             path="/member"
-            element={<MemberPage firebase={firebase} database={database} storage={storage}/>}
+            element={
+              <MemberPage
+                firebase={firebase}
+                database={database}
+                storage={storage}
+              />
+            }
           ></Route>
           <Route
             path="/login"
@@ -101,7 +106,13 @@ class Full extends React.Component {
           ></Route>
           <Route
             path="/signup"
-            element={<SignUp firebase={firebase} database={database} provider={provider} />}
+            element={
+              <SignUp
+                firebase={firebase}
+                database={database}
+                provider={provider}
+              />
+            }
           ></Route>
 
           <Route
@@ -115,15 +126,14 @@ class Full extends React.Component {
               />
             }
           ></Route>
-          <Route
-          path="/maintenance"
-          element={<Maintenance />}
-          ></Route>
+          <Route path="/maintenance" element={<Maintenance />}></Route>
         </Routes>
       </Router>
     );
   }
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 root.render(<Full />);

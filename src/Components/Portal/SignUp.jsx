@@ -1,9 +1,7 @@
 import React from "react";
 import Swal from "sweetalert2";
 import { ref, child, get } from "firebase/database";
-
-// Picture assets
-const assets = require('../../assets.js')
+import DamienPic from "./images/damien.JPG";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -112,58 +110,6 @@ class SignUp extends React.Component {
           });
         }
       });
-
-    /*isAllowable({
-      uid: user.uid,
-      email: user.email,
-      profile_pic_link: user.photoURL,
-    })
-      .then((res) => {
-        alert(res.data.result);
-        if (res.data.result === "needs_signup") {
-          Swal.fire({
-            title: "Welcome to KTP, " + user.displayName,
-            icon: "success",
-            text: "We've verified your information, redirecting to account creation",
-            timer: 4000,
-            timerProgressBar: true,
-            willClose: () => {
-              clearInterval(timerInterval);
-            },
-          }).then((result) => {
-            window.location.href = "/newuser";
-          });
-        } else if (res.data.result === "unauthorized") {
-          Swal.fire({
-            title: "Invalid email",
-            icon: "error",
-            text: "We have not added your account to our system (you are not a ktp brother, pledge, or alumni). If you believe this is an error, please contact support@ktpnu.com",
-          }).then(() => {
-            this.props.firebase
-              .auth()
-              .signOut()
-              .then(() => {
-                window.location.reload();
-              });
-          });
-        } else if (res.data.result === "already_signed_up") {
-          Swal.fire({
-            title: "You are already signed up, " + user.displayName + ".",
-            icon: "success",
-            text: "Redirecting you to the brother portal...",
-            timer: 2000,
-            timerProgressBar: true,
-            willClose: () => {
-              clearInterval(timerInterval);
-            },
-          }).then(() => {
-            window.location.href = "/member";
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });*/
   }
 
   render() {
@@ -295,7 +241,7 @@ class SignUp extends React.Component {
         <div className="relative hidden w-0 flex-1 lg:block">
           <img
             className="absolute inset-0 h-screen w-full object-cover"
-            src={assets["damien"]}
+            src={DamienPic}
             alt=""
           />
         </div>

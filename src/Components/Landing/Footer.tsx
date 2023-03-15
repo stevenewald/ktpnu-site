@@ -1,10 +1,8 @@
-import React from "react";
-
-const navigation = [
+const navigation: { name: string; href: string; icon: any }[] = [
   {
     name: "Email",
     href: "mailto:info@ktpnu.com",
-    icon: (props) => (
+    icon: (props: any) => (
       <svg
         fill="currentColor"
         viewBox="0 0 24 24"
@@ -25,7 +23,7 @@ const navigation = [
   {
     name: "Instagram",
     href: "https://www.instagram.com/ktpnorthwestern/",
-    icon: (props) => (
+    icon: (props: any) => (
       <svg
         fill="currentColor"
         viewBox="0 0 24 24"
@@ -45,7 +43,7 @@ const navigation = [
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/company/ktp-northwestern/",
-    icon: (props) => (
+    icon: (props: any) => (
       <svg
         fill="currentColor"
         viewBox="0 0 24 24"
@@ -66,34 +64,51 @@ const navigation = [
   },
 ];
 
-class Footer extends React.Component {
-  render() {
-    return (
-      <footer className="bg-indigo-600 w-screen">
-        <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:flex lg:items-center lg:justify-between lg:px-8">
-          <div className="flex justify-center space-x-6 lg:order-3">
-            <p className="text-center text-base text-gray-50">Contact Us</p>
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-gray-50 transition hover:text-gray-300"
-              >
-                <span className="sr-only ">{item.name}</span>
-                <item.icon className="h-6 w-6" aria-hidden="true" />
-              </a>
-            ))}
-          </div>
-          <div className="mt-8 lg:order-1 lg:mt-0">
-            <p className="text-center text-base text-gray-50">
-              &copy; 2023 Kappa Theta Pi Kappa Chapter. All Rights Reserved.
-            </p>
-          </div>
-          <div className="lg:order-2 lg:mt-0 mt-8"><p className="text-base text-center text-gray-50">Website made by <a className="text-white underline" target="_blank" href="https://www.instagram.com/stevenewald/">Steve Ewald</a> and <a target="_blank" className="text-white underline" href="https://www.instagram.com/al3xisrobles/">Alexis Robles</a></p></div>
+function Footer() {
+  return (
+    <footer className="bg-indigo-600 w-screen">
+      <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:flex lg:items-center lg:justify-between lg:px-8">
+        <div className="flex justify-center space-x-6 lg:order-3">
+          <p className="text-center text-base text-gray-50">Contact Us</p>
+          {navigation.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              className="text-gray-50 transition hover:text-gray-300"
+            >
+              <span className="sr-only ">{item.name}</span>
+              <item.icon className="h-6 w-6"/>
+            </a>
+          ))}
         </div>
-      </footer>
-    );
-  }
+        <div className="mt-8 lg:order-1 lg:mt-0">
+          <p className="text-center text-base text-gray-50">
+            &copy; 2023 Kappa Theta Pi Kappa Chapter. All Rights Reserved.
+          </p>
+        </div>
+        <div className="lg:order-2 lg:mt-0 mt-8">
+          <p className="text-base text-center text-gray-50">
+            Website made by{" "}
+            <a
+              className="text-white underline"
+              target="_blank"
+              href="https://www.instagram.com/stevenewald/"
+            >
+              Steve Ewald
+            </a>{" "}
+            and{" "}
+            <a
+              target="_blank"
+              className="text-white underline"
+              href="https://www.instagram.com/al3xisrobles/"
+            >
+              Alexis Robles
+            </a>
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
 }
 
 export default Footer;

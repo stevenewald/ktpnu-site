@@ -1,30 +1,14 @@
-import React, { useState, useEffect } from "react";
-import Logo from './Assets/Logo.png';
-const navigation = [
+import { useState, useEffect } from "react";
+import Logo from "@images/Branding/Logo.png";
+
+const navigation: { name: string; href: string }[] = [
   { name: "About KTP", href: "#greeting" },
+  { name: "Rush", href: "#rush-events" },
   { name: "Team", href: "#team" },
   { name: "FAQ", href: "#faq" },
 ];
-function Header(props) {
-  /*testingFeature() {
-    const addLogin = firebase.functions().httpsCallable('loginAuth');
-    addLogin({
-      text:'testing12345'
-    }).then(() => {
-      console.log("done");
-    }).catch((error) => {
-      console.log(error);
-    });
-  }*/
 
-  // function googleSignIn() {
-  //   /*const user = firebase.auth().currentUser;
-  //   if (user) {
-  //     window.location.href="/member";
-  //   }*/
-  //   window.location.href = "/signup";
-  // };
-
+function Header(props: { maintenance: boolean; firebase: any }) {
   const [burgerMenu, setBurgerMenu] = useState(false);
 
   useEffect(() => {
@@ -86,9 +70,6 @@ function Header(props) {
           >
             <a
               id="portalButton"
-              onClick={() => {
-                this.googleSignIn();
-              }}
               href={props.maintenance ? "/maintenance" : "/signup"}
               className="transition h-10 flex items-center duration-100 inline-block rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium text-white hover:bg-indigo-700 shadow-sm"
             >
@@ -97,7 +78,7 @@ function Header(props) {
             <a
               id="signoutButton"
               onClick={() => {
-                this.props.firebase
+                props.firebase
                   .auth()
                   .signOut()
                   .then(() => {
@@ -134,78 +115,16 @@ function Header(props) {
 
           {/* Invisible hamburger button for middle alignment */}
           <a
-          id="portalButton2"
-          onClick={() => {
-            this.googleSignIn();
-          }}
-          href={props.maintenance ? "/maintenance" : "/signup"}
-          className="whitespace-nowrap navscreen:hidden transition h-10 flex items-center duration-100 inline-block rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium text-white hover:bg-indigo-700 shadow-sm"
-        >
-          Member Portal
-        </a>
+            id="portalButton2"
+            href={props.maintenance ? "/maintenance" : "/signup"}
+            className="whitespace-nowrap navscreen:hidden transition h-10 flex items-center duration-100 inline-block rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium text-white hover:bg-indigo-700 shadow-sm"
+          >
+            Member Portal
+          </a>
         </div>
       </nav>
     </header>
   );
-
-  /*componentDidMount() {
-    const user = firebase.auth().currentUser;
-    if (user) {
-      this.portalButton.current.classList.remove('hidden');
-      this.signoutButton.current.classList.remove('hidden');
-    } else {
-      this.loginButton.current.classList.remove('hidden');
-    }*/
-  /*firebase.auth().onAuthStateChanged(function(user) {
-      document.getElementById("portalButton").classList.remove('hidden');
-        document.getElementById("signoutButton").classList.remove('hidden');
-        document.getElementById("signinButton").classList.remove('hidden');
-      if (user) {
-        document.getElementById("portalButton").classList.remove('hidden');
-        document.getElementById("signoutButton").classList.remove('hidden');
-        document.getElementById("signinButton").classList.add('hidden');
-      } else {
-        document.getElementById("portalButton").classList.add('hidden');
-        document.getElementById("signoutButton").classList.add('hidden');
-        document.getElementById("signinButton").classList.remove('hidden');
-      }
-    });
-  }*/
-
-  /*componentDidMount() {
-    if(window.location.hash === "redirecting") {
-      alert("is redirecting");
-      window.location.hash = "";
-      firebase.auth().getRedirectResult().then((result) => {
-        alert("good");
-        var credential = result.credential;
-
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-        const addLogin = firebase.functions().httpsCallable('loginAuth');
-        firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
-          addLogin({
-            idToken:idToken
-          });
-        }).catch(function(error) {
-          alert("err2");
-        });
-
-      }).catch((error) => {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        alert(errorCode);
-        alert(errorMessage);
-      });
-    }
-  }*/
 }
 
 export default Header;
