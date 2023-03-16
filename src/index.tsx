@@ -3,26 +3,26 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MemberPage from "./Components/Portal/MemberPage";
-import MemberLogin from "./Components/Portal/GoogleRedirect";
-import SignUp from "./Components/Portal/SignUp";
-import NewUserCont from "./Components/Portal/NewUserCont";
-import Maintenance from "./Components/Landing/Maintenance";
+import MemberPage from "@portal/AppContainer";
+import MemberLogin from "@portal/GoogleRedirect";
+import SignUp from "@portal/SignUp";
+import NewUserCont from "@portal/NewUserCont";
+import Maintenance from "@landing/Maintenance";
 
-import Hero from "./Components/Landing/Hero";
-import Header from "./Components/Landing/Header";
-import Team from "./Components/Landing/Team";
-import FAQs from "./Components/Landing/FAQs";
-import Footer from "./Components/Landing/Footer";
-import PortalAdvertisement from "./Components/Landing/PortalAdvertisement";
-import Pillars from "./Components/Landing/Pillars";
-import Greeting from "./Components/Landing/Greeting";
+import Hero from "@landing/Hero";
+import Header from "@landing/Header";
+import Team from "@landing/Team";
+import FAQs from "@landing/FAQs";
+import Footer from "@landing/Footer";
+import PortalAdvertisement from "@landing/PortalAdvertisement";
+import Pillars from "@landing/Pillars";
+import Greeting from "@landing/Greeting";
 
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/functions";
 import { getDatabase, connectDatabaseEmulator } from "firebase/database";
-import RushEvents from "./Components/Landing/RushEvents";
+import RushEvents from "@landing/RushEvents";
 import { getStorage, connectStorageEmulator } from "firebase/storage";
 
 const firebaseConfig = {
