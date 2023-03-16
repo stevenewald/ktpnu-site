@@ -4,26 +4,6 @@ import { ref, child, get, update } from "firebase/database";
 import { uploadBytes } from "firebase/storage";
 import { ref as sRef, getDownloadURL } from "firebase/storage";
 
-/*async function initNewAcc(db, config) {
-  set(ref(db, "users/" + config.uid), {
-    name: config.name,
-    email: config.email,
-    phone: config.phone,
-    year: config.year,
-    major: config.major,
-    internships: config.internships,
-    insta: config.insta,
-    linkedin: config.linkedin,
-    about: config.about,
-    prof_pic_link:config.ppl,
-    cover_pic_link:config.cpl,
-    email_viewable:config.email_viewable,
-    standing_viewable:config.standing_viewable,
-    internships_viewable:config.internships_viewable,
-    notification_level:config.notification_level,
-  });
-}*/
-
 class NewUser extends React.Component {
   constructor(props) {
     super(props);
@@ -33,7 +13,6 @@ class NewUser extends React.Component {
     this.resumeAdded = !this.props.newuser; //if new user, default to false. if existing user, defaults to true
     this.initNewAcc = this.initNewAcc.bind(this);
     this.state = {existingLC:false};
-    this.old_lc = "";
   }
 
   catchUploadException(err) {
@@ -141,8 +120,8 @@ class NewUser extends React.Component {
           Swal.fire({
             title: "Account information updated!",
             icon: "success",
-            text: "Please allow up to five minutes for the leetcode leaderboard to update.",
-            timer: this.old_lc===config.leetcode ? 1000 : 3000,
+            text: "Redirecting to member directory...",
+            timer: 1000,
             timerProgressBar: true,
             willClose: () => {
               clearInterval(timerInterval);
@@ -982,7 +961,6 @@ class NewUser extends React.Component {
           get(child(dbRef, "users/" + user.uid)).then((snapshot) => {
             const prof = snapshot.val();
             //todo: abstract (easy, too lazy tho)
-            this.old_lc = prof["leetcode"] ? prof["leetcode"].username : "";
             document.getElementById("last-name").value = prof["name"]
               ? prof["name"]
               : "";
@@ -1040,6 +1018,9 @@ class NewUser extends React.Component {
           });
         }
       } else {
+        if(window.location.hostname === "localhost") {
+          return;
+        }
         alert("Signed out!");
         window.location.href = "/";
       }

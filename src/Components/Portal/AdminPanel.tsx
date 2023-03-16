@@ -1,9 +1,13 @@
-import React from "react";
-import { UserPlusIcon, PaperAirplaneIcon, LinkIcon } from "@heroicons/react/20/solid";
+import React, { RefObject } from "react";
+import {
+  UserPlusIcon,
+  PaperAirplaneIcon,
+  LinkIcon,
+} from "@heroicons/react/20/solid";
 import { ref, set } from "firebase/database";
-import Swal from "sweetalert2";
+import Swal, { SweetAlertResult } from "sweetalert2";
 
-const validateEmail = (email) => {
+const validateEmail = (email: string) => {
   return String(email)
     .toLowerCase()
     .match(
@@ -11,21 +15,35 @@ const validateEmail = (email) => {
     );
 };
 
-class AdminPanel extends React.Component {
-  constructor(props) {
+class AdminPanel extends React.Component<{firebase:any,database:any},{}> {
+  emailButton:RefObject<HTMLInputElement>;
+  sendTextButton:RefObject<HTMLTextAreaElement>;
+  whoToButton:RefObject<HTMLSelectElement>;
+  messageTypeButton:RefObject<HTMLSelectElement>;
+  typeOfMember:RefObject<HTMLSelectElement>;
+  constructor(props:{firebase:any,database:any}) {
     super(props);
     this.addNewUser = this.addNewUser.bind(this);
     this.sendText = this.sendText.bind(this);
-    this.emailButton = React.createRef();
-    this.sendTextButton = React.createRef();
-    this.whoToButton = React.createRef();
-    this.messageTypeButton = React.createRef();
-    this.typeOfMember = React.createRef();
+    this.emailButton = React.createRef<HTMLInputElement>();
+    this.sendTextButton = React.createRef<HTMLTextAreaElement>();
+    this.whoToButton = React.createRef<HTMLSelectElement>();
+    this.messageTypeButton = React.createRef<HTMLSelectElement>();
+    this.typeOfMember = React.createRef<HTMLSelectElement>();
     //the backend only allows this if they are already set as admin
     //dw about the security, i set up all the database rules correctly - steve
   }
 
   sendText() {
+    if(!(this.sendTextButton.current)) { //TODO: make sure this works lol
+      return;
+    }
+    if(!(this.whoToButton.current)) {
+      return;
+    }
+    if(!(this.messageTypeButton.current)) {
+      return;
+    }
     const text = this.sendTextButton.current.value;
     if (text.length < 5) {
       Swal.fire({
@@ -43,7 +61,7 @@ class AdminPanel extends React.Component {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, send the text",
-      }).then((res) => {
+      }).then((res:SweetAlertResult) => {
         if (res["isConfirmed"]) {
           Swal.fire({
             title: "Are you sure?",
@@ -53,7 +71,7 @@ class AdminPanel extends React.Component {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, send the text",
-          }).then((res) => {
+          }).then((res:SweetAlertResult) => {
             if (res["isConfirmed"]) {
               this.props.firebase
                 .functions()
@@ -62,7 +80,7 @@ class AdminPanel extends React.Component {
                   whoTo: whoTo,
                   type: whatType,
                 })
-                .then((res) => {
+                .then((res:any) => {
                   if (res["data"]["status"] === "Success") {
                     Swal.fire({
                       title: "Success!",
@@ -78,7 +96,7 @@ class AdminPanel extends React.Component {
                     Swal.fire({
                       title: "Message send failure",
                       text: "Do not attempt to resend the message. Contact Steve.",
-                      icon: "failure",
+                      icon: "error",
                     });
                   }
                 });
@@ -90,6 +108,10 @@ class AdminPanel extends React.Component {
   }
 
   addNewUser() {
+    if(!(this.emailButton.current)) {
+      alert("Email button not found\n");
+      return;
+    }
     const newEmail = this.emailButton.current.value.toLowerCase();
     this.emailButton.current.value = "";
     if (!newEmail.includes("@u.northwestern.edu")) {
@@ -112,9 +134,16 @@ class AdminPanel extends React.Component {
         confirmButtonText: "Yes, add them as a member",
       }).then((result) => {
         if (result.isConfirmed) {
+          if(!(this.typeOfMember.current)) {
+            alert("Type of member selector not found\n");
+            return;
+          }
           var typeOfUser = this.typeOfMember.current.value;
-          set(ref(this.props.database, "allowed_users/" + formattedEmail), typeOfUser)
-            .then((res) => {
+          set(
+            ref(this.props.database, "allowed_users/" + formattedEmail),
+            typeOfUser
+          )
+            .then(() => {
               Swal.fire({
                 icon: "success",
                 title: "Successfully added!",
@@ -151,7 +180,6 @@ class AdminPanel extends React.Component {
                       Message
                     </label>
                     <textarea
-                      type="text"
                       name="text"
                       id="text"
                       className="block w-full sm:min-w-[13rem] min-h-[2.5rem] h-[2.5rem] rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -256,13 +284,21 @@ class AdminPanel extends React.Component {
               </h3>
               <div className="sm:flex sm:flex-row sm:gap-2">
                 <form className="sm:mt-5 min-w-[85px] sm:flex sm:items-center">
-                  <a target="_blank" className="mt-3 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm" href="https://www.notion.so/97757d83c1bc42708c8a2cd51f96e9aa?v=542627b9c9d4412b8aec5711552f4bb9">
+                  <a
+                    target="_blank"
+                    className="mt-3 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm"
+                    href="https://www.notion.so/97757d83c1bc42708c8a2cd51f96e9aa?v=542627b9c9d4412b8aec5711552f4bb9"
+                  >
                     <LinkIcon className="-ml-1 mr-2 h-5 w-5" />
                     Pledge Calendar
                   </a>
                 </form>
                 <form className="sm:mt-5 min-w-[85px] sm:flex sm:items-center">
-                  <a target="_blank" className="mt-3 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm" href="https://www.notion.so/d1fe9440ad2e489299f645134a2bf7a9?v=1909dd71e41f40c0b23c6be525c7a8a6">
+                  <a
+                    target="_blank"
+                    className="mt-3 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm"
+                    href="https://www.notion.so/d1fe9440ad2e489299f645134a2bf7a9?v=1909dd71e41f40c0b23c6be525c7a8a6"
+                  >
                     <LinkIcon className="-ml-1 mr-2 h-5 w-5" />
                     Sprint
                   </a>

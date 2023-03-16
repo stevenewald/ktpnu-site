@@ -22,7 +22,7 @@ function Hero() {
             <div className="relative top-[5px] md:top-[30px] max-w-3xl mx-auto mt-6 text-lg text-center text-gray-700 md:text-xl">
               Northwestern's premiere co-ed technology fraternity
             </div>
-            <div className="hidden relative bottom-[25px] mt-8 flex justify-center">
+            <div className="relative top-[15px] mt-8 flex justify-center">
               <div className="inline-flex rounded-md shadow">
                 <a
                   href="https://docs.google.com/forms/d/e/1FAIpQLSey8UlOw4GaKMlJj-W-ZvxwgZk7C47N3VJ8aJ2KlqK8sDqg0Q/viewform"

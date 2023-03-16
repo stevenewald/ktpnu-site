@@ -53,6 +53,7 @@ function Team() {
               supportive experience.
             </p>
           </div>
+          {/* Mobile team layout */}
           <ul
             role="list"
             className="sm:hidden mx-auto grid grid-cols-3 gap-x-4 gap-y-8 sm:grid-cols-6 md:gap-x-6 lg:max-w-5xl lg:gap-x-8 lg:gap-y-12 xl:grid-cols-6"
@@ -75,11 +76,12 @@ function Team() {
               </li>
             ))}
           </ul>
+          {/* Laptop/tablet team layout */}
           <ul
             role="list"
             className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 md:gap-x-6 sm:max-w-2xl lg:max-w-3xl lg:gap-y-12"
           >
-            {people.slice(0, 3).map((person, index) => (
+            {people.map((person, index) => (
               <motion.li
                 key={person.name}
                 initial={{ x: 200, opacity: 0 }}
@@ -102,41 +104,6 @@ function Team() {
                   />
                   <div className="space-y-2">
                     <div className="text-center lg:whitespace-nowrap text-xs font-medium lg:text-sm">
-                      <h3>{person.name}</h3>
-                      <p className="text-indigo-600">{person.role}</p>
-                    </div>
-                  </div>
-                </div>
-              </motion.li>
-            ))}
-          </ul>
-          <ul
-            role="list"
-            className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 md:gap-x-6 sm:max-w-2xl lg:max-w-3xl lg:gap-y-12"
-          >
-            {people.slice(3, 6).map((person, index) => (
-              <motion.li
-                key={person.name}
-                initial={{ x: 200, opacity: 0 }}
-                whileInView={{
-                  x: 0,
-                  opacity: 1,
-                  transition: {
-                    delay: index / 25,
-                    duration: 0.5,
-                    ease: "easeInOut",
-                  },
-                }}
-                viewport={{ once: true }}
-              >
-                <div className="space-y-4">
-                  <img
-                    className="mx-auto h-20 w-20 rounded-full lg:h-24 lg:w-24"
-                    src={person.imageUrl}
-                    alt=""
-                  />
-                  <div className="space-y-2">
-                    <div className="text-xs font-medium lg:text-sm">
                       <h3>{person.name}</h3>
                       <p className="text-indigo-600">{person.role}</p>
                     </div>

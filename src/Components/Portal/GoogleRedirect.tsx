@@ -2,8 +2,9 @@ import React from "react";
 import { ref, get, child } from "firebase/database";
 import Swal from "sweetalert2";
 
-class GoogleRedirect extends React.Component {
-  constructor(props) {
+class GoogleRedirect extends React.Component<{firebase:any,provider:any,database:any},{}> {
+  willRefresh:boolean;
+  constructor(props:{firebase:any,provider:any,database:any}) {
     super(props);
     this.willRefresh = false;
   }
@@ -36,7 +37,7 @@ class GoogleRedirect extends React.Component {
   */
 
   componentDidMount() {
-    this.props.firebase.auth().onAuthStateChanged(async (user) => {
+    this.props.firebase.auth().onAuthStateChanged(async (user:any) => {
       if(this.willRefresh) {
         return;
       }
@@ -49,13 +50,13 @@ class GoogleRedirect extends React.Component {
             icon: "error",
             title: "Login from non-northwestern email",
             text: "Retry the signup with your northwestern email",
-          }).then((res) => {
+          }).then(() => {
             window.location.href = "/signup";
           });
           return;
           
         }
-        document.getElementById("loadingtext").innerHTML =
+        document.getElementById("loadingtext")!.innerHTML =
           "Fetching user info...";
         const dbref = ref(this.props.database);
         get(child(dbref, "users/" + user.uid))
@@ -65,9 +66,9 @@ class GoogleRedirect extends React.Component {
             }
 
             const data = snapshot.val();
-            if (data["allowed"] === true) {
-              if (data["signed_up"]===true) {
-                document.getElementById("loadingtext").innerHTML =
+            if (data.allowed === true) {
+              if (data.signed_up===true) {
+                document.getElementById("loadingtext")!.innerHTML =
                   "Redirecting to member page...";
                 window.location.href = "/member";
               } else {
@@ -102,7 +103,7 @@ class GoogleRedirect extends React.Component {
             }
           });
       } else {
-        document.getElementById("loadingtext").innerHTML =
+        document.getElementById("loadingtext")!.innerHTML =
           "Redirecting to Google login...";
         this.props.firebase.auth().signInWithRedirect(this.props.provider);
       }

@@ -7,13 +7,12 @@ function CarouselCard(props: {
   imgSrc: string;
   gcalLink: string;
   inviteOnly: boolean;
-  light: string;
-  passed: string;
+  light: boolean;
+  passed: boolean;
 }) {
-
   // Background
-  let dimmedBG;
-  if (props.light === "false") {
+  let dimmedBG: { [key: string]: string };
+  if (!props.light) {
     dimmedBG = {
       backgroundColor: "rgb(243 244 246)",
     };
@@ -26,7 +25,7 @@ function CarouselCard(props: {
   // Passed Date
   let dimmedDate;
   let dimmedTitle;
-  if (props.passed === "true") {
+  if (props.passed) {
     dimmedDate = {
       color: "rgb(156 163 175)",
     };
@@ -97,23 +96,21 @@ function CarouselCard(props: {
           </div>
 
           {/* Event Has Passed (in case of past event) */}
-          {props.passed === "true" && (
+          {props.passed && (
             <p className="text-red-500 font-bold mt-1">Event Has Passed</p>
           )}
         </div>
         {/* BImage */}
-        <div className="flex justify-center content-end h-full overflow-hidden">
-          {props.passed === "false" && (
+        {!props.passed && (
+          <div className="flex justify-center content-end h-full overflow-hidden">
             <img className="object-contain mb-32" src={props.imgSrc} alt="" />
-          )}
-          {props.passed === "true" && (
             <img
               className="object-contain mb-32 grayscale"
               src={props.imgSrc}
               alt=""
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </>
   );

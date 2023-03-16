@@ -170,15 +170,6 @@ const profile = {
   ],
 };
 
-const team = [
-  {
-    name: "Josh Brice",
-    role: "VP of Member Recruitment",
-    imageUrl:
-      "https://media.licdn.com/dms/image/C5603AQE7b12wJDGvtg/profile-displayphoto-shrink_400_400/0/1648564209595?e=1677110400&v=beta&t=SFPXEed0FNCB9CXnbu-cNba95eiJ9SPVht1gWpSDyM4",
-  },
-];
-
 class BrotherDirectory extends React.Component {
   constructor(props) {
     super(props);
@@ -388,7 +379,7 @@ class BrotherDirectory extends React.Component {
         <IndivProfile
           tabs={tabs}
           profile={this.state.profile}
-          team={team}
+          //team={team}
           dir_vis={this.state.directory_visible}
           handler={this.toggleVisibility}
           loading={this.state.loading}

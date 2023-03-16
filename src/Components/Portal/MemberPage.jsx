@@ -9,7 +9,6 @@ import RushEvents from "./../Landing/RushEvents";
 import PledgeCalendar from "./PledgeCalendar";
 import { CheckCircleIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import Logo from "@/Assets/Images/Branding/Logo.png"
-import Announcements from './Announcements';
 import AdminPanel from "./AdminPanel";
 import LcLeaderboard from './LcLeaderboard';
 import {
@@ -526,10 +525,6 @@ class MemberPage extends React.Component {
 
           <div className={this.state.navigation["Calendar"].current ? "overflow-y-auto" : "hidden"} >
             <PledgeCalendar />
-          </div>
-
-          <div className={false ? "flex justify-center items-center h-screen" : "hidden"} >
-            <Announcements announcements={this.state.announcements}/>
           </div>
 
           <div className={this.state.navigation["Admin"].current ? "" : "hidden"}>

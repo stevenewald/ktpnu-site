@@ -73,7 +73,7 @@ const events: {
   },
 };
 
-const daysOfWeek: {[key:number]:string} = {
+const daysOfWeek: { [key: number]: string } = {
   0: "SUNDAY",
   1: "MONDAY",
   2: "TUESDAY",
@@ -83,9 +83,28 @@ const daysOfWeek: {[key:number]:string} = {
   6: "SATURDAY",
 };
 
+function IndividualEvent(event: string, today: Date) {
+  return (
+    <CarouselCard
+      key={event}
+      date={`${daysOfWeek[events[event].date.getDay()]}, JAN ${events[
+        event
+      ].date.getDate()}`}
+      time={events[event].time}
+      title={events[event].title}
+      location={events[event].location}
+      imgSrc={events[event].imgSrc}
+      gcalLink={events[event].gcalLink}
+      inviteOnly={events[event].inviteOnly}
+      light={today.getTime() < events[event].date.getTime()}
+      passed={today.getTime() > events[event].date.getTime()}
+    />
+  );
+}
+
 function RushEvents() {
   // Today's Date
-  var today = new Date();
+  const today = new Date();
 
   // Carousel platter ref
   const platter = useRef<HTMLDivElement>(null);
@@ -94,7 +113,7 @@ function RushEvents() {
     // Determine how many events have passed
     let passed_events = 0;
     for (let event in events) {
-      if(events[event].date.getTime() < today.getTime()) {
+      if (events[event].date.getTime() < today.getTime()) {
         passed_events++;
       }
     }
@@ -176,30 +195,9 @@ function RushEvents() {
             {/* Buffer for Spacing */}
             <div className="select-none sm:pl-4 md:pl-8 lg:pl-14"></div>
 
-            {Object.keys(events).map((event, _) => (
-              <CarouselCard
-                key={event}
-                date={`${
-                  daysOfWeek[events[event].date.getDay()]
-                }, JAN ${events[event].date.getDate()}`}
-                time={events[event].time}
-                title={events[event].title}
-                location={events[event].location}
-                imgSrc={events[event].imgSrc}
-                gcalLink={events[event].gcalLink}
-                inviteOnly={events[event].inviteOnly}
-                light={
-                  today.getTime() > events[event].date.getTime()
-                    ? "false"
-                    : "true"
-                }
-                passed={
-                  today.getTime() > events[event].date.getTime()
-                    ? "true"
-                    : "false"
-                }
-              />
-            ))}
+            {Object.keys(events).map((event, _) =>
+              IndividualEvent(event, today)
+            )}
 
             {/* Buffer for spacing */}
             <div className="select-none px-4"></div>

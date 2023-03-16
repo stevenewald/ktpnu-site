@@ -100,7 +100,6 @@ class Full extends React.Component {
                 firebase={firebase}
                 provider={provider}
                 database={database}
-                storage={storage}
               />
             }
           ></Route>

@@ -22,28 +22,37 @@ const places_to_20 = [
   "20th",
 ];
 import { ref, child, get } from "firebase/database";
-function weightedScoreCalc(easy, med, hard) {
+function weightedScoreCalc(easy: number, med: number, hard: number): number {
   return easy * 2 + med * 5 + hard * 8;
 }
 
-class LcLeaderboard extends React.Component {
-  constructor(props) {
+class LcLeaderboard extends React.Component<
+  { firebase: any; database: any },
+  { lcStats: any[] }
+> {
+  constructor(props: { firebase: any; database: any }) {
     super(props);
     //"Steven Ewald":"stevenewald","Ford Holmen":"fholmen1","Tahira ":"tahiragrewal","Cat Tawadros":"ctawadros","Eagan Deshpande":"ikan9989","Conor Olson":"cbolson03","Mia Scarpati":"mscarpati","Andy Vu":"Andy_V_123","Kelly Meng":"kellymeng","Eli G":"Eligottlieb","Sneh Deshpande":"SnehDeshpande"
     this.state = {
       lcStats: [],
     };
-    this.offsets = {};
   }
 
   componentDidMount() {
-    this.props.firebase.auth().onAuthStateChanged(async (user) => {
+    this.props.firebase.auth().onAuthStateChanged(async (user: any) => {
       if (user) {
         try {
           const dbRef = ref(this.props.database);
           const snapshot = await get(child(dbRef, "public_users"));
           const dir = snapshot.val();
-          var lc_users = {};
+          var lc_users: {
+            [key: string]: {
+              name: string;
+              offsets: any;
+              answers: any;
+              pfp: string;
+            };
+          } = {};
           for (var user3 in dir) {
             const user2 = dir[user3];
             if (user2.leetcode && user2.leetcode.username) {
@@ -100,7 +109,6 @@ class LcLeaderboard extends React.Component {
           });
         } catch (errors) {
           console.log(errors);
-          errors.forEach((error) => console.error(error));
         }
       }
     });
@@ -116,7 +124,8 @@ class LcLeaderboard extends React.Component {
                 Leetcode Leaderboard
               </h2>
               <p className="text-xl text-gray-500">
-                The Leetcode Leaderboard challenge is now over. Congradulations to Andy Vu for winning the pledge Leetcode challenge!
+                The Leetcode Leaderboard challenge is now over. Congradulations
+                to Andy Vu for winning the pledge Leetcode challenge!
               </p>
             </div>
             <div className="lg:col-span-2">
@@ -125,14 +134,7 @@ class LcLeaderboard extends React.Component {
                 className="space-y-12 sm:-mt-8 sm:space-y-0 sm:divide-y sm:divide-gray-200 lg:gap-x-8 lg:space-y-0"
               >
                 {this.state.lcStats
-                  .slice(
-                    0,
-                    /*Math.max(
-                      Math.min(5, this.state.lcStats.length),
-                      Math.ceil(this.state.lcStats.length / 2)
-                    )*/
-                    Math.min(this.state.lcStats.length, 10)
-                  )
+                  .slice(0, Math.min(this.state.lcStats.length, 10))
                   .map((currUser, index) => (
                     <li key={currUser.name} className="sm:pt-5">
                       <div className="space-y-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-6 sm:space-y-0 max-w-3xl">
@@ -187,26 +189,26 @@ class LcLeaderboard extends React.Component {
                                   <svg x="0" y="0">
                                     <g transform="translate(0, 0)">
                                       <g
-                                        class="stagger"
+                                        className="stagger"
                                         transform="translate(25, 0)"
                                       >
-                                        <text class="stat bold" y="12.5">
+                                        <text className="stat bold" y="12.5">
                                           Weighted Score:
                                         </text>
-                                        <text class="stat" x="200" y="12.5">
+                                        <text className="stat" x="200" y="12.5">
                                           {currUser.weightedScore}
                                         </text>
                                       </g>
                                     </g>
                                     <g transform="translate(0, 25)">
                                       <g
-                                        class="stagger"
+                                        className="stagger"
                                         transform="translate(25, 0)"
                                       >
-                                        <text class="stat bold" y="12.5">
+                                        <text className="stat bold" y="12.5">
                                           Total Questions Solved:
                                         </text>
-                                        <text class="stat" x="200" y="12.5">
+                                        <text className="stat" x="200" y="12.5">
                                           {currUser.easySolved +
                                             currUser.mediumSolved +
                                             currUser.hardSolved}
@@ -215,14 +217,17 @@ class LcLeaderboard extends React.Component {
                                     </g>
                                     <g transform="translate(0, 50)">
                                       <g
-                                        class="stagger"
+                                        className="stagger"
                                         transform="translate(25, 0)"
                                       >
-                                        <text class="stat bold easy" y="12.5">
+                                        <text
+                                          className="stat bold easy"
+                                          y="12.5"
+                                        >
                                           Easy Questions Solved:
                                         </text>
                                         <text
-                                          class="stat easy"
+                                          className="stat easy"
                                           x="200"
                                           y="12.5"
                                         >
@@ -232,14 +237,17 @@ class LcLeaderboard extends React.Component {
                                     </g>
                                     <g transform="translate(0, 75)">
                                       <g
-                                        class="stagger"
+                                        className="stagger"
                                         transform="translate(25, 0)"
                                       >
-                                        <text class="stat bold medium" y="12.5">
+                                        <text
+                                          className="stat bold medium"
+                                          y="12.5"
+                                        >
                                           Medium Questions Solved:
                                         </text>
                                         <text
-                                          class="stat medium"
+                                          className="stat medium"
                                           x="200"
                                           y="12.5"
                                         >
@@ -249,14 +257,17 @@ class LcLeaderboard extends React.Component {
                                     </g>
                                     <g transform="translate(0, 100)">
                                       <g
-                                        class="stagger"
+                                        className="stagger"
                                         transform="translate(25, 0)"
                                       >
-                                        <text class="stat bold hard" y="12.5">
+                                        <text
+                                          className="stat bold hard"
+                                          y="12.5"
+                                        >
                                           Hard Questions Solved:
                                         </text>
                                         <text
-                                          class="stat hard"
+                                          className="stat hard"
                                           x="200"
                                           y="12.5"
                                         >
