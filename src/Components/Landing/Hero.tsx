@@ -25,11 +25,11 @@ function Hero() {
             <div className="relative top-[15px] mt-8 flex justify-center">
               <div className="inline-flex rounded-md shadow">
                 <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSey8UlOw4GaKMlJj-W-ZvxwgZk7C47N3VJ8aJ2KlqK8sDqg0Q/viewform"
+                  href="https://docs.google.com/forms/d/e/1FAIpQLScBJ9YvMbDKFV-NqXVOZh4UulnAfMAaDgBsxsavDKT82rKtRg/viewform"
                   target="_blank"
                   className="transition-colors duration-300 inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-5 py-3 text-base font-medium text-white hover:bg-indigo-700"
                 >
-                  Rush Application
+                  Interest Form
                   <ArrowTopRightOnSquareIcon
                     className="-mr-1 ml-3 h-5 w-5 text-white"
                     aria-hidden="true"
