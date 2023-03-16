@@ -4,8 +4,6 @@ import IndivProfile from "./IndivProfile";
 import Directory from "./Directory";
 import Loading from "./Loading";
 
-import { ref, child, get } from "firebase/database";
-
 const LoadingDirectory = {
   A: [
     {
@@ -229,6 +227,7 @@ class BrotherDirectory extends React.Component {
     this.toggleVisibility();
   }
 
+  //runs once when the full public directory is updated to a non empty dictionary
   processFullDirectory() {
     if (Object.keys(this.props.fullPubDir).length == 0 || !this.state.loading) {
       return;

@@ -1,7 +1,7 @@
 import React from "react";
 import { ref, child, get } from "firebase/database";
 import LcLeaderboard from "@portal/LcLeaderboard";
-import BrotherDirectory from "@portal/DirectoryContainer";
+import DirectoryContainer from "@portal/DirectoryContainer";
 import NewUser from "@portal/NewUser";
 import RushEvents from "@landing/RushEvents";
 import PledgeCalendar from "@portal/PledgeCalendar";
@@ -19,6 +19,7 @@ import {
   CalendarIcon,
 } from "@heroicons/react/24/outline";
 
+//When loading public directory, this is shown. Image data encoded in the file.
 const defaultUser = {
   name: "Loading",
   imageUrl:
@@ -118,12 +119,12 @@ class MemberPage extends React.Component<
               : currProfile["profile_pic_link"];
           })
           .then(() => {
-            this.setState({ user: newUser, fullPubDir: dir });
+            this.setState({ user: newUser, fullPubDir: dir, uid:user.uid });
           });
         get(child(dbRef, "users/" + user.uid)).then((snapshot) => {
           const prof = snapshot.val();
           if (prof["admin"]) {
-            this.setState({ admin: true, memberType: prof["role"], uid:prof.uid});
+            this.setState({ admin: true, memberType: prof["role"]});
           }
         });
       } else {
@@ -213,7 +214,7 @@ class MemberPage extends React.Component<
               this.state.navigation["Members"].current === true ? "" : "hidden"
             }
           >
-            <BrotherDirectory
+            <DirectoryContainer
               //setClick={(click) => (this.clickChild = click)}
               firebase={this.props.firebase}
               database={this.props.database}
