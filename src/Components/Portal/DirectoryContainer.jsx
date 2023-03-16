@@ -4,88 +4,7 @@ import IndivProfile from "./IndivProfile";
 import Directory from "./Directory";
 import Loading from "./Loading";
 
-import Swal from "sweetalert2";
-
 import { ref, child, get } from "firebase/database";
-
-/*const directory = {
-  A: [
-    {
-      id: 1,
-      name: "Alexis Robles",
-      role: "VP of Technology",
-      imageUrl:
-        "https://media.licdn.com/dms/image/C4E03AQHxKbf9gRhDYw/profile-displayphoto-shrink_100_100/0/1660923581630?e=1677110400&v=beta&t=WFQuedtnE9aUVQ_m1-AVqpGX2xNMmHfa-tIBuqWJ9AI",
-    },
-    {
-      id: 3,
-      name: "A Freshman",
-      role: "Pledge",
-      imageUrl:
-        "https://www.seekpng.com/png/detail/41-410093_circled-user-icon-user-profile-icon-png.png",
-    },
-  ],
-  D: [
-    {
-      id: 4,
-      name: "Damien Koh",
-      role: "VP of Recruitment",
-      imageUrl:
-        "https://media.licdn.com/dms/image/C5603AQGjHa8RFpDKhA/profile-displayphoto-shrink_400_400/0/1656946309926?e=1677110400&v=beta&t=mSIRjcaPvxGM6SNV6HUxntnDc-tfJGJsKe3zvtARVfU",
-      active: true,
-    },
-  ],
-  E: [
-    {
-      id: 5,
-      name: "Eagan Notokusumo",
-      role: "VP of Finance",
-      imageUrl:
-        "https://media.licdn.com/dms/image/C4D03AQEX-pJelYP9lQ/profile-displayphoto-shrink_400_400/0/1642469910535?e=1677110400&v=beta&t=xO4xs2sjT6Owexmbp2-Wg7mgAFk8WyC3eKhCC0HQixQ",
-    },
-  ],
-  J: [
-    {
-      id: 6,
-      name: "Julie Park",
-      role: "VP of Marketing",
-      imageUrl:
-        "https://media.licdn.com/dms/image/D5603AQHdZPGTHWZKJQ/profile-displayphoto-shrink_400_400/0/1669337453128?e=1677110400&v=beta&t=AmhLbaajCtLz8OaWrFpGFzZcgHuk-J43gRZMLMbiSbY",
-    },
-  ],
-  N: [
-    {
-      id: 7,
-      name: "Nam Nguyen",
-      role: "VP of Internal Affairs",
-      imageUrl:
-        "https://media.licdn.com/dms/image/C5603AQEtz1wN1PeAmw/profile-displayphoto-shrink_400_400/0/1624822282607?e=1677110400&v=beta&t=IaigaQP4cMDmA0QquIeT8UzH21zT9Eaow7krp38JWtk",
-    },
-  ],
-  S: [
-    {
-      id: 8,
-      name: "Samar Saleem",
-      role: "President/Founder",
-      imageUrl:
-        "https://media.licdn.com/dms/image/C4E03AQEhnMuPtE0eGw/profile-displayphoto-shrink_400_400/0/1657907779939?e=1677110400&v=beta&t=7CxrhEz1WD-lLP4oGe3Xjl6WngS6c24H3yqfESR87ig",
-    },
-    {
-      id: 9,
-      name: "Sneh Deshpande",
-      role: "VP of Internal Affairs",
-      imageUrl:
-        "https://media.licdn.com/dms/image/C4D03AQEVH1jm84ax0A/profile-displayphoto-shrink_400_400/0/1649042616875?e=1677110400&v=beta&t=VxBCPGOWUAlXGvk0bSi8n1flSEy6IBRccQhKVGtkYO0",
-    },
-    {
-      id: 10,
-      name: "Steve Ewald",
-      role: "VP of Technology",
-      imageUrl:
-        "https://media.licdn.com/dms/image/C4D03AQHPxYjOagRJig/profile-displayphoto-shrink_400_400/0/1649132175326?e=1677110400&v=beta&t=4_IxWqZY2o5GECcPwGyIfVQX0w8tX5mp1kFUvZPyCjQ",
-    },
-  ],
-};*/
 
 const LoadingDirectory = {
   A: [
@@ -137,7 +56,7 @@ const profile = {
   fields: {
     "Class Standing": "Sophomore",
     Major: "Computer Engineering",
-    "Internships": "Robotics Intern at Weston Robot",
+    Internships: "Robotics Intern at Weston Robot",
     Position: "Executive Board, VP of Member Recruitment",
   },
   social: [
@@ -180,10 +99,12 @@ class BrotherDirectory extends React.Component {
       profile: profile,
       directory_size: 0,
       changeVal: true,
+      directoryLoaded: false,
     };
     this.toggleVisibility = this.toggleVisibility.bind(this);
     this.changeProfileHandler = this.changeProfileHandler.bind(this);
     this.changeActiveHandler = this.changeActiveHandler.bind(this);
+    this.processFullDirectory = this.processFullDirectory.bind(this);
     this.activeMobile = "1";
     this.currProfile = "mob_1";
     this.defaultProfile = {};
@@ -196,19 +117,16 @@ class BrotherDirectory extends React.Component {
   dictFromProfile(profile) {
     var newProfile = {};
     newProfile.name = profile.name;
-    newProfile.largeProfilePic = profile.pfp_large_link
-      ? profile.pfp_large_link
-      : profile.profile_pic_link;
-    newProfile.smallProfilePic = profile.pfp_thumb_link
-      ? profile.pfp_thumb_link
-      : profile.profile_pic_link;
+    newProfile.largeProfilePic =
+      profile.pfp_large_link ?? profile.profile_pic_link;
+    newProfile.smallProfilePic =
+      profile.pfp_thumb_link ?? profile.profile_pic_link;
     if (profile.cover_page_link) {
-      newProfile.coverImageUrl = profile.cover_resized_link
-        ? profile.cover_resized_link
-        : profile.cover_page_link;
+      newProfile.coverImageUrl =
+        profile.cover_resized_link ?? profile.cover_page_link;
     }
-    if(profile.leetcode) {
-      newProfile.leetcode = profile.leetcode;
+    if (profile.leetcode) {
+      newProfile.leetcode = profile?.leetcode;
     }
     if (profile.about) {
       newProfile.about = profile.about;
@@ -247,14 +165,24 @@ class BrotherDirectory extends React.Component {
         ),
       });
     }
-    if(profile.leetcode && profile.leetcode.username) {
+    if (profile?.leetcode?.username) {
       newProfile.social.push({
-        name:"Leetcode",
+        name: "Leetcode",
         href: "https://leetcode.com/" + profile.leetcode.username,
         icon: (props) => (
-          <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104a5.35 5.35 0 0 0-.125.513a5.527 5.527 0 0 0 .062 2.362a5.83 5.83 0 0 0 .349 1.017a5.938 5.938 0 0 0 1.271 1.818l4.277 4.193l.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019l-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523a2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382a1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382a1.38 1.38 0 0 0-1.38-1.382z"/></svg>
-        )
-      })
+          <svg
+            className="h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            {...props}
+          >
+            <path
+              fill="currentColor"
+              d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104a5.35 5.35 0 0 0-.125.513a5.527 5.527 0 0 0 .062 2.362a5.83 5.83 0 0 0 .349 1.017a5.938 5.938 0 0 0 1.271 1.818l4.277 4.193l.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019l-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523a2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382a1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382a1.38 1.38 0 0 0-1.38-1.382z"
+            />
+          </svg>
+        ),
+      });
     }
     if (profile.linkedin) {
       newProfile.social.push({
@@ -292,88 +220,70 @@ class BrotherDirectory extends React.Component {
     document.getElementById(id).classList.add("bg-gray-100");
     document.getElementById(id).classList.remove("hover:bg-gray-50");
     this.activeMobile = id.substring(4, id.length);
-    if(id==this.currProfile) {
+    if (id == this.currProfile) {
       document.getElementById(id).classList.add("currProfile");
       document
-      .getElementById(id)
-      .scrollIntoView({ block: "start", behavior: "smooth" });
+        .getElementById(id)
+        .scrollIntoView({ block: "start", behavior: "smooth" });
     }
     this.toggleVisibility();
   }
 
-  componentDidMount() {
-    this.props.firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        let timerInterval;
-        Swal.fire({
-          title: "You are signed out. Redirecting to login...",
-          icon: "info",
-          timer: 2000,
-          timerProgressBar: true,
-          willClose: () => {
-            clearInterval(timerInterval);
-          },
-        }).then((result) => {
-          window.location.href = "/signup";
-        });
-      } else {
-        const dbRef = ref(this.props.database);
-        get(child(dbRef, "public_users")).then((snapshot) => {
-          var newDirectory = {};
-          const dir = snapshot.val();
-          var amount = 0;
-          for (var item in dir) {
-            const profile = dir[item];
-            if (!profile.name) {
-              continue;
-            }
-            amount += 1;
-            const first_letter = profile.name.charAt(0).toUpperCase();
-            var user_dict = {};
-            user_dict["name"] = profile.name;
-            user_dict["role"] = profile.role;
-            user_dict["largeProfilePic"] = profile.pfp_large_link
-              ? profile.pfp_large_link
-              : profile.profile_pic_link;
-            user_dict["smallProfilePic"] = profile.pfp_thumb_link
-              ? profile.pfp_thumb_link
-              : profile.profile_pic_link;
-            user_dict["fullProfile"] = profile;
-            user_dict["handler"] = this.changeProfileHandler;
-            user_dict["id"] = String(amount);
-            user_dict["leetcode"] = profile.leetcode;
-            if (item === user.uid) {
-              user_dict.email = profile.email;
-              user_dict.active = true;
-              this.activeMobile = String(amount);
-              this.currProfile = "mob_" + String(amount);
-              this.setState({ profile: this.dictFromProfile(profile) });
-              this.defaultProfile = profile;
-            }
-            if (first_letter in newDirectory) {
-              newDirectory[first_letter].push(user_dict);
-            } else {
-              newDirectory[first_letter] = [user_dict];
-            }
-          }
-          const ordered = Object.keys(newDirectory)
-            .sort()
-            .reduce((obj, key) => {
-              obj[key] = newDirectory[key];
-              return obj;
-            }, {});
-          this.setState({
-            directory: ordered,
-            loading: false,
-            directory_size: amount,
-          });
-          this.props.setClick(this.changeActiveHandler);
-        });
+  processFullDirectory() {
+    if (Object.keys(this.props.fullPubDir).length == 0 || !this.state.loading) {
+      return;
+    }
+    var newDirectory = {};
+    const dir = this.props.fullPubDir;
+    var amount = 0;
+    for (var uid in dir) {
+      const profile = dir[uid];
+      if (!profile.name) {
+        continue;
       }
+      amount += 1;
+      const first_letter = profile.name.charAt(0).toUpperCase();
+      var user_dict = {};
+      user_dict["name"] = profile.name;
+      user_dict["role"] = profile.role;
+      user_dict["largeProfilePic"] =
+        profile.pfp_large_link ?? profile.profile_pic_link;
+      user_dict["smallProfilePic"] =
+        profile.pfp_thumb_link ?? profile.profile_pic_link;
+      user_dict["fullProfile"] = profile;
+      user_dict["handler"] = this.changeProfileHandler;
+      user_dict["id"] = String(amount);
+      user_dict["leetcode"] = profile.leetcode;
+      if (uid === this.props.uid) {
+        user_dict.email = profile.email;
+        user_dict.active = true;
+        this.activeMobile = String(amount);
+        this.currProfile = "mob_" + String(amount);
+        this.setState({ profile: this.dictFromProfile(profile) });
+        this.defaultProfile = profile;
+      }
+      if (first_letter in newDirectory) {
+        newDirectory[first_letter].push(user_dict);
+      } else {
+        newDirectory[first_letter] = [user_dict];
+      }
+    }
+    const ordered = Object.keys(newDirectory)
+      .sort()
+      .reduce((obj, key) => {
+        obj[key] = newDirectory[key];
+        return obj;
+      }, {});
+    this.setState({
+      directory: ordered,
+      loading: false,
+      directory_size: amount,
     });
+    //this.props.setClick(this.changeActiveHandler);
   }
 
   render() {
+    this.processFullDirectory();
     return (
       <div className="relative z-0 flex flex-1 h-screen">
         <IndivProfile
