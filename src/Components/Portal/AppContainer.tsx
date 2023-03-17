@@ -1,4 +1,4 @@
-import React from "react";
+import {useEffect, useState} from "react";
 import { ref, child, get } from "firebase/database";
 import LcLeaderboard from "@portal/LcLeaderboard";
 import DirectoryContainer from "@portal/DirectoryContainer";
@@ -67,7 +67,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-class MemberPage extends React.Component<
+function MemberPage(props:any) /*<
   { firebase: any; database: any; storage: any },
   {
     fullPubDir: any;
@@ -80,35 +80,25 @@ class MemberPage extends React.Component<
     searchVal: "";
     uid:string,
   }
-> {
-  currNav: string;
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      sidebarOpen: false,
-      user: defaultUser,
-      navigation: navigation,
-      admin: false,
-      announcements: [],
-      memberType: "Member",
-      searchVal: "",
-      fullPubDir: {},
-      uid:"",
-    };
-    this.setSidebarOpen = this.setSidebarOpen.bind(this);
-    this.onTabClick = this.onTabClick.bind(this);
-    this.currNav = "Members";
-  }
+>*/ {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [user, setUser] = useState(defaultUser);
+  const [nav, setNavigation] = useState(navigation);
+  const [admin, setAdmin] = useState(false);
+  const [uid, setUid] = useState("");
+  const [fullPubDir, setFullPubDir] = useState({});
+  const [currNav, setCurrNav] = useState("Members");
 
-  componentDidMount() {
+  useEffect(() => {
     if (localStorage.getItem("justSetup") === "true") {
       localStorage.setItem("justSetup", "false");
     }
-    this.props.firebase.auth().onAuthStateChanged((user: any) => {
+    props.firebase.auth().onAuthStateChanged((user: any) => {
       if (user) {
         var newUser: any = {};
         var dir: any = {};
-        const dbRef = ref(this.props.database);
+        const dbRef = ref(props.database);
+        setUid(user.uid);
         get(child(dbRef, "public_users"))
           .then((snapshot) => {
             dir = snapshot.val();
@@ -119,12 +109,13 @@ class MemberPage extends React.Component<
               : currProfile["profile_pic_link"];
           })
           .then(() => {
-            this.setState({ user: newUser, fullPubDir: dir, uid:user.uid });
+            setUser(newUser);
+            setFullPubDir(dir);
           });
         get(child(dbRef, "users/" + user.uid)).then((snapshot) => {
           const prof = snapshot.val();
           if (prof["admin"]) {
-            this.setState({ admin: true, memberType: prof["role"]});
+            setAdmin(true);
           }
         });
       } else {
@@ -142,43 +133,39 @@ class MemberPage extends React.Component<
         });
       }
     });
-  }
+  })
 
   //When sidebar tab is clicked, change the navigation state to reflect the new tab
-  onTabClick(nextButton: string) {
+  function onTabClick(nextButton: string) {
     var newNav: NavigationType = navigation;
-    newNav[this.currNav].current = false;
+    newNav[currNav].current = false;
     newNav[nextButton].current = true;
-    this.currNav = nextButton;
-    this.setSidebarOpen(false);
-    this.setState({ navigation: newNav, searchVal: "" });
+    setCurrNav(nextButton);
+    setSidebarOpen(false);
+    setNavigation(newNav);
   }
 
-  setSidebarOpen(val: boolean) {
-    this.setState({ sidebarOpen: val });
-  }
+  const args: SideBarArgsType = {
+    Logo: Logo,
+    Navigation: nav,
+    ImageUrl: user.imageUrl,
+    CurrentUserName: user.name,
+    Admin: admin,
+    onTabClick: onTabClick,
+  };
 
-  render() {
-    const args: SideBarArgsType = {
-      Logo: Logo,
-      Navigation: this.state.navigation,
-      ImageUrl: this.state.user.imageUrl,
-      CurrentUserName: this.state.user.name,
-      Admin: this.state.admin,
-      onTabClick: this.onTabClick,
-    };
     return (
       <div
         className={classNames(
-          this.state.navigation.Profile.current ? "h-full" : "h-screen",
+          nav['Profile'].current ? "h-full" : "h-screen",
           "flex"
         )}
       >
         {/* Dynamic sidebar for mobile */}
         <MobileSidebar
           args={args}
-          sideBarOpen={this.state.sidebarOpen}
-          setSidebarOpen={this.setSidebarOpen}
+          sideBarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
         />
 
         {/* Static sidebar for desktop */}
@@ -200,7 +187,7 @@ class MemberPage extends React.Component<
                 <button
                   type="button"
                   className="-mr-3 inline-flex h-12 w-12 items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600"
-                  onClick={() => this.setSidebarOpen(true)}
+                  onClick={() => setSidebarOpen(true)}
                 >
                   <span className="sr-only">Open sidebar</span>
                   <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -211,23 +198,23 @@ class MemberPage extends React.Component<
           {/* */}
           <div
             className={
-              this.state.navigation["Members"].current === true ? "" : "hidden"
+              nav["Members"].current === true ? "" : "hidden"
             }
           >
             <DirectoryContainer
-              fullPubDir={this.state.fullPubDir}
-              uid={this.state.uid}
+              fullPubDir={fullPubDir}
+              uid={uid}
             />
           </div>
           <div
             className={
-              this.state.navigation["Profile"].current === true ? "" : "hidden"
+              nav["Profile"].current === true ? "" : "hidden"
             }
           >
             <NewUser
-              firebase={this.props.firebase}
-              database={this.props.database}
-              storage={this.props.storage}
+              firebase={props.firebase}
+              database={props.database}
+              storage={props.storage}
               newuser={false}
             />
           </div>
@@ -237,7 +224,7 @@ class MemberPage extends React.Component<
 
           <div
             className={
-              this.state.navigation["Calendar"].current
+              nav["Calendar"].current
                 ? "overflow-y-auto"
                 : "hidden"
             }
@@ -246,26 +233,25 @@ class MemberPage extends React.Component<
           </div>
 
           <div
-            className={this.state.navigation["Admin"].current ? "" : "hidden"}
+            className={nav["Admin"].current ? "" : "hidden"}
           >
             <AdminPanel
-              firebase={this.props.firebase}
-              database={this.props.database}
+              firebase={props.firebase}
+              database={props.database}
             />
           </div>
           <div
             className={
-              this.state.navigation["Leaderboard"].current ? "h-full" : "hidden"
+              nav["Leaderboard"].current ? "h-full" : "hidden"
             }
           >
             <LcLeaderboard
-              firebase={this.props.firebase}
-              database={this.props.database}
+              firebase={props.firebase}
+              database={props.database}
             />
           </div>
         </div>
       </div>
     );
-  }
 }
 export default MemberPage;
