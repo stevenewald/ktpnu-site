@@ -7,3 +7,8 @@ namespace 127, but the emulator is configured for ktp-site-default-rtdb. To
 opt-out of single project mode add/set the single_project_mode: false property in 
 the firebase.json emulators config. 
 12:58:38.219 [NamespaceSystem-akka.actor.default-dispatcher-8] INFO com.firebase.core.namespace.NamespaceActor - 127 successfully activated FBKV (SurveyIdle(0)) wait: 3ms, init: 0ms
+13:17:36.063 [FirebaseWorkerPool-1-1] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
+namespace ktp-site, but the emulator is configured for ktp-site-default-rtdb,127. To 
+opt-out of single project mode add/set the single_project_mode: false property in 
+the firebase.json emulators config. 
+13:17:36.080 [NamespaceSystem-akka.actor.default-dispatcher-38] INFO com.firebase.core.namespace.NamespaceActor - ktp-site successfully activated FBKV (SurveyIdle(0)) wait: 12ms, init: 0ms

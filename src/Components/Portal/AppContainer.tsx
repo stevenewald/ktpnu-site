@@ -215,9 +215,6 @@ class MemberPage extends React.Component<
             }
           >
             <DirectoryContainer
-              //setClick={(click) => (this.clickChild = click)}
-              firebase={this.props.firebase}
-              database={this.props.database}
               fullPubDir={this.state.fullPubDir}
               uid={this.state.uid}
             />
