@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { ref, child, get } from "firebase/database";
 import LcLeaderboard from "@portal/LcLeaderboard";
 import DirectoryContainer from "@portal/DirectoryContainer";
@@ -67,20 +67,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-function MemberPage(props:any) /*<
-  { firebase: any; database: any; storage: any },
-  {
-    fullPubDir: any;
-    sidebarOpen: boolean;
-    user: any;
-    navigation: any;
-    admin: boolean;
-    announcements: any;
-    memberType: string;
-    searchVal: "";
-    uid:string,
-  }
->*/ {
+function MemberPage(props: { firebase: any; database: any; storage: any }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [user, setUser] = useState(defaultUser);
   const [nav, setNavigation] = useState(navigation);
@@ -119,7 +106,7 @@ function MemberPage(props:any) /*<
           }
         });
       } else {
-        let timerInterval:any;
+        let timerInterval: any;
         Swal.fire({
           title: "You are signed out. Redirecting to login...",
           icon: "info",
@@ -133,7 +120,7 @@ function MemberPage(props:any) /*<
         });
       }
     });
-  })
+  });
 
   //When sidebar tab is clicked, change the navigation state to reflect the new tab
   function onTabClick(nextButton: string) {
@@ -154,104 +141,75 @@ function MemberPage(props:any) /*<
     onTabClick: onTabClick,
   };
 
-    return (
-      <div
-        className={classNames(
-          nav['Profile'].current ? "h-full" : "h-screen",
-          "flex"
-        )}
-      >
-        {/* Dynamic sidebar for mobile */}
-        <MobileSidebar
-          args={args}
-          sideBarOpen={sidebarOpen}
-          setSidebarOpen={setSidebarOpen}
-        />
+  return (
+    <div
+      className={classNames(
+        nav["Profile"].current ? "h-full" : "h-screen",
+        "flex"
+      )}
+    >
+      {/* Dynamic sidebar for mobile */}
+      <MobileSidebar
+        args={args}
+        sideBarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
 
-        {/* Static sidebar for desktop */}
-        <DesktopSidebar args={args} />
-        <div className="flex min-w-0 flex-1 flex-col ">
-          <div className="lg:hidden">
-            <div className="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-4 py-1.5">
-              <div>
-                <img
-                  className="cursor-pointer h-8 w-auto"
-                  src="https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/f3/9b/6e/f39b6e96-766a-39cd-184b-2f5286f40c81/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp"
-                  alt="Kappa Theta Pi"
-                  onClick={() => {
-                    window.location.href = "/";
-                  }}
-                />
-              </div>
-              <div>
-                <button
-                  type="button"
-                  className="-mr-3 inline-flex h-12 w-12 items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600"
-                  onClick={() => setSidebarOpen(true)}
-                >
-                  <span className="sr-only">Open sidebar</span>
-                  <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-                </button>
-              </div>
+      {/* Static sidebar for desktop */}
+      <DesktopSidebar args={args} />
+      <div className="flex min-w-0 flex-1 flex-col ">
+        <div className="lg:hidden">
+          <div className="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-4 py-1.5">
+            <div>
+              <img
+                className="cursor-pointer h-8 w-auto"
+                src="https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/f3/9b/6e/f39b6e96-766a-39cd-184b-2f5286f40c81/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp"
+                alt="Kappa Theta Pi"
+                onClick={() => {
+                  window.location.href = "/";
+                }}
+              />
+            </div>
+            <div>
+              <button
+                type="button"
+                className="-mr-3 inline-flex h-12 w-12 items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                onClick={() => setSidebarOpen(true)}
+              >
+                <span className="sr-only">Open sidebar</span>
+                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+              </button>
             </div>
           </div>
-          {/* */}
-          <div
-            className={
-              nav["Members"].current === true ? "" : "hidden"
-            }
-          >
-            <DirectoryContainer
-              fullPubDir={fullPubDir}
-              uid={uid}
-            />
-          </div>
-          <div
-            className={
-              nav["Profile"].current === true ? "" : "hidden"
-            }
-          >
-            <NewUser
-              firebase={props.firebase}
-              database={props.database}
-              storage={props.storage}
-              newuser={false}
-            />
-          </div>
-          <div className={false ? "" : "hidden"}>
-            <RushEvents />
-          </div>
+        </div>
+        {/* */}
+        <div className={nav["Members"].current === true ? "" : "hidden"}>
+          <DirectoryContainer fullPubDir={fullPubDir} uid={uid} />
+        </div>
+        <div className={nav["Profile"].current === true ? "" : "hidden"}>
+          <NewUser
+            firebase={props.firebase}
+            database={props.database}
+            storage={props.storage}
+            newuser={false}
+          />
+        </div>
+        <div className={false ? "" : "hidden"}>
+          <RushEvents />
+        </div>
 
-          <div
-            className={
-              nav["Calendar"].current
-                ? "overflow-y-auto"
-                : "hidden"
-            }
-          >
-            <PledgeCalendar />
-          </div>
+        <div className={nav["Calendar"].current ? "overflow-y-auto" : "hidden"}>
+          <PledgeCalendar />
+        </div>
 
-          <div
-            className={nav["Admin"].current ? "" : "hidden"}
-          >
-            <AdminPanel
-              firebase={props.firebase}
-              database={props.database}
-            />
-          </div>
-          <div
-            className={
-              nav["Leaderboard"].current ? "h-full" : "hidden"
-            }
-          >
-            <LcLeaderboard
-              firebase={props.firebase}
-              database={props.database}
-            />
-          </div>
+        <div className={nav["Admin"].current ? "" : "hidden"}>
+          <AdminPanel firebase={props.firebase} database={props.database} />
+        </div>
+        <div className={nav["Leaderboard"].current ? "h-full" : "hidden"}>
+          <LcLeaderboard firebase={props.firebase} database={props.database} />
         </div>
       </div>
-    );
+    </div>
+  );
 }
 export default MemberPage;
