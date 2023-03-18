@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   FunnelIcon,
   MagnifyingGlassIcon,
@@ -19,18 +19,14 @@ function MobileDirectory(props: any) {
   const [searchVal, setSearchVal] = React.useState("");
   const [showType, setShowType] = React.useState("Everyone");
   const [results_amount, setResultsAmount] = React.useState(0);
-  var total_results = 0;
+  const [shownDirectory, setShownDirectory]: any = React.useState({});
 
   function searchBarChange(val: string) {
-    total_results = 0;
     setSearchVal(val.toLowerCase());
-    setResultsAmount(total_results);
   }
 
   function funnelChange(val: string) {
-    total_results = 0;
     setShowType(val);
-    setResultsAmount(total_results);
   }
 
   function profileIncludesSearch(profile: any, search_val: string) {
@@ -56,47 +52,60 @@ function MobileDirectory(props: any) {
     return false;
   }
 
-  function elemMatches(elem: any, update_res: boolean) {
-    if (searchVal === "" && showType === "Everyone") {
-      if (update_res) {
-        total_results += 1;
-      }
+  function profMatchesShowType(elem: any): boolean {
+    if (showType === "Everyone") {
       return true;
     } else {
-      if (profileIncludesSearch(elem, searchVal)) {
-        if (showType === "Everyone") {
-          if (update_res) {
-            total_results += 1;
-          }
-          return true;
-        } else {
-          if (
-            elem["role"] &&
-            (elem["role"] === showType ||
-              (showType === "Member" && elem["role"].includes("VP of")))
-          ) {
-            if (update_res) {
-              total_results += 1;
-            }
-            return true;
-          } else {
-            return false;
-          }
-        }
-      } else {
-        return false;
-      }
+      return (
+        elem["role"] &&
+        (elem["role"] === showType ||
+          (showType === "Member" && elem["role"].includes("VP of")))
+      );
     }
   }
 
-  function oneMatches(letter: string) {
-    for (var i = 0; i < props.directory[letter].length; i++) {
-      if (elemMatches(props.directory[letter][i]["fullProfile"], false)) {
-        return true;
+  function profileMatches(profile: any): boolean {
+    if (searchVal === "" && showType === "Everyone") {
+      return true;
+    } else {
+      return (
+        profMatchesShowType(profile) &&
+        profileIncludesSearch(profile, searchVal)
+      );
+    }
+  }
+
+  function makeVisibleDirectory(): void {
+    var newDir: any = {};
+    var total_results = 0;
+    for (var letter in props.directory) {
+      for (var i = 0; i < props.directory[letter].length; i++) {
+        if (profileMatches(props.directory[letter][i]["fullProfile"])) {
+          if (!(letter in newDir)) {
+            newDir[letter] = [];
+          }
+          newDir[letter].push(props.directory[letter][i]);
+          total_results++;
+        }
       }
     }
-    return false;
+    for (var letter in newDir) {
+      newDir[letter].sort(function (a: any, b: any) {
+        if (a.name < b.name) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+    }
+    setShownDirectory(newDir);
+    setResultsAmount(total_results);
   }
+
+  useEffect(() => {
+    makeVisibleDirectory();
+  });
+
   return (
     <aside
       className={classNames(
@@ -272,69 +281,49 @@ function MobileDirectory(props: any) {
         className="min-h-0 flex-1 overflow-y-auto pb-[120px] sm:pb-[61px]"
         aria-label="Directory"
       >
-        {Object.keys(props.directory).map((letter) => (
-          <div
-            key={letter}
-            className={classNames(
-              oneMatches(letter) ? "" : "hidden",
-              "relative"
-            )}
-          >
+        {Object.keys(shownDirectory).map((letter) => (
+          <div key={letter} className={"relative"}>
             <div className="sticky top-0 z-10 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
               <h3>{letter}</h3>
             </div>
             <ul role="list" className="relative z-0 divide-y divide-gray-200">
-              {props.directory[letter]
-                .sort(function (a: any, b: any) {
-                  if (a.name < b.name) {
-                    return -1;
-                  } else {
-                    return 1;
-                  }
-                })
-                .map((person: any) => (
-                  <li
-                    className={
-                      elemMatches(person["fullProfile"], true) ? "" : "hidden"
-                    }
-                    key={"mob_" + person.id}
-                    onClick={() => {
-                      person["handler"](person["fullProfile"]);
-                      props.changeActiveHandler("mob_" + person.id);
-                    }}
+              {shownDirectory[letter].map((person: any) => (
+                <li
+                  key={"mob_" + person.id}
+                  onClick={() => {
+                    person["handler"](person["fullProfile"]);
+                    props.changeActiveHandler("mob_" + person.id);
+                  }}
+                >
+                  <div
+                    className={classNames(
+                      person.active ? "bg-gray-100" : "hover:bg-gray-50",
+                      "relative flex items-center space-x-3 px-6 py-5"
+                    )}
+                    id={"mob_" + person.id}
                   >
-                    <div
-                      className={classNames(
-                        person.active ? "bg-gray-100" : "hover:bg-gray-50",
-                        "relative flex items-center space-x-3 px-6 py-5"
-                      )}
-                      id={"mob_" + person.id}
-                    >
-                      <div className="flex-shrink-0">
-                        <img
-                          className="h-10 w-10 rounded-full object-cover"
-                          src={person.smallProfilePic}
-                          alt=""
-                        />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <a className="cursor-pointer focus:outline-none">
-                          {/* Extend touch target to entire panel */}
-                          <span
-                            className="absolute inset-0"
-                            aria-hidden="true"
-                          />
-                          <p className="text-sm font-medium text-gray-900">
-                            {person.name}
-                          </p>
-                          <p className="truncate text-sm text-gray-500">
-                            {person.role}
-                          </p>
-                        </a>
-                      </div>
+                    <div className="flex-shrink-0">
+                      <img
+                        className="h-10 w-10 rounded-full object-cover"
+                        src={person.smallProfilePic}
+                        alt=""
+                      />
                     </div>
-                  </li>
-                ))}
+                    <div className="min-w-0 flex-1">
+                      <a className="cursor-pointer focus:outline-none">
+                        {/* Extend touch target to entire panel */}
+                        <span className="absolute inset-0" aria-hidden="true" />
+                        <p className="text-sm font-medium text-gray-900">
+                          {person.name}
+                        </p>
+                        <p className="truncate text-sm text-gray-500">
+                          {person.role}
+                        </p>
+                      </a>
+                    </div>
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
         ))}
