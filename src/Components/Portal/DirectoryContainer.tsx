@@ -88,7 +88,7 @@ const damienProfile = {
 };
 
 //class DirectoryContainer extends React.Component<{fullPubDir:{[uid:string]:PubUserProfileType},uid:string},{directory_visible:boolean,loading:boolean,directory:{[uid:string]:PubUserProfileType},profile:PubUserProfileType,directory_size:number,changeVal:boolean,directoryLoaded:boolean}> {
-function DirectoryContainer(props:{fullPubDir:{[uid:string]:PubUserProfileType},uid:string}) {
+function DirectoryContainer(props:{fullPubDir:{[uid:string]:UserProfileType},uid:string}) {
   const [directory_visible, setDirectoryVisible] = useState(true);
   const [loading, setLoading] = useState(true);
   const [directory, setDirectory] = useState({});
@@ -96,13 +96,13 @@ function DirectoryContainer(props:{fullPubDir:{[uid:string]:PubUserProfileType},
   const [directory_size, setDirectorySize] = useState(0);
   const [activeMobile, setActiveMobile] = useState("1");
   const [currProfile, setCurrProfile] = useState("mob_1");
-  const [defaultProfile, setDefaultProfile] = useState({});
+  const [defaultProfile, setDefaultProfile]:any = useState({});
 
   function toggleVisibility() {
     setDirectoryVisible(!directory_visible);
   }
 
-  function dictFromProfile(profile:PubUserProfileType) {
+  function dictFromProfile(profile:UserProfileType) {
     var newProfile:any = {};
     newProfile.name = profile.name ?? "";
     newProfile.largeProfilePic =
@@ -190,7 +190,7 @@ function DirectoryContainer(props:{fullPubDir:{[uid:string]:PubUserProfileType},
     return newProfile;
   }
 
-  function changeProfileHandler(profile:PubUserProfileType) {
+  function changeProfileHandler(profile:UserProfileType) {
     setProfile(dictFromProfile(profile));
   }
 
@@ -243,9 +243,9 @@ function DirectoryContainer(props:{fullPubDir:{[uid:string]:PubUserProfileType},
       user_dict["handler"] = changeProfileHandler;
       user_dict["id"] = String(amount);
       user_dict["leetcode"] = profile.leetcode;
+      user_dict["uid"] = uid;
       if (uid === props.uid) {
         user_dict.email = profile.email;
-        user_dict.active = true;
         setActiveMobile(String(amount));
         setCurrProfile("mob_" + String(amount));
         setProfile(dictFromProfile(profile));

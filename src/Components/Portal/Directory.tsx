@@ -138,7 +138,7 @@ function MobileDirectory(props: any) {
         <h2 className="text-lg font-medium text-gray-900">Member Directory</h2>
         {searchVal === "" && showType === "Everyone" && (
           <p className="mt-1 text-sm text-gray-600">
-            Search directory of {props.directory_size} members
+            Search directory of {shownDirectory.length} members
           </p>
         )}
         {!(searchVal === "" && showType === "Everyone") && (

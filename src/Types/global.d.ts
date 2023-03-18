@@ -17,27 +17,7 @@ declare type SideBarArgsType = {
   onTabClick: (tab: string) => void;
 };
 
-declare type PubUserProfileType = {
-  about?: string;
-  cover_page_link?: string;
-  email?: string;
-  instagram?: string;
-  leetcode?: { username?: string; offsets?: any; answers?: any };
-  cover_resized_link?: string;
-  internships?: string;
-  linkedin?: string;
-  major?: string;
-  name?: string;
-  pfp_large_link?: string;
-  pfp_thumb_link?: string;
-  profile_pic_link?: string;
-  resume_link?: string;
-  role?: string;
-  signed_up?: boolean;
-  year?: freshman;
-};
-
-declare type PrivUserProfileType = {
+declare type UserProfileType = {
   about?: string;
   allowed?: boolean;
   email_viewable?: boolean;
