@@ -11,6 +11,7 @@ declare type NavigationType = {
 declare type SideBarArgsType = {
   Logo: string;
   Navigation: NavigationType;
+  CurrTab: string,
   ImageUrl: string;
   CurrentUserName: string;
   Admin: boolean;

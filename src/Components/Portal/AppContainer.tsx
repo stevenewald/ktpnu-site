@@ -68,13 +68,12 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-function MemberPage(props: { firebase: any; database: any; storage: any }) {
+function MemberPage(props: { firebase: any, database: any, storage: any }) {
   /* Used by App container/sidebars exclusively */
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [nav, setNavigation] = useState(navigation);
   const [admin, setAdmin] = useState(false);
   const [user, setUser] = useState(defaultUser);
-  const [currNav, setCurrNav] = useState("Members");
+  const [currTab, setCurrTab] = useState("Members");
 
   const [currUserUid, setCurrUserUid] = useState("");
   const [fullPubDir, setFullPubDir] = useState({});
@@ -129,17 +128,14 @@ function MemberPage(props: { firebase: any; database: any; storage: any }) {
 
   //When sidebar tab is clicked, change the navigation state to reflect the new tab
   function onTabClick(nextButton: string) {
-    var newNav: NavigationType = navigation;
-    newNav[currNav].current = false;
-    newNav[nextButton].current = true;
-    setCurrNav(nextButton);
+    setCurrTab(nextButton);
     setSidebarOpen(false);
-    setNavigation(newNav);
   }
 
   const args: SideBarArgsType = {
     Logo: Logo,
-    Navigation: nav,
+    Navigation: navigation,
+    CurrTab: currTab,
     ImageUrl: user.imageUrl,
     CurrentUserName: user.name,
     Admin: admin,
@@ -150,7 +146,7 @@ function MemberPage(props: { firebase: any; database: any; storage: any }) {
   return (
     <div
       className={classNames(
-        nav["Profile"].current ? "h-full" : "h-screen",
+        currTab=="Profile" ? "h-full" : "h-screen",
         "flex"
       )}
     >
@@ -194,13 +190,13 @@ function MemberPage(props: { firebase: any; database: any; storage: any }) {
         </div>
 
         {/* Member directory tab */}
-        <div className={nav["Members"].current === true ? "" : "hidden"}>
+        <div className={currTab=="Members" ? "" : "hidden"}>
           <ActiveProfileContext.Provider value={value}>
             <DirectoryContainer fullPubDir={fullPubDir} uid={currUserUid} />
           </ActiveProfileContext.Provider>
         </div>
         {/* Edit profile tab */}
-        <div className={nav["Profile"].current === true ? "" : "hidden"}>
+        <div className={currTab=="Profile" ? "" : "hidden"}>
           <NewUser
             firebase={props.firebase}
             database={props.database}
@@ -214,17 +210,17 @@ function MemberPage(props: { firebase: any; database: any; storage: any }) {
         </div>
 
         {/* Pledge calendar tab */}
-        <div className={nav["Calendar"].current ? "overflow-y-auto" : "hidden"}>
+        <div className={currTab=="Calendar" ? "overflow-y-auto" : "hidden"}>
           <PledgeCalendar />
         </div>
 
         {/* Admin tab, only visible to users with entry in users/UID/admin set to true */}
-        <div className={nav["Admin"].current ? "" : "hidden"}>
+        <div className={currTab=="Admin" ? "" : "hidden"}>
           <AdminPanel firebase={props.firebase} database={props.database} />
         </div>
 
         {/* Leetcode Leaderboard tab */}
-        <div className={nav["Leaderboard"].current ? "h-full" : "hidden"}>
+        <div className={currTab=="Leaderboard" ? "h-full" : "hidden"}>
           <LcLeaderboard firebase={props.firebase} database={props.database} />
         </div>
       </div>

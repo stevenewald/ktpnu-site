@@ -80,34 +80,35 @@ export default function MobileSidebar(props: {
                   <nav aria-label="Sidebar" className="mt-5">
                     <div className="space-y-1 px-2">
                       {Object.keys(args.Navigation).map((NavKey: string) => {
-                        const currNav = args.Navigation[NavKey];
-                        if (!currNav.secondary) {
+                        const currTab = args.Navigation[NavKey];
+                        const isCurrent = args.CurrTab === NavKey;
+                        if (!currTab.secondary && (args.Admin || !currTab.adminonly)) {
                           return (
                             <a
-                              key={currNav.name}
+                              key={currTab.name}
                               onClick={() => {
                                 args.onTabClick(NavKey);
                               }}
                               className={classNames(
-                                currNav.current
+                                isCurrent
                                   ? "bg-gray-100 text-gray-900"
                                   : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                                 "group flex items-center px-2 py-2 text-base font-medium rounded-md"
                               )}
                               aria-current={
-                                currNav.current ? "page" : undefined
+                                isCurrent ? "page" : undefined
                               }
                             >
-                              <currNav.icon
+                              <currTab.icon
                                 className={classNames(
-                                  currNav.current
+                                  isCurrent
                                     ? "text-gray-500"
                                     : "text-gray-400 group-hover:text-gray-500",
                                   "mr-4 h-6 w-6"
                                 )}
                                 aria-hidden="true"
                               />
-                              {currNav.name}
+                              {currTab.name}
                             </a>
                           );
                         } else {
@@ -121,26 +122,27 @@ export default function MobileSidebar(props: {
                     />
                     <div className="space-y-1 px-2">
                       {Object.keys(args.Navigation).map((NavKey: string) => {
-                        const currNav = args.Navigation[NavKey];
-                        if (currNav.secondary) {
+                        const currTab = args.Navigation[NavKey];
+                        const isCurrent = args.CurrTab === NavKey;
+                        if (currTab.secondary && (args.Admin || !currTab.adminonly)) {
                           return (
                             <a
-                              key={currNav.name}
+                              key={currTab.name}
                               onClick={() => {
                                 args.onTabClick(NavKey);
                               }}
                               className={classNames(
-                                currNav.current
+                                isCurrent
                                   ? "bg-gray-100 text-gray-900"
                                   : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                                 "group flex items-center px-2 py-2 text-base font-medium rounded-md"
                               )}
                             >
-                              <currNav.icon
+                              <currTab.icon
                                 className="mr-4 h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                                 aria-hidden="true"
                               />
-                              {currNav.name}
+                              {currTab.name}
                             </a>
                           );
                         } else {
@@ -154,7 +156,6 @@ export default function MobileSidebar(props: {
                   <a
                     className="cursor-pointer group block flex-shrink-0"
                     onClick={() => {
-                      //this.clickChild("none");
                       props.setSidebarOpen(false);
                       args.onTabClick("Members");
                       setActiveProfile(args.uid);
@@ -187,7 +188,6 @@ export default function MobileSidebar(props: {
           </div>
         </Dialog>
       </Transition.Root>
-      ;
     </>
   );
 }

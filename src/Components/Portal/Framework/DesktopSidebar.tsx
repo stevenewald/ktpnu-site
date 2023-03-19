@@ -26,32 +26,33 @@ export default function Sidebar(props: { args: SideBarArgsType }) {
             <nav className="mt-5 flex-1" aria-label="Sidebar">
               <div className="space-y-1 px-2">
                 {Object.keys(args.Navigation).map((NavKey: string) => {
-                  const currNav = args.Navigation[NavKey];
-                  if (!currNav.secondary) {
+                  const currTab = args.Navigation[NavKey];
+                  const isCurrent = args.CurrTab === NavKey;
+                  if (!currTab.secondary && (args.Admin || !currTab.adminonly)) {
                     return (
                       <a
-                        key={currNav.name}
+                        key={currTab.name}
                         onClick={() => {
                           args.onTabClick(NavKey);
                         }}
                         className={classNames(
-                          currNav.current
+                          isCurrent
                             ? "bg-gray-200 text-gray-900"
                             : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                           "cursor-pointer group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                         )}
-                        aria-current={currNav.current ? "page" : undefined}
+                        aria-current={isCurrent ? "page" : undefined}
                       >
-                        <currNav.icon
+                        <currTab.icon
                           className={classNames(
-                            currNav.current
+                            isCurrent
                               ? "text-gray-500"
                               : "text-gray-400 group-hover:text-gray-500",
                             "mr-3 flex-shrink-0 h-6 w-6"
                           )}
                           aria-hidden="true"
                         />
-                        {currNav.name}
+                        {currTab.name}
                       </a>
                     );
                   } else {
@@ -65,31 +66,32 @@ export default function Sidebar(props: { args: SideBarArgsType }) {
               />
               <div className="flex-1 space-y-1 px-2">
                 {Object.keys(args.Navigation).map((NavKey: string) => {
-                  const currNav = args.Navigation[NavKey];
-                  if (currNav.secondary && (args.Admin || !currNav.adminonly)) {
+                  const currTab = args.Navigation[NavKey];
+                  const isCurrent = args.CurrTab === NavKey;
+                  if (currTab.secondary && (args.Admin || !currTab.adminonly)) {
                     return (
                       <a
-                        key={currNav.name}
+                        key={currTab.name}
                         onClick={() => {
                           args.onTabClick(NavKey);
                         }}
                         className={classNames(
-                          currNav.current
+                          isCurrent
                             ? "bg-gray-200 text-gray-900"
                             : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                           "cursor-pointer group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                         )}
                       >
-                        <currNav.icon
+                        <currTab.icon
                           className={classNames(
-                            currNav.current
+                            isCurrent
                               ? "text-gray-500"
                               : "text-gray-400 group-hover:text-gray-500",
                             "mr-3 flex-shrink-0 h-6 w-6"
                           )}
                           aria-hidden="true"
                         />
-                        {currNav.name}
+                        {currTab.name}
                       </a>
                     );
                   } else {
@@ -106,7 +108,7 @@ export default function Sidebar(props: { args: SideBarArgsType }) {
                 onClick={() => {
                   args.onTabClick("Members");
                   setActiveProfile(args.uid);
-                }} //() => this.clickChild("none")}
+                }}
               >
                 <div className="flex items-center">
                   <div>
