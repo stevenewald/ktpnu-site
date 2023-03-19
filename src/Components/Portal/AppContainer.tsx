@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { ref, child, get } from "firebase/database";
-import LcLeaderboard from "@portal/LcLeaderboard";
-import DirectoryContainer from "@portal/DirectoryContainer";
-import NewUser from "@portal/NewUser";
+import LcLeaderboard from "@tabs/LcLeaderboard/LcLeaderboard";
+import DirectoryContainer from "@tabs/Directory/DirectoryContainer";
+import NewUser from "@auth/NewUser";
 import RushEvents from "@landing/RushEvents";
-import PledgeCalendar from "@portal/PledgeCalendar";
+import PledgeCalendar from "@tabs/Calendar/PledgeCalendar";
 import Logo from "@/Assets/Images/Branding/Logo.png";
-import AdminPanel from "@portal/AdminPanel";
+import AdminPanel from "@tabs/Admin/AdminPanel";
 import DesktopSidebar from "@portal/Framework/DesktopSidebar";
 import MobileSidebar from "@portal/Framework/MobileSidebar";
 import Swal from "sweetalert2";

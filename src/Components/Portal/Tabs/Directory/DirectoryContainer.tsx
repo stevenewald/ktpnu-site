@@ -1,9 +1,9 @@
 import { useEffect, useState, useContext } from "react";
 import { ActiveProfileContext } from "@portal/Framework/ActiveProfileContext";
 
-import IndivProfile from "./IndivProfile";
-import Directory from "./Directory";
-import Loading from "./Loading";
+import IndivProfile from "@tabs/Directory/IndivProfile";
+import Directory from "@tabs/Directory/Directory";
+import Loading from "@tabs/Directory/Loading";
 
 const LoadingDirectory = {
   A: [
@@ -44,7 +44,7 @@ const tabs = [
 ];
 
 //class DirectoryContainer extends React.Component<{fullPubDir:{[uid:string]:PubUserProfileType},uid:string},{directory_visible:boolean,loading:boolean,directory:{[uid:string]:PubUserProfileType},profile:PubUserProfileType,directory_size:number,changeVal:boolean,directoryLoaded:boolean}> {
-function DirectoryContainer(props:{fullPubDir:{[uid:string]:UserProfileType},uid:string}) {
+export default function DirectoryContainer(props:{fullPubDir:{[uid:string]:UserProfileType},uid:string}) {
   const [directory_visible, setDirectoryVisible] = useState(true);
   const [loading, setLoading] = useState(true);
   const [directory, setDirectory] = useState({});
@@ -112,4 +112,3 @@ function DirectoryContainer(props:{fullPubDir:{[uid:string]:UserProfileType},uid
       </div>
     );
 }
-export default DirectoryContainer;

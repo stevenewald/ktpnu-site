@@ -4,9 +4,9 @@ import "./index.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MemberPage from "@portal/AppContainer";
-import MemberLogin from "@portal/GoogleRedirect";
-import SignUp from "@portal/SignUp";
-import NewUserCont from "@portal/NewUserCont";
+import MemberLogin from "@auth/GoogleRedirect";
+import SignUp from "@auth/SignUp";
+import NewUserCont from "@auth/NewUserCont";
 import Maintenance from "@landing/Maintenance";
 
 import Hero from "@landing/Hero";

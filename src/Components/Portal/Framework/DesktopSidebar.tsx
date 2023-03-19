@@ -6,7 +6,8 @@ function classNames(...classes: string[]): string {
 
 export default function Sidebar(props: { args: SideBarArgsType }) {
   const args = props.args;
-  const { _, setActiveProfile }: any = useContext(ActiveProfileContext);
+  const {_, setActiveProfile }: any = useContext(ActiveProfileContext);
+  _;
   return (
     <div className="hidden lg:flex lg:flex-shrink-0">
       <div className="flex w-64 flex-col">

@@ -12,6 +12,7 @@ export default function MobileSidebar(props: {
 }) {
   const args = props.args;
   const {_, setActiveProfile}:any = useContext(ActiveProfileContext);
+  _;
   return (
     <>
       <Transition.Root show={props.sideBarOpen} as={Fragment}>

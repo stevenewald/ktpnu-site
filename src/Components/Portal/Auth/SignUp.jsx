@@ -1,7 +1,7 @@
 import React from "react";
 import Swal from "sweetalert2";
 import { ref, child, get } from "firebase/database";
-import DamienPic from "./images/damien.JPG";
+import DamienPic from "@images/Branding/damien.jpg";
 
 class SignUp extends React.Component {
   constructor(props) {

@@ -973,30 +973,14 @@ class NewUser extends React.Component {
             document.getElementById("profPicImg").src = prof["pfp_thumb_link"]
               ? prof["pfp_thumb_link"]
               : elem;
-            document.getElementById("phone-number").value = prof["phone"]
-              ? prof["phone"]
-              : "";
-            document.getElementById("year").value = prof["year"]
-              ? prof["year"]
-              : "";
-            document.getElementById("major").value = prof["year"]
-              ? prof["major"]
-              : "";
-            document.getElementById("internships").value = prof["internships"]
-              ? prof["internships"]
-              : "";
-            document.getElementById("instagram").value = prof["instagram"]
-              ? prof["instagram"]
-              : "";
-            document.getElementById("linkedin").value = prof["linkedin"]
-              ? prof["linkedin"]
-              : "";
-            document.getElementById("about").value = prof["about"]
-              ? prof["about"]
-              : "";
-            document.getElementById("leetcode").value = prof["leetcode"]
-              ? prof["leetcode"].username
-              : "";
+            document.getElementById("phone-number").value = prof["phone"] || "";
+            document.getElementById("year").value = prof["year"] || "";
+            document.getElementById("major").value = prof["year"] || "";
+            document.getElementById("internships").value = prof["internships"] || "";
+            document.getElementById("instagram").value = prof["instagram"] || "";
+            document.getElementById("linkedin").value = prof["linkedin"] || "";
+            document.getElementById("about").value = prof["about"] || "";
+            document.getElementById("leetcode").value = prof["leetcode"]?.username || "";
             if(prof["leetcode"]) {
               this.setState({existingLC:true});
             }

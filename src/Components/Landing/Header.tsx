@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Logo from "@images/Branding/Logo.png";
 
 const navigation: { name: string; href: string }[] = [
