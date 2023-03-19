@@ -60,7 +60,7 @@ if (window.location.hostname === "localhost") {
   database = getDatabase(app);
 }
 
-const maintenance = false;
+const maintenance = true;
 
 class Full extends React.Component {
   render() {

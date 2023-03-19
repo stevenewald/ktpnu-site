@@ -23,8 +23,6 @@ function IndivProfile(props: {
 }) {
   const currProfile = props.directory[props.activeProfile];
   if(!currProfile) {
-    console.log(props.activeProfile);
-    console.log(JSON.stringify(props.directory));
     return <div></div>;
   }
   var socials = [];

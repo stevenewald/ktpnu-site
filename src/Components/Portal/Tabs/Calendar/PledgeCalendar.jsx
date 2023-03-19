@@ -219,7 +219,6 @@ class PledgeCalendar extends React.Component {
                   return a_date - b_date;
                 })
 
-                console.log(newNotionEvents);
 
                 // Make notionEvents equal to the temporary one we just created
                 this.setState({ notionEvents: newNotionEvents }, () => {
