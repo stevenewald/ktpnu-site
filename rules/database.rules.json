@@ -1,0 +1,35 @@
+{
+  "rules": {
+    "users": {
+      "$user_id": {
+        ".read": "$user_id === auth.uid && root.child('users').child(auth.uid).child('allowed').val() === true",
+        "$child": {
+          ".write": "$user_id === auth.uid  && root.child('users').child(auth.uid).child('allowed').val() === true && ($child !== 'admin')"
+        }
+      }
+    },
+    "allowed_users": {
+      "$user_id": {
+        ".write": "root.child('users').child(auth.uid).child('admin').val() === true",
+        ".read": true
+      }
+    },
+    "public_users": {
+      "$user_id": {
+        ".write": "$user_id === auth.uid  && root.child('users').child(auth.uid).child('allowed').val() === true",
+        ".read": true
+      },
+      ".read": "root.child('users').child(auth.uid).exists()"
+    },
+    "leetcode_offsets": {
+      "$user_id": {
+        ".write": false,
+        ".read": true
+      }
+    },
+    "announcements": {
+      ".write": false,
+      ".read": "root.child('users').child(auth.uid).exists()"
+    }
+  }
+}

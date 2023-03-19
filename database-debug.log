@@ -1,0 +1,14 @@
+12:57:06.380 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+12:57:06.475 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+12:57:06.694 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - ktp-site-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 72ms, init: 0ms
+12:57:22.811 [NamespaceSystem-blocking-namespace-operation-dispatcher-9] INFO com.firebase.core.namespace.StateManager - Namespace ktp-site-default-rtdb status Active to Active
+12:58:38.211 [FirebaseWorkerPool-1-3] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
+namespace 127, but the emulator is configured for ktp-site-default-rtdb. To 
+opt-out of single project mode add/set the single_project_mode: false property in 
+the firebase.json emulators config. 
+12:58:38.219 [NamespaceSystem-akka.actor.default-dispatcher-8] INFO com.firebase.core.namespace.NamespaceActor - 127 successfully activated FBKV (SurveyIdle(0)) wait: 3ms, init: 0ms
+13:17:36.063 [FirebaseWorkerPool-1-1] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
+namespace ktp-site, but the emulator is configured for ktp-site-default-rtdb,127. To 
+opt-out of single project mode add/set the single_project_mode: false property in 
+the firebase.json emulators config. 
+13:17:36.080 [NamespaceSystem-akka.actor.default-dispatcher-38] INFO com.firebase.core.namespace.NamespaceActor - ktp-site successfully activated FBKV (SurveyIdle(0)) wait: 12ms, init: 0ms
