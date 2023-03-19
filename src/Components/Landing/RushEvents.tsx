@@ -127,7 +127,7 @@ function RushEvents() {
         platter.current.scrollLeft = 340 * passed_events;
       }
     }
-  });
+  }, []);
 
   return (
     <>

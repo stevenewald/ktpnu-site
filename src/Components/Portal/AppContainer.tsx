@@ -120,7 +120,7 @@ function MemberPage(props: { firebase: any; database: any; storage: any }) {
         });
       }
     });
-  });
+  }, []);
 
   //When sidebar tab is clicked, change the navigation state to reflect the new tab
   function onTabClick(nextButton: string) {

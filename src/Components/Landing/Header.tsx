@@ -11,10 +11,6 @@ const navigation: { name: string; href: string }[] = [
 function Header(props: { maintenance: boolean; firebase: any }) {
   const [burgerMenu, setBurgerMenu] = useState(false);
 
-  useEffect(() => {
-    console.log(burgerMenu);
-  });
-
   return (
     <header
       id="navbar"

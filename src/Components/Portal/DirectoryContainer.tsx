@@ -93,10 +93,7 @@ function DirectoryContainer(props:{fullPubDir:{[uid:string]:UserProfileType},uid
   const [loading, setLoading] = useState(true);
   const [directory, setDirectory] = useState({});
   const [profile, setProfile] = useState(damienProfile);
-  const [directory_size, setDirectorySize] = useState(0);
-  const [activeMobile, setActiveMobile] = useState("1");
-  const [currProfile, setCurrProfile] = useState("mob_1");
-  const [defaultProfile, setDefaultProfile]:any = useState({});
+  const [activeProfile, setActiveProfile] = useState(props.uid);
 
   function toggleVisibility() {
     setDirectoryVisible(!directory_visible);
@@ -190,11 +187,11 @@ function DirectoryContainer(props:{fullPubDir:{[uid:string]:UserProfileType},uid
     return newProfile;
   }
 
-  function changeProfileHandler(profile:UserProfileType) {
+  /*function changeProfileHandler(profile:UserProfileType) {
     setProfile(dictFromProfile(profile));
-  }
+  }*/
 
-  function changeActiveHandler(id:string) {
+  /*function changeActiveHandler(id:string) {
     if (id == "none") {
       id = currProfile;
       changeProfileHandler(defaultProfile);
@@ -215,46 +212,23 @@ function DirectoryContainer(props:{fullPubDir:{[uid:string]:UserProfileType},uid
         ?.scrollIntoView({ block: "start", behavior: "smooth" });
     }
     toggleVisibility();
-  }
+  }*/
 
   //runs once when the full public directory is updated to a non empty dictionary
   function processFullDirectory() {
-    if (Object.keys(props.fullPubDir).length == 0 || !loading) {
-      return;
-    }
     var newDirectory:any = {};
     const dir = props.fullPubDir;
-    var amount = 0;
     for (var uid in dir) {
       const profile = dir[uid];
       if (!profile.name) {
         continue;
       }
-      amount += 1;
       const first_letter = profile.name.charAt(0).toUpperCase();
-      var user_dict:any = {};
-      user_dict["name"] = profile.name;
-      user_dict["role"] = profile.role;
-      user_dict["largeProfilePic"] =
-        profile.pfp_large_link ?? profile.profile_pic_link;
-      user_dict["smallProfilePic"] =
-        profile.pfp_thumb_link ?? profile.profile_pic_link;
-      user_dict["fullProfile"] = profile;
-      user_dict["handler"] = changeProfileHandler;
-      user_dict["id"] = String(amount);
-      user_dict["leetcode"] = profile.leetcode;
-      user_dict["uid"] = uid;
-      if (uid === props.uid) {
-        user_dict.email = profile.email;
-        setActiveMobile(String(amount));
-        setCurrProfile("mob_" + String(amount));
-        setProfile(dictFromProfile(profile));
-        setDefaultProfile(profile);
-      }
       if (first_letter in newDirectory) {
-        newDirectory[first_letter].push(user_dict);
+        newDirectory[first_letter][uid] = profile;
       } else {
-        newDirectory[first_letter] = [user_dict];
+        newDirectory[first_letter] = {}
+        newDirectory[first_letter][uid] = profile;
       }
     }
     const ordered = Object.keys(newDirectory)
@@ -264,18 +238,19 @@ function DirectoryContainer(props:{fullPubDir:{[uid:string]:UserProfileType},uid
         return obj;
       }, {});
       setLoading(false);
-      setDirectorySize(amount);
       setDirectory(ordered);
     //this.props.setClick(this.changeActiveHandler);
   }
 
-  useEffect(() => {processFullDirectory()})
+  useEffect(() => {processFullDirectory()}, [props.fullPubDir]);
+  useEffect(() => {setActiveProfile(props.uid)}, [props.uid]);
 
     return (
       <div className="relative z-0 flex flex-1 h-screen">
         <IndivProfile
           tabs={tabs}
-          profile={profile}
+          directory={props.fullPubDir}
+          activeProfile={activeProfile}
           //team={team}
           dir_vis={directory_visible}
           handler={toggleVisibility}
@@ -283,11 +258,11 @@ function DirectoryContainer(props:{fullPubDir:{[uid:string]:UserProfileType},uid
         />
         <Directory
           directory={directory}
+          activeProfile={activeProfile}
+          setActiveProfile={setActiveProfile}
           dir_vis={directory_visible}
           handler={toggleVisibility}
           loading={loading}
-          directory_size={directory_size}
-          changeActiveHandler={changeActiveHandler}
         />
         <Loading
           directory={LoadingDirectory}

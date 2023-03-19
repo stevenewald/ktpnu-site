@@ -18,8 +18,7 @@ function classNames(...classes: string[]) {
 function MobileDirectory(props: any) {
   const [searchVal, setSearchVal] = React.useState("");
   const [showType, setShowType] = React.useState("Everyone");
-  const [results_amount, setResultsAmount] = React.useState(0);
-  const [shownDirectory, setShownDirectory]: any = React.useState({});
+  const [shownDirectory, setShownDirectory]:any = React.useState([{}, 0]); // [directory, amount of results]
 
   function searchBarChange(val: string) {
     setSearchVal(val.toLowerCase());
@@ -75,36 +74,26 @@ function MobileDirectory(props: any) {
     }
   }
 
-  function makeVisibleDirectory(): void {
+  function generateVisibleDirectory(): void {
     var newDir: any = {};
     var total_results = 0;
     for (var letter in props.directory) {
-      for (var i = 0; i < props.directory[letter].length; i++) {
-        if (profileMatches(props.directory[letter][i]["fullProfile"])) {
+      for (var uid in props.directory[letter]) {
+        if (profileMatches(props.directory[letter][uid])) {
           if (!(letter in newDir)) {
-            newDir[letter] = [];
+            newDir[letter] = {};
           }
-          newDir[letter].push(props.directory[letter][i]);
+          newDir[letter][uid] = props.directory[letter][uid];
           total_results++;
         }
       }
     }
-    for (var letter in newDir) {
-      newDir[letter].sort(function (a: any, b: any) {
-        if (a.name < b.name) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
-    }
-    setShownDirectory(newDir);
-    setResultsAmount(total_results);
+    setShownDirectory([newDir, total_results]);
   }
 
   useEffect(() => {
-    makeVisibleDirectory();
-  });
+    generateVisibleDirectory();
+  }, [searchVal, showType, props.directory]);
 
   return (
     <aside
@@ -138,13 +127,13 @@ function MobileDirectory(props: any) {
         <h2 className="text-lg font-medium text-gray-900">Member Directory</h2>
         {searchVal === "" && showType === "Everyone" && (
           <p className="mt-1 text-sm text-gray-600">
-            Search directory of {shownDirectory.length} members
+            Search directory of {Object.keys(shownDirectory[0]).length} members
           </p>
         )}
         {!(searchVal === "" && showType === "Everyone") && (
           <p className="mt-1 text-sm text-gray-600">
-            Showing {results_amount} search result
-            {results_amount != 1 && "s"}
+            Showing {shownDirectory[1]} search result
+            {shownDirectory[1] != 1 && "s"}
           </p>
         )}
         <form className="mt-6 flex space-x-4" action="#">
@@ -281,49 +270,54 @@ function MobileDirectory(props: any) {
         className="min-h-0 flex-1 overflow-y-auto pb-[120px] sm:pb-[61px]"
         aria-label="Directory"
       >
-        {Object.keys(shownDirectory).map((letter) => (
+        {Object.keys(shownDirectory[0]).map((letter) => ( // For each letter in the directory of visible profiles
           <div key={letter} className={"relative"}>
             <div className="sticky top-0 z-10 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
               <h3>{letter}</h3>
             </div>
             <ul role="list" className="relative z-0 divide-y divide-gray-200">
-              {shownDirectory[letter].map((person: any) => (
-                <li
-                  key={"mob_" + person.id}
-                  onClick={() => {
-                    person["handler"](person["fullProfile"]);
-                    props.changeActiveHandler("mob_" + person.id);
-                  }}
-                >
-                  <div
-                    className={classNames(
-                      person.active ? "bg-gray-100" : "hover:bg-gray-50",
-                      "relative flex items-center space-x-3 px-6 py-5"
-                    )}
-                    id={"mob_" + person.id}
-                  >
-                    <div className="flex-shrink-0">
-                      <img
-                        className="h-10 w-10 rounded-full object-cover"
-                        src={person.smallProfilePic}
-                        alt=""
-                      />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <a className="cursor-pointer focus:outline-none">
-                        {/* Extend touch target to entire panel */}
-                        <span className="absolute inset-0" aria-hidden="true" />
-                        <p className="text-sm font-medium text-gray-900">
-                          {person.name}
-                        </p>
-                        <p className="truncate text-sm text-gray-500">
-                          {person.role}
-                        </p>
-                      </a>
-                    </div>
-                  </div>
-                </li>
-              ))}
+              {Object.keys(shownDirectory[0][letter]) //for each profile under the letter
+                .sort()
+                .map((uid: string) => {
+                  const person = shownDirectory[0][letter][uid]; //individual profile
+                  return (
+                    <li onClick={() => {props.setActiveProfile(uid)}}>
+                      <div
+                        className={classNames(
+                          uid === props.activeProfile
+                            ? "bg-gray-100"
+                            : "hover:bg-gray-50",
+                          "relative flex items-center space-x-3 px-6 py-5"
+                        )}
+                      >
+                        <div className="flex-shrink-0">
+                          <img
+                            className="h-10 w-10 rounded-full object-cover"
+                            src={
+                              person.pfp_thumb_link || person.profile_pic_link
+                            }
+                            alt=""
+                          />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <a className="cursor-pointer focus:outline-none">
+                            {/* Extend touch target to entire panel */}
+                            <span
+                              className="absolute inset-0"
+                              aria-hidden="true"
+                            />
+                            <p className="text-sm font-medium text-gray-900">
+                              {person.name}
+                            </p>
+                            <p className="truncate text-sm text-gray-500">
+                              {person.role}
+                            </p>
+                          </a>
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
             </ul>
           </div>
         ))}
