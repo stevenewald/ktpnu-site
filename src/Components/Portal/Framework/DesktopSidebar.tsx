@@ -100,7 +100,9 @@ export default function Sidebar(props: { args: SideBarArgsType }) {
             <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
               <a
                 className="cursor-pointer group block w-full flex-shrink-0"
-                onClick={() => 0} //() => this.clickChild("none")}
+                onClick={() => {
+                  args.onTabClick("Members");
+                }} //() => this.clickChild("none")}
               >
                 <div className="flex items-center">
                   <div>

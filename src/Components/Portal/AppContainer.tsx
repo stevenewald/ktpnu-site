@@ -157,6 +157,8 @@ function MemberPage(props: { firebase: any; database: any; storage: any }) {
 
       {/* Static sidebar for desktop */}
       <DesktopSidebar args={args} />
+
+      {/* Main content area */}
       <div className="flex min-w-0 flex-1 flex-col ">
         <div className="lg:hidden">
           <div className="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-4 py-1.5">
@@ -182,10 +184,12 @@ function MemberPage(props: { firebase: any; database: any; storage: any }) {
             </div>
           </div>
         </div>
-        {/* */}
+
+        {/* Member directory tab */}
         <div className={nav["Members"].current === true ? "" : "hidden"}>
           <DirectoryContainer fullPubDir={fullPubDir} uid={uid} />
         </div>
+        {/* Edit profile tab */}
         <div className={nav["Profile"].current === true ? "" : "hidden"}>
           <NewUser
             firebase={props.firebase}
@@ -194,17 +198,22 @@ function MemberPage(props: { firebase: any; database: any; storage: any }) {
             newuser={false}
           />
         </div>
+        {/* Rush events tab */}
         <div className={false ? "" : "hidden"}>
           <RushEvents />
         </div>
 
+        {/* Pledge calendar tab */}
         <div className={nav["Calendar"].current ? "overflow-y-auto" : "hidden"}>
           <PledgeCalendar />
         </div>
 
+        {/* Admin tab, only visible to users with entry in users/UID/admin set to true */}
         <div className={nav["Admin"].current ? "" : "hidden"}>
           <AdminPanel firebase={props.firebase} database={props.database} />
         </div>
+
+        {/* Leetcode Leaderboard tab */}
         <div className={nav["Leaderboard"].current ? "h-full" : "hidden"}>
           <LcLeaderboard firebase={props.firebase} database={props.database} />
         </div>

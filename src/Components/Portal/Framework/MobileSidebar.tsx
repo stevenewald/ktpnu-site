@@ -154,6 +154,7 @@ export default function MobileSidebar(props: {
                     onClick={() => {
                       //this.clickChild("none");
                       props.setSidebarOpen(false);
+                      args.onTabClick("Members");
                     }}
                   >
                     <div className="flex items-center">
