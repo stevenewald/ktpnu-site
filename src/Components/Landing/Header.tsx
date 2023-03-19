@@ -35,7 +35,7 @@ function Header(props: { maintenance: boolean; firebase: any }) {
         ))}
 
         <p className="absolute text-lg font-semibold text-gray-500 bottom-[20px] left-[20px]">
-          &copy; 2022 Kappa Theta Pi
+          &copy; 2023 Kappa Theta Pi
         </p>
       </nav>
 
