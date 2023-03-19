@@ -10,6 +10,7 @@ import AdminPanel from "@portal/AdminPanel";
 import DesktopSidebar from "@portal/Framework/DesktopSidebar";
 import MobileSidebar from "@portal/Framework/MobileSidebar";
 import Swal from "sweetalert2";
+import { ActiveProfileContext } from "@portal/Framework/ActiveProfileContext";
 import {
   Bars3Icon,
   CogIcon,
@@ -19,7 +20,7 @@ import {
   CalendarIcon,
 } from "@heroicons/react/24/outline";
 
-//When loading public directory, this is shown. Image data encoded in the file.
+//Default user to show while loading, replaced by real user after. Image data encoded in the code.
 const defaultUser = {
   name: "Loading",
   imageUrl:
@@ -68,13 +69,17 @@ function classNames(...classes: string[]) {
 }
 
 function MemberPage(props: { firebase: any; database: any; storage: any }) {
+  /* Used by App container/sidebars exclusively */
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [user, setUser] = useState(defaultUser);
   const [nav, setNavigation] = useState(navigation);
   const [admin, setAdmin] = useState(false);
-  const [uid, setUid] = useState("");
-  const [fullPubDir, setFullPubDir] = useState({});
+  const [user, setUser] = useState(defaultUser);
   const [currNav, setCurrNav] = useState("Members");
+
+  const [currUserUid, setCurrUserUid] = useState("");
+  const [fullPubDir, setFullPubDir] = useState({});
+  const [activeProfile, setActiveProfile] = useState(currUserUid);
+  const value: any = { activeProfile, setActiveProfile };
 
   useEffect(() => {
     if (localStorage.getItem("justSetup") === "true") {
@@ -85,7 +90,7 @@ function MemberPage(props: { firebase: any; database: any; storage: any }) {
         var newUser: any = {};
         var dir: any = {};
         const dbRef = ref(props.database);
-        setUid(user.uid);
+        setCurrUserUid(user.uid);
         get(child(dbRef, "public_users"))
           .then((snapshot) => {
             dir = snapshot.val();
@@ -138,6 +143,7 @@ function MemberPage(props: { firebase: any; database: any; storage: any }) {
     ImageUrl: user.imageUrl,
     CurrentUserName: user.name,
     Admin: admin,
+    uid: currUserUid,
     onTabClick: onTabClick,
   };
 
@@ -148,15 +154,17 @@ function MemberPage(props: { firebase: any; database: any; storage: any }) {
         "flex"
       )}
     >
-      {/* Dynamic sidebar for mobile */}
-      <MobileSidebar
-        args={args}
-        sideBarOpen={sidebarOpen}
-        setSidebarOpen={setSidebarOpen}
-      />
+      <ActiveProfileContext.Provider value={value}>
+        {/* Dynamic sidebar for mobile */}
+        <MobileSidebar
+          args={args}
+          sideBarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
 
-      {/* Static sidebar for desktop */}
-      <DesktopSidebar args={args} />
+        {/* Static sidebar for desktop */}
+        <DesktopSidebar args={args} />
+      </ActiveProfileContext.Provider>
 
       {/* Main content area */}
       <div className="flex min-w-0 flex-1 flex-col ">
@@ -187,7 +195,9 @@ function MemberPage(props: { firebase: any; database: any; storage: any }) {
 
         {/* Member directory tab */}
         <div className={nav["Members"].current === true ? "" : "hidden"}>
-          <DirectoryContainer fullPubDir={fullPubDir} uid={uid} />
+          <ActiveProfileContext.Provider value={value}>
+            <DirectoryContainer fullPubDir={fullPubDir} uid={currUserUid} />
+          </ActiveProfileContext.Provider>
         </div>
         {/* Edit profile tab */}
         <div className={nav["Profile"].current === true ? "" : "hidden"}>

@@ -1,6 +1,7 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { ActiveProfileContext } from "@portal/Framework/ActiveProfileContext";
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
@@ -10,6 +11,7 @@ export default function MobileSidebar(props: {
   setSidebarOpen: (val: boolean) => void;
 }) {
   const args = props.args;
+  const {_, setActiveProfile}:any = useContext(ActiveProfileContext);
   return (
     <>
       <Transition.Root show={props.sideBarOpen} as={Fragment}>
@@ -155,6 +157,7 @@ export default function MobileSidebar(props: {
                       //this.clickChild("none");
                       props.setSidebarOpen(false);
                       args.onTabClick("Members");
+                      setActiveProfile(args.uid);
                     }}
                   >
                     <div className="flex items-center">

@@ -1,9 +1,12 @@
+import { ActiveProfileContext } from "@portal/Framework/ActiveProfileContext";
+import { useContext } from "react";
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Sidebar(props: { args: SideBarArgsType }) {
   const args = props.args;
+  const { _, setActiveProfile }: any = useContext(ActiveProfileContext);
   return (
     <div className="hidden lg:flex lg:flex-shrink-0">
       <div className="flex w-64 flex-col">
@@ -102,6 +105,7 @@ export default function Sidebar(props: { args: SideBarArgsType }) {
                 className="cursor-pointer group block w-full flex-shrink-0"
                 onClick={() => {
                   args.onTabClick("Members");
+                  setActiveProfile(args.uid);
                 }} //() => this.clickChild("none")}
               >
                 <div className="flex items-center">

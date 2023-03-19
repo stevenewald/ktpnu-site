@@ -14,6 +14,7 @@ declare type SideBarArgsType = {
   ImageUrl: string;
   CurrentUserName: string;
   Admin: boolean;
+  uid:string;
   onTabClick: (tab: string) => void;
 };
 
