@@ -15,7 +15,7 @@ function classNames(...classes: string[]) {
 //no dir vis and loading: invisible
 //dir vis and loading: invisible
 
-function MobileDirectory(props: any) {
+function Directory(props: any) {
   const [searchVal, setSearchVal] = React.useState("");
   const [showType, setShowType] = React.useState("Everyone");
   const [shownDirectory, setShownDirectory]:any = React.useState([{}, 0]); // [directory, amount of results]
@@ -281,7 +281,7 @@ function MobileDirectory(props: any) {
                 .map((uid: string) => {
                   const person = shownDirectory[0][letter][uid]; //individual profile
                   return (
-                    <li onClick={() => {props.setActiveProfile(uid)}}>
+                    <li onClick={() => {props.setActiveProfile(uid);props.handler();}}>
                       <div
                         className={classNames(
                           uid === props.activeProfile
@@ -326,4 +326,4 @@ function MobileDirectory(props: any) {
   );
 }
 
-export default MobileDirectory;
+export default Directory;

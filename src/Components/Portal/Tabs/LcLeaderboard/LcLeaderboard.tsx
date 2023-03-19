@@ -21,100 +21,100 @@ const places_to_20 = [
   "19th",
   "20th",
 ];
-import { ref, child, get } from "firebase/database";
 function weightedScoreCalc(easy: number, med: number, hard: number): number {
   return easy * 2 + med * 5 + hard * 8;
 }
 
 class LcLeaderboard extends React.Component<
-  { firebase: any; database: any },
+  { firebase: any; database: any, fullPubDir:any },
   { lcStats: any[] }
 > {
-  constructor(props: { firebase: any; database: any }) {
+  constructor(props: { firebase: any; database: any, fullPubDir:any }) {
     super(props);
     //"Steven Ewald":"stevenewald","Ford Holmen":"fholmen1","Tahira ":"tahiragrewal","Cat Tawadros":"ctawadros","Eagan Deshpande":"ikan9989","Conor Olson":"cbolson03","Mia Scarpati":"mscarpati","Andy Vu":"Andy_V_123","Kelly Meng":"kellymeng","Eli G":"Eligottlieb","Sneh Deshpande":"SnehDeshpande"
     this.state = {
       lcStats: [],
     };
+    this.processPubDir = this.processPubDir.bind(this);
   }
 
-  componentDidMount() {
-    this.props.firebase.auth().onAuthStateChanged(async (user: any) => {
-      if (user) {
-        try {
-          const dbRef = ref(this.props.database);
-          const snapshot = await get(child(dbRef, "public_users"));
-          const dir = snapshot.val();
-          var lc_users: {
-            [key: string]: {
-              name: string;
-              offsets: any;
-              answers: any;
-              pfp: string;
-            };
-          } = {};
-          for (var user3 in dir) {
-            const user2 = dir[user3];
-            if (user2.leetcode && user2.leetcode.username) {
-              if (!user2.leetcode.answers) {
-                console.log(user2.leetcode + " has no answers, skipping\n");
-                continue;
-              } else if (!user2.leetcode.offsets) {
-                console.log(user2.leetcode + " has no offsets, skipping\n");
-                continue;
-              }
-              const prof_pic = user2.pfp_large_link
-                ? user2.pfp_large_link
-                : user2.profile_pic_link;
-              lc_users[user2.leetcode.username] = {
-                name: user2.name,
-                offsets: user2.leetcode.offsets,
-                answers: user2.leetcode.answers,
-                pfp: prof_pic,
-              };
-            }
+  processPubDir() {
+    if(this.state.lcStats.length > 0) return;
+    try {
+      const dir = this.props.fullPubDir;
+      var lc_users: {
+        [key: string]: {
+          name: string;
+          offsets: any;
+          answers: any;
+          pfp: string;
+        };
+      } = {};
+      for (var user3 in dir) {
+        const user2 = dir[user3];
+        if (user2.leetcode && user2.leetcode.username) {
+          if (!user2.leetcode.answers) {
+            console.log(user2.leetcode + " has no answers, skipping\n");
+            continue;
+          } else if (!user2.leetcode.offsets) {
+            console.log(user2.leetcode + " has no offsets, skipping\n");
+            continue;
           }
-          var formattedStats = [];
-          for (var lcusername in lc_users) {
-            const lc_user_elem = lc_users[lcusername];
-            formattedStats.push({
-              lcUser: lcusername,
-              name: lc_user_elem.name,
-              easySolved:
-                lc_user_elem.answers.easySolved -
-                lc_user_elem.offsets.easySolved,
-              mediumSolved:
-                lc_user_elem.answers.mediumSolved -
-                lc_user_elem.offsets.mediumSolved,
-              hardSolved:
-                lc_user_elem.answers.hardSolved -
-                lc_user_elem.offsets.hardSolved,
-              acceptanceRate: lc_user_elem.answers.acceptanceRate,
-              weightedScore: weightedScoreCalc(
-                lc_user_elem.answers.easySolved -
-                  lc_user_elem.offsets.easySolved,
-                lc_user_elem.answers.mediumSolved -
-                  lc_user_elem.offsets.mediumSolved,
-                lc_user_elem.answers.hardSolved -
-                  lc_user_elem.offsets.hardSolved
-              ),
-              pictureLink: lc_user_elem.pfp,
-            });
-          }
-          const sortedData = formattedStats.sort(
-            (a, b) => b.weightedScore - a.weightedScore
-          );
-          this.setState({
-            lcStats: sortedData,
-          });
-        } catch (errors) {
-          console.log(errors);
+          const prof_pic = user2.pfp_large_link
+            ? user2.pfp_large_link
+            : user2.profile_pic_link;
+          lc_users[user2.leetcode.username] = {
+            name: user2.name,
+            offsets: user2.leetcode.offsets,
+            answers: user2.leetcode.answers,
+            pfp: prof_pic,
+          };
         }
       }
-    });
+      var formattedStats = [];
+      for (var lcusername in lc_users) {
+        const lc_user_elem = lc_users[lcusername];
+        formattedStats.push({
+          lcUser: lcusername,
+          name: lc_user_elem.name,
+          easySolved:
+            lc_user_elem.answers.easySolved -
+            lc_user_elem.offsets.easySolved,
+          mediumSolved:
+            lc_user_elem.answers.mediumSolved -
+            lc_user_elem.offsets.mediumSolved,
+          hardSolved:
+            lc_user_elem.answers.hardSolved -
+            lc_user_elem.offsets.hardSolved,
+          acceptanceRate: lc_user_elem.answers.acceptanceRate,
+          weightedScore: weightedScoreCalc(
+            lc_user_elem.answers.easySolved -
+              lc_user_elem.offsets.easySolved,
+            lc_user_elem.answers.mediumSolved -
+              lc_user_elem.offsets.mediumSolved,
+            lc_user_elem.answers.hardSolved -
+              lc_user_elem.offsets.hardSolved
+          ),
+          pictureLink: lc_user_elem.pfp,
+        });
+      }
+      const sortedData = formattedStats.sort(
+        (a, b) => b.weightedScore - a.weightedScore
+      );
+      if(sortedData.length == 0) {
+        return;
+      }
+      this.setState({
+        lcStats: sortedData,
+      });
+    } catch (errors) {
+      console.log("Error loading lc stats");
+      console.log(errors);
+    }
   }
 
   render() {
+    this.processPubDir();
     return (
       <div className="bg-white h-screen overflow-y-scroll">
         <div className="mx-auto max-w-7xl py-12 px-6">

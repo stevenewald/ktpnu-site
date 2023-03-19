@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import CarouselCard from "./CarouselCard";
+import CarouselCard from "@landing/CarouselCard";
 import { motion } from "framer-motion";
 import WomenInKTPImg from "@images/Clipart/womeninktp.png";
 import NetworkingNightImg from "@images/Clipart/infosession.png";

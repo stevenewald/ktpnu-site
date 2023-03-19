@@ -68,13 +68,14 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-function MemberPage(props: { firebase: any, database: any, storage: any }) {
+export default function AppContainer(props: { firebase: any, database: any, storage: any }) {
   /* Used by App container/sidebars exclusively */
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [user, setUser] = useState(defaultUser);
   const [currTab, setCurrTab] = useState("Members");
 
+  /* Used by tabs */
   const [currUserUid, setCurrUserUid] = useState("");
   const [fullPubDir, setFullPubDir] = useState({});
   const [activeProfile, setActiveProfile] = useState(currUserUid);
@@ -221,10 +222,9 @@ function MemberPage(props: { firebase: any, database: any, storage: any }) {
 
         {/* Leetcode Leaderboard tab */}
         <div className={currTab=="Leaderboard" ? "h-full" : "hidden"}>
-          <LcLeaderboard firebase={props.firebase} database={props.database} />
+          <LcLeaderboard firebase={props.firebase} database={props.database} fullPubDir={fullPubDir} />
         </div>
       </div>
     </div>
   );
 }
-export default MemberPage;

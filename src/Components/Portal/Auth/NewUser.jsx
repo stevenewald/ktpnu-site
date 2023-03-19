@@ -335,7 +335,7 @@ class NewUser extends React.Component {
                         />
                       </div>
                     </div>
-                    <div className="col-span-1">
+                    <div className="col-span-3 sm:col-span-1">
                       <label
                         htmlFor="linkedin"
                         className="block text-sm font-medium text-gray-700"
@@ -931,7 +931,7 @@ class NewUser extends React.Component {
                   };
                   this.initNewAcc(this.props.database, userConfig);
                 }}
-                className="hidden ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="hidden ml-3 mr-3 sm:mr-0 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 ref={this.submitButton}
               >
                 {this.props.newuser ? "Create my account" : "Update my account"}
