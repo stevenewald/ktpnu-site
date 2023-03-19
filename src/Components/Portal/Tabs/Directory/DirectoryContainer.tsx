@@ -4,35 +4,36 @@ import { ActiveProfileContext } from "@portal/Framework/ActiveProfileContext";
 import IndivProfile from "@tabs/Directory/IndivProfile";
 import Directory from "@tabs/Directory/Directory";
 import Loading from "@tabs/Directory/Loading";
+import LoadingIcon from "@images/Misc/loading.png";
 
 const LoadingDirectory = {
   A: [
     {
-      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+      imageUrl: LoadingIcon,
     },
     {
-      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+      imageUrl: LoadingIcon,
     },
     {
-      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+      imageUrl: LoadingIcon,
     },
     {
-      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+      imageUrl: LoadingIcon,
     },
     {
-      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+      imageUrl: LoadingIcon,
     },
     {
-      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+      imageUrl: LoadingIcon,
     },
     {
-      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+      imageUrl: LoadingIcon,
     },
     {
-      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+      imageUrl: LoadingIcon,
     },
     {
-      imageUrl: "https://cdn-icons-png.flaticon.com/512/5509/5509456.png",
+      imageUrl: LoadingIcon,
     },
   ],
 };
