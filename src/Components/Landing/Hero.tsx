@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import EaganPic from "@images/Branding/eagan.png";
-import DhruvPic from "@images/Branding/dhruv.png";
-import SpeakerPic from "@images/Branding/speaker.png";
-import AnnikaPic from "@images/Branding/annika.png";
-import PcPic from "@images/Branding/pc.png";
+import EaganPic from "@images/Branding/eagan.jpg";
+import DhruvPic from "@images/Branding/dhruv.jpg";
+import SpeakerPic from "@images/Branding/speaker.jpg";
+import AnnikaPic from "@images/Branding/annika.jpg";
+import PcPic from "@images/Branding/pc.jpg";
 import Logo from "@images/Branding/Logo.png";
 
 const navigation = [

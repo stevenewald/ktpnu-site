@@ -48,7 +48,7 @@ const features: { name: string; description: string; icon: any }[] = [
 
 function Pillars() {
   return (
-    <div className="relative bg-gray-50 py-8 sm:py-16">
+    <div className="relative py-8 sm:py-16">
       <div className="mx-auto max-w-md px-6 text-center sm:max-w-3xl lg:max-w-7xl lg:px-8">
         <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Pillars of Kappa Theta Pi
@@ -64,7 +64,7 @@ function Pillars() {
                 /*viewport={{ once: true }}*/
                 className="pt-6"
               >
-                <div className="h-[20rem] sm:h-[10rem] lg:h-[18rem] h-fill flow-root rounded-2xl shadow-lg sm:hover:shadow-xl transition-shadow border transition bg-gray-100 px-6 pb-8 sm:transition-all sm:duration-300 sm:ease-in-out sm:hover:scale-110 sm:transform">
+                <div className="h-[20rem] sm:h-[10rem] lg:h-[18rem] h-fill flow-root rounded-2xl shadow-lg sm:hover:shadow-xl transition-shadow border transition bg-gray-50 px-6 pb-8 sm:transition-all sm:duration-300 sm:ease-in-out sm:hover:scale-110 sm:transform">
                   <div className="-mt-6">
                     <div>
                       <span className="inline-flex items-center justify-center rounded-xl bg-indigo-500 p-2 shadow-lg">
