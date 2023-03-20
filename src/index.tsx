@@ -10,7 +10,6 @@ import NewUserCont from "@auth/NewUserCont";
 import Maintenance from "@landing/Maintenance";
 
 import Hero from "@landing/Hero";
-import Header from "@landing/Header";
 import Team from "@landing/Team";
 import FAQs from "@landing/FAQs";
 import Footer from "@landing/Footer";
@@ -71,8 +70,7 @@ class Full extends React.Component {
             path="/"
             element={
               <div>
-                <Header firebase={firebase} maintenance={maintenance} />
-                <Hero />
+                <Hero maintenance={maintenance}/>
                 <RushEvents />
                 <Greeting />
                 <Pillars />
