@@ -2,34 +2,36 @@
   "rules": {
     "users": {
       "$user_id": {
-        ".read": "$user_id === auth.uid && root.child('users').child(auth.uid).child('allowed').val() === true",
+        ".read":"$user_id === auth.uid",
+        "admin": {
+          ".write":false
+        },
         "$child": {
-          ".write": "$user_id === auth.uid  && root.child('users').child(auth.uid).child('allowed').val() === true && ($child !== 'admin')"
+          ".write": "$user_id === auth.uid && $child != 'admin'"
         }
       }
     },
     "allowed_users": {
       "$user_id": {
         ".write": "root.child('users').child(auth.uid).child('admin').val() === true",
-        ".read": true
+        ".read": false
       }
     },
     "public_users": {
       "$user_id": {
-        ".write": "$user_id === auth.uid  && root.child('users').child(auth.uid).child('allowed').val() === true",
-        ".read": true
+        ".write": "$user_id === auth.uid"
       },
-      ".read": "root.child('users').child(auth.uid).exists()"
+      ".read": "auth.uid != null"
     },
     "leetcode_offsets": {
       "$user_id": {
         ".write": false,
-        ".read": true
+        ".read": "auth.uid != null"
       }
     },
     "announcements": {
       ".write": false,
-      ".read": "root.child('users').child(auth.uid).exists()"
+      ".read": "auth.uid != null"
     }
   }
 }
