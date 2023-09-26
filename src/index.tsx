@@ -24,6 +24,7 @@ import "firebase/compat/auth";
 import "firebase/compat/functions";
 import { getDatabase, connectDatabaseEmulator } from "firebase/database";
 // import RushEvents from "@landing/RushEvents";
+import WhyKTP from "@landing/WhyKTP";
 import RushEvents2 from "@landing/RushEvents2"
 import { getStorage, connectStorageEmulator } from "firebase/storage";
 
@@ -75,6 +76,7 @@ class Full extends React.Component {
               <div>
                 <Hero maintenance={maintenance}/>
                 <Greeting />
+                <WhyKTP />
                 <RushEvents2 />
                 <LogoCloud />
                 <Pillars />
