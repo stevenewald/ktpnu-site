@@ -23,7 +23,8 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/functions";
 import { getDatabase, connectDatabaseEmulator } from "firebase/database";
-//import RushEvents from "@landing/RushEvents";
+// import RushEvents from "@landing/RushEvents";
+import RushEvents2 from "@landing/RushEvents2"
 import { getStorage, connectStorageEmulator } from "firebase/storage";
 
 const firebaseConfig = {
@@ -74,9 +75,9 @@ class Full extends React.Component {
               <div>
                 <Hero maintenance={maintenance}/>
                 <Greeting />
+                <RushEvents2 />
                 <LogoCloud />
                 <Pillars />
-                
                 <Team />
                 <PortalAdvertisement />
                 <FAQs />
