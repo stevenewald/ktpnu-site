@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import SamarPic from "@images/Exec/samar.jpeg";
 import SnehPic from "@images/Exec/sneh.jpeg";
 import EaganPic from "@images/Exec/eagan.jpeg";
@@ -87,21 +86,8 @@ function Team() {
             role="list"
             className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 md:gap-x-6 sm:max-w-2xl lg:max-w-3xl lg:gap-y-12"
           >
-            {people.slice(0, 3).map((person, index) => (
-              <motion.li
-                key={person.name}
-                initial={{ x: 200, opacity: 0 }}
-                whileInView={{
-                  x: 0,
-                  opacity: 1,
-                  transition: {
-                    delay: index / 25,
-                    duration: 0.5,
-                    ease: "easeInOut",
-                  },
-                }}
-                viewport={{ once: true }}
-              >
+            {people.slice(0, 3).map((person) => (
+              <li>
                 <div className="space-y-4">
                   <img
                     className="mx-auto h-20 w-20 rounded-full lg:h-24 lg:w-24"
@@ -115,28 +101,15 @@ function Team() {
                     </div>
                   </div>
                 </div>
-              </motion.li>
+              </li>
             ))}
           </ul>
           <ul
             role="list"
             className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 md:gap-x-6 sm:max-w-2xl lg:max-w-3xl lg:gap-y-12"
           >
-            {people.slice(3, 7).map((person, index) => (
-              <motion.li
-                key={person.name}
-                initial={{ x: 200, opacity: 0 }}
-                whileInView={{
-                  x: 0,
-                  opacity: 1,
-                  transition: {
-                    delay: index / 25,
-                    duration: 0.5,
-                    ease: "easeInOut",
-                  },
-                }}
-                viewport={{ once: true }}
-              >
+            {people.slice(3, 7).map((person) => (
+              <li>
                 <div className="space-y-4">
                   <img
                     className="mx-auto h-20 w-20 rounded-full lg:h-24 lg:w-24"
@@ -150,7 +123,7 @@ function Team() {
                     </div>
                   </div>
                 </div>
-              </motion.li>
+              </li>
             ))}
           </ul>
         </div>
