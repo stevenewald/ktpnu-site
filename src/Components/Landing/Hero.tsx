@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { Dialog } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useState } from "react";
+import { Dialog } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import GroupPic from "@images/Branding/group.jpeg";
 import DhruvPic from "@images/Branding/dhruv.jpg";
 import SpeakerPic from "@images/Branding/speaker.jpg";
@@ -9,19 +9,23 @@ import PcPic from "@images/Branding/pc.jpg";
 import Logo from "@images/Branding/Logo.png";
 
 const navigation = [
-  { name: 'Rush Process', href: '#rush-events' },
-  { name: 'About KTP', href: '#greeting' },
-  { name: 'Team', href: '#team' },
-  { name: 'FAQ', href: '#faq' },
-]
+  { name: "At a Glance", href: "#greeting" },
+  { name: "What is KTP?", href: "#WhatIsKTP" },
+  { name: "Companies", href: "#logocloud" },
+  { name: "Team", href: "#team" },
+  { name: "FAQ", href: "#faq" },
+];
 
-export default function Hero(props:{maintenance:boolean}) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+export default function Hero(props: { maintenance: boolean }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="bg-white">
       <header className="absolute inset-x-0 top-0 z-50">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <nav
+          className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+          aria-label="Global"
+        >
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">KTPNU</span>
@@ -44,18 +48,30 @@ export default function Hero(props:{maintenance:boolean}) {
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-sm font-semibold leading-6 text-gray-900"
+              >
                 {item.name}
               </a>
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href={props.maintenance ? "/maintenance" : "/signup"} className="text-sm font-semibold leading-6 text-gray-900">
+            <a
+              href={props.maintenance ? "/maintenance" : "/signup"}
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
               Member Portal <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </nav>
-        <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
+        <Dialog
+          as="div"
+          className="lg:hidden"
+          open={mobileMenuOpen}
+          onClose={() => setMobileMenuOpen(false)}
+        >
           <div className="fixed inset-0 z-50" />
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
@@ -127,10 +143,19 @@ export default function Hero(props:{maintenance:boolean}) {
                 strokeWidth={0}
               />
             </svg>
-            <rect width="100%" height="100%" strokeWidth={0} fill="url(#1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84)" />
+            <rect
+              width="100%"
+              height="100%"
+              strokeWidth={0}
+              fill="url(#1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84)"
+            />
           </svg>
           <div className="absolute top-0 left-1/2 right-0 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48">
-            <svg viewBox="0 0 801 1036" aria-hidden="true" className="w-[50.0625rem]">
+            <svg
+              viewBox="0 0 801 1036"
+              aria-hidden="true"
+              className="w-[50.0625rem]"
+            >
               <path
                 fill="url(#70656b7e-db44-4b9b-b7d2-1f06791bed52)"
                 fillOpacity=".3"
@@ -156,11 +181,14 @@ export default function Hero(props:{maintenance:boolean}) {
               <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
                 <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
                   <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                    We’re a tech fraternity that connects, educates, and empowers.
+                    We’re a tech fraternity that connects, educates, and
+                    empowers.
                   </h1>
                   <p className="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
-                    KTP Northwestern is co-ed organization dedicated to providing a community for students interested in technology.
-                    We host events, workshops, and socials to help students learn and grow in their tech careers.
+                    KTP Northwestern is co-ed organization dedicated to
+                    providing a community for students interested in technology.
+                    We host events, workshops, and socials to help students
+                    learn and grow in their tech careers.
                   </p>
                   <div className="mt-10 flex items-center gap-x-6">
                     <a
@@ -170,7 +198,10 @@ export default function Hero(props:{maintenance:boolean}) {
                     >
                       Rush Application
                     </a>
-                    <a href="mailto:info@ktpnu.com" className="hidden text-sm font-semibold leading-6 text-gray-900">
+                    <a
+                      href="mailto:info@ktpnu.com"
+                      className="hidden text-sm font-semibold leading-6 text-gray-900"
+                    >
                       Contact Us <span aria-hidden="true">→</span>
                     </a>
                   </div>
@@ -229,5 +260,5 @@ export default function Hero(props:{maintenance:boolean}) {
         </div>
       </main>
     </div>
-  )
+  );
 }

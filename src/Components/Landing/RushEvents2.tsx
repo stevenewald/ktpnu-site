@@ -31,13 +31,13 @@ const timeline = [
 
 export default function RushEvents2() {
   return (
-    <div className="bg-white space-y-16 pb-24 pt-12 sm:pb-32 sm:pt-16">
+    <div id="rushevents2" className="bg-white space-y-16 pb-24 pt-12 sm:pb-32 sm:pt-16">
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
           Join us for rush
         </h2>
         <p className="mt-6 text-lg leading-8 text-gray-600">
-          We're excited to meet you! Apply when applications open to join KTP rush W24.
+          We're excited to meet you! Apply when applications open.
         </p>
       </div>
 

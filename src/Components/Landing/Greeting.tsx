@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import JuliePic from "@images/Exec/julie.jpeg";
 
 const stats = [
@@ -13,18 +12,7 @@ function Greeting() {
       className="relative py-16 sm:py-8 md:py-4 lg:py-8"
     >
       <div className="lg:mx-auto lg:flex lg:items-center lg:grid lg:max-w-7xl lg:grid-cols-2 lg:items-start lg:gap-24 lg:px-8">
-        <motion.div
-          initial={{ x: -200, opacity: 0 }}
-          whileInView={{
-            x: 0,
-            opacity: 1,
-            transition: {
-              delay: 0,
-              duration: 0.5,
-              ease: "easeInOut",
-            },
-          }}
-          viewport={{ once: true }}
+        <div
           className="relative sm:py-16 lg:py-0"
         >
           <div
@@ -103,80 +91,34 @@ function Greeting() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         <div className="relative mx-auto max-w-md px-4 lg:mt-2 sm:max-w-3xl sm:px-6 lg:px-0">
           {/* Content area */}
           <div className="">
-            <motion.p
-              initial={{ x: -200, opacity: 0 }}
-              whileInView={{
-                x: 0,
-                opacity: 1,
-                transition: {
-                  delay: 0,
-                  duration: 0.5,
-                  ease: "easeInOut",
-                },
-              }}
-              viewport={{ once: true }}
+            <p
               className="font-bold text-lg pb-2 text-indigo-600"
             >
               KTP at a Glance
-            </motion.p>
-            <motion.h2
-              initial={{ x: -200, opacity: 0 }}
-              whileInView={{
-                x: 0,
-                opacity: 1,
-                transition: {
-                  delay: 0,
-                  duration: 0.5,
-                  ease: "easeInOut",
-                },
-              }}
-              viewport={{ once: true }}
+            </p>
+            <h2
               className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
             >
               Celebrating Technological Passion
-            </motion.h2>
+            </h2>
             <div className="mt-6 space-y-6 text-gray-800 text-lg">
-              <motion.p
-                initial={{ x: -200, opacity: 0 }}
-                whileInView={{
-                  x: 0,
-                  opacity: 1,
-                  transition: {
-                    delay: 0,
-                    duration: 0.5,
-                    ease: "easeInOut",
-                  },
-                }}
-                viewport={{ once: true }}
-              >
+              <p>
                 Welcome to the Kappa Chapter of Kappa Theta Pi, Northwestern's
                 premier pre-professional technology fraternity. At KTP, we
                 prepare members for their prospective careers through
                 professional development, taught by those who have been in the
                 industry.
-              </motion.p>
-              <motion.p
-                initial={{ x: -200, opacity: 0 }}
-                whileInView={{
-                  x: 0,
-                  opacity: 1,
-                  transition: {
-                    delay: 0,
-                    duration: 0.5,
-                    ease: "easeInOut",
-                  },
-                }}
-                viewport={{ once: true }}
-              >
+              </p>
+              <p>
                 Celebrate a culture of growth with some of Northwestern's most
                 brilliant and ambitious software developers, designers,
                 biomedical engineers, and entrepreneurs.
-              </motion.p>
+              </p>
             </div>
           </div>
 
@@ -184,18 +126,7 @@ function Greeting() {
           <div className="mt-10">
             <dl className="grid sm:grid-cols-2 gap-x-1 sm:gap-x-4 gap-y-8">
               {stats.map((stat) => (
-                <motion.div
-                  initial={{ x: -200, opacity: 0 }}
-                  whileInView={{
-                    x: 0,
-                    opacity: 1,
-                    transition: {
-                      delay: 0,
-                      duration: 0.5,
-                      ease: "easeInOut",
-                    },
-                  }}
-                  viewport={{ once: true }}
+                <div
                   key={stat.label}
                   className="border-t-2 border-gray-100 pt-6"
                 >
@@ -205,7 +136,7 @@ function Greeting() {
                   <dd className="text-3xl font-bold tracking-tight text-gray-900">
                     {stat.value}
                   </dd>
-                </motion.div>
+                </div>
               ))}
             </dl>
           </div>

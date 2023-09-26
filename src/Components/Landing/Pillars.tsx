@@ -1,10 +1,10 @@
 import {
-  BriefcaseIcon,
-  UserPlusIcon,
-  ArrowTrendingUpIcon,
-  ComputerDesktopIcon,
   AcademicCapIcon,
+  ArrowTrendingUpIcon,
+  BriefcaseIcon,
+  ComputerDesktopIcon,
   UserGroupIcon,
+  UserPlusIcon,
 } from "@heroicons/react/24/outline";
 
 const features: { name: string; description: string; icon: any }[] = [
@@ -64,7 +64,7 @@ function Pillars() {
                 /*viewport={{ once: true }}*/
                 className="pt-6"
               >
-                <div className="h-[20rem] sm:h-[10rem] lg:h-[18rem] h-fill flow-root rounded-2xl shadow-lg sm:hover:shadow-xl transition-shadow border transition bg-gray-100 px-6 pb-8 sm:transition-all sm:duration-300 sm:ease-in-out sm:hover:scale-110 sm:transform">
+                <div className="h-[20rem] sm:h-[10rem] lg:h-[18rem] h-fill flow-root rounded-2xl shadow-lg transition-shadow border transition bg-gray-100 px-6 pb-8 sm:transition-all sm:duration-300 sm:ease-in-out sm:transform">
                   <div className="-mt-6">
                     <div>
                       <span className="inline-flex items-center justify-center rounded-xl bg-indigo-500 p-2 shadow-lg">

@@ -78,8 +78,8 @@ class Full extends React.Component {
                 <Greeting />
                 <WhyKTP />
                 <RushEvents2 />
-                <LogoCloud />
                 <Pillars />
+                <LogoCloud />
                 <Team />
                 <PortalAdvertisement />
                 <FAQs />

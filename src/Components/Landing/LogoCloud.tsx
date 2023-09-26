@@ -5,7 +5,7 @@ import Intel from "@vectors/intel.svg";
 import Uber from "@vectors/uber.svg";
 export default function LogoCloud() {
     return (
-      <div className="bg-white pb-24 pt-6 sm:pt-12 sm:pb-32">
+      <div id="logocloud" className="bg-gray-50 py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <h2 className="text-center text-lg font-semibold leading-8 text-gray-900">
             Our members work at many of the largest tech companies

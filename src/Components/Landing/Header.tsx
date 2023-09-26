@@ -2,7 +2,7 @@ import { useState } from "react";
 import Logo from "@images/Branding/Logo.png";
 
 const navigation: { name: string; href: string }[] = [
-  { name: "About KTP", href: "#greeting" },
+  { name: "At a Glance", href: "#greeting" },
   { name: "Rush", href: "#rush-events" },
   { name: "Team", href: "#team" },
   { name: "FAQ", href: "#faq" },
