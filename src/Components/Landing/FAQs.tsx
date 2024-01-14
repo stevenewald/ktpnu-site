@@ -17,7 +17,7 @@ const faqs: { question: string; answer: string }[] = [
   {
     question: "Which majors are represented in KTP?",
     answer:
-      "Kappa Theta Pi's members come from many tech-related majors, including Computer Science, Economics, MatSci, Industrial Engienering, Biomedical Engineering, Computer Engineering, and more. We welcome all who are passionate about tech, regardless of major.",
+      "Kappa Theta Pi's members come from many tech-related majors, including Computer Science, Economics, MatSci, Industrial Engienering, Biomedical Engineering, Computer Engineering, and more. We welcome all who are passionate about tech, regardless of major or past experience.",
   },
 ];
 
