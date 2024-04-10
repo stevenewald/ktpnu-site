@@ -90,8 +90,50 @@ class PledgeCalendar extends React.Component {
         let date = new Date(Date.parse(event["Date"]));
         let type = event["Type"];
         let mand = event["Mandatory?"];
+        let group = event["Group"];
         let desc = event["Description"];
 
+        let eventStyle = {};
+        // Rush, Social, Pledge Task, Briefing, Capstone, Professional
+        if (type == 'Rush')
+        {
+          eventStyle = {backgroundColor:'blue'};
+        }
+        else
+        {
+          if (type == 'Social')
+          {
+            eventStyle = {backgroundColor:'yellow'};
+          }
+          else
+          {
+            if (type == 'Pledge Task')
+            {
+              eventStyle = {backgroundColor:'orange'};
+            }
+            else
+            {
+              if (type == 'Briefing')
+              {
+                eventStyle = {backgroundColor:'pink'};
+              }
+              else
+              {
+                if (type == 'Capstone')
+                {
+                  eventStyle = {backgroundColor:'green'};
+                }
+                else
+                {
+                  if (type == 'Professional')
+                  {
+                    eventStyle = {backgroundColor:'purple'};
+                  }
+                }
+              }
+            }
+          }
+        }
         // Turn "Yes" for the mandatory field into
         // "Mandatory" or "Not Mandatory"
         let mandDesc = "";
@@ -112,6 +154,8 @@ class PledgeCalendar extends React.Component {
           start: date,
           end: date,
           desc: fullDesc,
+          type: type,
+          style: eventStyle
         };
 
         return currEvent;
@@ -151,6 +195,7 @@ class PledgeCalendar extends React.Component {
                   "Date",
                   "Type",
                   "Mandatory?",
+                  "Group",
                   "Description",
                 ];
 
@@ -183,7 +228,11 @@ class PledgeCalendar extends React.Component {
                             );
 
                             // Every other field is a 1-to-1 mapping
-                          } else {
+                          } 
+                          else if (col === "Group") {
+                            newEvent[col] = event[col] ? event[col] : "Everyone";
+                          }
+                          else {
                             newEvent[col] = event[col];
                           }
                         }
@@ -195,6 +244,7 @@ class PledgeCalendar extends React.Component {
                         Name: undefined,
                         Date: "Invalid Date",
                         Type: "",
+                        Group: "",
                       };
                       for (const key of Object.keys(necessaryCols)) {
                         if (
@@ -263,6 +313,34 @@ class PledgeCalendar extends React.Component {
     return classes.filter(Boolean).join(" ");
   }
 
+  eventStyleGetter = (event) => {
+    let newStyle = {};
+    // Rush, Social, Pledge Task, Briefing, Capstone, Professional
+    // blue, yellow,orange, pink, green, purple
+    if (event.type === 'Rush') {
+      newStyle.backgroundColor = '#4db8a1';
+    } else if (event.type === 'Social') {
+      newStyle.backgroundColor = '#9a8fbf';
+    } else if (event.type === 'Pledge Task') {
+      newStyle.backgroundColor = '#ff6b6b';
+    } else if (event.type === 'Briefing') {
+      newStyle.backgroundColor = '#5c7cfa';
+    }
+    else if (event.type === 'Capstone') {
+      newStyle.backgroundColor = '#789764';
+    }
+    else if (event.type === 'Professional') {
+      newStyle.backgroundColor = '#EDC483';
+    }
+    else {
+      newStyle.backgroundColor = '#B5BFB6';
+    }
+
+    return {
+      style: newStyle
+    };
+  }
+
   render() {
     return (
       <>
@@ -278,19 +356,19 @@ class PledgeCalendar extends React.Component {
 
               {/* Title */}
               <div className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
-                KTP Pledge Calendar
+                KTP Calendar
               </div>
             </div>
 
             {/* Subtitle */}
             {false && (
               <div className="mx-auto text-sm inline-block text-gray-500 flex items-center">
-                Use this calendar to plan and stay on top of all your pledge
+                Use this calendar to plan and stay on top of all your KTP
                 events and deadlines.
               </div>
             )}
             <div className="mx-auto text-sm inline-block text-gray-500 flex items-center">
-              This calendar contains upcoming pledge events.
+              This calendar contains upcoming events.
             </div>
           </div>
 
@@ -370,6 +448,7 @@ class PledgeCalendar extends React.Component {
                   defaultView="month"
                   selectable
                   onSelectEvent={this.onSelectEvent}
+                  eventPropGetter={this.eventStyleGetter}
                 />
                 <Modal
                   isOpen={this.state.showModal}

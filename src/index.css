@@ -280,7 +280,7 @@ form td:last-child {
 }
 
 .rbc-event {
-  background-color: var(--indigo-700) !important;
+  background-color: var(--indigo-600);
 }
 
 .rbc-event.rbv-selected {

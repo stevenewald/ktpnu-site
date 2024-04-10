@@ -5,6 +5,7 @@ import DirectoryContainer from "@tabs/Directory/DirectoryContainer";
 import NewUser from "@auth/NewUser";
 import RushEvents from "@landing/RushEvents";
 import PledgeCalendar from "@tabs/Calendar/PledgeCalendar";
+import PledgeResources from "@tabs/Resources/PledgeResources";
 import Logo from "@/Assets/Images/Branding/Logo.png";
 import AdminPanel from "@tabs/Admin/AdminPanel";
 import DesktopSidebar from "@portal/Framework/DesktopSidebar";
@@ -17,6 +18,7 @@ import {
   MagnifyingGlassCircleIcon,
   WrenchScrewdriverIcon,
   CalendarIcon,
+  FolderIcon,
 } from "@heroicons/react/24/outline";
 
 //Default user to show while loading, replaced by real user after. Image data encoded in the code.
@@ -32,6 +34,7 @@ var navigation: NavigationType = {
     current: true,
     secondary: false,
     adminonly: false,
+    pledgeonly: false,
   },
   Calendar: {
     name: "Calendar",
@@ -39,6 +42,7 @@ var navigation: NavigationType = {
     current: false,
     secondary: false,
     adminonly: false,
+    pledgeonly: false,
   },
   /*Leaderboard: {
     name: "Leetcode Leaderboard",
@@ -47,12 +51,21 @@ var navigation: NavigationType = {
     secondary: false,
     adminonly: false,
   },*/
+  Resources: {
+    name: "Resources",
+    icon: FolderIcon,
+    current: false,
+    secondary: false,
+    adminonly: false,
+    pledgeonly: true,
+  },
   Admin: {
     name: "Admin",
     icon: WrenchScrewdriverIcon,
     current: false,
     secondary: true,
     adminonly: true,
+    pledgeonly: false,
   },
   Profile: {
     name: "Edit Profile",
@@ -60,6 +73,7 @@ var navigation: NavigationType = {
     current: false,
     secondary: true,
     adminonly: false,
+    pledgeonly: false,
   },
 };
 
@@ -71,6 +85,7 @@ export default function AppContainer(props: { firebase: any, database: any, stor
   /* Used by App container/sidebars exclusively */
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [admin, setAdmin] = useState(false);
+  const [pledge, setPledge] = useState(false);
   const [user, setUser] = useState(defaultUser);
   const [currTab, setCurrTab] = useState("Members");
 
@@ -108,6 +123,9 @@ export default function AppContainer(props: { firebase: any, database: any, stor
           if (prof["admin"]) {
             setAdmin(true);
           }
+          if (prof["Role"] === "Pledge") {
+            setPledge(true);
+          }
         });
       } else {
         let timerInterval: any;
@@ -128,6 +146,7 @@ export default function AppContainer(props: { firebase: any, database: any, stor
 
   //When sidebar tab is clicked, change the navigation state to reflect the new tab
   function onTabClick(nextButton: string) {
+    console.log("Tab clicked: " + nextButton);
     setCurrTab(nextButton);
     setSidebarOpen(false);
   }
@@ -139,6 +158,7 @@ export default function AppContainer(props: { firebase: any, database: any, stor
     ImageUrl: user.imageUrl,
     CurrentUserName: user.name,
     Admin: admin,
+    Pledge: pledge,
     uid: currUserUid,
     onTabClick: onTabClick,
   };
@@ -212,6 +232,10 @@ export default function AppContainer(props: { firebase: any, database: any, stor
         {/* Pledge calendar tab */}
         <div className={currTab=="Calendar" ? "overflow-y-auto" : "hidden"}>
           <PledgeCalendar />
+        </div>
+
+        <div className={currTab=="Resources" ? "overflow-y-auto" : "hidden"}>
+          <PledgeResources />
         </div>
 
         {/* Admin tab, only visible to users with entry in users/UID/admin set to true */}

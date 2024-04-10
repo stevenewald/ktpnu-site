@@ -16,7 +16,7 @@ export default function WhyKTP() {
               committed to fostering deep connections, mutual support, and
               lifelong friendships.
             </p>
-            <p className="mt-6 text-base leading-7 text-gray-600">
+            <p className="mt-6 text-xl leading-8 text-gray-600">
               Through focused professional development opportunities and
               collaborative events, members are empowered to navigate the tech
               landscape with confidence and expertise.
