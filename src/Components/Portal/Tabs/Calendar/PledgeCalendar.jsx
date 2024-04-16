@@ -93,55 +93,34 @@ class PledgeCalendar extends React.Component {
         let group = event["Group"];
         let desc = event["Description"];
 
+        // Rush, Social, Pledge Task, Briefing, Capstone, and Professional styles
         let eventStyle = {};
-        // Rush, Social, Pledge Task, Briefing, Capstone, Professional
-        if (type == 'Rush')
-        {
-          eventStyle = {backgroundColor:'blue'};
+        switch (type) {
+          case 'Rush':
+            eventStyle = {backgroundColor: 'blue'};
+            break;
+          case 'Social':
+            eventStyle = {backgroundColor: 'yellow'};
+            break;
+          case 'Pledge Task':
+            eventStyle = {backgroundColor: 'orange'};
+            break;
+          case 'Briefing':
+            eventStyle = {backgroundColor: 'pink'};
+            break;
+          case 'Capstone':
+            eventStyle = {backgroundColor: 'green'};
+            break;
+          case 'Professional':
+            eventStyle = {backgroundColor: 'purple'};
+            break;
+          default:
+            break;
         }
-        else
-        {
-          if (type == 'Social')
-          {
-            eventStyle = {backgroundColor:'yellow'};
-          }
-          else
-          {
-            if (type == 'Pledge Task')
-            {
-              eventStyle = {backgroundColor:'orange'};
-            }
-            else
-            {
-              if (type == 'Briefing')
-              {
-                eventStyle = {backgroundColor:'pink'};
-              }
-              else
-              {
-                if (type == 'Capstone')
-                {
-                  eventStyle = {backgroundColor:'green'};
-                }
-                else
-                {
-                  if (type == 'Professional')
-                  {
-                    eventStyle = {backgroundColor:'purple'};
-                  }
-                }
-              }
-            }
-          }
-        }
+
         // Turn "Yes" for the mandatory field into
         // "Mandatory" or "Not Mandatory"
-        let mandDesc = "";
-        if (mand == "Yes") {
-          mandDesc = "Mandatory";
-        } else {
-          mandDesc = "Not Mandatory";
-        }
+        let mandDesc = mand === "Yes" ? "Mandatory" : "Not Mandatory";
 
         // Add the type and whether or not the
         // event is mandatory to the description
@@ -228,7 +207,7 @@ class PledgeCalendar extends React.Component {
                             );
 
                             // Every other field is a 1-to-1 mapping
-                          } 
+                          }
                           else if (col === "Group") {
                             newEvent[col] = event[col] ? event[col] : "Everyone";
                           }
@@ -315,25 +294,30 @@ class PledgeCalendar extends React.Component {
 
   eventStyleGetter = (event) => {
     let newStyle = {};
-    // Rush, Social, Pledge Task, Briefing, Capstone, Professional
-    // blue, yellow,orange, pink, green, purple
-    if (event.type === 'Rush') {
-      newStyle.backgroundColor = '#4db8a1';
-    } else if (event.type === 'Social') {
-      newStyle.backgroundColor = '#9a8fbf';
-    } else if (event.type === 'Pledge Task') {
-      newStyle.backgroundColor = '#ff6b6b';
-    } else if (event.type === 'Briefing') {
-      newStyle.backgroundColor = '#5c7cfa';
-    }
-    else if (event.type === 'Capstone') {
-      newStyle.backgroundColor = '#789764';
-    }
-    else if (event.type === 'Professional') {
-      newStyle.backgroundColor = '#EDC483';
-    }
-    else {
-      newStyle.backgroundColor = '#B5BFB6';
+
+    // Rush, Social, Pledge Task, Briefing, Capstone, and Professional
+    switch (event.type) {
+      case 'Rush':
+        newStyle.backgroundColor = '#4db8a1';
+        break;
+      case 'Social':
+        newStyle.backgroundColor = '#9a8fbf';
+        break;
+      case 'Pledge Task':
+        newStyle.backgroundColor = '#ff6b6b';
+        break;
+      case 'Briefing':
+        newStyle.backgroundColor = '#5c7cfa';
+        break;
+      case 'Capstone':
+        newStyle.backgroundColor = '#789764';
+        break;
+      case 'Professional':
+        newStyle.backgroundColor = '#EDC483';
+        break;
+      default:
+        newStyle.backgroundColor = '#B5BFB6';
+        break;
     }
 
     return {
