@@ -19,6 +19,7 @@ import {
   WrenchScrewdriverIcon,
   CalendarIcon,
   FolderIcon,
+  BoltIcon,
 } from "@heroicons/react/24/outline";
 
 //Default user to show while loading, replaced by real user after. Image data encoded in the code.
@@ -44,13 +45,14 @@ var navigation: NavigationType = {
     adminonly: false,
     pledgeonly: false,
   },
-  /*Leaderboard: {
-    name: "Leetcode Leaderboard",
+  Leaderboard: {
+    name: "LC Leaderboard",
     icon: BoltIcon,
     current: false,
     secondary: false,
     adminonly: false,
-  },*/
+    pledgeonly: false,
+  },
   Resources: {
     name: "Resources",
     icon: FolderIcon,

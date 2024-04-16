@@ -54,7 +54,7 @@ class GoogleRedirect extends React.Component<{firebase:any,provider:any,database
             window.location.href = "/signup";
           });
           return;
-          
+
         }
         document.getElementById("loadingtext")!.innerHTML =
           "Fetching user info...";
