@@ -29,7 +29,7 @@ let allowedRef = admin.database().ref("allowed_users");
 let publicRef = admin.database().ref("public_users");
 let announcementsRef = admin.database().ref("announcements");
 
-exports.lcupdate = onSchedule("* * * * *", async (event) => {
+exports.lcupdate = onSchedule("*/10 * * * *", async (event) => {
   const responseFunction = (user_uid2, offsets) => {
     return async (error, response, body) => {
       if (error) {

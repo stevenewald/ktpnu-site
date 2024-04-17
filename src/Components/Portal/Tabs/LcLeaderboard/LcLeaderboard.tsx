@@ -116,7 +116,7 @@ class LcLeaderboard extends React.Component<
                 Welcome to the KTP LeetCode Challenge Leaderboard! See where you rank among your peers as you push the boundaries of your coding skills. Easy questions are 2 points, medium are 5 points, and hard are 8 points.
               </p>
               <p className="text-gray-500 italic">
-                Note: This page is updated every 5 minutes.
+                Note: This page is updated every 10 minutes.
               </p>
             </div>
             <div className="lg:col-span-2">
