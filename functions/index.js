@@ -8,6 +8,10 @@ const { Storage } = require("@google-cloud/storage");
 });*/
 const gcs = new Storage();
 
+const emailjs = require('@emailjs/browser');
+
+console.log(functions.functions.config());
+
 const ACC_SID = functions.config().twilio.acc_sid;
 const AUTH_TOKEN = functions.config().twilio.auth_token;
 const twilio_client = require("twilio")(ACC_SID, AUTH_TOKEN);
@@ -18,6 +22,10 @@ const sharp = require("sharp");
 const fs = require("fs-extra");
 const uuid = require("uuid");
 
+const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(SENDGRID_API_KEY);
+
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
   databaseURL: "https://ktp-site-default-rtdb.firebaseio.com/",
@@ -25,7 +33,7 @@ admin.initializeApp({
 let usersRef = admin.database().ref("users");
 let allowedRef = admin.database().ref("allowed_users");
 let publicRef = admin.database().ref("public_users");
-let announcementsRef = admin.database().ref("announcements");
+// let announcementsRef = admin.database().ref("announcements");
 
 /*exports.scheduledFunction = functions.pubsub.schedule('every 5 minutes').onRun((context) => {
   const responseFunction = (user_uid2, offsets) => {
@@ -153,15 +161,6 @@ exports.sendText = functions.https.onCall(async (data, context) => {
               }
               try {
                 console.log("Texting " + actualUser["name"]);
-                twilio_client.messages.create({
-                  body: message,
-                  from: "+17579193238",
-                  to:
-                    "+1" +
-                    phoneUtil
-                      .parse(actualUser["phone"], "US")
-                      .getNationalNumber(),
-                });
                 success++;
               } catch (error) {}
             } catch (error2) {}
@@ -169,11 +168,55 @@ exports.sendText = functions.https.onCall(async (data, context) => {
           resolve({ status: "Success", amount: success });
         });
       }
+      twilio_client.messages.create({
+        body: message,
+        from: "+17579193238",
+        to: "+122438237654"
+          // "+1" +
+          // phoneUtil
+          //   .parse(actualUser["phone"], "US")
+          //   .getNationalNumber(),
+      });
     });
   });
   const val = await prom;
   return val;
-});
+});   
+
+// exports.sendEmail = functions.https.onCall(async (data, context) => {
+//   if (!context.auth) {
+//     throw new functions.https.HttpsError('unauthenticated', 'The function must be called while authenticated.');
+//   }
+//   // console.log("Sending email to: " + data.whoTo + " with message: " + data.message);
+//   const { message, whoTo } = data;
+//   const usersRef = admin.database().ref("users");
+//   let emailList = [];
+
+//   // Fetch users and filter based on 'whoTo'
+//   const snapshot = await usersRef.once('value');
+//   const users = snapshot.val();
+//   for (let userId in users) {
+//     const user = users[userId];
+//     if (whoTo === "Everyone" || user.role === whoTo || 
+//        (whoTo === "Pledges" && user.role === "Pledge") || 
+//        (whoTo === "Members" && (user.role === "Member" || user.role === "Brother"))) {
+//       emailList.push(user.email);
+//     }
+//   }
+
+//   // Replace the following with your email sending logic
+//   // This is where you'd integrate with EmailJS, SendGrid, or any other email service provider
+//   console.log(`Sending email to: ${emailList.join(", ")} with message: ${message}`);
+
+//   var emailParams = {
+//                 to_email: "tahiragrewal2026@u.northwestern.edu",
+//                 subject: 'Listserv from portal test',
+//                 message: text,
+//               };
+//   emailjs.send('service_e87btai', 'template_gu3nbk5',emailParams,{publicKey: 'EXVUOmwjftOus0nQA',});
+
+//   return { success: true, message: "Email sent successfully to: " + emailList.join(", ") };
+// });
 
 exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
   try {

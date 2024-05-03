@@ -21,17 +21,205 @@ class AdminPanel extends React.Component<{firebase:any,database:any},{}> {
   whoToButton:RefObject<HTMLSelectElement>;
   messageTypeButton:RefObject<HTMLSelectElement>;
   typeOfMember:RefObject<HTMLSelectElement>;
+
+  // listserv fields and buttons
+  listservEmailField:RefObject<HTMLInputElement>;
+  listservSubjectField:RefObject<HTMLInputElement>;
+  listservWhoToButton:RefObject<HTMLSelectElement>;
+  sendEmailButton:RefObject<HTMLTextAreaElement>;
+
   constructor(props:{firebase:any,database:any}) {
     super(props);
     this.addNewUser = this.addNewUser.bind(this);
     this.sendText = this.sendText.bind(this);
+    this.sendEmail = this.sendEmail.bind(this);
+    
     this.emailButton = React.createRef<HTMLInputElement>();
     this.sendTextButton = React.createRef<HTMLTextAreaElement>();
     this.whoToButton = React.createRef<HTMLSelectElement>();
     this.messageTypeButton = React.createRef<HTMLSelectElement>();
     this.typeOfMember = React.createRef<HTMLSelectElement>();
+    
+    //for email listerv sends
+    this.listservEmailField = React.createRef<HTMLInputElement>();
+    this.listservSubjectField = React.createRef<HTMLInputElement>();
+    this.listservWhoToButton = React.createRef<HTMLSelectElement>();
+    this.sendEmailButton = React.createRef<HTMLTextAreaElement>();
+
     //the backend only allows this if they are already set as admin
     //dw about the security, i set up all the database rules correctly - steve
+  }
+
+
+  // sendEmail with EmailJS
+
+  // class AdminPanel extends React.Component {
+  //   // Other component methods...
+
+  //   sendEmail() {
+  //     console.log('Starting to send email');
+
+  //     // Assuming you have already obtained references/values for your email form fields
+  //     const text = this.sendEmailButton.current.value;
+  //     const whoTo = this.listservWhoToButton.current.value;
+
+  //     if (text.length < 5) {
+  //       Swal.fire({
+  //         icon: "error",
+  //         text: "Message too short",
+  //       });
+  //       return;
+  //     }
+
+  //     // Your EmailJS user ID, service ID, and template ID
+  //     const serviceID = 'your_service_id';
+  //     const templateID = 'your_template_id';
+  //     const userID = 'your_user_id';
+
+  //     const templateParams = {
+  //       message: text,
+  //       to_email: whoTo,
+  //       // Add other template parameters if needed
+  //     };
+
+  //     emailjs.send(serviceID, templateID, templateParams, userID)
+  //       .then((response) => {
+  //         console.log('Email successfully sent!', response.status, response.text);
+  //         Swal.fire({
+  //           title: "Success!",
+  //           icon: "success",
+  //           text: "Email successfully sent!",
+  //         });
+  //       }, (error) => {
+  //         console.error('Failed to send email. Error: ', error);
+  //         Swal.fire({
+  //           title: "Email send failure",
+  //           text: "Do not attempt to resend the message. Contact support.",
+  //           icon: "error",
+  //         });
+  //       });
+  //   }
+
+  //   // Other component methods...
+  // }
+
+
+
+  // DATABASE HANDLING + SENDING FUNCTIONALITY
+  // fetchUsers = () => {
+  //   this.setState({ loading: true });
+  //   let usersRef = admin.database().ref("users");
+  //   usersRef.on('value', snapshot => {
+  //     const usersData = snapshot.val();
+  //     const userList = Object.keys(usersData).map(key => ({
+  //       ...usersData[key],
+  //       uid: key,
+  //     }));
+  //     this.setState({ users: userList, loading: false });
+  //   });
+
+  //   // Clean up the subscription
+  //   this.componentWillUnmount = () => usersRef.off();
+  // };
+
+  // sendEmails = () => {
+  //   const { users, selectedGroup } = this.state;
+  //   const filteredEmails = users.filter(user => user.role === selectedGroup).map(user => user.email);
+
+  //   // Assuming you have a method to trigger email sending process, like using EmailJS directly
+  //   filteredEmails.forEach(email => {
+  //     // Define the parameters for your email template
+  //     const templateParams = {
+  //       to_email: email, // or any other email parameter required by your template
+  //       message: "Your message here", // Customize your message or other parameters
+  //       // Include any other template parameters here
+  //     };
+
+  //     // Send the email using EmailJS or any other email sending service you're using
+  //     emailjs.send('your_service_id', 'your_template_id', templateParams, 'your_user_id')
+  //       .then(response => {
+  //         console.log('Email successfully sent!', response);
+  //         // Handle success response (e.g., updating the UI or notifying the user)
+  //       })
+  //       .catch(error => {
+  //         console.error('Failed to send email:', error);
+  //         // Handle error response
+  //       });
+  //   });
+  // };
+
+  // handleGroupChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //   this.setState({ selectedGroup: event.target.value });
+  // };
+
+  sendEmail() {
+    if(!(this.listservWhoToButton.current)) {
+      return;
+    }
+    if(!(this.sendEmailButton.current)) { 
+      return;
+    }
+    // if(!(this.listservEmailField.current)) { 
+    //   return;
+    // }
+    // if(!(this.listservSubjectField.current)) { 
+    //   return;
+    // }
+    if(!(this.listservWhoToButton.current)) {
+      return;
+    }
+    const text = this.sendEmailButton.current.value;
+    const whoTo = this.listservWhoToButton.current.value;
+
+    if (text.length < 5) {
+      Swal.fire({
+        icon: "error",
+        text: "Message too short",
+      });
+    } else {
+      Swal.fire({
+        title: "Is this correct?",
+        text: text,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, send the email",
+      }).then((res:SweetAlertResult) => {
+        if (res["isConfirmed"]) {
+          Swal.fire({
+            title: "Are you sure?",
+            text: "Once you send this email, you can't unsend it. Email: " + text,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, send the email",
+          }).then((res:SweetAlertResult) => {
+            if (res["isConfirmed"]) {
+              const sendEmailFunction = this.props.firebase.functions().httpsCallable('sendEmail');
+              sendEmailFunction({text, whoTo })
+              .then(() => {
+                Swal.fire({
+                  title: "Success!",
+                  icon: "success",
+                  text:
+                    "Email has been successfully sent to " +whoTo.toLowerCase() + ".",
+                });
+              })
+              .catch((error: any) => { 
+                console.log(error);
+                Swal.fire({
+                  title: "Message send failure",
+                  text: "Do not attempt to resend the message. Contact Tahira.",
+                  icon: "error",
+                });
+              });   
+            }
+          });
+        }
+      });
+    }
   }
 
   sendText() {
@@ -171,7 +359,7 @@ class AdminPanel extends React.Component<{firebase:any,database:any},{}> {
                 Send a text
               </h3>
               <div className="mt-2 max-w-xl text-sm text-gray-500">
-                <p>Enter the message you'd like to send to the members</p>
+                <p>Enter the text you'd like to send to the members</p>
               </div>
               <form className="mt-5 flex flex-col sm:flex-row items-center">
                 <div className="flex flex-row items-center">
@@ -226,6 +414,59 @@ class AdminPanel extends React.Component<{firebase:any,database:any},{}> {
             </div>
           </div>
         </div>
+
+        <div className="mt-4 px-4 w-full">
+          <div className="bg-gray-100 shadow sm:rounded-lg">
+            <div className="px-4 py-5 sm:p-6">
+              <h3 className="text-lg font-medium leading-6 text-gray-900">
+                Send an email
+              </h3>
+              <div className="mt-2 max-w-xl text-sm text-gray-500">
+                <p>Enter the email you'd like to send to the members</p>
+              </div>
+              <form className="mt-5 flex flex-col sm:flex-row items-center">
+                <div className="flex flex-row items-center">
+                  <div className="w-full sm:max-w-sm mb-0">
+                    <label htmlFor="email" className="sr-only">
+                      Message
+                    </label>
+                    <textarea
+                      name="text"
+                      id="text"
+                      className="block w-full sm:min-w-[17rem] min-h-[2.5rem] h-[2.5rem] rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      placeholder="Big Little Reveal soon..."
+                      ref={this.sendEmailButton}
+                    />
+                  </div>
+                  <div className="sm:ml-1 sm:mr-1 relative bottom-[2px] my-2 sm:my-0">
+                    <select
+                      id="who-to-text"
+                      name="who-to-text"
+                      className="mt-1 block min-w-[7rem] w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      defaultValue="Pledges"
+                      ref={this.listservWhoToButton}
+                    >
+                      <option>VPs Of Tech</option>
+                      <option>Pledges</option>
+                      <option>Members</option>
+                      <option>Everyone</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={this.sendEmail}
+                  className="relative bottom-[1px] min-w-[157px] inline-flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm"
+                >
+                  <PaperAirplaneIcon className="-ml-1 mr-2 h-5 w-5" />
+                  Send Email
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
         <div className="mt-4 px-4 w-full">
           <div className="bg-gray-100 shadow sm:rounded-lg">
             <div className="px-4 py-5 sm:p-6">

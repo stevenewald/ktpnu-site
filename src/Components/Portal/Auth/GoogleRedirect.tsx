@@ -66,6 +66,7 @@ class GoogleRedirect extends React.Component<{firebase:any,provider:any,database
             }
 
             const data = snapshot.val();
+            console.log(data);
             if (data.allowed === true) {
               if (data.signed_up===true) {
                 document.getElementById("loadingtext")!.innerHTML =
@@ -78,13 +79,13 @@ class GoogleRedirect extends React.Component<{firebase:any,provider:any,database
                 window.location.href = "/newuser";
               }
             } else {
-              this.props.firebase.auth().signOut();
+              // this.props.firebase.auth().signOut();
               Swal.fire({
                 icon: "error",
                 title: "Account not in system",
                 text: "Access to the KTP Brother portal is given to pledges, brothers, and alumni. Your account was not found in the system, if you belive this is an error, contact support@ktpnu.com.",
               }).then(() => {
-                window.location.href = "/";
+                // window.location.href = "/";
               });
             }
           })
