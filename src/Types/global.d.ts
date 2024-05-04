@@ -5,6 +5,7 @@ declare type NavigationType = {
     current: boolean;
     secondary: boolean;
     adminonly: boolean;
+    pledgeonly: boolean;
   };
 };
 
@@ -15,6 +16,7 @@ declare type SideBarArgsType = {
   ImageUrl: string;
   CurrentUserName: string;
   Admin: boolean;
+  Pledge: boolean;
   uid:string;
   onTabClick: (tab: string) => void;
 };

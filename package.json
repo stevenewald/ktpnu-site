@@ -15,6 +15,7 @@
     "buffer": "^6.0.3",
     "cra-template-typescript": "^1.2.0",
     "firebase": "^9.14.0",
+    "firebase-functions": "^4.9.0",
     "framer-motion": "^8.0.2",
     "moment": "^2.29.4",
     "pdfjs": "^2.4.7",

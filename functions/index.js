@@ -1,5 +1,7 @@
 const path = require("path");
 const functions = require("firebase-functions");
+const { logger } = require("firebase-functions");
+const { onSchedule } = require("firebase-functions/v2/scheduler");
 const admin = require("firebase-admin");
 const os = require("os");
 const { Storage } = require("@google-cloud/storage");
@@ -8,9 +10,9 @@ const { Storage } = require("@google-cloud/storage");
 });*/
 const gcs = new Storage();
 
-const ACC_SID = functions.config().twilio.acc_sid;
-const AUTH_TOKEN = functions.config().twilio.auth_token;
-const twilio_client = require("twilio")(ACC_SID, AUTH_TOKEN);
+// const ACC_SID = functions.config().twilio.acc_sid;
+// const AUTH_TOKEN = functions.config().twilio.auth_token;
+// const twilio_client = require("twilio")(ACC_SID, AUTH_TOKEN);
 const phoneUtil =
   require("google-libphonenumber").PhoneNumberUtil.getInstance();
 
@@ -27,7 +29,7 @@ let allowedRef = admin.database().ref("allowed_users");
 let publicRef = admin.database().ref("public_users");
 let announcementsRef = admin.database().ref("announcements");
 
-/*exports.scheduledFunction = functions.pubsub.schedule('every 5 minutes').onRun((context) => {
+exports.lcupdate = onSchedule("*/10 * * * *", async (event) => {
   const responseFunction = (user_uid2, offsets) => {
     return async (error, response, body) => {
       if (error) {
@@ -38,19 +40,19 @@ let announcementsRef = admin.database().ref("announcements");
           console.log("Error fetching Leetcode data for user " + user.leetcode);
         } else {
           if(!offsets) {
-            console.log("Adding offsets for " + user_uid2);
-            await publicRef.child(user_uid2+"/leetcode/offsets").set({
-              easySolved: res.easySolved,
-              mediumSolved: res.mediumSolved,
-              hardSolved: res.hardSolved,
-            })
+            // await publicRef.child(user_uid2+"/leetcode/offsets").set({
+            //   easySolved: res.easySolved,
+            //   mediumSolved: res.mediumSolved,
+            //   hardSolved: res.hardSolved,
+            // })
           }
-          await publicRef.child(user_uid2 + "/leetcode/answers").set({
-            easySolved: res.easySolved,
-            mediumSolved: res.mediumSolved,
-            hardSolved: res.hardSolved,
-            acceptanceRate: res.acceptanceRate,
-          });
+          console.log("Adding results for " + user_uid2 + ":", res);
+          // await publicRef.child(user_uid2 + "/leetcode/answers").set({
+          //   easySolved: res.easySolved,
+          //   mediumSolved: res.mediumSolved,
+          //   hardSolved: res.hardSolved,
+          //   acceptanceRate: res.acceptanceRate,
+          // });
         }
       }
     };
@@ -63,6 +65,7 @@ let announcementsRef = admin.database().ref("announcements");
           console.log("Updating leetcode stats of " + user.leetcode.username);
           const indiv_user_offsets = user.leetcode.offsets;
           const indiv_user_id = String(user_uid);
+          console.log("Fetching LC stats for user.leetcode.name")
           request.get(
             "https://leetcode-stats-api.herokuapp.com/" +
               user.leetcode.username,
@@ -82,98 +85,101 @@ let announcementsRef = admin.database().ref("announcements");
       resolve();
     });
   });
+
+  logger.log("Function starting...");
+
   return prom;
-});*/
-
-exports.sendText = functions.https.onCall(async (data, context) => {
-  const prom = new Promise((resolve, reject) => {
-    usersRef.child(context.auth.uid).once("value", (user_snapshot) => {
-      if (user_snapshot.val()["admin"] === true) {
-        usersRef.once("value", (all_users) => {
-          const message = data["message"];
-          const whoTo = data["whoTo"];
-          const type = data["type"];
-          var success = 0;
-          var newAnnouncement = {
-            text: message,
-            whoTo: whoTo,
-            timestamp: admin.database.ServerValue.TIMESTAMP, // use firebase server timestamp
-            messageType: type,
-          };
-          announcementsRef.push(newAnnouncement);
-          for (let currUser in all_users.val()) {
-            try {
-              const actualUser = all_users.val()[currUser];
-              if (
-                !actualUser["role"] ||
-                !actualUser["phone"] ||
-                !actualUser["announcement_level"]
-              ) {
-                console.log(
-                  "Skipping " +
-                    actualUser["name"] +
-                    " due to them having an incomplete profile"
-                );
-                continue;
-              }
-              if (whoTo != "Everyone") {
-                if (
-                  actualUser["role"].substring(0, 2) != "VP" &&
-                  whoTo === "Pledges" &&
-                  actualUser["role"] != "Pledge"
-                ) {
-                  console.log("Skipping " + actualUser["name"]);
-                  continue;
-                } else if (
-                  actualUser["role"].substring(0, 2) != "VP" &&
-                  whoTo === "Brothers" &&
-                  actualUser["role"] != "Member" &&
-                  actualUser["role"] != "Brother"
-                ) {
-                  console.log("Skipping " + actualUser["name"]);
-                  continue;
-                }
-              }
-
-              if (
-                actualUser["role"].substring(0, 2) != "VP" &&
-                actualUser["announcement_level"] === 1
-              ) {
-                console.log("Skipping " + actualUser["name"]);
-                continue;
-              }
-
-              if (
-                actualUser["role"].substring(0, 2) != "VP" &&
-                actualUser["announcement_level"] === 2 &&
-                type === "Event"
-              ) {
-                console.log("Skipping " + actualUser["name"]);
-                continue;
-              }
-              try {
-                console.log("Texting " + actualUser["name"]);
-                twilio_client.messages.create({
-                  body: message,
-                  from: "+17579193238",
-                  to:
-                    "+1" +
-                    phoneUtil
-                      .parse(actualUser["phone"], "US")
-                      .getNationalNumber(),
-                });
-                success++;
-              } catch (error) {}
-            } catch (error2) {}
-          }
-          resolve({ status: "Success", amount: success });
-        });
-      }
-    });
-  });
-  const val = await prom;
-  return val;
 });
+
+// exports.sendText = functions.https.onCall(async (data, context) => {
+//   const prom = new Promise((resolve, reject) => {
+//     usersRef.child(context.auth.uid).once("value", (user_snapshot) => {
+//       if (user_snapshot.val()["admin"] === true) {
+//         usersRef.once("value", (all_users) => {
+//           const message = data["message"];
+//           const whoTo = data["whoTo"];
+//           const type = data["type"];
+//           var success = 0;
+//           var newAnnouncement = {
+//             text: message,
+//             whoTo: whoTo,
+//             timestamp: admin.database.ServerValue.TIMESTAMP, // use firebase server timestamp
+//             messageType: type,
+//           };
+//           announcementsRef.push(newAnnouncement);
+//           for (let currUser in all_users.val()) {
+//             try {
+//               const actualUser = all_users.val()[currUser];
+//               if (
+//                 !actualUser["role"] ||
+//                 !actualUser["phone"] ||
+//                 !actualUser["announcement_level"]
+//               ) {
+//                 console.log(
+//                   "Skipping " +
+//                     actualUser["name"] +
+//                     " due to them having an incomplete profile"
+//                 );
+//                 continue;
+//               }
+//               if (whoTo != "Everyone") {
+//                 if (
+//                   actualUser["role"].substring(0, 2) != "VP" &&
+//                   whoTo === "Pledges" &&
+//                   actualUser["role"] != "Pledge"
+//                 ) {
+//                   console.log("Skipping " + actualUser["name"]);
+//                   continue;
+//                 } else if (
+//                   actualUser["role"].substring(0, 2) != "VP" &&
+//                   whoTo === "Brothers" &&
+//                   actualUser["role"] != "Member" &&
+//                   actualUser["role"] != "Brother"
+//                 ) {
+//                   console.log("Skipping " + actualUser["name"]);
+//                   continue;
+//                 }
+//               }
+
+//               if (
+//                 actualUser["role"].substring(0, 2) != "VP" &&
+//                 actualUser["announcement_level"] === 1
+//               ) {
+//                 console.log("Skipping " + actualUser["name"]);
+//                 continue;
+//               }
+
+//               if (
+//                 actualUser["role"].substring(0, 2) != "VP" &&
+//                 actualUser["announcement_level"] === 2 &&
+//                 type === "Event"
+//               ) {
+//                 console.log("Skipping " + actualUser["name"]);
+//                 continue;
+//               }
+//               try {
+//                 console.log("Texting " + actualUser["name"]);
+//                 twilio_client.messages.create({
+//                   body: message,
+//                   from: "+17579193238",
+//                   to:
+//                     "+1" +
+//                     phoneUtil
+//                       .parse(actualUser["phone"], "US")
+//                       .getNationalNumber(),
+//                 });
+//                 success++;
+//               } catch (error) {}
+//             } catch (error2) {}
+//           }
+//           resolve({ status: "Success", amount: success });
+//         });
+//       }
+//     });
+//   });
+//   const val = await prom;
+//   return val;
+// });
 
 exports.resizeCover = functions.storage.object().onFinalize(async (object) => {
   try {

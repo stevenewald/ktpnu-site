@@ -1,26 +1,10 @@
 import React from "react";
+
 const places_to_20 = [
-  "1st",
-  "2nd",
-  "3rd",
-  "4th",
-  "5th",
-  "6th",
-  "7th",
-  "8th",
-  "9th",
-  "10th",
-  "11th",
-  "12th",
-  "13th",
-  "14th",
-  "15th",
-  "16th",
-  "17th",
-  "18th",
-  "19th",
-  "20th",
+  "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th",
+  "11th", "12th", "13th", "14th", "15th", "16th", "17th", "18th", "19th", "20th",
 ];
+
 function weightedScoreCalc(easy: number, med: number, hard: number): number {
   return easy * 2 + med * 5 + hard * 8;
 }
@@ -71,6 +55,9 @@ class LcLeaderboard extends React.Component<
           };
         }
       }
+
+      console.log("ALL LC USERS:", lc_users);
+
       var formattedStats = [];
       for (var lcusername in lc_users) {
         const lc_user_elem = lc_users[lcusername];
@@ -107,6 +94,8 @@ class LcLeaderboard extends React.Component<
       this.setState({
         lcStats: sortedData,
       });
+
+      console.log(sortedData);
     } catch (errors) {
       console.log("Error loading lc stats");
       console.log(errors);
@@ -121,11 +110,13 @@ class LcLeaderboard extends React.Component<
           <div className="space-y-12">
             <div className="space-y-5 sm:space-y-4">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Leetcode Leaderboard
+                LeetCode Leaderboard
               </h2>
               <p className="text-xl text-gray-500">
-                The Leetcode Leaderboard challenge is now over. Congradulations
-                to Andy Vu for winning the pledge Leetcode challenge!
+                Welcome to the KTP LeetCode Challenge Leaderboard! See where you rank among your peers as you push the boundaries of your coding skills. Easy questions are 2 points, medium are 5 points, and hard are 8 points.
+              </p>
+              <p className="text-gray-500 italic">
+                Note: This page is updated every 10 minutes.
               </p>
             </div>
             <div className="lg:col-span-2">
@@ -134,7 +125,7 @@ class LcLeaderboard extends React.Component<
                 className="space-y-12 sm:-mt-8 sm:space-y-0 sm:divide-y sm:divide-gray-200 lg:gap-x-8 lg:space-y-0"
               >
                 {this.state.lcStats
-                  .slice(0, Math.min(this.state.lcStats.length, 10))
+                  // .slice(0, Math.min(this.state.lcStats.length, 10))
                   .map((currUser, index) => (
                     <li key={currUser.name} className="sm:pt-5">
                       <div className="space-y-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-6 sm:space-y-0 max-w-3xl">

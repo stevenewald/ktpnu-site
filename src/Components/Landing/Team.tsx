@@ -1,52 +1,65 @@
-import SamarPic from "@images/Exec/samar.jpeg";
-import SnehPic from "@images/Exec/sneh.jpeg";
-import EaganPic from "@images/Exec/eagan.jpeg";
-import StevePic from "@images/Exec/steve.jpeg";
-import AlexisPic from "@images/Exec/alexis.jpeg";
-import DamienPic from "@images/Exec/damien.jpeg";
-import DaphnePic from "@images/Exec/daphne.jpeg";
-import SimonPic from "@images/Exec/simon.jpeg";
+import AlicePic from "@images/Exec/alice.jpeg";
+import IrisPic from "@images/Exec/iris.jpeg";
+import YashPic from "@images/Exec/yash.jpeg";
+import ClaraPic from "@images/Exec/clara.jpeg";
+import DhruvPic from "@images/Exec/dhruv.jpeg";
+import TahiraPic from "@images/Exec/tahira.jpeg";
+import JoshPic from "@images/Exec/josh.jpeg";
+import GavinPic from "@images/Exec/gavin.jpeg";
+import CalebPic from "@images/Exec/caleb.jpeg";
+import FordPic from "@images/Exec/ford.jpeg";
+
 
 const people: { name: string; role: string; imageUrl: any }[] = [
   {
-    name: "Samar Saleem",
+    name: "Alice Enger",
     role: "President/Founder",
-    imageUrl: SamarPic,
+    imageUrl: AlicePic,
   },
   {
-    name: "Damien Koh",
+    name: "Iris Ely",
     role: "VP of Programming",
-    imageUrl: DamienPic,
+    imageUrl: IrisPic,
   },
   {
-    name: "Sneh Deshpande",
+    name: "Yash Fadia",
     role: "VP of External Affairs",
-    imageUrl: SnehPic,
+    imageUrl: YashPic,
   },
   {
-    name: "Eagan Notokusumo",
+    name: "Clara Asseily",
     role: "VP of Internal Affairs",
-    imageUrl: EaganPic,
+    imageUrl: ClaraPic,
   },
   {
-    name: "Steve Ewald",
+    name: "Dhruv Saoji",
     role: "VP of Technology",
-    imageUrl: StevePic,
+    imageUrl: DhruvPic,
   },
   {
-    name: "Alexis Robles",
+    name: "Tahira Grewal",
     role: "VP of Technology",
-    imageUrl: AlexisPic,
+    imageUrl: TahiraPic,
   },
   {
-    name: "Daphne Zuckerman",
+    name: "Josh Prunty",
     role: "VP of Marketing",
-    imageUrl: DaphnePic,
+    imageUrl: JoshPic,
   },
   {
-    name: "Simon Hedin",
+    name: "Gavin Chung",
     role: "VP of Recruitment",
-    imageUrl: SimonPic,
+    imageUrl: GavinPic,
+  },
+  {
+    name: "Caleb Weldon",
+    role: "VP of Recruitment",
+    imageUrl: CalebPic,
+  },
+  {
+    name: "Ford Holmen",
+    role: "VP of Finance",
+    imageUrl: FordPic,
   }
 ];
 
@@ -90,7 +103,7 @@ function Team() {
           {/* Laptop/tablet team layout */}
           <ul
             role="list"
-            className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 md:gap-x-6 sm:max-w-2xl lg:max-w-3xl lg:gap-y-12"
+            className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 md:gap-x-6 sm:max-w-2xl lg:max-w-3xl lg:gap-y-12"
           >
             {people.map((person) => (
               <li>

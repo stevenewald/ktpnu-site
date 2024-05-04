@@ -840,7 +840,7 @@ class NewUser extends React.Component {
                       </div>
                     </div>
                   </fieldset>
-                  <fieldset>
+                  {/* <fieldset>
                     <legend className="contents text-base font-medium text-gray-900">
                       Push Notifications
                     </legend>
@@ -901,7 +901,7 @@ class NewUser extends React.Component {
                         </label>
                       </div>
                     </div>
-                  </fieldset>
+                  </fieldset> */}
                 </div>
               </div>
             </div>
@@ -975,7 +975,7 @@ class NewUser extends React.Component {
               : elem;
             document.getElementById("phone-number").value = prof["phone"] || "";
             document.getElementById("year").value = prof["year"] || "";
-            document.getElementById("major").value = prof["year"] || "";
+            document.getElementById("major").value = prof["major"] || "";
             document.getElementById("internships").value = prof["internships"] || "";
             document.getElementById("instagram").value = prof["instagram"] || "";
             document.getElementById("linkedin").value = prof["linkedin"] || "";
@@ -984,15 +984,15 @@ class NewUser extends React.Component {
             if(prof["leetcode"]) {
               this.setState({existingLC:true});
             }
-            document.getElementById("push-everything").checked =
-              prof["announcement_level"] === 3;
-            document.getElementById("push-email").checked =
-              prof["announcement_level"] === 2;
-            document.getElementById("push-nothing").checked =
-              prof["announcement_level"] === 1;
-            if (prof["announcement_level"]) {
-              this.announcementLevel = prof["announcement_level"];
-            }
+            // document.getElementById("push-everything").checked =
+            //   prof["announcement_level"] === 3;
+            // document.getElementById("push-email").checked =
+            //   prof["announcement_level"] === 2;
+            // document.getElementById("push-nothing").checked =
+            //   prof["announcement_level"] === 1;
+            // if (prof["announcement_level"]) {
+            //   this.announcementLevel = prof["announcement_level"];
+            // }
             document.getElementById("email-visible").checked =
               prof["email_viewable"];
             document.getElementById("standing-visible").checked =
