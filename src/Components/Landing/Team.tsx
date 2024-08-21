@@ -13,7 +13,7 @@ import FordPic from "@images/Exec/ford.jpeg";
 const people: { name: string; role: string; imageUrl: any }[] = [
   {
     name: "Alice Enger",
-    role: "President/Founder",
+    role: "President",
     imageUrl: AlicePic,
   },
   {
