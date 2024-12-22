@@ -1,50 +1,53 @@
-import AlicePic from "@images/Exec/alice.jpeg";
-import IrisPic from "@images/Exec/iris.jpeg";
-import YashPic from "@images/Exec/yash.jpeg";
-import ClaraPic from "@images/Exec/clara.jpeg";
-import DhruvPic from "@images/Exec/dhruv.jpeg";
-import TahiraPic from "@images/Exec/tahira.jpeg";
-import JoshPic from "@images/Exec/josh.jpeg";
+import ZacariaPic from "@images/Exec/zacaria.jpeg";
+import NicolePic from "@images/Exec/nicole.jpeg";
+import RohanPic from "@images/Exec/rohan.jpeg";
+import NaavyaPic from "@images/Exec/naavya.jpeg";
+import CarolinePic from "@images/Exec/caroline.jpeg";
+import JohnPic from "@images/Exec/john.jpeg";
+import DrewPic from "@images/Exec/drew.jpeg";
 import GavinPic from "@images/Exec/gavin.jpeg";
-import CalebPic from "@images/Exec/caleb.jpeg";
-import FordPic from "@images/Exec/ford.jpeg";
-
+import JordanPic from "@images/Exec/jordan.jpeg";
+import NicoPic from "@images/Exec/nico.jpeg";
+import MoPic from "@images/Exec/mo.jpeg";
+import SujeePic from "@images/Exec/sujee.jpeg";
+import JaimiePic from "@images/Exec/jaimie.jpeg";
+import AiliPic from "@images/Exec/aili.jpeg";
 
 const people: { name: string; role: string; imageUrl: any }[] = [
   {
-    name: "Alice Enger",
+    name: "Zacaria Nouri",
     role: "President/Founder",
-    imageUrl: AlicePic,
+    imageUrl: ZacariaPic,
   },
   {
-    name: "Iris Ely",
+    name: "Nicole Liu",
     role: "VP of Programming",
-    imageUrl: IrisPic,
+    imageUrl: NicolePic,
   },
   {
-    name: "Yash Fadia",
+    name: "Rohan Badani",
     role: "VP of External Affairs",
-    imageUrl: YashPic,
+    imageUrl: RohanPic,
   },
   {
-    name: "Clara Asseily",
+    name: "Naavya Sheth",
     role: "VP of Internal Affairs",
-    imageUrl: ClaraPic,
+    imageUrl: NaavyaPic,
   },
   {
-    name: "Dhruv Saoji",
-    role: "VP of Technology",
-    imageUrl: DhruvPic,
+    name: "Caroline Guerra",
+    role: "VP of Technology - Chapter",
+    imageUrl: CarolinePic,
   },
   {
-    name: "Tahira Grewal",
-    role: "VP of Technology",
-    imageUrl: TahiraPic,
+    name: "John Hileman",
+    role: "VP of Technology - Member",
+    imageUrl: JohnPic,
   },
   {
-    name: "Josh Prunty",
+    name: "Drew Guardiola",
     role: "VP of Marketing",
-    imageUrl: JoshPic,
+    imageUrl: DrewPic,
   },
   {
     name: "Gavin Chung",
@@ -52,14 +55,34 @@ const people: { name: string; role: string; imageUrl: any }[] = [
     imageUrl: GavinPic,
   },
   {
-    name: "Caleb Weldon",
-    role: "VP of Recruitment",
-    imageUrl: CalebPic,
+    name: "Jordan Chu",
+    role: "Incoming VP of Recruitment",
+    imageUrl: JordanPic,
   },
   {
-    name: "Ford Holmen",
+    name: "Nico Biabani",
     role: "VP of Finance",
-    imageUrl: FordPic,
+    imageUrl: NicoPic,
+  },
+  {
+    name: "Mo Alamin",
+    role: "VP Member Experience",
+    imageUrl: MoPic,
+  },
+  {
+    name: "Sujee Rubio",
+    role: "VP DEI",
+    imageUrl: SujeePic,
+  },
+  {
+    name: "Jaimie Hong",
+    role: "VP Pledge Experience",
+    imageUrl: JaimiePic,
+  },
+  {
+    name: "Ai-li Baird",
+    role: "VP Community",
+    imageUrl: AiliPic,
   }
 ];
 
