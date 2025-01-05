@@ -56,7 +56,7 @@ const people: { name: string; role: string; imageUrl: any }[] = [
   },
   {
     name: "Jordan Chu",
-    role: "Incoming VP of Recruitment",
+    role: "VP of Recruitment",
     imageUrl: JordanPic,
   },
   {
