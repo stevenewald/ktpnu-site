@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import GroupPic from "@images/Branding/group.jpeg";
-import DhruvPic from "@images/Branding/dhruv.jpg";
+import SpringPC from "@images/Branding/springpc.jpg";
 import SpeakerPic from "@images/Branding/speaker.jpg";
 import AnnikaPic from "@images/Branding/annika.jpg";
 import PcPic from "@images/Branding/pc.jpg";
@@ -246,7 +246,7 @@ export default function Hero(props: { maintenance: boolean }) {
                     </div>
                     <div className="relative">
                       <img
-                        src={DhruvPic}
+                        src={SpringPC}
                         alt=""
                         className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                       />
