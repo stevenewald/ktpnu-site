@@ -126,7 +126,7 @@ function Team() {
           {/* Laptop/tablet team layout */}
           <ul
             role="list"
-            className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 md:gap-x-6 sm:max-w-2xl lg:max-w-3xl lg:gap-y-12"
+            className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 md:gap-x-15 sm:max-w-2xl lg:max-w-3xl lg:gap-y-12"
           >
             {people.map((person) => (
               <li>
