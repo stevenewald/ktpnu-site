@@ -36,12 +36,12 @@ const people: { name: string; role: string; imageUrl: any }[] = [
   },
   {
     name: "Caroline Guerra",
-    role: "VP of Technology - Chapter",
+    role: "VP of Technology",
     imageUrl: CarolinePic,
   },
   {
     name: "John Hileman",
-    role: "VP of Technology - Member",
+    role: "VP of Technology",
     imageUrl: JohnPic,
   },
   {
