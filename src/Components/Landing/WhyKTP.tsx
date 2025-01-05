@@ -1,6 +1,6 @@
 import WIKTP from "@images/Branding/WIKTP.jpg";
 import Pyramid from "@images/Branding/pyramid.jpg";
-import Party from "@images/Branding/party.jpg";
+import WinterPC from "@images/Branding/winterpc.jpg";
 import Awh from "@images/Branding/awh.jpg";
 export default function WhyKTP() {
   return (
@@ -47,7 +47,7 @@ export default function WhyKTP() {
               </div>
               <div className="hidden sm:block sm:w-0 sm:flex-auto lg:w-auto lg:flex-none">
                 <img
-                  src={Party}
+                  src={WinterPC}
                   alt=""
                   className="aspect-[4/3] w-[24rem] max-w-none rounded-2xl bg-gray-50 object-cover"
                 />
