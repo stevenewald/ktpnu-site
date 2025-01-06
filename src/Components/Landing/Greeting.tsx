@@ -2,7 +2,7 @@ import JuliePic from "@images/Exec/julie.jpeg";
 
 const stats = [
   { label: "National Chapters", value: "9" },
-  { label: "Chapter Alumni", value: "80+" },
+  { label: "Chapter Alumni", value: "100+" },
 ];
 
 function Greeting() {
