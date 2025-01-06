@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import CarouselCard from "@landing/CarouselCard";
 import { motion } from "framer-motion";
-import WomenInKTPImg from "@images/Clipart/womeninktp.png";
+// import WomenInKTPImg from "@images/Clipart/womeninktp.png";
 import NetworkingNightImg from "@images/Clipart/infosession.png";
 import CoffeeChatsImg from "@images/Clipart/conversation.png";
 import GroupInterviewsImg from "@images/Clipart/group.png";
@@ -18,15 +18,16 @@ const events: {
     inviteOnly: boolean;
   };
 } = {
-  womenInKTP: {
-    title: "Women in KTP",
-    date: new Date("April 2, 2023 20:00:00"),
-    time: "TIME TBA",
-    location: "LOC TBA",
-    gcalLink: "",
-    imgSrc: WomenInKTPImg,
-    inviteOnly: false,
-  },
+  // womenInKTP: {
+  //  title: "Women in KTP",
+  //  date: new Date("April 2, 2023 20:00:00"),
+  //  time: "TIME TBA",
+  //  location: "LOC TBA",
+  //  gcalLink: "",
+  //  imgSrc: WomenInKTPImg,
+  //  inviteOnly: false,
+  // },
+  //
   // "infoSession": {
   //   "title": "General Info Session",
   //   "date": new Date("January 8, 2023 20:00:00"),
@@ -37,16 +38,16 @@ const events: {
   // },
   networkingNight: {
     title: "Networking Night",
-    date: new Date("April 3, 2023 19:00:00"),
+    date: new Date("January 13, 2025 19:00:00"),
     time: "7:00pm",
-    location: "LOC TBA",
+    location: "Tech L211",
     gcalLink: "",
     imgSrc: NetworkingNightImg,
     inviteOnly: false,
   },
   coffeeChats: {
     title: "Coffee Chats",
-    date: new Date("April 4, 2023 20:00:00"),
+    date: new Date("January 14, 2025"),
     time: "N/A",
     location: "LOC TBA",
     gcalLink: "",
@@ -55,18 +56,18 @@ const events: {
   },
   groupInterviews: {
     title: "Group Interviews",
-    date: new Date("April 5, 2023 19:00:00"),
+    date: new Date("January 16, 2025"),
     time: "7:00pm",
-    location: "LOC TBA",
+    location: "Tech M345",
     gcalLink: "",
     imgSrc: GroupInterviewsImg,
     inviteOnly: true,
   },
   interviews: {
     title: "Individual Interviews",
-    date: new Date("April 6, 2023 20:00:00"),
+    date: new Date("January 17, 2025"),
     time: "N/A",
-    location: "LOC TBA",
+    location: "The Garage & Mudd",
     gcalLink: "",
     imgSrc: InterviewsImg,
     inviteOnly: true,
