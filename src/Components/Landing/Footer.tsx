@@ -42,7 +42,7 @@ const navigation: { name: string; href: string; icon: any }[] = [
   },
   {
     name: "LinkedIn",
-    href: "https://www.linkedin.com/company/ktp-northwestern/",
+    href: "https://www.linkedin.com/in/kappa-theta-pi-kappa-chapter-9ab97525b/",
     icon: (props: any) => (
       <svg
         fill="currentColor"
@@ -51,7 +51,7 @@ const navigation: { name: string; href: string; icon: any }[] = [
         className="w-5 mt-[1.5px]"
         onClick={() => {
           window.location.href =
-            "https://www.linkedin.com/company/kappa-theta-pi-northwestern/";
+            "https://www.linkedin.com/in/kappa-theta-pi-kappa-chapter-9ab97525b/";
         }}
       >
         <path
@@ -83,7 +83,7 @@ function Footer() {
         </div>
         <div className="mt-8 lg:order-1 lg:mt-0">
           <p className="text-center text-base text-gray-50">
-            &copy; 2023 Kappa Theta Pi Kappa Chapter. All Rights Reserved.
+            &copy; 2025 Kappa Theta Pi Kappa Chapter. All Rights Reserved.
           </p>
         </div>
         <div className="lg:order-2 lg:mt-0 mt-8">

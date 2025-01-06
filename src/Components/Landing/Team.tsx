@@ -1,50 +1,53 @@
-import AlicePic from "@images/Exec/alice.jpeg";
-import IrisPic from "@images/Exec/iris.jpeg";
-import YashPic from "@images/Exec/yash.jpeg";
-import ClaraPic from "@images/Exec/clara.jpeg";
-import DhruvPic from "@images/Exec/dhruv.jpeg";
-import TahiraPic from "@images/Exec/tahira.jpeg";
-import JoshPic from "@images/Exec/josh.jpeg";
+import ZacariaPic from "@images/Exec/zacaria.jpeg";
+import NicolePic from "@images/Exec/nicole.jpeg";
+import RohanPic from "@images/Exec/rohan.jpeg";
+import NaavyaPic from "@images/Exec/naavya.jpeg";
+import CarolinePic from "@images/Exec/caroline.jpeg";
+import JohnPic from "@images/Exec/john.jpeg";
+import DrewPic from "@images/Exec/drew.jpeg";
 import GavinPic from "@images/Exec/gavin.jpeg";
-import CalebPic from "@images/Exec/caleb.jpeg";
-import FordPic from "@images/Exec/ford.jpeg";
-
+import JordanPic from "@images/Exec/jordan.jpeg";
+import NicoPic from "@images/Exec/nico.jpeg";
+import MoPic from "@images/Exec/mo.jpeg";
+import SujeePic from "@images/Exec/sujee.jpeg";
+import JaimiePic from "@images/Exec/jaimie.jpeg";
+import AiliPic from "@images/Exec/aili.jpeg";
 
 const people: { name: string; role: string; imageUrl: any }[] = [
   {
-    name: "Alice Enger",
-    role: "President/Founder",
-    imageUrl: AlicePic,
+    name: "Zacaria Nouri",
+    role: "President",
+    imageUrl: ZacariaPic,
   },
   {
-    name: "Iris Ely",
+    name: "Nicole Liu",
     role: "VP of Programming",
-    imageUrl: IrisPic,
+    imageUrl: NicolePic,
   },
   {
-    name: "Yash Fadia",
+    name: "Rohan Badani",
     role: "VP of External Affairs",
-    imageUrl: YashPic,
+    imageUrl: RohanPic,
   },
   {
-    name: "Clara Asseily",
+    name: "Naavya Sheth",
     role: "VP of Internal Affairs",
-    imageUrl: ClaraPic,
+    imageUrl: NaavyaPic,
   },
   {
-    name: "Dhruv Saoji",
+    name: "Caroline Guerra",
     role: "VP of Technology",
-    imageUrl: DhruvPic,
+    imageUrl: CarolinePic,
   },
   {
-    name: "Tahira Grewal",
+    name: "John Hileman",
     role: "VP of Technology",
-    imageUrl: TahiraPic,
+    imageUrl: JohnPic,
   },
   {
-    name: "Josh Prunty",
+    name: "Drew Guardiola",
     role: "VP of Marketing",
-    imageUrl: JoshPic,
+    imageUrl: DrewPic,
   },
   {
     name: "Gavin Chung",
@@ -52,14 +55,34 @@ const people: { name: string; role: string; imageUrl: any }[] = [
     imageUrl: GavinPic,
   },
   {
-    name: "Caleb Weldon",
+    name: "Jordan Chu",
     role: "VP of Recruitment",
-    imageUrl: CalebPic,
+    imageUrl: JordanPic,
   },
   {
-    name: "Ford Holmen",
+    name: "Nico Biabani",
     role: "VP of Finance",
-    imageUrl: FordPic,
+    imageUrl: NicoPic,
+  },
+  {
+    name: "Mo Alamin",
+    role: "VP of Member Experience",
+    imageUrl: MoPic,
+  },
+  {
+    name: "Sujee Rubio",
+    role: "VP of DEI",
+    imageUrl: SujeePic,
+  },
+  {
+    name: "Jaimie Hong",
+    role: "VP of Pledge Experience",
+    imageUrl: JaimiePic,
+  },
+  {
+    name: "Ai-li Baird",
+    role: "VP of Community",
+    imageUrl: AiliPic,
   }
 ];
 
@@ -70,7 +93,7 @@ function Team() {
         <div className="space-y-8 sm:space-y-12">
           <div className="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Our Team
+              KTP Exec
             </h2>
             <p className="text-xl text-gray-600">
               Our leadership team is committed to supporting an inclusive,
@@ -103,7 +126,7 @@ function Team() {
           {/* Laptop/tablet team layout */}
           <ul
             role="list"
-            className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 md:gap-x-6 sm:max-w-2xl lg:max-w-3xl lg:gap-y-12"
+            className="hidden sm:grid mx-auto gap-x-4 gap-y-8 grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 md:gap-x-15 sm:max-w-2xl lg:max-w-3xl lg:gap-y-12"
           >
             {people.map((person) => (
               <li>
