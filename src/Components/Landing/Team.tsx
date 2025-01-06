@@ -16,7 +16,7 @@ import AiliPic from "@images/Exec/aili.jpeg";
 const people: { name: string; role: string; imageUrl: any }[] = [
   {
     name: "Zacaria Nouri",
-    role: "President/Founder",
+    role: "President",
     imageUrl: ZacariaPic,
   },
   {
@@ -66,22 +66,22 @@ const people: { name: string; role: string; imageUrl: any }[] = [
   },
   {
     name: "Mo Alamin",
-    role: "VP Member Experience",
+    role: "VP of Member Experience",
     imageUrl: MoPic,
   },
   {
     name: "Sujee Rubio",
-    role: "VP DEI",
+    role: "VP of DEI",
     imageUrl: SujeePic,
   },
   {
     name: "Jaimie Hong",
-    role: "VP Pledge Experience",
+    role: "VP of Pledge Experience",
     imageUrl: JaimiePic,
   },
   {
     name: "Ai-li Baird",
-    role: "VP Community",
+    role: "VP of Community",
     imageUrl: AiliPic,
   }
 ];
@@ -93,7 +93,7 @@ function Team() {
         <div className="space-y-8 sm:space-y-12">
           <div className="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Our Team
+              KTP Exec
             </h2>
             <p className="text-xl text-gray-600">
               Our leadership team is committed to supporting an inclusive,
