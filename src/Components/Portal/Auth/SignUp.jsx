@@ -1,7 +1,7 @@
 import React from "react";
 import Swal from "sweetalert2";
 import { ref, child, get } from "firebase/database";
-import DamienPic from "@images/Branding/damien.jpg";
+import PCGroup from "@images/Branding/groupPC-min.jpg";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -241,7 +241,7 @@ class SignUp extends React.Component {
         <div className="relative hidden w-0 flex-1 lg:block">
           <img
             className="absolute inset-0 h-screen w-full object-cover"
-            src={DamienPic}
+            src={PCGroup}
             alt=""
           />
         </div>

@@ -3,36 +3,36 @@ const timeline = [
     name: "Networking Night",
     description:
       "Engage in a memorable evening where KTP members forge lasting connections in the tech world.",
-    date: "Jan 13",
-    dateTime: "2025-01-13",
+    date: "April 7",
+    dateTime: "2025-04-07",
   },
   {
     name: "Coffee Chats",
     description:
       "Dive into casual conversations about tech innovations, career insights, and shared experiences over coffee.",
-    date: "Jan 14",
-    dateTime: "2025-01-14",
+    date: "April 8",
+    dateTime: "2025-04-08",
   },
   {
     name: "Social",
     description:
       "Join us for our social to connect with members and discover what KTP is all about.",
-    date: "Jan 15",
-    dateTime: "2025-01-15",
+    date: "April 9",
+    dateTime: "2025-04-09",
   },
   {
     name: "Group Interviews",
     description:
       "Showcase your skills and team dynamics in our collaborative group interviews for prospective members.",
-    date: "Jan 16",
-    dateTime: "2025-01-16",
+    date: "April 10",
+    dateTime: "2025-04-10",
   },
   {
     name: "Individual Interviews",
     description:
       "Engage in a focused one-on-one session to explore your potential and alignment with KTP's vision.",
-    date: "Jan 17",
-    dateTime: "2025-01-17",
+    date: "April 11",
+    dateTime: "2025-04-11",
   },
 ];
 
